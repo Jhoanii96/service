@@ -1,9 +1,8 @@
 <?php
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
-/* require ROOT . FOLDER_PATH . "/" . DATA . "admin/autoload" . DATAI . "php"; */
 
-class login extends Controller
+class register extends Controller
 {
 	private $session;
 
@@ -18,7 +17,7 @@ class login extends Controller
 
 	public function index()
 	{
-		$this->view('login/login');
+		$this->view('register/register');
 	}
 
 	public function signin()

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login V1</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
@@ -16,18 +16,30 @@
 
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-login100">
+            <div class="wrap-login100" style="height: 500px;">
                 <div class="login100-pic">
-                    <img src="<?= FOLDER_PATH ?>/src/assets/media/images/img-01.png" alt="IMG">
+                    <span style="display: block;color: #fff;font-size: 40px;text-align: center;margin-top: 110px;">
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    </span>
+                    <span style="display: block;text-align: center;color: #fff;line-height: normal;font-size: 16px;">
+                        Normandie - Production
+                    </span>
+                    <span style="display: block;text-align: center;color: #fff;font-size: 20px;">
+                        BIENVENIDO A NUESTRO ESPACIO
+                    </span>
+                    <span style="display: block;text-align: center;color: #fff;margin-top: 120px;">
+                        Si no tienes una cuenta,<br>
+                        por favor contacte a su administrador
+                    </span>
                 </div>
 
-                <form class="login100-form validate-form">
+                <form id="login-form" class="login100-form validate-form">
                     <span class="login100-form-title">
-                        Log In
+                        Conexión
                     </span>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <input id="user" class="input100" type="text" name="users" placeholder="Nombre usuario" readonly autocomplete="off" value autocapitalize="off" autocorrect="off" aria-haspopup="false">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -35,7 +47,7 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <input id="pass" class="input100" type="password" name="password" placeholder="Password" readonly autocomplete="off" value autocapitalize="off" autocorrect="off" aria-haspopup="false">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -44,22 +56,22 @@
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
-                            Login
+                            Entrar
                         </button>
                     </div>
 
                     <div class="text-center p-t-12">
                         <span class="txt1">
-                            Forgot
+                            ¿Olvidaste tu
                         </span>
                         <a class="txt2" href="#">
-                            Username / Password?
+                            contraseña?
                         </a>
                     </div>
 
-                    <div class="text-center p-t-136">
+                    <div class="text-center p-t-60">
                         <a class="txt2" href="#">
-                            Create your Account
+                            Crea tu cuenta
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -72,6 +84,33 @@
     <script src="<?= FOLDER_PATH ?>/src/js/popper.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/bootstrap.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/main_login.js"></script>
+
+    <script>
+        
+        document.getElementById("user").addEventListener("focus", userFunction);
+        document.getElementById("pass").addEventListener("focus", passFunction);
+        
+        function userFunction() {
+            if (this.hasAttribute('readonly')) {
+                this.removeAttribute('readonly');
+                // fix for mobile safari to show virtual keyboard
+                this.blur();
+                this.focus();
+            }
+
+        }
+
+        function passFunction() {
+            if (this.hasAttribute('readonly')) {
+                this.removeAttribute('readonly');
+                // fix for mobile safari to show virtual keyboard
+                this.blur();
+                this.focus();
+            }
+        }
+
+        document.getElementById('user').focus();
+    </script>
 
 </body>
 

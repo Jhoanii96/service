@@ -1,0 +1,658 @@
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+fieldset {
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: .5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    color: #111;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+
+a {
+    color: #09757a;
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+/* REGISTER */
+
+
+@font-face {
+    font-family: uxfont;
+    src: url(https://img6.wsimg.com/ux/fonts/uxfont/2.0/uxfont.woff2) format("woff2"), url(https://img6.wsimg.com/ux/fonts/uxfont/2.0/uxfont.woff) format("woff");
+    font-display: block
+}
+
+@font-face {
+    font-family: uxfont-2;
+    src: url(https://img6.wsimg.com/ux/fonts/uxfont/2.0/uxfont-2.woff2) format("woff2"), url(https://img6.wsimg.com/ux/fonts/uxfont/2.0/uxfont-2.woff) format("woff");
+    font-display: block
+}
+
+.dropdown,
+.dropleft,
+.dropright,
+.dropup {
+    position: relative;
+}
+
+.dropdown {
+    cursor: pointer;
+}
+
+
+.dropdown-menu {
+    box-shadow: none;
+    font-family: gdsherpa, Helvetica, Arial, sans-serif;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #111;
+    text-align: left;
+    text-transform: none;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: .0625rem solid #111;
+}
+
+.app {
+    color: #333;
+    background-color: #e8e8e8;
+    width: 100%;
+}
+
+.app.newBrand {
+    background-color: #f5f7f8;
+    margin-top: 15px;
+}
+
+.app-route {
+    width: 100%;
+    min-width: 320px;
+    padding-bottom: 30px;
+}
+
+.ux-overlay-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.checkout-wrapper .checkout-view {
+    display: block;
+}
+
+.checkout-wrapper .ux-overlay-wrapper {
+    position: inherit;
+}
+
+.checkout-wrapper .checkout-view .checkout-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.checkout-wrapper .checkout-view .checkout-box .checkout-box-col.progress-bar {
+    padding: 10px 0;
+}
+
+.checkout-wrapper .checkout-view .checkout-box .checkout-box-col {
+    flex-grow: 1;
+    padding: 0;
+    width: 100%;
+}
+
+dl,
+ol,
+ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.ux-tabs-wiz-list {
+    display: table;
+    width: 100%;
+    min-height: 2em;
+    padding: 0;
+    margin: 0;
+    font-size: .875rem;
+    line-height: 1.1;
+    text-align: center;
+    list-style: none;
+    table-layout: fixed;
+    counter-reset: wizList;
+}
+
+ol li,
+ul li {
+    margin-top: .75rem;
+    margin-bottom: .75rem;
+}
+
+.ux-tabs-wiz-list>li {
+    position: relative;
+    display: table-cell;
+    margin: 0;
+    vertical-align: top;
+    counter-increment: wizList;
+}
+
+a {
+    color: #09757a;
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+.ux-tabs-wiz-list>li>a {
+    position: relative;
+    display: block;
+    color: #617587;
+    text-decoration: none;
+}
+
+a:not([href]):not([tabindex]) {
+    color: inherit;
+    text-decoration: none;
+}
+
+.ux-tabs-wiz-list>li>a:before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 1;
+    box-sizing: content-box;
+    display: inline-block;
+    width: 1.7em;
+    height: 1.7em;
+    margin: 0 .5em;
+    margin-left: -.85em;
+    font-size: 1.25em;
+    line-height: 1.7em;
+    text-align: center;
+    content: counter(wizList);
+    border-radius: 50%;
+    font-family: gdsherpa, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+
+.ux-tabs-wiz-list .ux-tabs-wiz-step-complete>a:before {
+    content: "\e207";
+}
+
+.ux-tabs-wiz-list .ux-tabs-wiz-step-complete>a:before {
+    background: #00a4a6;
+    color: #fff;
+    font-family: uxfont;
+}
+
+.ux-tabs-wiz-txt {
+    position: relative;
+    display: none;
+    max-width: 10em;
+    padding-top: 2.5em;
+    margin: 0 auto;
+}
+
+.ux-tabs-wiz-list>li:after,
+.ux-tabs-wiz-list>li:before {
+    content: '';
+    position: absolute;
+    top: .7em;
+    box-sizing: content-box;
+    display: block;
+    height: .5em;
+    background: #aab7c2;
+}
+
+.ux-tabs-wiz-list>li:after {
+    right: 0;
+    left: 50%;
+    margin-left: 1.85em;
+}
+
+.ux-tabs-wiz-list .ux-tabs-wiz-step-complete:after,
+.ux-tabs-wiz-list .ux-tabs-wiz-step-complete:before {
+    background: #000;
+}
+
+.ux-tabs-wiz-list>li:before {
+    right: 50%;
+    left: 0;
+    margin-right: 1.85em;
+}
+
+.ux-tabs-wiz-list .ux-tabs-wiz-step-current:before {
+    background: #000 !important;
+}
+
+.ux-tabs-wiz-list .ux-tabs-wiz-step-current>a:before,
+.ux-tabs-wiz-list .ux-tabs-wiz-step-incomplete:hover>a:before {
+    color: #fff;
+    background: #111;
+}
+
+.ux-tabs-wiz-list .ux-tabs-wiz-step-current .ux-tabs-wiz-txt,
+.ux-tabs-wiz-list .ux-tabs-wiz-step-incomplete:hover .ux-tabs-wiz-txt {
+    font-weight: 700;
+}
+
+#first:before {
+    content: none;
+}
+
+#last:after {
+    content: none;
+}
+
+.checkout-wrapper .checkout-view .checkout-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.customer-contact-box {
+    margin-bottom: 20px;
+}
+
+.newBrand .customer-contact-box {
+    background-color: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.customer-contact-box .customer-contact {
+    background-color: #f5f7f8;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.newBrand .customer-contact-box .customer-contact {
+    background-color: inherit;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.customer-contact-box .customer-contact-form .form-group {
+    margin-bottom: 10px;
+}
+
+.form-group>label {
+    text-transform: none;
+}
+
+.req {
+    font-size: .875rem;
+    color: #db1802;
+    font-family: gdsherpa, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+
+button,
+input {
+    overflow: visible;
+}
+
+.form-control {
+    display: block;
+    height: 2.75rem;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #2b2b2b;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: .0625rem solid #d4dbe0;
+    vertical-align: middle;
+    border-radius: 0;
+    box-shadow: none;
+    transition: .3s all ease-in-out;
+}
+
+.form-control:focus {
+    color: #2b2b2b;
+    background-color: #fff;
+    border: 1px solid #000;
+    outline: 0;
+}
+
+.ux-tel-container {
+    position: relative;
+}
+
+.btn,
+.btn.active,
+.btn:active {
+    box-shadow: none;
+    background-image: none;
+}
+
+.btn {
+    transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    padding: .625rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border-width: 0;
+    display: inline-block;
+    min-height: 2.75rem;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0 solid transparent;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: none;
+    white-space: normal;
+    cursor: pointer;
+    outline: 0;
+}
+
+.ux-tel-btn {
+    position: absolute;
+    height: 2.5625rem;
+    min-height: 2.5625rem;
+    font-family: gdsherpa, Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
+    font-size: 1rem;
+    top: .0625rem;
+    left: .0625rem;
+    border-right: 1px solid #d4dbe0;
+    padding: .625rem .875rem .3125rem;
+    min-width: auto;
+    z-index: 1;
+}
+
+[type=reset],
+[type=submit],
+button,
+html [type=button] {
+    -webkit-appearance: button;
+}
+
+.btn .uxicon {
+    margin-right: .35em;
+    margin-left: .35em;
+    vertical-align: -2px;
+}
+
+.ux-tel-btn .uxicon {
+    margin: 0 0 0 1rem;
+}
+
+.form-group .btn .uxicon {
+    font-size: 1.125rem;
+    vertical-align: -.25rem;
+}
+
+.uxicon-chevron-down-lt:before {
+    content: "\e369";
+}
+
+.ux-tel-input {
+    padding-left: 8.75rem;
+    direction: ltr;
+    text-align: left;
+}
+
+.ux-select-dropdown {
+    cursor: pointer;
+}
+
+.ux-tel-container {
+    position: relative;
+}
+
+.dropdown-menu {
+    border: 1px solid #111;
+    box-shadow: none;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    margin: 0;
+    min-width: 100%;
+    padding: 0;
+    text-transform: none;
+    z-index: 999;
+}
+
+.dropdown-item, a.dropdown-item {
+    display: flex;
+    flex-grow: 1;
+    clear: both;
+    font-weight: 400;
+    color: #111;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    text-align: inherit;
+    margin-bottom: 0;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.dropdown-item.active,
+.dropdown-item:active,
+a.dropdown-item.active,
+a.dropdown-item:active {
+    background-color: #f5f5f5;
+    color: #09757a;
+    text-decoration: none;
+}
+
+.dropdown-item.active,
+.dropdown-item.active:focus,
+.dropdown-item.active:hover,
+.dropdown-item:active,
+.dropdown-item:active:focus,
+.dropdown-item:active:hover,
+a.dropdown-item.active,
+a.dropdown-item.active:focus,
+a.dropdown-item.active:hover,
+a.dropdown-item:active,
+a.dropdown-item:active:focus,
+a.dropdown-item:active:hover {
+    color: #09757a;
+    text-decoration: none;
+    background-color: #f5f5f5;
+    outline: 0;
+}
+
+.dropdown.open>.dropdown-menu {
+    box-shadow: 0 1px 8px 0 rgba(118, 118, 118, .3);
+    display: block;
+    border-width: 1px 1px 1px 1px;
+    margin-top: -1px;
+    width: 100%;
+    max-height: 315px;
+    overflow-y: auto;
+    top: 100%;
+    bottom: auto;
+    width: auto;
+}
+
+@media (min-width: 520px) {
+    .container {
+        max-width: 480px;
+    }
+
+    .checkout-wrapper .checkout-view .checkout-box .checkout-box-col {
+        padding: 0 10px;
+    }
+
+    .customer-contact-box .customer-contact-form .name-fields fieldset:first-of-type {
+        float: left;
+        padding-right: 6px;
+        width: 50%;
+    }
+
+    .customer-contact-box .customer-contact-form .name-fields fieldset:last-of-type {
+        float: right;
+        padding-left: 6px;
+        width: 50%;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .app {
+        background-color: #fff;
+    }
+
+    .container {
+        max-width: 720px;
+    }
+
+    .checkout-wrapper .checkout-view .progress-bar {
+        height: 80px;
+    }
+
+    .checkout-wrapper .checkout-view .checkout-box .checkout-box-col {
+        width: 50px;
+    }
+
+    .checkout-wrapper .checkout-view .checkout-box .checkout-box-col.progress-bar {
+        padding: 5px 0 0;
+    }
+
+    .ux-tabs-wiz-txt {
+        display: block;
+    }
+
+    .customer-contact-box .customer-contact-form .name-fields fieldset:first-of-type {
+        float: none;
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .customer-contact-box .customer-contact-form .name-fields fieldset:last-of-type {
+        float: none;
+        padding-left: 0;
+        width: 100%;
+    }
+
+    .btn {
+        max-width: 18.125rem;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 940px;
+    }
+
+    .h2,
+    h2 {
+        font-size: 2.02729rem;
+        line-height: 2.5rem;
+    }
+
+    .btn {
+        max-width: 22.5rem;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+
+    .customer-contact-box .customer-contact-form .name-fields fieldset:first-of-type {
+        float: left;
+        padding-right: 6px;
+        width: 50%;
+    }
+
+    .customer-contact-box .customer-contact-form .name-fields fieldset:last-of-type {
+        float: right;
+        padding-left: 6px;
+        width: 50%;
+    }
+}
+
+
+@media (min-width: 1720px) {
+    .container {
+        max-width: 1640px;
+    }
+}
+
+.newBrand .customer-contact-box h2 {
+    font-weight: 400;
+    font-size: 26px;
+}
