@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="text-center p-t-60">
-                        <a class="txt2" href="#">
+                        <a class="txt2" href="<?= FOLDER_PATH ?>/register">
                             Crea tu cuenta
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>

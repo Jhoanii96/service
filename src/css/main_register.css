@@ -198,6 +198,7 @@ ul li {
     margin: 0;
     vertical-align: top;
     counter-increment: wizList;
+    outline: none;
 }
 
 a {
@@ -254,6 +255,7 @@ a:not([href]):not([tabindex]) {
     max-width: 10em;
     padding-top: 2.5em;
     margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .ux-tabs-wiz-list>li:after,
@@ -297,6 +299,7 @@ a:not([href]):not([tabindex]) {
 .ux-tabs-wiz-list .ux-tabs-wiz-step-current .ux-tabs-wiz-txt,
 .ux-tabs-wiz-list .ux-tabs-wiz-step-incomplete:hover .ux-tabs-wiz-txt {
     font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #first:before {
@@ -363,7 +366,10 @@ input {
     overflow: visible;
 }
 
-.form-control {
+.form-control
+
+/* , .select2-container--default .select2-selection--single */
+    {
     display: block;
     height: 2.75rem;
     width: 100%;
@@ -488,7 +494,8 @@ html [type=button] {
     z-index: 999;
 }
 
-.dropdown-item, a.dropdown-item {
+.dropdown-item,
+a.dropdown-item {
     display: flex;
     flex-grow: 1;
     clear: both;
@@ -612,7 +619,7 @@ a.dropdown-item:active:hover {
 
 @media (min-width: 992px) {
     .container {
-        max-width: 940px;
+        max-width: 700px;
     }
 
     .h2,
@@ -624,12 +631,18 @@ a.dropdown-item:active:hover {
     .btn {
         max-width: 22.5rem;
     }
+
+    .checkout-box {
+        width: 600px;
+        margin-left: 90px;
+        margin-right: 110px;
+    }
 }
 
 
 @media (min-width: 1200px) {
     .container {
-        max-width: 1140px;
+        max-width: 800px;
     }
 
     .customer-contact-box .customer-contact-form .name-fields fieldset:first-of-type {
@@ -643,12 +656,24 @@ a.dropdown-item:active:hover {
         padding-left: 6px;
         width: 50%;
     }
+
+    .checkout-box {
+        width: 600px;
+        margin-left: 90px;
+        margin-right: 110px;
+    }
 }
 
 
 @media (min-width: 1720px) {
     .container {
-        max-width: 1640px;
+        max-width: 800px;
+    }
+
+    .checkout-box {
+        width: 600px;
+        margin-left: 90px;
+        margin-right: 110px;
     }
 }
 
