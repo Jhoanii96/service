@@ -1,0 +1,454 @@
+﻿@charset "utf-8";
+
+/* ----------------------------------------------
+ * HanbitSoft Service Development Team
+ * 개인정보 제3자 제공에 대한 안내 Stylesheet
+ * Author - artsohee@hanbitsoft.co.kr 20140509
+------------------------------------------------- */
+
+/* CSS Reset
+-------------------------------------------------------------- */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, img, strong, small, dl, dt, dd, ol, ul, li, fieldset, form, select, textarea, input, button, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, figure, figcaption{margin:0; padding:0; font-size:100%;}
+img, fieldset, button{border:0;}
+article, aside, figcaption, figure, footer, header, hgroup, menu, nav, section{display:block;}
+body, input, button, textarea, select, table, kbd{line-height:1.2; font-family:'돋움', dotum, Helvetica, sans-serif; font-size:12px; color:#000;}
+img{vertical-align:middle;}
+ol, ul{list-style:none;}
+a{text-decoration:none; color:#000;}
+a:hover, a:focus, a:active{text-decoration:underline; color:#0000ff;}
+button, label{cursor:pointer;}
+button::-moz-focus-inner, input::-moz-focus-inner{padding:0; border:0;}
+table{border-collapse:collapse; border-spacing:0;}
+caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999px; visibility:hidden;}
+
+/* Reserved Class
+-------------------------------------------------------------- */
+.irPm{display:block; overflow:hidden; font-size:0px; line-height:0; text-indent:-9999px;}
+.irWa{display:block; overflow:hidden; position:relative; width:100%; height:100%; z-index:-1;}
+.blind{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
+.show{display:block;}
+.hide{display:none;}
+.fL{float:left;}
+.fR{float:right;}
+.clear {clear:both;}
+.clearFix{zoom:1;}
+.clearFix:after{clear:both; display:block; content:'';}
+
+/* Styles
+-------------------------------------------------------------- */
+
+/*공통*/
+#wrap {width:510px;}
+#header {padding:16px 0 0 0; width:510px; height:64px; background:url(../images/popup/spr_popHeader.png) repeat-x;}
+#header h1 {margin:0 auto; text-indent:-9999px; background:url(../images/popup/spr_popTitle.png) no-repeat;}
+#container {padding:28px 20px 0 20px;letter-spacing:-1px;}
+#container h2 {margin:0 0 7px 0; height:17px; background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px}
+#container .conTitle {background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
+#container .point {color:#eb110c}
+#personTerms .innerBox h3,
+#personTerms dl.recList, 
+#personTerms p.desc {padding:0 0 20px 0;}
+p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
+.innerBox {border-top:2px solid #425e6c; border-bottom:2px solid #425e6c; color:#425e6c;}
+.innerBox.terms {overflow:auto; height:238px;  padding:20px 20px 0 20px; line-height:18px; border-right:1px solid #e8eef2; border-left:1px solid #e8eef2}
+.btnArea {padding:24px 0 31px 0;}
+.btnArea button {display:block; margin:0 auto; width:137px; height:42px; background:url(../images/popup/spr_popBtn.png) no-repeat; text-indent:-9999px}
+.btnArea .confirm {background-position:0 -59px;}
+.btnArea .next {background-position:-158px -59px;}
+.btnArea .close {width:95px; background-position:-314px 0;}
+.btnArea .closeW {width:96px;background-position:0 -168px;}
+.btnArea .psConfirm {width:115px; background-position:-315px -59px;}
+.dlList {width:470px;}
+.dlList span {display:block; background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
+.dlList dt,
+.dlList dd {border-bottom:1px solid #e1e6e9;}
+.dlList dt {clear:both;float:left; padding:16px 0 0 17px; width:108px; height:33px; }
+.dlList dt label {display:block; height:13px; background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
+.dlList dd {float:left; width:345px; height:39px; padding:10px 0 0 0;}
+.dlList dd .txtPw {padding:0 0 0 10px; width:208px; height:26px; line-height:26px; background:#eff4f7; border:1px solid #c4ced3; color:#1c252a;}
+.ulList li {border-bottom:1px solid #e1e6e9;}
+.ulList li.last {border:0;}
+.notice {padding:17px 17px 0 17px;}
+.notice li {padding:0 0 0 9px; color:#425e6c; letter-spacing:-1px; background:url(../images/popup/ico_dot.gif) no-repeat left 6px; line-height:18px;}
+
+/*개인정보제3자제공안내*/
+#thired #header h1 {width:252px; height:42px; background-position:0 -280px;}
+#thired #container .innerBox {padding:18px; height:192px; overflow:auto; border-left:1px solid #e8eef2; border-right:1px solid #e8eef2;}
+#thired #container .innerBox p.desc {padding:0 0 16px 0;}
+#thired #container .innerBox p {padding:16px 0 0 0; line-height:17px;}
+#thired #container .innerBox dl { line-height:18px;}
+#thired #container .innerBox dt {float:left; padding:0 0 0 7px; background:url(../images/popup/ico_dot.gif) no-repeat left center; font-weight:bold; }
+#thired.allianceWrap #container .innerBox dt {padding:0; background:none;}
+#thired.allianceWrap #container .innerBox dd {padding:0 0 16px 0;}
+#thired #container .innerBox dd {padding:0 0 0 5px;}
+#thired #container .innerBox dd.clear {clear:left;}
+.free #container h2 {width:86px; background-position:0 -630px; }
+.audition #container h2 {width:56px; background-position:0 -662px;}
+#thired #container .checkArea {width:136px; margin:15px auto 0 auto;}
+#thired #container .checkArea input {float:left; width:13px; height:13px;}
+#thired #container .checkArea label {float:left; padding:0 0 0 8px; line-height:13px; letter-spacing:-1px; color:#1c252a;}
+#thired #container .btnArea {width:204px; margin:0 auto; padding:21px 0 0 0; text-align:center;}
+#thired #container .btnArea button {display:inline-block;}
+#thired #container .btnArea button.confirm {margin:0 10px 0 0; width:97px; background-position:0 -281px;}
+#thired #container .btnArea button.cancel {width:97px; background-position:-107px -281px;}
+#thired.event #container h2 {width:194px; background-position:0 -696px;}
+#thired.event #container .innerBox {padding:0; height:225px; overflow:initial}
+#thired.event #container .infoBox {height:72px; background:#f0f5f7; border-bottom:2px solid #425e6c;}
+#thired.event #container .infoBox p {padding:0; font-size:14px; height:57px;}
+#thired.event #container .infoBox span.center {display:inline-block; height:100%; width:1px;}
+#thired.event #container .infoBox span.align {display:inline-block; width:460px; text-align:center;}
+#thired.event #container .detailTxt {padding:19px; height:113px; overflow-y:scroll;}
+#thired.event #container .detailTxt p {padding:0 0 16px 0}
+#thired.event #container .detailTxt p.last {padding:16px 0 0 0;}
+
+
+
+/*이름변경*/
+#nameChange #header h1 {width:83px; height:42px;}
+#nameChange #container p.desc {padding:0 0 16px 0;}
+#nameChange #container strong {display:block}
+#nameChange #container .innerBox {float:left; width:225px;}
+#nameChange #container .innerBox.left {margin:0 20px 0 0;}
+#nameChange #container .innerBox h3.phone {width:225px; height:80px; background:url(../images/popup/bg_nameChange1.png) no-repeat;}
+#nameChange #container .innerBox h3.ipin {width:225px; height:80px; background:url(../images/popup/bg_nameChange2.png) no-repeat;}
+#nameChange #container .innerBox h3 span {display:block; padding:34px 0 0 117px;}
+#nameChange #container .innerBox .txtAlign {padding:30px 0 0 0; text-align:center;}
+#nameChange #container .innerBox .ipinBtn {background-position:-158px 0;}
+#nameChange #container .nameConfirm {padding:110px 0 0 0;}
+#nameChange #container .nameConfirm .conTitle {margin:0 auto; width:319px; height:38px; background-position:0 -181px;}
+#nameChange #container .nameSame  {padding:100px 0 0 0;}
+#nameChange #container .nameSame .conTitle {margin:0 auto; width:308px; height:60px; background-position:0 -230px;}
+
+/*회원정보입력*/
+#idPwFind #header h1 {width:168px; height:42px; background-position:0 -49px;}
+#idPwFind #container h2 {margin:0 0 17px 0;}
+#idPwFind .infoInput h2 {width:100px; background-position:0 -23px}
+#idPwFind .desc {padding:0 0 6px 13px}
+#idPwFind .dlList span.gender {height:13px;}
+#idPwFind .dlList dt label.name {width:23px; background-position:0 -307px}
+#idPwFind .dlList dt label.gender {width:84px; background-position:-339px -307px}
+#idPwFind .dlList dd.selectArea {padding:14px 0 0 0; height:35px}
+#idPwFind .dlList dd select {float:left; margin:0 8px 0 0; width:68px; background:#eff4f7; border:1px solid #c4ced3; color:#1c252a;}
+#idPwFind .dlList dd.genderArea p {float:left; height:26px;} 
+#idPwFind .dlList dd.genderArea p input {width:68px; height:26px; background:#eff4f7; border:1px solid #c4ced3; vertical-align:middle}
+#idPwFind .dlList dd.genderArea p label{float:left; margin:0 50px 0 0;}
+#idPwFind .dlList dd.genderArea span {display:inline-block; padding:0 4px;background:none; text-indent:0; vertical-align:middle}
+#idPwFind .dlList .last {border:0}
+
+/*아이디 확인*/
+#idPwFind .idCheck h2 {width:87px; background-position:0 -45px}
+#idPwFind .idCheck .ulList .id {float:left; padding:17px 0 0 19px; font-size:14px; font-weight:bold}
+#idPwFind .idCheck .ulList .pwFind {float:right; padding:6px 15px 7px 0;}
+#idPwFind .idCheck .pwFind button {display:block; width:111px; height:36px; background:url(../images/popup/spr_popBtn.png) no-repeat 0 -115px; text-indent:-9999px;}
+
+/*아이디 확인2*/
+#idPwFind .idCheck.type2 button {width:134px; height:36px; background-position:0 -228px;}
+
+
+/*본인확인*/
+#idPwFind .personCheck h2 {width:70px; background-position:0 -69px}
+#idPwFind .personCheck .ulList h3 {padding:13px 0 0 0; font-size:14px; font-weight:bold}
+#idPwFind .personCheck .ulList p {padding:9px 0 17px 0;}
+#idPwFind .personCheck .ulList p input,
+#idPwFind .personCheck .ulList p label {float:left;}
+#idPwFind .personCheck .ulList p input {margin:0 6px 0 0; width:13px; height:13px;}
+#idPwFind .personCheck .ulList li {padding:0 0 0 19px; }
+#idPwFind .personCheck .ulList li.last p {float:left; margin:0 38px 0 0;}
+#idPwFind .personCheck .tempPw {color:#425e6c}
+#idPwFind .personCheck .tempPw span {float:left; padding:9px 9px 0 0;}
+#idPwFind .personCheck .tempPw button {float:left; width:148px; height:35px; background:url(../images/popup/spr_popBtn.png) no-repeat -159px -168px; text-indent:-9999px;}
+
+/*비밀번호 변경*/
+#idPwFind .pwCheck h2 {width:101px; background-position:0 -96px}
+#idPwFind .pwCheck .dlList .id {width:35px; background-position:-121px -307px;}
+#idPwFind .pwCheck .dlList .idArea {padding:14px 0 0 0; height:35px;}
+#idPwFind .pwCheck .dlList .newPw {width:62px; background-position:-165px -307px;}
+#idPwFind .pwCheck .dlList .newPwCf {width:87px; background-position:-240px -307px;}
+#idPwFind .pwCheck .dlList strong {font-size:14px; letter-spacing:0}
+
+/*비밀번호 변경 완료*/
+#idPwFind .chgComplete {padding:90px 0 0 0;}
+#idPwFind .chgComplete .conTitle {margin:0 auto; width:416px; height:58px; background-position:0 -334px;}
+
+/*임시 비밀번호 발송*/
+#idPwFind .tempPw h2 {width:131px; background-position:0 -123px;}
+#idPwFind .tempPw .innerBox p {padding:17px 0 17px 19px; font-size:14px; font-weight:bold;}
+#idPwFind .tempPw .notice {padding:0 17px 0 17px}
+#idPwFind .tempPw .btnArea {padding:27px 0 26px 0;}
+#idPwFind .tempPw button {width:157px; height:42px; background-position:-158px -118px;}
+
+/*주민등록번호 수집 및 이용에 대한 안내*/
+#personTerms h1 {width:262px; height:42px; background-position:0 -102px;}
+#personTerms h2,
+/*#thired h2 {width:256px; background-position:0 -150px;}*/
+
+/*게임소식지 수신*/
+#personTerms .gameNews h2 {width:234px; background-position:0 -424px}
+
+/*sms 수신*/
+#personTerms .smsReceive h2 {width:194px; background-position:0 -453px}
+
+/*위드-본인확인*/
+#psConfirm #header h1 {width:90px; height:42px; background-position:0 -161px;}
+#psConfirm #container h2 {background-position:0 -481px;}
+#psConfirm #container p.desc {padding:0 0 16px 0;}
+#psConfirm #container strong {display:block}
+#psConfirm #container .innerBox {width:100%;}
+#psConfirm #container .innerBox dt {float:left; width:172px; height:40px; padding:28px 0 0 0; background:#f0f5f7; color:#425e6c; font-weight:bold; text-align:center}
+#psConfirm #container .innerBox dd {float:left; padding:28px 0 0 0;}
+#psConfirm #container .innerBox dd input,
+#psConfirm #container .innerBox dd label {float:left;}
+#psConfirm #container .innerBox dd input {margin:0 8px 0 38px; width:13px; height:13px;}
+#psConfirm .btnArea {width:224px; margin:0 auto;}
+#psConfirm .btnArea button {float:left;}
+#psConfirm .btnArea .psConfirm {margin:0 12px 0 0;}
+#psConfirm p.notice {text-align:center; color:#425e6c; line-height:18px;}
+
+/*위드-게임소식지 수신*/
+#personTerms .wydNews h2 {background-position:0 -511px;}
+
+/*위드-sms 수신*/
+#personTerms .wydReceive h2 {background-position:0 -539px;}
+
+/*회원가입-sms 수신*/
+#personTerms .joinReceive h2 {background-position:0 -878px;}
+
+/*회원가입- sms 수신*/
+#personTerms .joinReceive h2 {background-position:0 -878px;}
+
+/*회원가입- 게임소식지 수신*/
+#personTerms .joinNews h2 {background-position:0 -840px;}
+
+/*회원가입-우편번호찾기*/
+#postNum #header h1 {width:111px; height:42px; background-position:0 -222px;}
+#postNum h2.addrSearch {background-position:0 -568px;}
+#postNum h2.searchResult {background-position:0 -599px;}
+#postNum .desc {padding:5px 0 10px 14px;}
+#postNum .searchArea {margin:0 0 23px 0; background:#f0f5f7;}
+/* S : 2014-11-27 수정*/
+#postNum .searchArea ul.parents {position:relative; padding:35px 0 22px 0px;}
+#postNum .searchArea li p {position:absolute;}
+#postNum .searchArea li.type1 p {top:20px; left:20px; }
+#postNum .searchArea li.type2 p {top:20px; left:200px;}
+#postNum .searchArea ul.child {padding:4px 20px 0px 20px;}
+#postNum .searchArea ul.child li {float:left;}
+#postNum .searchArea li input {vertical-align:middle;}
+#postNum .searchArea li label {font-weight:bold; font-size:14px; vertical-align:middle}
+#postNum .searchArea li.rodeType {width:116px; padding:12px 0 0 0;}
+#postNum .searchArea li.rodeType.first {clear:left; padding-right:64px;}
+#postNum .searchArea li.rodeType label {font-size:13px; font-weight: normal} 
+/* E : 2014-11-27 수정*/
+#postNum .searchArea .inputArea {padding:12px 0 13px 15px; border:1px solid #f0f5f7; background:#fff;}
+#postNum .searchArea .inputArea p input {float:left; width:342px; height:26px; border:1px solid #c4ced3; line-height:24px;}
+#postNum .searchArea .inputArea p.roadType input {margin:0 4px 0 0; width:165px;}
+#postNum .searchArea .inputArea button {margin:0 0 0 -1px;float:left;width:95px; height:28px; background:url(../images/popup/spr_popBtn.png) no-repeat -158px -228px; text-indent:-9999px;}
+#postNum .innerBox {padding:18px; height:118px;}
+#postNum .innerBox li {padding:0 0 10px 0;}
+#postNum .innerBox li.loading {width:57px; margin:28px auto 0 auto;}
+#postNum .innerBox a {color:#425e6c;}
+#postNum .innerBox a strong {padding:0 62px 0 8px;}
+#postNum .btnArea {padding:23px 0 31px 0;}
+
+/*로그인-회원정보인증-휴대폰*/
+#idPwFind.login #header h1 {width:166px; height:42px; background-position:0 -344px;}
+#idPwFind .personCheck h2 {width:70px; background-position:0 -69px}
+#idPwFind .personCheck dd span {padding:0 6px;display:inline-block; background:none; text-indent:0;}
+#idPwFind .personCheck dd .phoneNum {width:73px; height:16px; border:1px solid #c4ced3; background:#eff4f7;}
+#idPwFind .personCheck dd .num {display:inline-block; width:128px; height:26px; background:#eff4f7; border:1px solid #c4ced3; vertical-align:middle; text-align:center; font-size:14px; font-weight:bold}
+#idPwFind .personCheck dd select {margin:0;}
+#idPwFind .personCheck .phone {width:36px; background-position:0 -735px;}
+#idPwFind .personCheck .confirmNum {width:48px; background-position:-51px -735px;}
+#idPwFind .personCheck .email {width:38px; background-position:-118px -735px;}
+#idPwFind .personCheck button.numBtn {margin:0 0 0 7px; display:inline-block; width:111px; height:35px; background:url(../images/popup/spr_popBtn.png) no-repeat -344px -167px; text-indent:-9999px; vertical-align:middle;}
+#idPwFind .personCheck dd.last {padding:6px 0 0 0;}
+#idPwFind .personCheck .selectArea.emailType select{margin:0 0 0 4px; display:inline-block; float:none; width:128px; height:18px; vertical-align:middle;}
+#idPwFind .personCheck .selectArea.emailType span {padding:0 4px; vertical-align:middle}
+#idPwFind .personCheck .selectArea.emailType input {height:16px; border:1px solid #c4ced3; background:#eff4f7; font-weight:bold; vertical-align:middle;}
+#idPwFind .personCheck .selectArea .emailId {width:88px;}
+#idPwFind .personCheck .selectArea .emailSv {width:98px;}
+
+/*로그인-비회원문의하기*/
+#personTerms .nonMember h2 {width:121px; height:24px; background-position:0 -767px;}
+
+
+/*내정보-이름변경*/
+#nameChange #container .sameName .innerBox {float:none; width:100%}
+#nameChange .sameName h2 {background-position:0 -801px;}
+#nameChange .sameName ul li {padding:18px 0 20px 0; font-size:14px;}
+#nameChange .sameName ul li .fL {padding:0 0 0 18px; font-weight:bold} 
+#nameChange .sameName .checkArea {padding:10px 0 0 0;}
+#nameChange .sameName .checkArea input {vertical-align:middle;}
+#nameChange .sameName .checkArea label {padding:0 0 0 5px; vertical-align:middle; color:#425e6c;}
+#nameChange .sameName .notice {padding:17px 10px 0 10px; line-height:18px; color:#425e6c;}
+
+
+/*한빛소프트 - 제휴문의*/
+#personTerms .alliance h2,
+#thired .alliance h2 {background-position:0 -915px;}
+
+/*한빛소프트 - 제휴제안 입력 폼*/
+#allinanceForm #wrap {width:700px;}
+#allinanceForm #wrap .icon {margin:4px 6px 0 0; float:left; width:4px; height:4px; background:url(../images/popup/ico_dot.gif) no-repeat; text-indent:-9999px;}
+#allinanceForm #header {padding:42px 0 0 34px; width:666px; height:107px; background:url(../images/popup/spr_popHeaderLong.png) repeat-x;}
+#allinanceForm #header .inner {width:596px; height:71px; background:url(../images/popup/bg_allianceTitle.png) no-repeat;}
+#allinanceForm #container {padding:28px 35px 0 35px;}
+#allinanceForm #container h2 {margin:0; height:auto; background:none; text-indent: 0;}
+#allinanceForm #container .essential {padding:0 0 10px 0; font-weight:normal; color:#8a8a8a; }
+#allinanceForm #container .essential span {vertical-align:middle;}
+#allinanceForm #container .formTitle {padding:25px 0 15px 0; color:#2b2b2b; font-size:15px; border-bottom:1px solid #e1e6e9;}
+#allinanceForm #container .formTitle p {padding:0 0 0 5px;}
+#allinanceForm #container .innerBox {border-bottom:0;}
+#allinanceForm #container .dlList {width:100%;}
+#allinanceForm #container .dlList .noLine {border:0;}
+#allinanceForm #container .dlList dt {padding:0; width:82px; height:62px; /*height:35px;*/ clear:none;}
+#allinanceForm #container .dlList dt.shortType label {}
+#allinanceForm #container .dlList dt.rightAlign {padding-left:16px;}
+#allinanceForm #container .dlList dt.suggestTitle{height:90px;}
+#allinanceForm #container .dlList dt label,
+#allinanceForm #container .dlList dt.suggestTitle p {padding:0 0 0 7px; height:auto; color:#8a8a8a; font-size:14px; line-height:58px; background:url(../images/popup/ico_dot.gif) no-repeat left 24px; text-indent:0;}
+#allinanceForm #container .dlList dt.suggestTitle p {padding:24px 0 0 7px; line-height:18px; background-position:0 38px;}
+#allinanceForm #container .dlList dd {padding:0; width:216px; height:62px; /*height:42px;*/}
+#allinanceForm #container .dlList dd.selType {padding:20px 0 0 0; height:38px; }
+#allinanceForm #container .dlList dd .allianceType {margin:20px 0 0 0;}
+#allinanceForm #container .dlList dd.longType {width:531px;}
+#allinanceForm #container .dlList dd.hAuto {padding:0 0 10px 0; height:auto;}
+
+#allinanceForm #container .dlList dt.fieldType {height:206px;}
+#allinanceForm #container .dlList dt.fieldType span {background:none; text-indent:0;}
+#allinanceForm #container .dlList dt.fieldType label {margin:60px 0 0 0;}
+#allinanceForm #container .dlList dt.fieldType .verticalAlign {display:block; height:206px;}
+#allinanceForm #container .dlList dt.fieldType .verticalAlign .standard {display:inline-block; width:1px; height:206px; vertical-align:middle;}
+#allinanceForm #container .dlList dt.fieldType .verticalAlign label {margin:0; display:inline-block; width:70px; height:auto; vertical-align:middle; }
+#allinanceForm #container .dlList dt.fieldType .longType {line-height:18px;}
+
+#allinanceForm #container .dlList dt.fileType {height:100px;}
+
+
+#allinanceForm #container .dlList dt.fileType label {margin:20px 0 0 0;}
+#allinanceForm #container .dlList dt.fileType label.noPoint,
+#allinanceForm #container .dlList dt label.noPoint {margin:0; background:none; line-height:20px; padding:0;}
+#allinanceForm #container .dlList dt.addFile label {padding:18px 0 0 0;}
+#allinanceForm #container .dlList dt.addFile {height:103px;}
+#allinanceForm #container .startUp .dlList dt label.longType {background-position:left 6px;}
+#allinanceForm #container .startUp .dlList dt.fileType,
+#allinanceForm #container .startUp .dlList dd.fileType {padding:18px 0 0 0;}
+#allinanceForm #container .startUp .dlList dt.addFile {height:auto;}
+
+
+#allinanceForm #container .dlList dd input {width:203px; height:26px; line-height:26px; background:#eff4f7; border:1px solid #c4ced3; color:#8a8a8a;}
+#allinanceForm #container .dlList dd input[type="text"] {margin:16px 0 0 0; display:block;}
+#allinanceForm #container .dlList dd input[type="file"] {margin:16px 0 0 0; display:block; width:auto; height:auto;}
+#allinanceForm #container .dlList dd input.longInput {margin:16px 0 0 0; width:518px;}
+#allinanceForm #container .dlList dd .linkInput {position:relative;}
+#allinanceForm #container .dlList dd .linkInput input {margin:0; padding:0 10px; width:498px;}
+#allinanceForm #container .dlList dd .linkInput p {position: absolute;left: 10px; top: 0; line-height:26px; color:#8a8a8a; width:498px;}
+#allinanceForm #container .dlList dd.textAreaType { height:206px;}
+#allinanceForm #container .dlList dd .textAreaPos {position:relative;}
+#allinanceForm #container .dlList dd .textAreaPos .desc {position:absolute; left:10px; top:10px; width:500px; height:153px; line-height:20px; color:#8a8a8a;}
+#allinanceForm #container .dlList dd textarea {margin:16px 0 0 0; padding:10px; display:block; width:498px; height:150px; resize:none; background:#eff4f7; border:1px solid #c4ced3; color:#8a8a8a;}
+#allinanceForm #container .dlList dd select {width:342px; background:#eff4f7; border:1px solid #c4ced3; color:#8a8a8a;}
+#allinanceForm #container .dlList dd .fileDesc {padding:13px 0 0 0; color:#8a8a8a; line-height:18px; }
+#allinanceForm #container .dlList dd.fileType {height:100px;}
+#allinanceForm #container .dlList dd.suggestInput {padding:15px 0 0 0; height:75px;}
+#allinanceForm #container .dlList dd.suggestInput span {padding:0 55px 14px 0; display:inline-block; vertical-align:middle; background:none; text-indent:0;}
+#allinanceForm #container .dlList dd.suggestInput span.last {position:relative; padding-bottom:0;}
+#allinanceForm #container .dlList dd.suggestInput label {padding:0 0 0 8px; color:#8a8a8a;}
+#allinanceForm #container .dlList dd.suggestInput input {width:auto; height:auto; vertical-align:middle;}
+#allinanceForm #container .dlList dd.suggestInput input.etc {z-index:40; margin:0; position:absolute; top:0; left:55px; width:400px; height:26px;}
+#allinanceForm #container .dlList dd.suggestInput .etcLabel {z-index:50; position:absolute; left:55px; width:400px; height:26px; text-indent:-9999px;}
+#allinanceForm #container .gameInfoList {padding:20px 0 20px 20px; border-bottom:1px solid #e1e6e9; font-size:14px; color:#8a8a8a; line-height:20px;}
+
+#allinanceForm #container .checkArea {padding:15px 0 0 20px;}
+#allinanceForm #container .checkArea p {padding:5px 0 15px 10px; color:#212024;}
+#allinanceForm #container .checkArea p span {line-height:29px;}
+#allinanceForm #container .checkArea p input {vertical-align:middle;}
+#allinanceForm #container .checkArea p label {padding:0 0 0 10px; vertical-align:middle;}
+#allinanceForm #container .checkArea a {float:right; width:97px; height:29px; background:url(../images/popup/spr_popBtn.png) no-repeat -270px -227px; text-indent:-9999px;}
+#allinanceForm #container .submitArea {margin:40px 0 0 0; }
+#allinanceForm #container .submitArea button {display:block; margin:0 auto; width:158px; height:40px; background:url(../images/popup/spr_popBtn.png) no-repeat 0px -343px; text-indent:-9999px;}
+
+/*개인정보 수집 및 이용에 대한 안내 - 법 개정 관련 수정 2014-12-31*/
+#personTerms #header.nick h1 {width:90px; background-position: 0 -476px;}
+#personTerms #header.phone h1 {width: 185px; background-position: 0 -541px;}
+#personTerms #header.email h1 {width: 220px; background-position: 0 -612px;}
+#personTerms #header.connect h1 {width: 90px; background-position: 0 -685px;}
+#personTerms #header.address h1 {width: 84px; background-position: 0 -750px;}
+
+#personTerms .duoBtn {padding:24px 0 0 0; text-align:center;}
+#personTerms .duoBtn button {width: 95px; height:40px; display:inline-block;}
+#personTerms .duoBtn button.editCfm {margin:0 12px 0 0; background-position: -228px -281px}
+#personTerms .duoBtn button.editCc {background-position: -335px -281px}
+#personTerms .termsUse h2{width:248px; background-position: 0 -1018px;}
+#personTerms .termsUse table,#thired table {margin:10px 0; border:1px solid #425e6c; color:#425e6c;}
+#personTerms .termsUse table th,#thired table th {height:30px; background: #f0f5f7; border:1px solid #425e6c; font-weight: normal}
+#personTerms .termsUse table td,#thired table td {padding:10px; word-break:break-all; text-align:center; vertical-align:top; line-height:16px; border:1px solid #425e6c;}
+#personTerms .change input[type="text"] {padding:0 10px; width: 128px; height: 26px; line-height:26px; border: 1px solid #c4ced3; background: #eff4f7; color:#1c252a;}
+#personTerms .change .nickNotice {padding:0 10px; color:#425e6c;}
+#personTerms .change button {background: url(../images/popup/spr_popBtn.png) no-repeat;}
+
+#personTerms .nickChange h2 {width:88px; background-position: 0 -1049px;}
+#personTerms .nickChange .innerBox.terms {height:100px;}
+
+#personTerms .phoneChange h2 {background-position: 0 -1081px;}
+#personTerms .phoneChange .innerBox.terms {height:150px;}
+#personTerms .phoneChange .phoneInput {padding:0 0 22px 0;}
+#personTerms .phoneChange .phoneInput select {margin:6px 0 0 0; float:left;}
+#personTerms .phoneChange .phoneInput input[type="text"] {margin:6px 0 0 0; float:left;}
+#personTerms .phoneChange .phoneInput span {margin: 7px 0 0 0; padding:0 5px; float:left;}
+#personTerms .phoneChange .phoneInput button.getNum {float:left; display:block; margin:0 0 0 7px; width: 109px; height: 34px; text-indent:-9999px; background-position: -344px -168px; vertical-align: middle}
+#personTerms .phoneChange .cfmInput label {margin:0 10px 0 0; font-size: 14px; letter-spacing: -1px;}
+
+#personTerms .phoneChange select,
+#personTerms .emailChange select,
+#personTerms .connectChange select  {width:68px; height:18px; border: 1px solid #c4ced3; background: #eff4f7; vertical-align: middle}
+#personTerms .phoneChange input[type="text"] {width:53px; height:18px; vertical-align: middle}
+#personTerms .phoneChange input.cfmNum {width:246px;}
+#personTerms  ul.agreeNotice {padding:10px 0 0 20px;}
+#personTerms  ul.agreeNotice li {padding:0; color:#425e6c; line-height:20px; background: none;}
+#personTerms  ul.agreeNotice li input {vertical-align: middle}
+#personTerms  ul.agreeNotice li label {vertical-align: middle}
+#personTerms  ul.agreeNotice li label a {color:#eb110c;}
+#personTerms  ul.agreeNotice .icoDot {padding:0 0 0 7px; background: url(../images/popup/ico_dot.gif) no-repeat left 10px; }
+
+#personTerms .emailChange h2 {background-position: 0 -1112px;}
+#personTerms .emailChange .innerBox.terms {height:100px;}
+#personTerms .emailChange input[type="text"] {width:98px; height:18px; vertical-align: middle}
+#personTerms .emailChange select {margin:0 0 0 10px; width:128px; line-height:28px; }
+
+
+#personTerms .connectChange h2 {background-position: 0 -1142px;}
+#personTerms .connectChange .innerBox.terms {height:100px;}
+#personTerms .connectChange input[type="text"] {width:73px; height:18px; vertical-align: middle} 
+#personTerms .connectChange select {width:70px; }
+
+#personTerms .addressChange h2 {background-position: 0 -1172px;}
+#personTerms .addressChange .innerBox.terms {height:178px;}
+#personTerms .addressChange .addrInput input {margin:3px 0 0 0; float:left; width:55px;}
+#personTerms .addressChange .addrInput span {margin:7px 0 0 0; padding:0 5px; float:left;}
+#personTerms .addressChange .addrInput button.postBtn {margin:0 0 0 10px; float:left; width:109px; height:35px; text-indent: -9999px; background-position: -1px -401px;}
+#personTerms .addressChange .detailAddr {padding: 10px 0 0 0;}
+#personTerms .addressChange .detailAddr input {width:400px;}
+
+
+._red{color:#e3100c}
+.bold{font-weight: bold}
+pre.policyPre {
+    font-size: 14px;
+    font-family:'맑은 고딕', Malgun Gothic, dotum, Helvetica, sans-serif;
+    word-wrap: break-word;
+    white-space: pre-wrap; /* CSS3*/
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-break: break-all; /* Internet Explorer 5.5+ */
+}
+.policyPre .pink {color:#ff6666;font-size:12px;font-weight:bold;}
+.policyPre .red{color:#ea0000;}
+#thired.privacy #container .innerBox, #thired.service #container .innerBox{height:277px}
+#thired.privacy #header h1{width:263px;background-position:0 -1051px}
+.free.privacy #container h2{width:244px;background-position:0 -1232px}
+#thired.service #header h1{width:124px;background-position:0 -971px}
+.free.service #container h2{width:121px;background-position:0 -1202px}
+
+.privacy_view {word-wrap:break-word;white-space:pre-wrap;word-break:break-all;}
+

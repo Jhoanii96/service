@@ -352,6 +352,7 @@ a:not([href]):not([tabindex]) {
 
 .form-group>label {
     text-transform: none;
+    margin-left: 1px;
 }
 
 .req {
@@ -680,4 +681,97 @@ a.dropdown-item:active:hover {
 .newBrand .customer-contact-box h2 {
     font-weight: 400;
     font-size: 26px;
+}
+
+.dropbox_dropcontent {
+    position: absolute;
+    left: 0;
+    max-height: 0;
+    margin-top: -1px;
+    visibility: hidden;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+}
+
+.dropbox_dropcontent {
+    top: 4px;
+    z-index: 1;
+    padding-top: 32px;
+}
+
+.dropbox_arrow-top:after, .dropbox_arrow-top:before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+}
+
+.dropbox_arrow-top:before {
+    top: 24px;
+    border-bottom: 8px solid #dadada;
+}
+
+.dropbox_arrow-top:before {
+    border-bottom-color: #0019ca;
+}
+
+.compSelect_ul {
+    border: 1px solid #0e67ec;
+    background: #fff;
+    padding: 10px 0;
+    width: 310px;
+}
+
+.compSelect_ul .li {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 14px;
+    color: #000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.compSelect_ul .li.on, .compSelect_ul .li:hover {
+    color: #0e67ec;
+}
+
+.dropbox_dropcontent:hover {
+    visibility: visible;
+}
+
+.compSelect_ul .li {
+    height: auto;
+    white-space: normal;
+}
+
+.dropbox_arrow-top:after {
+    top: 25px;
+    border-bottom: 8px solid #fff;
+}
+
+.fR {
+    margin: 0;
+    padding: 0 10px 0 0;
+    margin-left: auto;
+}
+
+.aBtn {
+    padding: 0;
+    display: block;
+    width: 93px;
+    height: 26px;
+    line-height: 24px;
+    background: #f6f6f6;
+    border: 1px solid #b2b2b2;
+    color: #626262;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

@@ -20,6 +20,7 @@
 
 
     <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= FOLDER_PATH ?>/src/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/main_register.css">
 
     <style>
@@ -105,9 +106,53 @@
         }
     </style>
 
+    <style>
+        #anchorTitle {
+            /* border radius */
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            /* box shadow */
+            -moz-box-shadow: 2px 2px 3px #e6e6e6;
+            -webkit-box-shadow: 2px 2px 3px #e6e6e6;
+            box-shadow: 2px 2px 3px #e6e6e6;
+            /* other settings */
+            background-color: #fff;
+            border: solid 3px #d6d6d6;
+            color: #333;
+            display: none;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.3;
+            max-width: 200px;
+            padding: 5px 7px;
+            position: absolute;
+        }
+
+        .btn-style {
+            margin-left: 10px;
+            background-color: #005fd4;
+            color: #fff;
+            border-style: none;
+            width: 150px;
+        }
+
+        .btn-style:hover {
+            background-color: #0090d4;
+        }
+
+        .hover {
+            outline-style: dashed;
+            outline-color: blue;
+            outline-width: 1px;
+        }
+    </style>
+
 </head>
 
-<body class="time_loader" style="overflow-y: hidden;">
+<!-- <body class="time_loader" style="overflow-y: hidden;"> -->
+
+<body>
     <div class="app pl1 newBrand">
         <div class="app-route">
             <div class="checkout-wrapper">
@@ -122,7 +167,7 @@
                                         <li role="status" aria-live="polite" aria-label="step incomplete" id="second" tabindex="1" class="ux-tabs-wiz-step-incomplete">
                                             <a><span class="ux-tabs-wiz-txt">Registrar usuario</span></a></li>
                                         <li role="status" aria-live="polite" aria-label="step incomplete" id="last" class="ux-tabs-wiz-step-incomplete">
-                                            <a><span class="ux-tabs-wiz-txt">Completo</span></a></li>
+                                            <a><span class="ux-tabs-wiz-txt">Completar</span></a></li>
                                         <!-- <li role="status" aria-live="polite" aria-label="step complete" id="first" class="ux-tabs-wiz-step-complete">
                                             <a><span class="ux-tabs-wiz-txt">Información personal</span></a></li>
                                         <li role="status" aria-live="polite" aria-label="step current" tabindex="1" class="ux-tabs-wiz-step-current">
@@ -156,6 +201,9 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
+                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">DNI <span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                    </div>
+                                                    <div class="ctHidden">
                                                         <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Nombres <span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                     </div>
                                                     <div class="ctHidden">
@@ -176,10 +224,6 @@
                                                         <div class="postal-code-field">
                                                             <fieldset class="form-group"><label for="postalCode" id="label-postalCode">Celular
                                                                     <span class="req" aria-label="required">*</span></label><input id="postalCode" type="text" name="postal" data-valid="true" aria-labelledby="label-postalCode" aria-required="true" class="ctHidden form-control" value=""></fieldset>
-                                                        </div>
-                                                        <div class="state-field ctHidden">
-                                                            <fieldset class="form-group"><label for="state" id="label-state">Correo <span class="req" aria-label="required">*</span></label><input id="state" name="state" data-valid="true" aria-labelledby="label-state" aria-required="true" class="form-control" value="">
-                                                            </fieldset>
                                                         </div>
                                                         <div class="city-field">
                                                             <fieldset class="form-group"><label for="city" id="label-city">Fecha Nacimiento <span class="req" aria-label="required">*</span></label><input type="date" id="city" name="city" data-valid="true" aria-labelledby="label-city" aria-required="true" class="ctHidden form-control" value="">
@@ -210,19 +254,98 @@
 
                                                 <div class="page page-two">
                                                     <div class="ctHidden">
-                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Usuario<span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Nombre usuario<span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
-                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Contraseña <span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Contraseña<span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
-                                                        <fieldset class="form-group"><label for="Apellido" id="label-Apellido">Confirmar contraseña <span class="req" aria-label="required">*</span></label><input id="Apellido" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label for="Apellido" id="label-Apellido">Confirmar contraseña<span class="req" aria-label="required">*</span></label><input id="Apellido" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden" style="clear: both;">
-                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Dirección de consultas<span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group">
+                                                            <label id="address_attention">Dirección de consultas
+                                                                <span class="req" aria-label="required">*</span>
+                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
+                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
+                                                                    <div class="compSelect_ul">
+                                                                        <div class="li on">Info. direccion de consultas</div>
+                                                                        <div class="li">Algo mas de direccion de consultas</div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value="">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="state-field ctHidden">
+                                                        <fieldset class="form-group">
+                                                            <label id="e_mail">Correo electrónico
+                                                                <span class="req" aria-label="required">*</span>
+                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
+                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
+                                                                    <div class="compSelect_ul">
+                                                                        <div class="li on">Info. correo electronico</div>
+                                                                        <div class="li">Algo mas de correo electronico</div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <div style="display: flex;">
+                                                                <input id="state" name="state" data-valid="true" aria-labelledby="label-state" aria-required="true" class="form-control" value="">
+                                                                <button>Enviar código</button>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="ctHidden">
+                                                        <fieldset class="form-group">
+                                                            <label id="insert_code">Insertar código
+                                                                <span class="req" aria-label="required">*</span>
+                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
+                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
+                                                                    <div class="compSelect_ul">
+                                                                        <div class="li on">Info. insertar codigo</div>
+                                                                        <div class="li">Algo mas de insertar codigo</div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <div style="display: flex;">
+                                                                <input id="Apellido" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value="">
+                                                                <button>OK</button>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="ctHidden">
+                                                        <fieldset class="form-group">
+                                                            <div style="display: flex;">
+                                                                <span>ACTIVO:</span><SPAN style="color: green;">•</SPAN><span style="color: red;">⚫</span>
+                                                            </div>
+                                                        </fieldset>
+                                                        <fieldset class="form-group">
+                                                            <div style="display: flex;">
+                                                                <span>FECHA DE ACTIVACIÓN:  /  /  </span>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="ctHidden" style="clear: both;">
+                                                        <fieldset class="form-group">
+                                                            <label id="monto_pago" class="">Monto pago
+                                                                <span class="req" aria-label="required">*</span>
+                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
+                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
+                                                                    <div class="compSelect_ul">
+                                                                        <div class="li on">Info. monto pago</div>
+                                                                        <div class="li">Algo mas de monto pago</div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        </fieldset>
+                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Fecha pago<span class="req" aria-label="required">*</span></label>
+                                                            <div style="display: flex;">
+                                                                <input type="date" id="Apellido" title="dasdsadsa" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value="">
+                                                            </div>
                                                         </fieldset>
                                                     </div>
                                                     <div style="display: flex;justify-content: flex-end;">
@@ -238,32 +361,39 @@
                                                 </div>
 
 
-
-
-
                                                 <div class="page page-three">
-                                                    <fieldset class="form-group form-group-phone"><label>Especialidad
-                                                            <span class="req">*</span></label>
-                                                        <div class="form-group">
-                                                            <select class="form-control select2" name="" id="">
-                                                                <option value="">Pediatra</option>
-                                                                <option value="">Psicologo</option>
-                                                                <option value="">Medicina general</option>
-                                                            </select>
+                                                    <fieldset class="form-group form-group-phone">
+                                                        <label>Confirme y acepte los términos de uso e información sobre la recopilación y el uso de información personal.</label>
+                                                        <br><br>
+                                                        <div style="display: flex;">
+                                                            <div>
+                                                                <input style="margin-top: 3px;" type="checkbox" name="" id="">&MediumSpace; he leido y acepto la política de privacidad
+                                                            </div>
+
+                                                            <p class="fR">
+                                                                <a href="<?= FOLDER_PATH ?>/Popup/Privacy.html" onclick="window.open(this.href, '', 'width=510, height=540'); return false;" class="aBtn">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        <font style="vertical-align: inherit;">Ver detalles</font>
+                                                                    </font>
+                                                                </a>
+                                                            </p>
                                                         </div>
+                                                        <br>
+                                                        <div style="display: flex;">
+                                                            <div>
+                                                                <input style="margin-top: 3px;" type="checkbox" name="" id="">&MediumSpace; he leido y acepto los terminos y condiciones de uso
+                                                            </div>
+
+                                                            <p class="fR">
+                                                                <a href="<?= FOLDER_PATH ?>/Popup/Service.html" onclick="window.open(this.href, '', 'width=510, height=540'); return false;" class="aBtn">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        <font style="vertical-align: inherit;">Ver detalles</font>
+                                                                    </font>
+                                                                </a>
+                                                            </p>
+                                                        </div> <br>
+                                                        
                                                     </fieldset>
-                                                    <div class="ctHidden">
-                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Código Medico del Perú (CMP) <span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="ctHidden">
-                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Nombres <span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
-                                                    </div>
-                                                    <div class="ctHidden">
-                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Apellido Paterno <span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
-                                                        <fieldset class="form-group"><label for="Apellido" id="label-Apellido">Apellido Materno <span class="req" aria-label="required">*</span></label><input id="Apellido" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value="">
-                                                        </fieldset>
-                                                    </div>
                                                     <div style="display: flex;justify-content: flex-end;">
                                                         <div class="ux-btn-set ux-btn-split save-cancel-btn-set" style="text-align: right;" role="group">
                                                             <button data-eid="gce.cart.checkout.customer-contact-save.click" tabindex="-1" class="btn btn-primary ux-btn-set-item" id="prevBtn-3" type="button">Anterior</button>
@@ -293,31 +423,19 @@
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/select2.full.min.js"></script>
 
-    <!-- <svg id="CDLoading" class="js-remover" style="display: none;" xmlns="http://www.w3.org/2000/svg" fill="#d52b1e" viewBox="0 0 250 250"> -->
-    <svg id="CDLoading" class="js-remover loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-        <rect x="19" y="19" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0s" calcMode="discrete"></animate>
+    <svg class="js-remover" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: none;" width="101px" height="101px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <!-- <svg id="CDLoading" class="js-remover loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: block;" width="101px" height="101px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"> -->
+        <rect x="14.5" y="30" width="11" height="40" fill="#0051a2">
+            <animate attributeName="opacity" dur="1.5873015873015872s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-0.9523809523809523"></animate>
         </rect>
-        <rect x="40" y="19" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.125s" calcMode="discrete"></animate>
+        <rect x="34.5" y="30" width="11" height="40" fill="#1b75be">
+            <animate attributeName="opacity" dur="1.5873015873015872s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-0.634920634920635"></animate>
         </rect>
-        <rect x="61" y="19" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.25s" calcMode="discrete"></animate>
+        <rect x="54.5" y="30" width="11" height="40" fill="#408ee0">
+            <animate attributeName="opacity" dur="1.5873015873015872s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-0.3174603174603175"></animate>
         </rect>
-        <rect x="19" y="40" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.875s" calcMode="discrete"></animate>
-        </rect>
-        <rect x="61" y="40" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.375s" calcMode="discrete"></animate>
-        </rect>
-        <rect x="19" y="61" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.75s" calcMode="discrete"></animate>
-        </rect>
-        <rect x="40" y="61" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.625s" calcMode="discrete"></animate>
-        </rect>
-        <rect x="61" y="61" width="20" height="20" fill="#0051a2">
-            <animate attributeName="fill" values="#1b75be;#0051a2;#0051a2" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.5s" calcMode="discrete"></animate>
+        <rect x="74.5" y="30" width="11" height="40" fill="#89bff8">
+            <animate attributeName="opacity" dur="1.5873015873015872s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-1.5873015873015872"></animate>
         </rect>
     </svg>
 
@@ -352,7 +470,7 @@
         const threPrevBtn = document.getElementById("prevBtn-3");
         firtNextBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-100%";
-            document.querySelector(".steps").style.cssText = "height: 370px;";
+            document.querySelector(".steps").style.cssText = "height: 870px;";
             document.getElementById("first").className = "ux-tabs-wiz-step-complete";
             document.getElementById("second").className = "ux-tabs-wiz-step-current";
             document.getElementById("title-text").textContent = "Registrar usuario";
@@ -366,19 +484,73 @@
         });
         secnNextBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-200%";
-            document.querySelector(".steps").style.cssText = "height: 455px;";
+            document.querySelector(".steps").style.cssText = "height: 855px;";
             document.getElementById("second").className = "ux-tabs-wiz-step-complete";
             document.getElementById("last").className = "ux-tabs-wiz-step-current";
             document.getElementById("title-text").textContent = "Información personal";
-            document.getElementById("title-text").textContent = "Completo";
+            document.getElementById("title-text").textContent = "Términos y condiciones";
         });
         threPrevBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-100%";
-            document.querySelector(".steps").style.cssText = "height: 370px;";
+            document.querySelector(".steps").style.cssText = "height: 870px;";
             document.getElementById("second").className = "ux-tabs-wiz-step-current";
             document.getElementById("last").className = "ux-tabs-wiz-step-incomplete";
             document.getElementById("title-text").textContent = "Registrar usuario";
         });
+    </script>
+    <script>
+        let message_pago = document.getElementById("monto_pago");
+        let message_code = document.getElementById("insert_code");
+        let message_mail = document.getElementById("e_mail");
+        let message_address = document.getElementById("address_attention");
+
+        message_pago.addEventListener("mouseover", function(event) {
+            message_pago.classList.add("hover");
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: visible;";
+        }, false);
+
+        message_pago.addEventListener("mouseout", function(event) {
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: hidden;";
+            message_pago.classList.remove("hover");
+        }, false);
+
+        message_code.addEventListener("mouseover", function(event) {
+            message_code.classList.add("hover");
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: visible;";
+        }, false);
+
+        message_code.addEventListener("mouseout", function(event) {
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: hidden;";
+            message_code.classList.remove("hover");
+        }, false);
+
+        message_mail.addEventListener("mouseover", function(event) {
+            message_mail.classList.add("hover");
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: visible;";
+        }, false);
+
+        message_mail.addEventListener("mouseout", function(event) {
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: hidden;";
+            message_mail.classList.remove("hover");
+        }, false);
+
+        message_address.addEventListener("mouseover", function(event) {
+            message_address.classList.add("hover");
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: visible;";
+        }, false);
+
+        message_address.addEventListener("mouseout", function(event) {
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: hidden;";
+            message_address.classList.remove("hover");
+        }, false);
     </script>
 
 </body>
