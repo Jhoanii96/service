@@ -152,7 +152,7 @@
 
 <!-- <body class="time_loader" style="overflow-y: hidden;"> -->
 
-<body>
+<body style="background: url(https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1470&q=80) center center / cover no-repeat fixed; margin: 0; background-position: 0 80%;">
     <div class="app pl1 newBrand">
         <div class="app-route">
             <div class="checkout-wrapper">
@@ -212,7 +212,7 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="address-form undefined">
-                                                        <fieldset class="form-group"><label for="address1" id="label-address1">Dirección <span class="req" aria-label="required">*</span></label><input id="address1" name="address1" autocomplete="on" data-valid="true" aria-labelledby="label-address1" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label for="address1" id="label-address1">Dirección de domicilio <span class="req" aria-label="required">*</span></label><input id="address1" name="address1" autocomplete="on" data-valid="true" aria-labelledby="label-address1" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         <fieldset class="form-group form-group-phone"><label>Género<span class="req">*</span></label>
                                                             <div class="form-group">
                                                                 <select class="form-control" name="" id="">
@@ -229,7 +229,17 @@
                                                             <fieldset class="form-group"><label for="city" id="label-city">Fecha Nacimiento <span class="req" aria-label="required">*</span></label><input type="date" id="city" name="city" data-valid="true" aria-labelledby="label-city" aria-required="true" class="ctHidden form-control" value="">
                                                             </fieldset>
                                                         </div>
-                                                        <fieldset class="form-group form-group-phone"><label>Tiempo de atención promedio<span class="req">*</span></label>
+                                                        <fieldset class="form-group form-group-phone">
+                                                            <label id="time_atention">Tiempo de atención promedio
+                                                                <span class="req">*</span>
+                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
+                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
+                                                                    <div class="compSelect_ul">
+                                                                        <div class="li on">Info. tiempo de atención</div>
+                                                                        <div class="li">Algo mas de atencion promedio</div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
                                                             <div class="form-group">
                                                                 <select class="form-control select2" name="" id="">
                                                                     <option value="">30 minutos</option>
@@ -239,7 +249,16 @@
                                                         </fieldset>
                                                         <div class="city-field">
                                                             <fieldset class="form-group">
-                                                                <label for="city" id="label-city">Precio promedio <span class="req" aria-label="required">*</span></label>
+                                                                <label id="price_half">Precio promedio
+                                                                    <span class="req" aria-label="required">*</span>
+                                                                    &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
+                                                                    <div class="dropbox_dropcontent dropbox_arrow-top">
+                                                                        <div class="compSelect_ul">
+                                                                            <div class="li on">Info. precio</div>
+                                                                            <div class="li">Algo mas de precio</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
                                                                 <input type="text" id="city" name="city" data-valid="true" aria-labelledby="label-city" aria-required="true" class="ctHidden form-control" value="">
                                                             </fieldset>
                                                         </div>
@@ -342,7 +361,17 @@
                                                             </label>
                                                             <input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         </fieldset>
-                                                        <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Fecha pago<span class="req" aria-label="required">*</span></label>
+                                                        <fieldset class="form-group">
+                                                            <label id="date_pay">Fecha pago
+                                                                <span class="req" aria-label="required">*</span>
+                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
+                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
+                                                                    <div class="compSelect_ul">
+                                                                        <div class="li on">Info. precio</div>
+                                                                        <div class="li">Algo mas de precio</div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
                                                             <div style="display: flex;">
                                                                 <input type="date" id="Apellido" title="dasdsadsa" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value="">
                                                             </div>
@@ -392,7 +421,7 @@
                                                                 </a>
                                                             </p>
                                                         </div> <br>
-                                                        
+
                                                     </fieldset>
                                                     <div style="display: flex;justify-content: flex-end;">
                                                         <div class="ux-btn-set ux-btn-split save-cancel-btn-set" style="text-align: right;" role="group">
@@ -503,6 +532,9 @@
         let message_code = document.getElementById("insert_code");
         let message_mail = document.getElementById("e_mail");
         let message_address = document.getElementById("address_attention");
+        let message_time = document.getElementById("time_atention");
+        let message_price = document.getElementById("price_half");
+        let message_date = document.getElementById("date_pay");
 
         message_pago.addEventListener("mouseover", function(event) {
             message_pago.classList.add("hover");
@@ -550,6 +582,42 @@
             let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
             setvisible.style.cssText = "visibility: hidden;";
             message_address.classList.remove("hover");
+        }, false);
+
+        message_time.addEventListener("mouseover", function(event) {
+            message_time.classList.add("hover");
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: visible;";
+        }, false);
+
+        message_time.addEventListener("mouseout", function(event) {
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: hidden;";
+            message_time.classList.remove("hover");
+        }, false);
+
+        message_price.addEventListener("mouseover", function(event) {
+            message_price.classList.add("hover");
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: visible;";
+        }, false);
+
+        message_price.addEventListener("mouseout", function(event) {
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: hidden;";
+            message_price.classList.remove("hover");
+        }, false);
+
+        date_pay.addEventListener("mouseover", function(event) {
+            date_pay.classList.add("hover");
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: visible;";
+        }, false);
+
+        date_pay.addEventListener("mouseout", function(event) {
+            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
+            setvisible.style.cssText = "visibility: hidden;";
+            date_pay.classList.remove("hover");
         }, false);
     </script>
 

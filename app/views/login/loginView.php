@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<?= FOLDER_PATH ?>/src/css/main_login.css">
 </head>
 
-<body>
+<body style="background: url(https://image.freepik.com/foto-gratis/mesa-medica-estetoscopio-mascarilla_23-2148519724.jpg) center center / cover no-repeat fixed;">
 
     <div class="limiter">
         <div class="container-login100">

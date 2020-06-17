@@ -114,12 +114,12 @@ a {
 
 .app {
     color: #333;
-    background-color: #e8e8e8;
+    /* background-color: #e8e8e8; */
     width: 100%;
 }
 
 .app.newBrand {
-    background-color: #f5f7f8;
+    /* background-color: #f5f7f8; */
     margin-top: 15px;
 }
 
@@ -577,7 +577,7 @@ a.dropdown-item:active:hover {
 
 @media (min-width: 768px) {
     .app {
-        background-color: #fff;
+        /* background-color: #fff; */
     }
 
     .container {

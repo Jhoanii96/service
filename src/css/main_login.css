@@ -216,7 +216,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #D6EEF9;
+  /* background: #D6EEF9; */
   /* background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
   background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
   background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
