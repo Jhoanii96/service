@@ -48,7 +48,10 @@
         }
 
         .select2-selection--single:focus {
-            outline: .0025rem solid #000 !important;
+            color: #2b2b2b;
+            background-color: #fff;
+            border: 1px solid #000 !important;
+            outline: 0;
         }
 
         .select2-selection__arrow {
@@ -145,6 +148,23 @@
             outline-style: dashed;
             outline-color: blue;
             outline-width: 1px;
+        }
+    </style>
+    <style>
+        .r-button-style {
+            background-color: #0054d2;
+            border-style: none;
+            color: white;
+            margin-left: 15px;
+            font-size: 14px;
+            outline-style: dashed;
+            outline-width: 1px;
+            margin-right: 1px;
+            transition: ease-in-out all 0.2s;
+        }
+
+        .r-button-style:hover {
+            background-color: #0084d2;
         }
     </style>
 
@@ -313,7 +333,7 @@
                                                             </label>
                                                             <div style="display: flex;">
                                                                 <input id="state" name="state" data-valid="true" aria-labelledby="label-state" aria-required="true" class="form-control" value="">
-                                                                <button>Enviar código</button>
+                                                                <button class="r-button-style" style="width: 150px;">Enviar código</button>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -330,20 +350,20 @@
                                                                 </div>
                                                             </label>
                                                             <div style="display: flex;">
-                                                                <input id="Apellido" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value="">
-                                                                <button>OK</button>
+                                                                <input id="Apellido" name="lname" style="width: 100px;text-transform: uppercase;" maxlength="6" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value="">
+                                                                <button class="r-button-style" style="width: 75px;">OK</button>
                                                             </div>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
                                                         <fieldset class="form-group">
                                                             <div style="display: flex;">
-                                                                <span>ACTIVO:</span><SPAN style="color: green;">•</SPAN><span style="color: red;">⚫</span>
+                                                                <span>ACTIVO:</span>&MediumSpace; <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>&MediumSpace;<span style="color: green;"><i class="fa fa-circle" aria-hidden="true"></i></span>
                                                             </div>
                                                         </fieldset>
                                                         <fieldset class="form-group">
                                                             <div style="display: flex;">
-                                                                <span>FECHA DE ACTIVACIÓN:  /  /  </span>
+                                                                <span>FECHA DE ACTIVACIÓN: 18/06/2020  </span>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -383,7 +403,7 @@
                                                             <!-- <button data-eid="gce.cart.checkout.customer-contact-save.click" disabled="" tabindex="-1" class="btn btn-primary disabled ux-btn-set-item" id="" type="button">Guardar</button> -->
                                                         </div>
                                                         <div class="ux-btn-set ux-btn-split save-cancel-btn-set" style="text-align: right;" role="group">
-                                                            <button data-eid="gce.cart.checkout.customer-contact-save.click" tabindex="-1" class="btn btn-primary ux-btn-set-item" id="nextBtn-2" type="button">Siguiente</button>
+                                                            <button data-eid="gce.cart.checkout.customer-contact-save.click" tabindex="-1" class="btn btn-primary ux-btn-set-item" id="nextBtn-2" type="button" style="margin-left: 5px;">Siguiente</button>
                                                             <!-- <button data-eid="gce.cart.checkout.customer-contact-save.click" disabled="" tabindex="-1" class="btn btn-primary disabled ux-btn-set-item" id="" type="button">Guardar</button> -->
                                                         </div>
                                                     </div>
@@ -396,7 +416,7 @@
                                                         <br><br>
                                                         <div style="display: flex;">
                                                             <div>
-                                                                <input style="margin-top: 3px;" type="checkbox" name="" id="">&MediumSpace; he leido y acepto la política de privacidad
+                                                                <input style="margin-top: 3px;" type="checkbox" name="" id="">&MediumSpace; <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">He leido y acepto la política de privacidad</span>
                                                             </div>
 
                                                             <p class="fR">
@@ -410,7 +430,7 @@
                                                         <br>
                                                         <div style="display: flex;">
                                                             <div>
-                                                                <input style="margin-top: 3px;" type="checkbox" name="" id="">&MediumSpace; he leido y acepto los terminos y condiciones de uso
+                                                                <input style="margin-top: 3px;" type="checkbox" name="" id="">&MediumSpace; <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">He leido y acepto los terminos y condiciones de uso</span>
                                                             </div>
 
                                                             <p class="fR">
@@ -429,7 +449,7 @@
                                                             <!-- <button data-eid="gce.cart.checkout.customer-contact-save.click" disabled="" tabindex="-1" class="btn btn-primary disabled ux-btn-set-item" id="" type="button">Guardar</button> -->
                                                         </div>
                                                         <div class="ux-btn-set ux-btn-split save-cancel-btn-set" style="text-align: right;" role="group">
-                                                            <button data-eid="gce.cart.checkout.customer-contact-save.click" tabindex="-1" class="btn btn-primary ux-btn-set-item" id="Acept" type="button">Guardar y Aceptar</button>
+                                                            <button data-eid="gce.cart.checkout.customer-contact-save.click" tabindex="-1" class="btn btn-primary ux-btn-set-item" id="Acept" type="button" style="margin-left: 5px;">Guardar y Aceptar</button>
                                                             <!-- <button data-eid="gce.cart.checkout.customer-contact-save.click" disabled="" tabindex="-1" class="btn btn-primary disabled ux-btn-set-item" id="" type="button">Guardar</button> -->
                                                         </div>
                                                     </div>
@@ -499,7 +519,7 @@
         const threPrevBtn = document.getElementById("prevBtn-3");
         firtNextBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-100%";
-            document.querySelector(".steps").style.cssText = "height: 870px;";
+            document.querySelector(".steps").style.cssText = "height: 740px;";
             document.getElementById("first").className = "ux-tabs-wiz-step-complete";
             document.getElementById("second").className = "ux-tabs-wiz-step-current";
             document.getElementById("title-text").textContent = "Registrar usuario";
@@ -513,7 +533,7 @@
         });
         secnNextBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-200%";
-            document.querySelector(".steps").style.cssText = "height: 855px;";
+            document.querySelector(".steps").style.cssText = "height: 220px;";
             document.getElementById("second").className = "ux-tabs-wiz-step-complete";
             document.getElementById("last").className = "ux-tabs-wiz-step-current";
             document.getElementById("title-text").textContent = "Información personal";
@@ -521,7 +541,7 @@
         });
         threPrevBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-100%";
-            document.querySelector(".steps").style.cssText = "height: 870px;";
+            document.querySelector(".steps").style.cssText = "height: 740px;";
             document.getElementById("second").className = "ux-tabs-wiz-step-current";
             document.getElementById("last").className = "ux-tabs-wiz-step-incomplete";
             document.getElementById("title-text").textContent = "Registrar usuario";

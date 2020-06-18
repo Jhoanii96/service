@@ -1,10 +1,5 @@
 ﻿@charset "utf-8";
 
-/* ----------------------------------------------
- * HanbitSoft Service Development Team
- * 개인정보 제3자 제공에 대한 안내 Stylesheet
- * Author - artsohee@hanbitsoft.co.kr 20140509
-------------------------------------------------- */
 
 /* CSS Reset
 -------------------------------------------------------------- */
@@ -39,11 +34,11 @@ caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999
 
 /*공통*/
 #wrap {width:510px;}
-#header {padding:16px 0 0 0; width:510px; height:64px; background:url(../images/popup/spr_popHeader.png) repeat-x;}
-#header h1 {margin:0 auto; text-indent:-9999px; background:url(../images/popup/spr_popTitle.png) no-repeat;}
+#header {padding:16px 0 0 0; width:510px; height:64px; background:url(../image/spr_popHeader.png) repeat-x;}
+#header h1 {margin:0 auto; text-indent:-9999px; background:url(../image/spr_popTitle.png) no-repeat;}
 #container {padding:28px 20px 0 20px;letter-spacing:-1px;}
-#container h2 {margin:0 0 7px 0; height:17px; background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px}
-#container .conTitle {background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
+#container h2 {margin:0 0 7px 0; height:17px; background:url(../image/spr_popConTxt.png) no-repeat; text-indent:-9999px}
+#container .conTitle {background:url(../image/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
 #container .point {color:#eb110c}
 #personTerms .innerBox h3,
 #personTerms dl.recList, 
@@ -52,24 +47,24 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 .innerBox {border-top:2px solid #425e6c; border-bottom:2px solid #425e6c; color:#425e6c;}
 .innerBox.terms {overflow:auto; height:238px;  padding:20px 20px 0 20px; line-height:18px; border-right:1px solid #e8eef2; border-left:1px solid #e8eef2}
 .btnArea {padding:24px 0 31px 0;}
-.btnArea button {display:block; margin:0 auto; width:137px; height:42px; background:url(../images/popup/spr_popBtn.png) no-repeat; text-indent:-9999px}
+.btnArea button {display:block; margin:0 auto; width:137px; height:42px; background:url(../image/spr_popBtn.png) no-repeat; text-indent:-9999px}
 .btnArea .confirm {background-position:0 -59px;}
 .btnArea .next {background-position:-158px -59px;}
 .btnArea .close {width:95px; background-position:-314px 0;}
 .btnArea .closeW {width:96px;background-position:0 -168px;}
 .btnArea .psConfirm {width:115px; background-position:-315px -59px;}
 .dlList {width:470px;}
-.dlList span {display:block; background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
+.dlList span {display:block; background:url(../image/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
 .dlList dt,
 .dlList dd {border-bottom:1px solid #e1e6e9;}
 .dlList dt {clear:both;float:left; padding:16px 0 0 17px; width:108px; height:33px; }
-.dlList dt label {display:block; height:13px; background:url(../images/popup/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
+.dlList dt label {display:block; height:13px; background:url(../image/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
 .dlList dd {float:left; width:345px; height:39px; padding:10px 0 0 0;}
 .dlList dd .txtPw {padding:0 0 0 10px; width:208px; height:26px; line-height:26px; background:#eff4f7; border:1px solid #c4ced3; color:#1c252a;}
 .ulList li {border-bottom:1px solid #e1e6e9;}
 .ulList li.last {border:0;}
 .notice {padding:17px 17px 0 17px;}
-.notice li {padding:0 0 0 9px; color:#425e6c; letter-spacing:-1px; background:url(../images/popup/ico_dot.gif) no-repeat left 6px; line-height:18px;}
+.notice li {padding:0 0 0 9px; color:#425e6c; letter-spacing:-1px; background:url(../image/ico_dot.gif) no-repeat left 6px; line-height:18px;}
 
 /*개인정보제3자제공안내*/
 #thired #header h1 {width:252px; height:42px; background-position:0 -280px;}
@@ -77,7 +72,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #thired #container .innerBox p.desc {padding:0 0 16px 0;}
 #thired #container .innerBox p {padding:16px 0 0 0; line-height:17px;}
 #thired #container .innerBox dl { line-height:18px;}
-#thired #container .innerBox dt {float:left; padding:0 0 0 7px; background:url(../images/popup/ico_dot.gif) no-repeat left center; font-weight:bold; }
+#thired #container .innerBox dt {float:left; padding:0 0 0 7px; background:url(../image/ico_dot.gif) no-repeat left center; font-weight:bold; }
 #thired.allianceWrap #container .innerBox dt {padding:0; background:none;}
 #thired.allianceWrap #container .innerBox dd {padding:0 0 16px 0;}
 #thired #container .innerBox dd {padding:0 0 0 5px;}
@@ -109,8 +104,8 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #nameChange #container strong {display:block}
 #nameChange #container .innerBox {float:left; width:225px;}
 #nameChange #container .innerBox.left {margin:0 20px 0 0;}
-#nameChange #container .innerBox h3.phone {width:225px; height:80px; background:url(../images/popup/bg_nameChange1.png) no-repeat;}
-#nameChange #container .innerBox h3.ipin {width:225px; height:80px; background:url(../images/popup/bg_nameChange2.png) no-repeat;}
+#nameChange #container .innerBox h3.phone {width:225px; height:80px; background:url(../image/bg_nameChange1.png) no-repeat;}
+#nameChange #container .innerBox h3.ipin {width:225px; height:80px; background:url(../image/bg_nameChange2.png) no-repeat;}
 #nameChange #container .innerBox h3 span {display:block; padding:34px 0 0 117px;}
 #nameChange #container .innerBox .txtAlign {padding:30px 0 0 0; text-align:center;}
 #nameChange #container .innerBox .ipinBtn {background-position:-158px 0;}
@@ -139,7 +134,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #idPwFind .idCheck h2 {width:87px; background-position:0 -45px}
 #idPwFind .idCheck .ulList .id {float:left; padding:17px 0 0 19px; font-size:14px; font-weight:bold}
 #idPwFind .idCheck .ulList .pwFind {float:right; padding:6px 15px 7px 0;}
-#idPwFind .idCheck .pwFind button {display:block; width:111px; height:36px; background:url(../images/popup/spr_popBtn.png) no-repeat 0 -115px; text-indent:-9999px;}
+#idPwFind .idCheck .pwFind button {display:block; width:111px; height:36px; background:url(../image/spr_popBtn.png) no-repeat 0 -115px; text-indent:-9999px;}
 
 /*아이디 확인2*/
 #idPwFind .idCheck.type2 button {width:134px; height:36px; background-position:0 -228px;}
@@ -156,7 +151,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #idPwFind .personCheck .ulList li.last p {float:left; margin:0 38px 0 0;}
 #idPwFind .personCheck .tempPw {color:#425e6c}
 #idPwFind .personCheck .tempPw span {float:left; padding:9px 9px 0 0;}
-#idPwFind .personCheck .tempPw button {float:left; width:148px; height:35px; background:url(../images/popup/spr_popBtn.png) no-repeat -159px -168px; text-indent:-9999px;}
+#idPwFind .personCheck .tempPw button {float:left; width:148px; height:35px; background:url(../image/spr_popBtn.png) no-repeat -159px -168px; text-indent:-9999px;}
 
 /*비밀번호 변경*/
 #idPwFind .pwCheck h2 {width:101px; background-position:0 -96px}
@@ -241,7 +236,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #postNum .searchArea .inputArea {padding:12px 0 13px 15px; border:1px solid #f0f5f7; background:#fff;}
 #postNum .searchArea .inputArea p input {float:left; width:342px; height:26px; border:1px solid #c4ced3; line-height:24px;}
 #postNum .searchArea .inputArea p.roadType input {margin:0 4px 0 0; width:165px;}
-#postNum .searchArea .inputArea button {margin:0 0 0 -1px;float:left;width:95px; height:28px; background:url(../images/popup/spr_popBtn.png) no-repeat -158px -228px; text-indent:-9999px;}
+#postNum .searchArea .inputArea button {margin:0 0 0 -1px;float:left;width:95px; height:28px; background:url(../image/spr_popBtn.png) no-repeat -158px -228px; text-indent:-9999px;}
 #postNum .innerBox {padding:18px; height:118px;}
 #postNum .innerBox li {padding:0 0 10px 0;}
 #postNum .innerBox li.loading {width:57px; margin:28px auto 0 auto;}
@@ -259,7 +254,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #idPwFind .personCheck .phone {width:36px; background-position:0 -735px;}
 #idPwFind .personCheck .confirmNum {width:48px; background-position:-51px -735px;}
 #idPwFind .personCheck .email {width:38px; background-position:-118px -735px;}
-#idPwFind .personCheck button.numBtn {margin:0 0 0 7px; display:inline-block; width:111px; height:35px; background:url(../images/popup/spr_popBtn.png) no-repeat -344px -167px; text-indent:-9999px; vertical-align:middle;}
+#idPwFind .personCheck button.numBtn {margin:0 0 0 7px; display:inline-block; width:111px; height:35px; background:url(../image/spr_popBtn.png) no-repeat -344px -167px; text-indent:-9999px; vertical-align:middle;}
 #idPwFind .personCheck dd.last {padding:6px 0 0 0;}
 #idPwFind .personCheck .selectArea.emailType select{margin:0 0 0 4px; display:inline-block; float:none; width:128px; height:18px; vertical-align:middle;}
 #idPwFind .personCheck .selectArea.emailType span {padding:0 4px; vertical-align:middle}
@@ -288,9 +283,9 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 
 /*한빛소프트 - 제휴제안 입력 폼*/
 #allinanceForm #wrap {width:700px;}
-#allinanceForm #wrap .icon {margin:4px 6px 0 0; float:left; width:4px; height:4px; background:url(../images/popup/ico_dot.gif) no-repeat; text-indent:-9999px;}
-#allinanceForm #header {padding:42px 0 0 34px; width:666px; height:107px; background:url(../images/popup/spr_popHeaderLong.png) repeat-x;}
-#allinanceForm #header .inner {width:596px; height:71px; background:url(../images/popup/bg_allianceTitle.png) no-repeat;}
+#allinanceForm #wrap .icon {margin:4px 6px 0 0; float:left; width:4px; height:4px; background:url(../image/ico_dot.gif) no-repeat; text-indent:-9999px;}
+#allinanceForm #header {padding:42px 0 0 34px; width:666px; height:107px; background:url(../image/spr_popHeaderLong.png) repeat-x;}
+#allinanceForm #header .inner {width:596px; height:71px; background:url(../image/bg_allianceTitle.png) no-repeat;}
 #allinanceForm #container {padding:28px 35px 0 35px;}
 #allinanceForm #container h2 {margin:0; height:auto; background:none; text-indent: 0;}
 #allinanceForm #container .essential {padding:0 0 10px 0; font-weight:normal; color:#8a8a8a; }
@@ -305,7 +300,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #allinanceForm #container .dlList dt.rightAlign {padding-left:16px;}
 #allinanceForm #container .dlList dt.suggestTitle{height:90px;}
 #allinanceForm #container .dlList dt label,
-#allinanceForm #container .dlList dt.suggestTitle p {padding:0 0 0 7px; height:auto; color:#8a8a8a; font-size:14px; line-height:58px; background:url(../images/popup/ico_dot.gif) no-repeat left 24px; text-indent:0;}
+#allinanceForm #container .dlList dt.suggestTitle p {padding:0 0 0 7px; height:auto; color:#8a8a8a; font-size:14px; line-height:58px; background:url(../image/ico_dot.gif) no-repeat left 24px; text-indent:0;}
 #allinanceForm #container .dlList dt.suggestTitle p {padding:24px 0 0 7px; line-height:18px; background-position:0 38px;}
 #allinanceForm #container .dlList dd {padding:0; width:216px; height:62px; /*height:42px;*/}
 #allinanceForm #container .dlList dd.selType {padding:20px 0 0 0; height:38px; }
@@ -363,9 +358,9 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #allinanceForm #container .checkArea p span {line-height:29px;}
 #allinanceForm #container .checkArea p input {vertical-align:middle;}
 #allinanceForm #container .checkArea p label {padding:0 0 0 10px; vertical-align:middle;}
-#allinanceForm #container .checkArea a {float:right; width:97px; height:29px; background:url(../images/popup/spr_popBtn.png) no-repeat -270px -227px; text-indent:-9999px;}
+#allinanceForm #container .checkArea a {float:right; width:97px; height:29px; background:url(../image/spr_popBtn.png) no-repeat -270px -227px; text-indent:-9999px;}
 #allinanceForm #container .submitArea {margin:40px 0 0 0; }
-#allinanceForm #container .submitArea button {display:block; margin:0 auto; width:158px; height:40px; background:url(../images/popup/spr_popBtn.png) no-repeat 0px -343px; text-indent:-9999px;}
+#allinanceForm #container .submitArea button {display:block; margin:0 auto; width:158px; height:40px; background:url(../image/spr_popBtn.png) no-repeat 0px -343px; text-indent:-9999px;}
 
 /*개인정보 수집 및 이용에 대한 안내 - 법 개정 관련 수정 2014-12-31*/
 #personTerms #header.nick h1 {width:90px; background-position: 0 -476px;}
@@ -384,7 +379,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #personTerms .termsUse table td,#thired table td {padding:10px; word-break:break-all; text-align:center; vertical-align:top; line-height:16px; border:1px solid #425e6c;}
 #personTerms .change input[type="text"] {padding:0 10px; width: 128px; height: 26px; line-height:26px; border: 1px solid #c4ced3; background: #eff4f7; color:#1c252a;}
 #personTerms .change .nickNotice {padding:0 10px; color:#425e6c;}
-#personTerms .change button {background: url(../images/popup/spr_popBtn.png) no-repeat;}
+#personTerms .change button {background: url(../image/spr_popBtn.png) no-repeat;}
 
 #personTerms .nickChange h2 {width:88px; background-position: 0 -1049px;}
 #personTerms .nickChange .innerBox.terms {height:100px;}
@@ -408,7 +403,7 @@ p.desc {color:#425e6c; letter-spacing:-1px; line-height:18px;}
 #personTerms  ul.agreeNotice li input {vertical-align: middle}
 #personTerms  ul.agreeNotice li label {vertical-align: middle}
 #personTerms  ul.agreeNotice li label a {color:#eb110c;}
-#personTerms  ul.agreeNotice .icoDot {padding:0 0 0 7px; background: url(../images/popup/ico_dot.gif) no-repeat left 10px; }
+#personTerms  ul.agreeNotice .icoDot {padding:0 0 0 7px; background: url(../image/ico_dot.gif) no-repeat left 10px; }
 
 #personTerms .emailChange h2 {background-position: 0 -1112px;}
 #personTerms .emailChange .innerBox.terms {height:100px;}
