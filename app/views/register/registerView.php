@@ -25,7 +25,7 @@
 
     <style>
         .select2-container--default {
-            width: 100% !important;
+            /* width: 100% !important; */
         }
 
         .select2-selection--single {
