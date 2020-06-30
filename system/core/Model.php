@@ -1,25 +1,25 @@
 <?php class Model
 {
     protected $db;
-    public function conectar()
+    static public function conectar()
     {
-        /* $this->db = new PDO(SGBD, USER, PASS);
-        return $this->db; */
+        $db = new PDO(SGBD, USER, PASS);
+        return $db;
     }
-    public function query_execute(string $consulta)
+    static public function query_execute(string $consulta)
     {
-        /* $reply = self::conectar()->prepare($consulta);
+        $reply = self::conectar()->prepare($consulta);
         $reply->execute();
-        return $reply; */
+        return $reply;
     }
-    public function getNewConnection()
+    static public function getNewConnection()
     {
-        /* $this->db = null;
+        $db = null;
         try {
-            $this->db = self::conectar();
+            $db = self::conectar();
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
-        return $this->db; */
+        return $db;
     }
 }

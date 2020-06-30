@@ -2,30 +2,25 @@
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 
-class my extends Controller
+class consultation extends Controller
 {
     private $session;
 
     public function __construct()
     {
         $this->session = new Session;
-        $this->session->getAll();
 
-        /* if (empty($this->session->get('admin')) || $this->session->get('admin') == "" || $this->session->get('admin') == NULL) {
-            header("Location: " . FOLDER_PATH . "/login");
-        } */
-
-        if (!$this->session->get('admin')) {
-            echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
+        if (!empty($this->session->get('userAdmin')) || $this->session->get('userAdmin') != "" || $this->session->get('userAdmin') != NULL) {
+            header("Location: " . FOLDER_PATH . "/");
         }
     }
 
     public function index()
     {
-        $this->view('my/my');
+        $this->view('consultation/consultation');
     }
 
-
+    
 
     public function salir()
     {
@@ -46,4 +41,5 @@ class my extends Controller
     {
         $this->view('login/login', ['error_message' => $message]);
     }
+
 }

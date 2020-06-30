@@ -33,7 +33,7 @@
                     </span>
                 </div>
 
-                <form id="login-form" class="login100-form validate-form">
+                <form action="<?= FOLDER_PATH . '/login/signin' ?>" method="post" id="login-form" class="login100-form validate-form">
                     <span class="login100-form-title">
                         Conexión
                     </span>
@@ -53,6 +53,13 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
+                    <?php
+                    if (!empty($data['error_message'])) {
+                        echo '<span style="text-align: center;display: block;color: red;margin-bottom: 15px;">' . $data['error_message'] . '</span>';
+                    } else {
+                        echo '';
+                    }
+                    ?>
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
@@ -86,10 +93,9 @@
     <script src="<?= FOLDER_PATH ?>/src/js/main_login.js"></script>
 
     <script>
-        
         document.getElementById("user").addEventListener("focus", userFunction);
         document.getElementById("pass").addEventListener("focus", passFunction);
-        
+
         function userFunction() {
             if (this.hasAttribute('readonly')) {
                 this.removeAttribute('readonly');

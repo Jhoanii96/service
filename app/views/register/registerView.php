@@ -172,9 +172,12 @@
 
 <!-- <body class="time_loader" style="overflow-y: hidden;"> -->
 
-<body style="background: url(https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1470&q=80) center center / cover no-repeat fixed; margin: 0; background-position: 0 80%;">
-    <div class="app pl1 newBrand">
-        <div class="app-route">
+<body>
+    <!-- <div>
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1470&q=80" alt="" style="background-position: 0 80%;background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+    </div> -->
+    <div class="app pl1 newBrand" style="">
+        <div class="app-route" style="padding-top: 20px;">
             <div class="checkout-wrapper">
                 <div class="ux-overlay-wrapper" style="min-height: 0px;">
                     <div class="checkout-view container">
@@ -203,7 +206,7 @@
                                 <div class="customer-contact-box">
                                     <h2 id="title-text" style="text-align: center;margin-bottom: 20px;">Información personal</h2>
                                     <div class="customer-contact">
-                                        <div class="steps" style="height: 1020px;">
+                                        <div class="steps">
                                             <form class="customer-contact-form">
                                                 <div class="page slidepage page-one">
                                                     <fieldset class="form-group form-group-phone"><label>Especialidad
@@ -216,7 +219,56 @@
                                                             </select>
                                                         </div>
                                                     </fieldset>
-                                                    <div class="ctHidden">
+                                                    <div class="name-fields">
+                                                        <div class="ctHidden">
+                                                            <fieldset class="form-group"><label>País
+                                                                    <span class="req">*</span></label>
+                                                                <div class="form-group">
+                                                                    <select class="form-control" name="" id="">
+                                                                        <option value="">Pediatra</option>
+                                                                        <option value="">Psicologo</option>
+                                                                        <option value="">Medicina general</option>
+                                                                    </select>
+                                                                </div>
+                                                            </fieldset>
+                                                            <fieldset class="form-group"><label>Departamento
+                                                                    <span class="req">*</span></label>
+                                                                <div class="form-group">
+                                                                    <select class="form-control" name="" id="">
+                                                                        <option value="">Pediatra</option>
+                                                                        <option value="">Psicologo</option>
+                                                                        <option value="">Medicina general</option>
+                                                                    </select>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <div class="name-fields">
+                                                        <div class="ctHidden">
+                                                            <fieldset class="form-group"><label>Provincia
+                                                                    <span class="req">*</span></label>
+                                                                <div class="form-group">
+                                                                    <select class="form-control" name="" id="">
+                                                                        <option value="">Pediatra</option>
+                                                                        <option value="">Psicologo</option>
+                                                                        <option value="">Medicina general</option>
+                                                                    </select>
+                                                                </div>
+                                                            </fieldset>
+                                                            <fieldset class="form-group"><label>Distrito
+                                                                    <span class="req">*</span></label>
+                                                                <div class="form-group">
+                                                                    <select class="form-control" name="" id="">
+                                                                        <option value="">Pediatra</option>
+                                                                        <option value="">Psicologo</option>
+                                                                        <option value="">Medicina general</option>
+                                                                    </select>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="ctHidden" style="clear: both;">
                                                         <fieldset class="form-group"><label for="Nombre" id="label-Nombre">Código Medico del Perú (CMP) <span class="req" aria-label="required">*</span></label><input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         </fieldset>
                                                     </div>
@@ -261,7 +313,7 @@
                                                                 </div>
                                                             </label>
                                                             <div class="form-group">
-                                                                <select class="form-control select2" name="" id="">
+                                                                <select class="form-control" name="" id="">
                                                                     <option value="">30 minutos</option>
                                                                     <option value="">1 hora</option>
                                                                 </select>
@@ -367,33 +419,22 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="ctHidden" style="clear: both;">
-                                                        <fieldset class="form-group">
-                                                            <label id="monto_pago" class="">Monto pago
-                                                                <span class="req" aria-label="required">*</span>
-                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
-                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
-                                                                    <div class="compSelect_ul">
-                                                                        <div class="li on">Info. monto pago</div>
-                                                                        <div class="li">Algo mas de monto pago</div>
-                                                                    </div>
-                                                                </div>
+                                                    <div class="ctHidden" style="margin-top: 20px; margin-bottom: 20px;">
+                                                        <div class="checkbox">
+                                                            <label style="font-weight: normal;">
+                                                                <input id="recomended" type="checkbox"> Te ha recomendado algún usuario
                                                             </label>
-                                                            <input id="Nombre" name="fname" data-valid="true" aria-labelledby="label-Nombre" aria-required="true" class="ctHidden form-control" value=""></fieldset>
-                                                        </fieldset>
-                                                        <fieldset class="form-group">
-                                                            <label id="date_pay">Fecha pago
-                                                                <span class="req" aria-label="required">*</span>
-                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
-                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
-                                                                    <div class="compSelect_ul">
-                                                                        <div class="li on">Info. precio</div>
-                                                                        <div class="li">Algo mas de precio</div>
-                                                                    </div>
-                                                                </div>
+                                                        </div>
+                                                        <fieldset id="select-user" class="form-group form-group-phone" style="margin-top: 5px; display: none;">
+                                                            <label style="font-weight: normal;">Seleccione usuario
+                                                                <span class="req">*</span>
                                                             </label>
-                                                            <div style="display: flex;">
-                                                                <input type="date" id="Apellido" title="dasdsadsa" name="lname" data-valid="true" aria-labelledby="label-Apellido" aria-required="true" class="ctHidden form-control" value="">
+                                                            <div class="form-group">
+                                                                <select class="form-control select2" name="" id="" style="width: 100%;">
+                                                                    <option value="">Pediatra</option>
+                                                                    <option value="">Psicologo</option>
+                                                                    <option value="">Medicina general</option>
+                                                                </select>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -411,7 +452,10 @@
 
 
                                                 <div class="page page-three">
+
+
                                                     <fieldset class="form-group form-group-phone">
+
                                                         <label>Confirme y acepte los términos de uso e información sobre la recopilación y el uso de información personal.</label>
                                                         <br><br>
                                                         <div style="display: flex;">
@@ -467,12 +511,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="full-height">
+        </div>
+
     </div>
+
+
 
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/select2.full.min.js"></script>
 
-    <svg class="js-remover" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: none;" width="101px" height="101px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+    <svg id="CDLoading" class="js-remover" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: none;" width="101px" height="101px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
         <!-- <svg id="CDLoading" class="js-remover loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: block;" width="101px" height="101px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"> -->
         <rect x="14.5" y="30" width="11" height="40" fill="#0051a2">
             <animate attributeName="opacity" dur="1.5873015873015872s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" values="1;0.2;1" begin="-0.9523809523809523"></animate>
@@ -490,6 +540,21 @@
 
 
     <script>
+        $('#Acept').click(function() {
+            var delayInMilliseconds = 3000;
+            $("body").addClass('time_loader');
+            $("body").css('overflow-y', 'hidden');
+            $("#CDLoading").addClass('loader');
+            $("#CDLoading").css('display', 'block');
+            $('#Acept').attr("disabled", true);
+            setTimeout(function() {
+                window.location.href = "<?= FOLDER_PATH ?>/login";
+
+            }, delayInMilliseconds);
+
+
+
+        });
         /* $("body").addClass('time_loader');
         $("body").css('overflow-y', 'hidden');
         $("#CDLoading").addClass('loader');
@@ -519,54 +584,81 @@
         const threPrevBtn = document.getElementById("prevBtn-3");
         firtNextBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-100%";
-            document.querySelector(".steps").style.cssText = "height: 740px;";
+            document.querySelector(".steps").style.cssText = "height: 640px;";
             document.getElementById("first").className = "ux-tabs-wiz-step-complete";
             document.getElementById("second").className = "ux-tabs-wiz-step-current";
             document.getElementById("title-text").textContent = "Registrar usuario";
+            var body = $("html, body");
+            body.stop().animate({
+                scrollTop: 0
+            }, 300, 'swing');
         });
         secnPrevBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "0%";
-            document.querySelector(".steps").style.cssText = "height: 1020px;";
+            withsize = window.innerWidth;
+            if (withsize < 520) {
+                document.querySelector(".steps").style.cssText = "height: 1400px;";
+            }
+            if (withsize >= 520 && withsize < 768) {
+                document.querySelector(".steps").style.cssText = "height: 1200px;";
+            }
+            if (withsize >= 768 && withsize < 1200) {
+                document.querySelector(".steps").style.cssText = "height: 1400px;";
+            }
+            if (withsize >= 1200) {
+                document.querySelector(".steps").style.cssText = "height: 1200px;";
+            }
+            
+            /* document.querySelector(".steps").style.cssText = "height: 1400px;"; */
             document.getElementById("first").className = "ux-tabs-wiz-step-current";
             document.getElementById("second").className = "ux-tabs-wiz-step-incomplete";
             document.getElementById("title-text").textContent = "Información personal";
+
         });
         secnNextBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-200%";
-            document.querySelector(".steps").style.cssText = "height: 220px;";
+            withsize = window.innerWidth;
+            if (withsize < 520) {
+                document.querySelector(".steps").style.cssText = "height: 1400px;";
+            }
+            if (withsize >= 520 && withsize < 768) {
+                document.querySelector(".steps").style.cssText = "height: 1200px;";
+            }
+            if (withsize >= 768 && withsize < 1200) {
+                document.querySelector(".steps").style.cssText = "height: 1400px;";
+            }
+            if (withsize >= 1200) {
+                document.querySelector(".steps").style.cssText = "height: 1200px;";
+            }
+            /* document.querySelector(".steps").style.cssText = "height: 220px;"; */
+            document.querySelector(".full-height").style.cssText = "height: 1000px;";
+            document.querySelector("body").style.cssText = "overflow-y: hidden;";
+            var body = $("html, body");
+            body.stop().animate({
+                scrollTop: 0
+            }, 300, 'swing');
             document.getElementById("second").className = "ux-tabs-wiz-step-complete";
             document.getElementById("last").className = "ux-tabs-wiz-step-current";
             document.getElementById("title-text").textContent = "Información personal";
             document.getElementById("title-text").textContent = "Términos y condiciones";
+
         });
         threPrevBtn.addEventListener("click", function() {
             slidePage.style.marginLeft = "-100%";
-            document.querySelector(".steps").style.cssText = "height: 740px;";
+            document.querySelector(".steps").style.cssText = "height: 710px;";
+            document.querySelector(".full-height").style.cssText = "height: 200px;";
+            document.querySelector("body").style.cssText = "overflow-y: scroll;";
             document.getElementById("second").className = "ux-tabs-wiz-step-current";
             document.getElementById("last").className = "ux-tabs-wiz-step-incomplete";
             document.getElementById("title-text").textContent = "Registrar usuario";
         });
     </script>
     <script>
-        let message_pago = document.getElementById("monto_pago");
         let message_code = document.getElementById("insert_code");
         let message_mail = document.getElementById("e_mail");
         let message_address = document.getElementById("address_attention");
         let message_time = document.getElementById("time_atention");
         let message_price = document.getElementById("price_half");
-        let message_date = document.getElementById("date_pay");
-
-        message_pago.addEventListener("mouseover", function(event) {
-            message_pago.classList.add("hover");
-            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
-            setvisible.style.cssText = "visibility: visible;";
-        }, false);
-
-        message_pago.addEventListener("mouseout", function(event) {
-            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
-            setvisible.style.cssText = "visibility: hidden;";
-            message_pago.classList.remove("hover");
-        }, false);
 
         message_code.addEventListener("mouseover", function(event) {
             message_code.classList.add("hover");
@@ -627,18 +719,23 @@
             setvisible.style.cssText = "visibility: hidden;";
             message_price.classList.remove("hover");
         }, false);
+    </script>
 
-        date_pay.addEventListener("mouseover", function(event) {
-            date_pay.classList.add("hover");
-            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
-            setvisible.style.cssText = "visibility: visible;";
-        }, false);
+    <script>
+        var checkbox = document.querySelector("#recomended");
 
-        date_pay.addEventListener("mouseout", function(event) {
-            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
-            setvisible.style.cssText = "visibility: hidden;";
-            date_pay.classList.remove("hover");
-        }, false);
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                $("#select-user").css({
+                    'display': 'block',
+                    'margin-top': '5px'
+                });
+                document.querySelector(".steps").style.cssText = "height: 710px;";
+            } else {
+                $("#select-user").css('display', 'none');
+                document.querySelector(".steps").style.cssText = "height: 640px;";
+            }
+        });
     </script>
 
 </body>

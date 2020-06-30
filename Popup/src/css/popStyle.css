@@ -35,7 +35,7 @@ caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999
 /*공통*/
 #wrap {width:510px;}
 #header {padding:16px 0 0 0; width:510px; height:64px; background:url(../image/spr_popHeader.png) repeat-x;}
-#header h1 {margin:0 auto; text-indent:-9999px; background:url(../image/spr_popTitle.png) no-repeat;}
+#header h1 {margin:0 auto; /* text-indent:-9999px; background:url(../image/spr_popTitle.png) no-repeat; */}
 #container {padding:28px 20px 0 20px;letter-spacing:-1px;}
 #container h2 {margin:0 0 7px 0; height:17px; background:url(../image/spr_popConTxt.png) no-repeat; text-indent:-9999px}
 #container .conTitle {background:url(../image/spr_popConTxt.png) no-repeat; text-indent:-9999px;}
@@ -440,10 +440,15 @@ pre.policyPre {
 .policyPre .pink {color:#ff6666;font-size:12px;font-weight:bold;}
 .policyPre .red{color:#ea0000;}
 #thired.privacy #container .innerBox, #thired.service #container .innerBox{height:277px}
-#thired.privacy #header h1{width:263px;background-position:0 -1051px}
-.free.privacy #container h2{width:244px;background-position:0 -1232px}
-#thired.service #header h1{width:124px;background-position:0 -971px}
-.free.service #container h2{width:121px;background-position:0 -1202px}
+#thired.privacy #header h1{width:263px;background-position:0 -1051px;color: white;
+    font: caption;
+    text-align: center;}
+.free.privacy #container h2{width:440px;background-position:0 -1232px}
+#thired.service #header h1{width:154px;font: caption;
+    color: white;
+    text-align: center;
+    vertical-align: -webkit-baseline-middle;/* background-position:0 -971px */}
+.free.service #container h2{width:155px;background-position:0 -1202px}
 
 .privacy_view {word-wrap:break-word;white-space:pre-wrap;word-break:break-all;}
 

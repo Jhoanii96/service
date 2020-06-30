@@ -1,3 +1,11 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
 *,
 ::after,
 ::before {
@@ -127,6 +135,12 @@ a {
     width: 100%;
     min-width: 320px;
     padding-bottom: 30px;
+}
+
+body>div.app.pl1.newBrand {
+    background: url(https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1470&q=80) center center / cover no-repeat fixed;
+    margin: 0;
+    background-position: 0 80%;
 }
 
 .ux-overlay-wrapper {
@@ -430,6 +444,7 @@ input {
     cursor: pointer;
     outline-width: 1px;
 }
+
 .btn:active {
     outline-style: dashed;
 }
@@ -704,7 +719,8 @@ a.dropdown-item:active:hover {
     padding-top: 32px;
 }
 
-.dropbox_arrow-top:after, .dropbox_arrow-top:before {
+.dropbox_arrow-top:after,
+.dropbox_arrow-top:before {
     content: "";
     position: absolute;
     left: 20px;
@@ -741,7 +757,8 @@ a.dropdown-item:active:hover {
     cursor: pointer;
 }
 
-.compSelect_ul .li.on, .compSelect_ul .li:hover {
+.compSelect_ul .li.on,
+.compSelect_ul .li:hover {
     color: #0e67ec;
 }
 
@@ -780,3 +797,4 @@ a.dropdown-item:active:hover {
     text-decoration: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+

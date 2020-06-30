@@ -11066,7 +11066,7 @@ button,
 .app-header__logo .logo-src {
     height: 23px;
     width: 97px;
-    background: url(assets/images/logo-inverse.png)
+    background: url(/service/src/assets/media/images/logo-inverse.png)
 }
 
 .app-header__menu,
@@ -22478,14 +22478,6 @@ legend {
 
 .fa-2x {
     line-height: 2
-}
-
-@font-face {
-    font-family: 'Pe-icon-7-stroke';
-    src: url(assets/fonts/Pe-icon-7-stroke.eot);
-    src: url(assets/fonts/Pe-icon-7-stroke.eot?#iefixd7yf1v) format("embedded-opentype"), url(assets/fonts/Pe-icon-7-stroke.woff) format("woff"), url(assets/fonts/Pe-icon-7-stroke.ttf) format("truetype"), url(assets/fonts/Pe-icon-7-stroke.svg#Pe-icon-7-stroke) format("svg");
-    font-weight: normal;
-    font-style: normal
 }
 
 [class^="pe-7s-"],

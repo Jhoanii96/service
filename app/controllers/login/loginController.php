@@ -1,7 +1,7 @@
 <?php
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
-/* require ROOT . FOLDER_PATH . "/" . DATA . "admin/autoload" . DATAI . "php"; */
+require ROOT . FOLDER_PATH . "/app/models/login/loginModel.php";
 
 class login extends Controller
 {
@@ -11,9 +11,19 @@ class login extends Controller
 	{
 		$this->session = new Session;
 
-		if (!empty($this->session->get('userAdmin')) || $this->session->get('userAdmin') != "" || $this->session->get('userAdmin') != NULL) {
-			header("Location: " . FOLDER_PATH . "/");
+		$this->session->getAll();
+
+		/* if (!empty($this->session->get('admin')) || $this->session->get('admin') != "" || $this->session->get('admin') != NULL) {
+			header("Location: " . FOLDER_PATH . "/my");
+		} */
+
+		if ($this->session->get('admin')) {
+
+			echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
+
 		}
+
+		$this->model = new loginModel();
 	}
 
 	public function index()
@@ -23,34 +33,34 @@ class login extends Controller
 
 	public function signin()
 	{
-		$email = $_POST['email'];
-		$pass = $_POST['pass'];
+		$id = $_POST['users'];
+		$pass = $_POST['password'];
 
-		explode(" ", $email);
+		explode(" ", $id);
 		explode(" ", $pass);
 
-		$param[0] = $email;
+		$param[0] = $id;
 		$param[1] = $pass;
 
 		if (!$this->VerificarParametros($param)) {
 			header("Location: " . FOLDER_PATH . "/login");
 			$this->renderErrorMessage('*El usuario y la contraseña son obligatorios');
 		} else {
-			@$parametro = $this->dataLogin->cargar_usuario($param[0]);
+			@$parametro = $this->model->load_user($param[0]);
 			$identi = $parametro->fetch();
 
-			if ($param[0] != $identi['correo']) {
+			if ($param[0] != $identi[0]) {
 				header("Location: " . FOLDER_PATH . "/login");
 				$this->renderErrorMessage('*El usuario no existe');
 			} else {
 				// if($param['password'] != $parametro['clave_organizador']){
-				if ($param[1] != $identi['clave']) {
+				if ($param[1] != $identi[1]) {
 					header("Location: " . FOLDER_PATH . "/login");
 					$this->renderErrorMessage('*La contraseña es incorrecta');
 				} else {
-					$this->session->add('usuarioUsi', $param[0]);
+					$this->session->add('admin', $param[0]);
 					if (!empty($_POST["chkb"])) {
-						setcookie("member_login", $email, time() + (10 * 365 * 24 * 60 * 60));
+						setcookie("member_login", $id, time() + (10 * 365 * 24 * 60 * 60));
 						setcookie("member_password", $pass, time() + (10 * 365 * 24 * 60 * 60));
 					} else {
 						if (isset($_COOKIE["member_login"])) {
@@ -60,7 +70,7 @@ class login extends Controller
 							setcookie("member_password", "");
 						}
 					}
-					header("Location: " . FOLDER_PATH . "/");
+					header("Location: " . FOLDER_PATH . "/my");
 				}
 			}
 		}
