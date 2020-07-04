@@ -449,6 +449,26 @@ input {
     outline-style: dashed;
 }
 
+.btn-group-sm>.btn, .btn-sm {
+    padding: .3125rem .75rem .1875rem;
+    font-size: .875rem;
+    line-height: 1.5rem;
+    border-width: 0;
+    min-height: 2rem;
+    outline: 0;
+}
+
+.text-primary-o {
+    color: #0604a3!important;
+}
+
+.btn-tertiary, .btn-tertiary-inline {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    font-weight: 400;
+}
+
 .ux-tel-btn {
     position: absolute;
     height: 2.5625rem;
