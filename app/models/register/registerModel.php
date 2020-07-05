@@ -77,4 +77,11 @@ class registerModel extends Model
         
     }
 
+    public function verificar_codigo($code)
+    {
+        $query = "SELECT nombre_codigo FROM codigo_registro WHERE nombre_codigo = '$code';";
+        $res = Model::query_execute($query);
+        return $res;
+    }
+
 }

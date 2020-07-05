@@ -253,31 +253,44 @@
         <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1470&q=80" alt="" style="background-position: 0 80%;background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
     </div> -->
 <?php 
-    
-$times = $_COOKIE['times'];
+if (isset($_COOKIE['times'])) {
+    $times = $_COOKIE['times'];
+} else {
+    $times = 0;
+}
 
+$registro = 1;
 if(isset($times))
 {
+
     if($times == 3)
     {
 
 ?>
+    <span style="font-family: Arial, Helvetica, sans-serif;">Usted ha superado el número de intentos en generación de códigos, por favor vuelva mañana a intentarlo.</span>
+    <br>
+    <br>
+    <span style="font-family: Arial, Helvetica, sans-serif;">En instantes le reenviaremos a la página principal...</span>
+    <script>
+        setTimeout(function(){
+            location.href = "<?= FOLDER_PATH ?>/login";
+        }, 4000);
+    </script>
 
-<span style="font-family: Arial, Helvetica, sans-serif;">Usted ha superado el número de intentos en generación de códigos, por favor vuelva mañana a intentarlo.</span>
-<br>
-<br>
-<span style="font-family: Arial, Helvetica, sans-serif;">En instantes le reenviaremos a la página principal...</span>
-<script>
-    setTimeout(function(){
-        location.href = "<?= FOLDER_PATH ?>/login";
-    }, 4000);
-</script>
 <?php        
     /* sleep(3);
     echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>"); */
+        $registro = 0;
+    }
+    else
+    {
+        $registro = 1;
+    }
 }
-else
+
+if ($registro == 1) 
 {
+
 ?>
 
 
@@ -545,19 +558,19 @@ else
                                                             </label>
                                                             <div style="display: flex;">
                                                                 <input id="in_code" name="in_code" style="width: 100px;text-transform: uppercase;" maxlength="6" data-valid="true" aria-required="true" class="ctHidden form-control" value="">
-                                                                <button id="check_code" class="r-button-style" style="width: 80px;">Verificar</button>
+                                                                <button id="check_code" class="r-button-style" data-name-text="Verificando..." style="width: 80px;">Verificar</button>
                                                             </div>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
                                                         <fieldset class="form-group">
                                                             <div style="display: flex;">
-                                                                <span id="active" data-active="0">ACTIVO:</span>&MediumSpace; <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>&MediumSpace;<span style="color: green;"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                                <span id="active" data-active="0">ACTIVO:</span>&MediumSpace; <span><i id="active-1" class="fa fa-circle" style="color: #ff0000;" aria-hidden="true"></i></span>
                                                             </div>
                                                         </fieldset>
                                                         <fieldset class="form-group">
                                                             <div style="display: flex;">
-                                                                <span>FECHA DE ACTIVACIÓN: --/--/---- </span>
+                                                                <span id="factive">FECHA DE ACTIVACIÓN: --/--/---- </span>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -659,7 +672,7 @@ else
 <?php
 
            
-    }
+    
 } 
 
 ?>
@@ -700,7 +713,9 @@ else
                 return;
             }
 
-            /* var especialidad = $('#esp').children("option:selected").val();
+            /* Paso 1 */
+
+            var especialidad = $('#esp').children("option:selected").val();
             var pais = $('#id_pais').children("option:selected").val();
             var departamento = $('#id_departamento').children("option:selected").val();
             var provincia = $('#id_provincia').children("option:selected").val();
@@ -714,36 +729,47 @@ else
             var gen = $('#gen').children("option:selected").val();
             var cellphone = $('#cellphone').val();
             var fn = $('#fn').val();
-            var price = $('#price').val(); */
+            var price = $('#price').val();
 
-            /* var username = $('#username').val();
+            /* Paso 2 */
+
+            var username = $('#username').val();
             var new_password = $('#new_password').val();
             var dconsulta = $('#dconsulta').val();
             var email = $('#email').val();
             var isactive = document.getElementById('active');
             var in_code = isactive.getAttribute('data-active');
             var recomended = document.querySelector("#recomended");
-            var usersearch = $('#user-search').children("option:selected").val(); */
+            var usersearch = $('#user-search').children("option:selected").val();
 
-            /* data.append("firstName", firstName);
-			data.append("lastName", lastName);
-			data.append("correo", correo);
-			data.append("dni", dni);
-			data.append("contact_point", contact_point);
-			data.append("date", date);
-			data.append("oficina_n", data_ofn);
-			data.append("unidad_n", data_und);
-			data.append("image", $('input[type=file]')[0].files[0]);
-			data.append("password", password);
-			data.append("token", toks);
-			data.append("tokn", tokn); */
+            var data = new FormData();
 
+            data.append("especialidad", especialidad);
+			data.append("pais", pais);
+			data.append("departamento", departamento);
+            data.append("provincia", provincia);
+            data.append("distrito", distrito);
+            data.append("cmp", cmp);
+            data.append("dni", dni);
+            data.append("nombre", nombre);
+            data.append("apellidop", apellidop);
+            data.append("apellidom", apellidom);
+            data.append("address1", address1);
+            data.append("gen", gen);
+            data.append("cellphone", cellphone);
+            data.append("fn", fn);
+            data.append("price", price);
 
-            /* const xhr = new XMLHttpRequest();
-            xhr.open("POST", array_options['add_a'], true);
-            xhr.send(data); */
+			data.append("username", username);
+			data.append("new_password", new_password);
+			data.append("dconsulta", dconsulta);
+			data.append("email", email);
+			data.append("isactive", isactive);
+			data.append("in_code", in_code);
+			data.append("recomended", recomended);
+			data.append("usersearch", usersearch);
 
-            /* $.ajax({
+            $.ajax({
             	beforeSend: function() {
             		var btnadd = document.getElementById('admadd');
             		var text = btnadd.getAttribute('data-name-text');
@@ -751,62 +777,39 @@ else
             		$("#admadd").append("" + text + "&ThinSpace;&ThinSpace;<span id='spinner-ad' class='fa fa-spinner fa-spin'></span>");
             		$("#admadd").attr("disabled", true);
             	},
-            	url: array_options['add_a'],
+            	url: "<?php echo FOLDER_PATH ?>/register/save",
             	type: "POST",
             	data: data,
             	contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
             	processData: false, // NEEDED, DON'T OMIT THIS
             	success: function(resp) {
-            		$("#spinner-ad").remove();
-            		$("#admadd").html('Añadido');
-            		$("#admadd").attr("disabled", false);
-            		setTimeout(function() {
-            			location.href = "<?= FOLDER_PATH ?>/usuarios?uq=1";
-            		}, 500);
+                    /* Load */
+                    /* var delayInMilliseconds = 3000;
+                    $("body").addClass('time_loader');
+                    $("body").css('overflow-y', 'hidden');
+                    $("#CDLoading").addClass('loader');
+                    $("#CDLoading").css('display', 'block');
+                    $('#Acept').attr("disabled", true);
+                    setTimeout(function() {
+                        window.location.href = "<?= FOLDER_PATH ?>/login";
+
+                    }, delayInMilliseconds); */
             	}
-            }) */
-
-
-
-
-
-
-
-
-            /* Load */
-
-            var delayInMilliseconds = 3000;
-            $("body").addClass('time_loader');
-            $("body").css('overflow-y', 'hidden');
-            $("#CDLoading").addClass('loader');
-            $("#CDLoading").css('display', 'block');
-            $('#Acept').attr("disabled", true);
-            setTimeout(function() {
-                window.location.href = "<?= FOLDER_PATH ?>/login";
-
-            }, delayInMilliseconds);
-
-
-
+            })
         });
-        /* $("body").addClass('time_loader');
-        $("body").css('overflow-y', 'hidden');
-        $("#CDLoading").addClass('loader');
-        $("#CDLoading").css('display', 'block');
-        $('#lmd2').attr("disabled", true); */
     </script>
 
     <script>
         var veces = 1;
         $('#send_code').on('click', function() {
-            var times = getCookie('times');
+            /* var times = getCookie('times');
             if (times == 3) {
                 swal('¡Advertencia!', 'Ha superado el número de intentos permitido, vuelva al dia siguiente a intentarlo.','warning');
                 return;
             } else {
                 veces = veces + 1;
                 setCookie('times',veces,1);
-            }
+            } */
             
             var email = $('#email').val();
             if (email == "") {
@@ -856,6 +859,60 @@ else
                 }
             })
         });
+
+        $('#check_code').on('click', function() {
+            
+            var code = $('#in_code').val();
+            if (code == "") {
+                swal("Atención!", "Debe ingresar el código", "warning");
+                return;
+            }
+            var data = new FormData();
+            data.append("code", code);
+            $.ajax({
+                beforeSend: function() {
+                    var btncode = document.getElementById('check_code');
+                    var text = btncode.getAttribute('data-name-text');
+                    $("#check_code").css("width", "110px");
+                    $("#check_code").html(text);
+                    $("#check_code").attr("disabled", true);
+                },
+                url: "<?php echo FOLDER_PATH ?>/register/confirm",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    if (resp == '1') {
+                        swal({
+                            title: '¡Confirmación!',
+                            text: 'El código ingresado es válido',
+                            icon: 'success',
+                            timer: 3000,
+                            buttons: false
+                        })
+                        var today = new Date();
+                        var date_es = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+                        var date_in = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                        $("#check_code").attr("disabled", true);
+                        $("#active").attr("data-active", "1|"+date_in);
+                        $("#active-1").css("color", "#00b300");
+                        $("#check_code").css("width", "80px");
+                        $("#check_code").html('Verificado');
+                        $("#factive").html('FECHA DE ACTIVACIÓN: ' + date_es);
+                    }
+                    else 
+                    {
+                        swal('¡Advertencia!','El código ingresado no es válido','warning');
+                        $("#check_code").attr("disabled", false);
+                        $("#active").attr("data-active", "0");
+                        $("#active-1").css("color", "#ff0000");
+                        $("#check_code").css("width", "80px");
+                        $("#check_code").html('Verificar');
+                    }
+                }
+            })
+        });
     </script>
 
     <script>
@@ -901,7 +958,7 @@ else
             var fn = $('#fn').val();
             var price = $('#price').val();
 
-            /* if (especialidad == 0) {
+            if (especialidad == 0) {
                 swal("Atención!", "Debe seleccionar la especialidad en la que pertenece.", "warning");
                 return;
             }
@@ -968,7 +1025,7 @@ else
             if (price == "") {
                 swal("Atención!", "Debe ingresar el precio de consulta promedio.", "warning");
                 return;
-            } */
+            }
 
             /* carga de la siguiente página */
             slidePage.style.marginLeft = "-100%";
@@ -1011,7 +1068,7 @@ else
         });
         secnNextBtn.addEventListener("click", function() {
 
-            /* var username = $('#username').val();
+            var username = $('#username').val();
             var new_password = $('#new_password').val();
             var dconsulta = $('#dconsulta').val();
             var email = $('#email').val();
@@ -1060,7 +1117,7 @@ else
                     swal("Atención!", "Debe buscar un usuario recomendado.", "warning");
                     return;
                 }
-            } */
+            }
 
             slidePage.style.marginLeft = "-200%";
             withsize = window.innerWidth;

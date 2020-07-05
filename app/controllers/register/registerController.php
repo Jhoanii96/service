@@ -368,4 +368,84 @@ class register extends Controller
 
 		sleep(1);
 	}
+
+	public function confirm()
+	{
+		$this->model = new registerModel();
+
+		$this->verificar_codigo = $this->model->verificar_codigo($_POST["code"]);
+
+		$exist_cod = $this->verificar_codigo->fetch();
+
+		if (isset($exist_cod)) {
+			if ($_POST["code"] == $exist_cod[0]) {
+				echo '1';
+			} 
+			else 
+			{
+				echo '0';
+			}
+		} 
+		else 
+		{
+			echo '0';
+		}
+	}
+
+	public function save()
+	{
+		$especialidad = $_POST["especialidad"];
+		$pais = $_POST["pais"];
+		$departamento = $_POST["departamento"];
+		$provincia = $_POST["provincia"];
+		$distrito = $_POST["distrito"];
+		$cmp = $_POST["cmp"];
+		$dni = $_POST["dni"];
+		$nombre = $_POST["nombre"];
+		$apellidop = $_POST["apellidop"];
+		$apellidom = $_POST["apellidom"];
+		$address1 = $_POST["address1"];
+		$gen = $_POST["gen"];
+		$cellphone = $_POST["cellphone"];
+		$fn = $_POST["fn"];
+		$price = $_POST["price"];
+
+		$username = $_POST['username'];
+		$new_password = $_POST['new_password'];
+		$dconsulta = $_POST['dconsulta'];
+		$email = $_POST['email'];
+		$isactive = $_POST['isactive'];
+		$in_code = $_POST['in_code'];
+		$recomended = $_POST['recomended'];
+		$usersearch = $_POST['usersearch'];
+
+		$this->model->insertar_registro(
+			$especialidad, 
+			$pais, 
+			$departamento, 
+			$provincia, 
+			$distrito, 
+			$cmp, 
+			$dni, 
+			$nombre, 
+			$apellidop, 
+			$apellidom, 
+			$address1, 
+			$gen, 
+			$cellphone, 
+			$fn, 
+			$price, 
+			$username, 
+			$new_password, 
+			$dconsulta, 
+			$email, 
+			$isactive, 
+			$in_code, 
+			$recomended, 
+			$usersearch 
+		);
+
+		echo '1';
+
+	}
 }
