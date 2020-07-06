@@ -42,7 +42,7 @@
                         <input id="user" class="input100" type="text" name="users" placeholder="Nombre usuario" readonly autocomplete="off" value autocapitalize="off" autocorrect="off" aria-haspopup="false">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                     </div>
 
