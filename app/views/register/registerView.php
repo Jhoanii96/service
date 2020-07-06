@@ -558,7 +558,7 @@ if ($registro == 1)
                                                             </label>
                                                             <div style="display: flex;">
                                                                 <input id="in_code" name="in_code" style="width: 100px;text-transform: uppercase;" maxlength="6" data-valid="true" aria-required="true" class="ctHidden form-control" value="">
-                                                                <button id="check_code" class="r-button-style" data-name-text="Verificando..." style="width: 80px;">Verificar</button>
+                                                                <button type="button" id="check_code" class="r-button-style" data-name-text="Verificando..." style="width: 80px;">Verificar</button>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -641,11 +641,11 @@ if ($registro == 1)
                                                     </fieldset>
                                                     <div style="display: flex;justify-content: flex-end;">
                                                         <div class="ux-btn-set ux-btn-split save-cancel-btn-set" style="text-align: right;" role="group">
-                                                            <button data-eid="gce.cart.checkout.customer-contact-save.click" tabindex="-1" class="btn btn-primary ux-btn-set-item" id="prevBtn-3" type="button">Anterior</button>
+                                                            <button class="btn btn-primary ux-btn-set-item" id="prevBtn-3" type="button">Anterior</button>
                                                             <!-- <button data-eid="gce.cart.checkout.customer-contact-save.click" disabled="" tabindex="-1" class="btn btn-primary disabled ux-btn-set-item" id="" type="button">Guardar</button> -->
                                                         </div>
                                                         <div class="ux-btn-set ux-btn-split save-cancel-btn-set" style="text-align: right;" role="group">
-                                                            <button data-eid="gce.cart.checkout.customer-contact-save.click" tabindex="-1" class="btn btn-primary ux-btn-set-item" id="Acept" type="button" style="margin-left: 5px;">Guardar y Aceptar</button>
+                                                            <button class="btn btn-primary ux-btn-set-item" id="Acept" type="button" style="margin-left: 5px;">Guardar y Aceptar</button>
                                                             <!-- <button data-eid="gce.cart.checkout.customer-contact-save.click" disabled="" tabindex="-1" class="btn btn-primary disabled ux-btn-set-item" id="" type="button">Guardar</button> -->
                                                         </div>
                                                     </div>
@@ -739,8 +739,13 @@ if ($registro == 1)
             var email = $('#email').val();
             var isactive = document.getElementById('active');
             var in_code = isactive.getAttribute('data-active');
-            var recomended = document.querySelector("#recomended");
-            var usersearch = $('#user-search').children("option:selected").val();
+            var checkbox = document.querySelector("#recomended");
+            if (checkbox.checked) {
+                var usersearch = $('#user-search').children("option:selected").val();
+            } else {
+                var usersearch = -1;
+            }
+            
 
             var data = new FormData();
 
@@ -764,18 +769,17 @@ if ($registro == 1)
 			data.append("new_password", new_password);
 			data.append("dconsulta", dconsulta);
 			data.append("email", email);
-			data.append("isactive", isactive);
-			data.append("in_code", in_code);
-			data.append("recomended", recomended);
+            data.append("in_code", in_code);
 			data.append("usersearch", usersearch);
 
             $.ajax({
             	beforeSend: function() {
-            		var btnadd = document.getElementById('admadd');
-            		var text = btnadd.getAttribute('data-name-text');
-            		$("#admadd").html('');
-            		$("#admadd").append("" + text + "&ThinSpace;&ThinSpace;<span id='spinner-ad' class='fa fa-spinner fa-spin'></span>");
-            		$("#admadd").attr("disabled", true);
+            		$("body").addClass('time_loader');
+                    $("body").css('overflow-y', 'hidden');
+                    $("#CDLoading").addClass('loader');
+                    $("#CDLoading").css('display', 'block');
+                    $('#Acept').attr("disabled", true);
+                    $('#prevBtn-3').attr("disabled", true);
             	},
             	url: "<?php echo FOLDER_PATH ?>/register/save",
             	type: "POST",
@@ -783,6 +787,15 @@ if ($registro == 1)
             	contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
             	processData: false, // NEEDED, DON'T OMIT THIS
             	success: function(resp) {
+                    var delayInMilliseconds = 3000;
+                    $("body").removeClass('time_loader');
+					$("body").css('overflow-y','auto');
+					$("#CDLoading").removeClass('loader');
+					$("#CDLoading").css('display','none');
+					swal("¡Información!", resp, "success");
+                    setTimeout(function() {
+                        window.location.href = "<?= FOLDER_PATH ?>/login";
+                    }, delayInMilliseconds);
                     /* Load */
                     /* var delayInMilliseconds = 3000;
                     $("body").addClass('time_loader');
@@ -792,7 +805,6 @@ if ($registro == 1)
                     $('#Acept').attr("disabled", true);
                     setTimeout(function() {
                         window.location.href = "<?= FOLDER_PATH ?>/login";
-
                     }, delayInMilliseconds); */
             	}
             })

@@ -133,8 +133,6 @@ class register extends Controller
 		// Instantiation and passing `true` enables exceptions
 		$mail = new PHPMailer(true);
 
-		$view_email = file_get_contents(ROOT . '/' . PATH_VIEWS . 'email_format.php',TRUE);
-
 		try {
 			//Server settings
 			$mail->CharSet    = 'UTF-8';
@@ -377,6 +375,8 @@ class register extends Controller
 
 		$exist_cod = $this->verificar_codigo->fetch();
 
+		$this->model->codigo_usado($exist_cod[0]);
+
 		if (isset($exist_cod)) {
 			if ($_POST["code"] == $exist_cod[0]) {
 				echo '1';
@@ -390,10 +390,13 @@ class register extends Controller
 		{
 			echo '0';
 		}
+
 	}
 
 	public function save()
 	{
+		$this->model = new registerModel();
+		
 		$especialidad = $_POST["especialidad"];
 		$pais = $_POST["pais"];
 		$departamento = $_POST["departamento"];
@@ -409,14 +412,15 @@ class register extends Controller
 		$cellphone = $_POST["cellphone"];
 		$fn = $_POST["fn"];
 		$price = $_POST["price"];
-
+		$price = str_replace("S", "", $price);
+		$price = str_replace("/", "", $price);
+		$price = str_replace(" ", "", $price);
 		$username = $_POST['username'];
 		$new_password = $_POST['new_password'];
 		$dconsulta = $_POST['dconsulta'];
 		$email = $_POST['email'];
-		$isactive = $_POST['isactive'];
 		$in_code = $_POST['in_code'];
-		$recomended = $_POST['recomended'];
+		$code = explode('|', $in_code);
 		$usersearch = $_POST['usersearch'];
 
 		$this->model->insertar_registro(
@@ -439,13 +443,12 @@ class register extends Controller
 			$new_password, 
 			$dconsulta, 
 			$email, 
-			$isactive, 
-			$in_code, 
-			$recomended, 
+			$code[0], 
+			$code[1], 
 			$usersearch 
 		);
 
-		echo '1';
+		echo 'Usted se ha registrado con éxito, en breve le redirigiremos para que inicie seción...';
 
 	}
 }
