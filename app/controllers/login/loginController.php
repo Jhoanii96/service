@@ -59,17 +59,17 @@ class login extends Controller
 					$this->renderErrorMessage('*La contraseña es incorrecta');
 				} else {
 					$this->session->add('admin', $param[0]);
-					if (!empty($_POST["chkb"])) {
-						setcookie("member_login", $id, time() + (10 * 365 * 24 * 60 * 60));
-						setcookie("member_password", $pass, time() + (10 * 365 * 24 * 60 * 60));
-					} else {
-						if (isset($_COOKIE["member_login"])) {
-							setcookie("member_login", "");
-						}
-						if (isset($_COOKIE["member_password"])) {
-							setcookie("member_password", "");
-						}
-					}
+					// if (!empty($_POST["chkb"])) {
+					// 	setcookie("member_login", $id, time() + (10 * 365 * 24 * 60 * 60));
+					// 	setcookie("member_password", $pass, time() + (10 * 365 * 24 * 60 * 60));
+					// } else {
+					// 	if (isset($_COOKIE["member_login"])) {
+					// 		setcookie("member_login", "");
+					// 	}
+					// 	if (isset($_COOKIE["member_password"])) {
+					// 		setcookie("member_password", "");
+					// 	}
+					// }
 					header("Location: " . FOLDER_PATH . "/my");
 				}
 			}

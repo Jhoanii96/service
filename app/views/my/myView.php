@@ -32,9 +32,17 @@
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
-
+            
             <div class="app-main__outer">
                 <div class="app-main__inner">
+                    <?php
+                        // echo $_SESSION['admin'];
+                        $state = $this->stateProfile();
+                        if($state[0] == 1){
+                            echo 'true';
+                            $this->updateStateProfile();
+                         }else{
+                    ?>
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -288,12 +296,19 @@
                             </table>
                         </div>
                     </div>
+
+
+                    <?php } ?>              
                 </div>
 
             </div>
         </div>
 
     </div>
+    <!-- MODAL USER CONFIGURATIONS  -->
+            
+    
+            <!-- END MODAL -->
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script>
@@ -306,8 +321,7 @@
         }
         function close_admin() {
             location.href = "<?= FOLDER_PATH ?>/login/salir"
-        }
+        } 
     </script>
 </body>
-
 </html>

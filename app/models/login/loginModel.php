@@ -8,7 +8,5 @@ class loginModel extends Model
         $res = Model::query_execute($query);
         return $res;
     }
-
-    
 }
 

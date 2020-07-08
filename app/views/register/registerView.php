@@ -529,20 +529,16 @@ if ($registro == 1)
                                                     </div>
                                                     <div class="state-field ctHidden">
                                                         <fieldset class="form-group">
-                                                            <label id="e_mail">Correo electrónico
+                                                            <label>Correo electrónico
                                                                 <span class="req" aria-label="required">*</span>
-                                                                &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
-                                                                <div class="dropbox_dropcontent dropbox_arrow-top">
-                                                                    <div class="compSelect_ul">
-                                                                        <div class="li" style="line-height: 20px;font-weight: normal;">Ingrese su correo electrónico para enviar un código de verificación.</div>
-                                                                    </div>
-                                                                </div>
                                                             </label>
                                                             <div style="display: flex;">
                                                                 <input id="email" name="email" maxlength="150" data-valid="true" aria-required="true" class="form-control" value="">
                                                                 <button type="button" id="send_code" data-name-text="Enviando..." class="r-button-style" style="width: 170px;">Enviar código</button>
                                                             </div>
-                                                            <span id="message_code" style="color: red; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; display: none;">Se ha enviado el código de verificación a su correo, si no ha recibido ninguno porfavor haga clic en <span style="text-decoration: underline;">reenviar código</span></span>
+                                                            <span style="color: blue; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px;">
+                                                                Ingrese su correo electrónico para enviar un código de verificación. E insertar el código de verificación, y si no ha recibido ninguno porfavor haga clic en <span style="text-decoration: underline;">reenviar</span>
+                                                            </span>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
@@ -867,7 +863,6 @@ if ($registro == 1)
                     $("#spinner-reg").remove();
                     $("#send_code").html('Reenviar');
                     $("#send_code").attr("disabled", false);
-                    $("#message_code").css("display", "block");
                 }
             })
         });
@@ -1176,7 +1171,6 @@ if ($registro == 1)
     </script>
     <script>
         let message_code = document.getElementById("insert_code");
-        let message_mail = document.getElementById("e_mail");
         let message_address = document.getElementById("address_attention");
         let message_price = document.getElementById("price_half");
 
@@ -1190,18 +1184,6 @@ if ($registro == 1)
             let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
             setvisible.style.cssText = "visibility: hidden;";
             message_code.classList.remove("hover");
-        }, false);
-
-        message_mail.addEventListener("mouseover", function(event) {
-            message_mail.classList.add("hover");
-            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
-            setvisible.style.cssText = "visibility: visible;";
-        }, false);
-
-        message_mail.addEventListener("mouseout", function(event) {
-            let setvisible = document.querySelector(".hover>div.dropbox_dropcontent");
-            setvisible.style.cssText = "visibility: hidden;";
-            message_mail.classList.remove("hover");
         }, false);
 
         message_address.addEventListener("mouseover", function(event) {
