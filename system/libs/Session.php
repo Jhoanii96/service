@@ -15,6 +15,15 @@
             return $_SESSION[$name];
         }
     }
+
+    public function set($name,$value){
+        if (empty($_SESSION[$name])) {
+            $_SESSION[$name]=$value;
+        }else{
+            $_SESSION[$name]=$value;
+        }
+    }
+
     public function getAll()
     {
         session_start();

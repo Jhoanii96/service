@@ -42,7 +42,17 @@
             return $res;
         }
 
-        
+        public function getStateProfile($user){
+            $query = "SELECT us.estado_perfil FROM usuario us WHERE us.Nombre = '".$user."';";
+            $res = Model::query_execute($query);
+            return $res;
+        }
+
+        public function updateStateProfile($user){
+            $query = "UPDATE usuario SET estado_perfil = 0 WHERE Nombre = '".$user."';";
+            $res = Model::query_execute($query);
+            return $res;
+        }
     }
 
     
