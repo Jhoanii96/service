@@ -886,6 +886,18 @@ RESULTADOS:</textarea>
             hourFormat: "24"
         });
     </script>
+    <script>
+        
+        document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+        document.getElementById("btn-adm_close").addEventListener("click", close_admin);
+
+        function consulta_admin() {
+            location.href = "<?= FOLDER_PATH ?>/consultation"
+        }
+        function close_admin() {
+            location.href = "<?= FOLDER_PATH ?>/login/salir"
+        } 
+    </script>
 
 </body>
 

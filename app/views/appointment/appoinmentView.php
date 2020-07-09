@@ -36,9 +36,9 @@
             <div class="app-main__outer">
                 <div class="app-main__inner">
                     <?php
-                        
+                        // echo $_SESSION['admin'];
                         $state = $this->stateProfile();
-                         
+                        // $_SESSION['recargar'] = $state; 
                         if($state[0] == 1){
                             // $this->updateStateProfile();
                     ?>
@@ -48,13 +48,13 @@
                                 <h2>Cuestionario</h2>
                             </div>
                             <form>
-                                <div class="form-group col-md-6">
-                                    <label>Ingrese la cantidad de preguntas :</label>
-                                    <div class="input-group">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="">Ingrese la cantidad de preguntas :</label>
                                         <input type="text" class="form-control"  autocorrect="off" id="cantidad">
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-info" id="button">Mostrar</button>
-                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <button type="button" class="btn btn-outline-info" id="button">Mostrar</button>
                                     </div>
                                 </div>
                             </form>

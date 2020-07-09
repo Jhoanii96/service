@@ -33,26 +33,6 @@ class my extends Controller
         $this->view('my/my');
     }
     
-    public function salir()
-    {
-        $this->session->close();
-        header("Location: " . FOLDER_PATH . "/login");
-    }
-
-    public function VerificarParametros($param)
-    {
-        if (empty($param[0]) or empty($param[1])) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private function renderErrorMessage($message)
-    {
-        $this->view('login/login', ['error_message' => $message]);
-    }
-
     protected function stateProfile(){
         $response = $this->model->getStateProfile($this->session->get('admin'));
         return $response->fetch();    
