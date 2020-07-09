@@ -12,8 +12,7 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-
-    <!-- HEADER -->
+, 
     <?php require(ROOT . '/' . PATH_VIEWS . 'fonts.php'); ?>
 
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
@@ -51,7 +50,7 @@
                                 <div class="form-group col-md-6">
                                     <label>Ingrese la cantidad de preguntas :</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control"  autocorrect="off" id="cantidad">
+                                        <input type="text" class="form-control" id="cantidad">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-info" id="button">Mostrar</button>
                                         </div>
@@ -62,6 +61,11 @@
                         <div class="container" id="questions">
                         </div>
                     </div>
+
+                    <div class="main-card mb-3 card" id="tableQuestions">
+                                     
+                    </div>
+
                             <!-- <h3>adasdsad</h3> -->
                     <?php
                          }else{
@@ -337,7 +341,7 @@
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
     <script>
         
-        document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+        // document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
         document.getElementById("btn-adm_close").addEventListener("click", close_admin);
 
         function consulta_admin() {
