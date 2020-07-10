@@ -41,7 +41,507 @@
                         if($state[0] == 1){
                             // $this->updateStateProfile();
                     ?>
-                    <div class="main-card mb-3 card">
+                    
+                    <!-- FORMS WIZARD -->
+                    <div class="col-md-12 col-lg-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <div id="smartwizard2" class="forms-wizard-alt">
+                                    <ul class="forms-wizard">
+                                        <li>
+                                            <a href="#step-1">
+                                                <em>1</em><span>Datos perfil</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#step-2">
+                                                <em>2</em><span>Cuestionario</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="form-wizard-content">
+                                        <div id="step-1">
+                                            <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
+                                            <form >
+                                                <div class="form-row mb-2">
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group"><label>Nombre</label><input name="nombre" id="nombre" placeholder="" type="text" class="form-control" required/></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group"><label>Apellido Paterno</label><input name="apellidopa" id="apellidopa" placeholder="" type="text" class="form-control" required/></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group"><label>Apellido Materno</label><input name="apellidoma" id="apellidoma" placeholder="" type="text" class="form-control" required/></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row mb-2">
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label>Especialidad</label>
+                                                            <select class="custom-select">
+                                                                <option selected>Seleccione su especialidad</option>
+                                                                <option value="1">Doctor</option>
+                                                                <option value="2">Oftalmologo</option>
+                                                                <option value="3">Pediatra</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group"><label>DNI</label><input name="dni" id="dni" placeholder="" type="text"class="form-control" maxLength="8" required/></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group"><label>Codigo Medico del Peru</label><input name="cmp" id="cmp" placeholder="" type="text" class="form-control" maxLength="6" required/></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row mb-2">
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label>Pais</label>
+                                                            <select class="custom-select">
+                                                                <option selected>Seleccione su pais</option>
+                                                                <option value="1">Peru</option>
+                                                                <option value="2">Argentina</option>
+                                                                <option value="3">Bolivia</option>
+                                                                <option value="4">Colombia</option>
+                                                                <option value="5">Chile</option>
+                                                                <option value="6">Brasil</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label>Departamento</label>
+                                                            <select class="custom-select">
+                                                                <option selected>Seleccione su departamento</option>
+                                                                <option value="1">Tacna</option>
+                                                                <option value="2">Moquegua</option>
+                                                                <option value="3">Madre de dios</option>
+                                                                <option value="4">Puno</option>
+                                                                <option value="5">Santiago</option>
+                                                                <option value="6">Arica</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label>Provincia</label>
+                                                            <select class="custom-select">
+                                                                <option selected>Seleccione su provincia</option>
+                                                                <option value="1">Tacna</option>
+                                                                <option value="2">Moquegua</option>
+                                                                <option value="3">Madre de dios</option>
+                                                                <option value="4">Puno</option>
+                                                                <option value="5">Santiago</option>
+                                                                <option value="6">Arica</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label>Distrito</label>
+                                                            <select class="custom-select">
+                                                                <option selected>Seleccione su distrito</option>
+                                                                <option value="1">Tacna</option>
+                                                                <option value="2">Moquegua</option>
+                                                                <option value="3">Madre de dios</option>
+                                                                <option value="4">Puno</option>
+                                                                <option value="5">Santiago</option>
+                                                                <option value="6">Arica</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row mb-2">
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label>Telefono 1</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                    <i class="fa fa-phone"></i>
+                                                                </span>
+                                                                </div><input name="telefono1" id="telefono1" placeholder="" type="text" class="form-control" required/></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label>Telefono 2</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                    <i class="fa fa-phone"></i>
+                                                                </span>
+                                                                </div><input name="telefono2" id="telefono2" placeholder="Ingrese su segundo telefono" type="text" class="form-control"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label>Celular 1</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                    <i class="fas fa-mobile-alt"></i>
+                                                                </span>
+                                                                </div><input name="celular1" id="celular1" placeholder="" type="text" class="form-control" required/></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label>Celular 2</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                    <i class="fas fa-mobile-alt"></i>
+                                                                </span>
+                                                                </div><input name="celular2" id="celular2" placeholder="Ingrese su segundo celular" type="text" class="form-control"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row mb-2">
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label>Correo Electrónico</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fa fa-envelope"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input name="email" id="email" placeholder="" type="email" class="form-control" required/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label >Facebook</label><input name="facebook" id="facebook" placeholder="" type="text"class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label>Twitter</label><input name="twitter" id="twitter" placeholder="" type="text" class="form-control"></div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label>LinkedIn</label><input name="linkedin" id="linkedin" placeholder="" type="text" class="form-control"></div>
+                                                    </div> -->
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label>Tiempo de Atencion Promedio</label>
+                                                            <input name="tiempoatencion" id="tiempoatencion" type="text" class="form-control" required/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label >Precio de Consulta Promedio</label><input name="precioconsulta" id="precioconsulta" placeholder="" type="text"class="form-control" required></div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago" placeholder="" type="text" class="form-control" required></div>
+                                                    </div>
+                                                </div> 
+                                                <div class="form-row">
+                                                    <div class="col-md-6">
+                                                        <div class="position-relative form-group">
+                                                            <label>Agregar imagen</label>
+                                                            <input name="imagen" id="exampleEmail11" type="file" class="form-control-file" required/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="float-right">
+                                                    <button type="button" class="btn btn-success" id="btn_guardar">GUARDAR</button>
+                                                </div> -->
+                                                <!-- <button class="mt-2 btn btn-primary">GUARDAR</button> -->
+                                            </form>
+                                            <h5 class="title mt-3" style="margin-bottom: 30px;">SEGURIDAD DE CONTRASEÑA</h5>               
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label for="TxtUsuario" class="control-label">Usuario</label>
+                                                            <input name="ctl00$BodyPadre$TxtUsuario" type="text" value="Alberth123" readonly="readonly" id="BodyPadre_TxtUsuario" disabled="disabled" class="aspNetDisabled form-control" onkeypress="return Enter(this, event)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                                                        
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label for="TxtContrasenia" class="control-label">Contraseña</label>
+                                                            <div class="input-group">
+                                                                <div id="divpwd" class="input-group-prepend" style="cursor: pointer;">
+                                                                    <span class="input-group-text" title="Mostrar/Ocultar contraseña">
+                                                                        <i id="icon" class="fa fa-eye"></i>
+                                                                    </span>
+                                                                </div>                                                    
+                                                                <input name="ctl00$BodyPadre$TxtContrasenia" value="132456" id="BodyPadre_TxtContrasenia" class="form-control" onkeypress="return Enter(this, event)" type="text">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label for="TxtContraseniaConfirmada" class="control-label">Confirme</label>
+                                                            <div class="input-group">
+                                                                <div id="divpwd2" class="input-group-prepend" style="cursor: pointer;">
+                                                                    <span class="input-group-text" title="Mostrar/Ocultar contraseña">
+                                                                        <i id="icon2" class="fa fa-eye-slash"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input name="ctl00$BodyPadre$TxtContraseniaConfirmada" value="123456" id="BodyPadre_TxtContraseniaConfirmada" class="form-control" onkeypress="return Enter(this, event)" type="password">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>                                    
+                                            </div>
+
+                                            <div class="row">   
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label for="TxtEmail" class="control-label">Correo electrónico</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fa fa-envelope"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input name="ctl00$BodyPadre$TxtEmail" type="text" value="albeerthronaldo@hotmail.com" id="BodyPadre_TxtEmail" class="form-control" onkeypress="return Enter(this, event)">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label for="TxtCelular" class="control-label">Celular</label>
+                                                            <input name="ctl00$BodyPadre$TxtCelular" type="text" value="959856138" id="BodyPadre_TxtCelular" class="form-control" onkeypress="return Enter(this, event)">
+                                                        </div>
+                                                    </div>
+                                                </div>   
+                                            </div>
+                                            <!-- <div class="float-right">
+                                                <button type="button" class="btn btn-success" id="showtoast">GUARDAR</button>
+                                            </div> -->
+                                        </div>
+                        
+                                        <div id="step-2">
+                                            <h2>Cuestionario</h2>
+                                            <form>
+                                                <div class="form-group col-md-6">
+                                                    <label>Ingrese la cantidad de preguntas :</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="cantidad">
+                                                        <div class="input-group-append">
+                                                            <button type="button" class="btn btn-info" id="button">Mostrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="container" id="questions">
+                                            </div>
+                                            <div class="main-card mb-3 card" id="tableQuestions">
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="divider"></div>
+                                <div class="clearfix">
+                                    <!-- <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Reset</button> -->
+                                    <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
+                                    <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Atras</button>
+                                </div>                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END FORMS WIZARD -->
+
+
+                    <!-- DATOS PERFIL USUARIO -->
+                    
+                    <!-- <div class="tab-content">
+                        <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body"><h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5>
+                                    <form class="">
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group"><label>Nombre</label><input name="nombre" id="nombre" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group"><label>Apellido Paterno</label><input name="apellidopa" id="apellidopa" placeholder="" type="text"
+                                                                                                                                                            class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group"><label>Apellido Materno</label><input name="apellidoma" id="apellidoma" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group"><label>Especialidad</label><input name="especialidad" id="especialidad" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group"><label>DNI</label><input name="dni" id="dni" placeholder="" type="text"class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group"><label>Codigo Medico del Peru</label><input name="cmp" id="cmp" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Pais</label><input name="pais" id="pais" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Departamento</label><input name="departamento" id="departamento" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Provincia</label><input name="provincia" id="provincia" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Distrito</label><input name="distrito" id="distrito" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <div class="position-relative form-group"><label>Direccion de Domicilio</label><input name="domicilio" id="domicilio" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="position-relative form-group"><label>Direccion de Consultas</label><input name="direccion" id="direccion" placeholder="" type="text" class="form-control"></div>
+                                            </div>                                               
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Telefono 1</label><input name="telefono1" id="telefono1" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Telefono 2</label><input name="telefono2" id="telefono2" placeholder="Ingrese su segundo telefono" type="text"class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Celular 1</label><input name="celular1" id="celular1" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Celular 2</label><input name="celular2" id="celular2" placeholder="Ingrese su segundo celular" type="text" class="form-control"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Correo Electronico</label><input name="email" id="email" placeholder="" type="email" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label >Facebook</label><input name="facebook" id="facebook" placeholder="" type="text"class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Twitter</label><input name="twitter" id="twitter" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>LinkedIn</label><input name="linkedin" id="linkedin" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+
+                                        </div> 
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Tiempo de Atencion Promedio</label><input name="tiempoatencion" id="tiempoatencion" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label >Precio de Consulta Promedio</label><input name="precioconsulta" id="precioconsulta" placeholder="" type="text"class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago" placeholder="" type="text" class="form-control"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="position-relative form-group"><label>Agregar imagen</label><input name="email" id="exampleEmail11" placeholder="" type="email" class="form-control"></div>
+                                            </div>
+                                        </div>
+                                        <div class="float-right">
+                                            <button type="button" class="btn btn-success" id="btn_guardar">GUARDAR</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body"><h5 class="title" style="margin-bottom: 30px;">SEGURIDAD DE CONTRASEÑA</h5>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label for="TxtUsuario" class="control-label">Usuario</label>
+                                                    <input name="ctl00$BodyPadre$TxtUsuario" type="text" value="Alberth123" readonly="readonly" id="BodyPadre_TxtUsuario" disabled="disabled" class="aspNetDisabled form-control" onkeypress="return Enter(this, event)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                                                                                                
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label for="TxtContrasenia" class="control-label">Contraseña</label>
+                                                    <div class="input-group">
+                                                        <div id="divpwd" class="input-group-prepend" style="cursor: pointer;">
+                                                            <span class="input-group-text" title="Mostrar/Ocultar contraseña">
+                                                                <i id="icon" class="fa fa-eye"></i>
+                                                            </span>
+                                                        </div>                                                    
+                                                        <input name="ctl00$BodyPadre$TxtContrasenia" value="132456" id="BodyPadre_TxtContrasenia" class="form-control" onkeypress="return Enter(this, event)" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label for="TxtContraseniaConfirmada" class="control-label">Confirme</label>
+                                                    <div class="input-group">
+                                                        <div id="divpwd2" class="input-group-prepend" style="cursor: pointer;">
+                                                            <span class="input-group-text" title="Mostrar/Ocultar contraseña">
+                                                                <i id="icon2" class="fa fa-eye-slash"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input name="ctl00$BodyPadre$TxtContraseniaConfirmada" value="123456" id="BodyPadre_TxtContraseniaConfirmada" class="form-control" onkeypress="return Enter(this, event)" type="password">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div>
+
+                                    <div class="row">   
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label for="TxtEmail" class="control-label">Email</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fa fa-envelope"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input name="ctl00$BodyPadre$TxtEmail" type="text" value="albeerthronaldo@hotmail.com" id="BodyPadre_TxtEmail" class="form-control" onkeypress="return Enter(this, event)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label for="TxtCelular" class="control-label">Celular</label>
+                                                    <input name="ctl00$BodyPadre$TxtCelular" type="text" value="959856138" id="BodyPadre_TxtCelular" class="form-control" onkeypress="return Enter(this, event)">
+                                                </div>
+                                            </div>
+                                        </div>   
+
+                                    </div>
+                                    <div class="float-right">
+                                        <button type="button" class="btn btn-success" id="showtoast">GUARDAR</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- END DATOS PERFIL -->
+
+                    <!-- <div class="main-card mb-3 card">
                         <div class="card-body">
                             <div class="card-title">
                                 <h2>Cuestionario</h2>
@@ -64,9 +564,7 @@
 
                     <div class="main-card mb-3 card" id="tableQuestions">
                                      
-                    </div>
-
-                            <!-- <h3>adasdsad</h3> -->
+                    </div> -->
                     <?php
                          }else{
                     ?>
@@ -341,7 +839,7 @@
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
     <script>
         
-        // document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+        document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
         document.getElementById("btn-adm_close").addEventListener("click", close_admin);
 
         function consulta_admin() {

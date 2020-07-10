@@ -5,11 +5,11 @@ let questions = document.getElementById('questions')
 buttonEnviar.addEventListener('click',(event)=>{
   event.preventDefault();
   let showQuestion = '';
-  quantity = parseInt(quantity.value)
+  let cantidad = parseInt(quantity.value);
 
   showQuestion += '<form>'
   showQuestion +=   '<div class="row">'
-  for (let i = 1; i <= quantity; i++) {
+  for (let i = 1; i <= cantidad; i++) {
     showQuestion +=   '<div class="col-md-6">'
     showQuestion +=     '<div class="input-group mb-2">'
     showQuestion +=       '<div class="input-group-prepend">'
@@ -36,16 +36,16 @@ function showQuestions(){
     
     let createTableQuestions = '';
     createTableQuestions += '<div class="card-body">'
-    createTableQuestions += '<h5 class="card-title">Preguntas</h5>'
-    createTableQuestions += '<table class="table">'
-    createTableQuestions += '<thead>'
-    createTableQuestions += '<tr>'
-    createTableQuestions += '<th>N</th>'
-    createTableQuestions += '<th>Preguntas</th>'
-    createTableQuestions += '<th>Opciones</th>'
-    createTableQuestions += '</tr>'
-    createTableQuestions += '</thead>'
-    createTableQuestions += '<tbody>'
+    createTableQuestions +=   '<h5 class="card-title">Preguntas</h5>'
+    createTableQuestions +=   '<table class="table">'
+    createTableQuestions +=     '<thead>'
+    createTableQuestions +=       '<tr>'
+    createTableQuestions +=         '<th>N</th>'
+    createTableQuestions +=         '<th>Preguntas</th>'
+    createTableQuestions +=         '<th>Opciones</th>'
+    createTableQuestions +=        '</tr>'
+    createTableQuestions +=     '</thead>'
+    createTableQuestions +=     '<tbody>'
     
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 3; j++) {
@@ -65,8 +65,8 @@ function showQuestions(){
         }
       }
     }
-    createTableQuestions += '</tbody>'
-    createTableQuestions += '</table>'
-    createTableQuestions += '</div>'
+    createTableQuestions +=      '</tbody>'
+    createTableQuestions +=     '</table>'
+    createTableQuestions +=   '</div>'
     tableQuestion.innerHTML = createTableQuestions;
 }

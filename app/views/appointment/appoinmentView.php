@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="es">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>CRM Dashboard - Examples of just how powerful ArchitectUI really is!</title>
+    <title>Citas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="Examples of just how powerful ArchitectUI really is!">
 
@@ -32,40 +32,9 @@
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
-            
+
             <div class="app-main__outer">
                 <div class="app-main__inner">
-                    <?php
-                        // echo $_SESSION['admin'];
-                        $state = $this->stateProfile();
-                        // $_SESSION['recargar'] = $state; 
-                        if($state[0] == 1){
-                            // $this->updateStateProfile();
-                    ?>
-                    <div class="main-card mb-3 card">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <h2>Cuestionario</h2>
-                            </div>
-                            <form>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="">Ingrese la cantidad de preguntas :</label>
-                                        <input type="text" class="form-control"  autocorrect="off" id="cantidad">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <button type="button" class="btn btn-outline-info" id="button">Mostrar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="container" id="questions">
-                        </div>
-                    </div>
-                            <!-- <h3>adasdsad</h3> -->
-                    <?php
-                         }else{
-                    ?>
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -73,7 +42,7 @@
                                     <i class="pe-7s-home icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>Panel de administración
+                                <div>Citas
                                     <div class="page-title-subheading">Bienvenido.
                                     </div>
                                 </div>
@@ -86,266 +55,185 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row">
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-midnight-bloom">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading" style="font-size: 20px;">Perfil</div>
-                                        <div class="widget-subheading">Edita tu información personal</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <i class="pe-7s-user" style="font-size: 40px;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-arielle-smile">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading" style="font-size: 20px;">Notificaciones</div>
-                                        <div class="widget-subheading">Verificar la bandeja de notificaciones</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <i class="pe-7s-bell" style="font-size: 38px;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-grow-early">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading" style="font-size: 20px;">Consultas</div>
-                                        <div class="widget-subheading">Consultar al administrador</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <i class="pe-7s-comment" style="font-size: 40px;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <div class="row">
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-midnight-bloom">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading" style="font-size: 20px;">Perfil</div>
-                                        <div class="widget-subheading">Edita tu información personal</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <i class="pe-7s-user" style="font-size: 40px;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-arielle-smile">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading" style="font-size: 20px;">Enviar notificaciones</div>
-                                        <div class="widget-subheading">Enviar mensajes a usuarios</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <i class="pe-7s-bell" style="font-size: 38px;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-grow-early">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading" style="font-size: 20px;">Bandeja de consulta</div>
-                                        <div class="widget-subheading">Verificar la bandeja de entrada</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <i class="pe-7s-comment" style="font-size: 40px;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-premium-dark">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">Extra</div>
-                                        <div class="widget-subheading">....</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <i class="pe-7s-comment" style="font-size: 40px;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
-
-                    <div class="mbg-3 h-auto pl-0 pr-0 bg-transparent no-border card-header" style="border-bottom: 1px solid #9c9c9c;padding-bottom: 15px;padding-top: 25px;">
-                        <div class="card-header-title fsize-2 font-weight-normal">Registro de consultas</div>
-                        <div class="btn-actions-pane-right">
-                            <button id="btn-adm_consulta" class="btn-shadow btn btn-warning text-white fsize-1"><i class="fa fa-plus"></i> Nueva consulta</button>
-                        </div>
-                    </div>
 
                     <div class="main-card mb-3 card">
                         <div class="card-body">
-                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                            <h5 class="card-title">REGISTRO DE CITAS</h5>
+                            <div class="mt-4 mb-1" style="align-content: center; align-items: center;">
+                                <div class="form-inline">
+                                    <div class="input-group pb-4" style="align-items: center;">
+                                        <div class="position-relative input-group ">
+                                            <label for="exampleCustomSelect" class="mr-2 mt-auto mb-auto">Fecha Cita</label>
+                                            <input name="date" id="date" placeholder="password placeholder" type="date" class="mr-2 form-control">
+                                            <button class="btn-icon btn-pill btn btn-primary"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group pb-4" style="margin-left: auto;">
+                                        <div class="position-relative input-group">
+                                            <label for="exampleCustomSelect" class="mr-2 mt-auto mb-auto">Horas</label>
+                                            <input class="form-control input-mask-trigger mr-2" id="endTime">
+                                            <button class="btn-icon btn-pill btn btn-success">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table style="width: 100%;" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Fecha consulta</th>
-                                        <th>Anamnesis</th>
-                                        <th>Exámen físico</th>
-                                        <th>Exámenes</th>
-                                        <th>Archivos</th>
-                                        <th>Imágenes</th>
-                                        <th>Opciones</th>
+                                        <th>Paciente</th>
+                                        <th>Edad</th>
+                                        <th>Atención</th>
+                                        <th>Fecha y hora</th>
+                                        <th>Atender</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
+                                        <td>Arturito</td>
+                                        <td class="text-center">6 años</td>
+                                        <td class="text-center">8 días</td>
+                                        <td class="text-center">09/07/2020 15:30</td>
                                         <td class="text-center">
                                             <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
+                                        <td>Arturito</td>
+                                        <td class="text-center">6 años</td>
+                                        <td class="text-center">8 días</td>
+                                        <td class="text-center">09/07/2020 15:30</td>
                                         <td class="text-center">
                                             <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
+                                        <td>Arturito</td>
+                                        <td class="text-center">6 años</td>
+                                        <td class="text-center">8 días</td>
+                                        <td class="text-center">09/07/2020 15:30</td>
                                         <td class="text-center">
                                             <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
+                                        <td>Arturito</td>
+                                        <td class="text-center">6 años</td>
+                                        <td class="text-center">8 días</td>
+                                        <td class="text-center">09/07/2020 15:30</td>
                                         <td class="text-center">
                                             <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
+                                        <td>Arturito</td>
+                                        <td class="text-center">6 años</td>
+                                        <td class="text-center">8 días</td>
+                                        <td class="text-center">09/07/2020 15:30</td>
                                         <td class="text-center">
                                             <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Fecha consulta</th>
-                                        <th>Anamnesis</th>
-                                        <th>Exámen físico</th>
-                                        <th>Exámenes</th>
-                                        <th>Archivos</th>
-                                        <th>Imágenes</th>
-                                        <th>Opciones</th>
+                                        <th>Paciente</th>
+                                        <th>Edad</th>
+                                        <th>Atención</th>
+                                        <th>Fecha y hora</th>
+                                        <th>Atender</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
-
-
-                    <?php } ?>              
                 </div>
-
             </div>
         </div>
 
     </div>
     <!-- MODAL USER CONFIGURATIONS  -->
-            
-    
-            <!-- END MODAL -->
+
+
+    <!-- END MODAL -->
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
     <script>
-        
         document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
         document.getElementById("btn-adm_close").addEventListener("click", close_admin);
-
+        
         function consulta_admin() {
             location.href = "<?= FOLDER_PATH ?>/consultation"
         }
+
         function close_admin() {
             location.href = "<?= FOLDER_PATH ?>/login/salir"
-        } 
+        }
     </script>
 </body>
+
 </html>
