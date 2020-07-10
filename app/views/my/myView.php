@@ -39,7 +39,7 @@
                         $state = $this->stateProfile();
                          
                         if($state[0] == 1){
-                            // $this->updateStateProfile();
+                            $this->updateStateProfile();
                     ?>
                     
                     <!-- FORMS WIZARD -->
