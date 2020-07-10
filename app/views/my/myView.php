@@ -39,7 +39,7 @@
                         $state = $this->stateProfile();
                          
                         if($state[0] == 1){
-                            $this->updateStateProfile();
+                            // $this->updateStateProfile();
                     ?>
                     
                     <!-- FORMS WIZARD -->
@@ -79,7 +79,7 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Especialidad</label>
-                                                            <select class="custom-select">
+                                                            <select class="custom-select" name="especialidad" id="especialidad">
                                                                 <option selected>Seleccione su especialidad</option>
                                                                 <option value="1">Doctor</option>
                                                                 <option value="2">Oftalmologo</option>
@@ -99,7 +99,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Pais</label>
-                                                            <select class="custom-select">
+                                                            <select class="custom-select" name="pais" id="pais">
                                                                 <option selected>Seleccione su pais</option>
                                                                 <option value="1">Peru</option>
                                                                 <option value="2">Argentina</option>
@@ -113,7 +113,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Departamento</label>
-                                                            <select class="custom-select">
+                                                            <select class="custom-select" name="departamento" id="departamento">
                                                                 <option selected>Seleccione su departamento</option>
                                                                 <option value="1">Tacna</option>
                                                                 <option value="2">Moquegua</option>
@@ -127,7 +127,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Provincia</label>
-                                                            <select class="custom-select">
+                                                            <select class="custom-select" name="provincia" id="provincia">
                                                                 <option selected>Seleccione su provincia</option>
                                                                 <option value="1">Tacna</option>
                                                                 <option value="2">Moquegua</option>
@@ -141,7 +141,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Distrito</label>
-                                                            <select class="custom-select">
+                                                            <select class="custom-select" name="distrito" id="distrito">
                                                                 <option selected>Seleccione su distrito</option>
                                                                 <option value="1">Tacna</option>
                                                                 <option value="2">Moquegua</option>
@@ -206,7 +206,7 @@
                                                                         <i class="fa fa-envelope"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="email" id="email" placeholder="" type="email" class="form-control" required/>
+                                                                <input name="correo" id="correo" placeholder="" type="email" class="form-control" required/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -229,14 +229,14 @@
                                                         <div class="position-relative form-group"><label >Precio de Consulta Promedio</label><input name="precioconsulta" id="precioconsulta" placeholder="" type="text"class="form-control" required></div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago" placeholder="" type="text" class="form-control" required></div>
+                                                        <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago"  type="date" class="form-control" required></div>
                                                     </div>
                                                 </div> 
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label>Agregar imagen</label>
-                                                            <input name="imagen" id="exampleEmail11" type="file" class="form-control-file" required/>
+                                                            <input name="imagen" id="imagen" type="file" class="form-control-file" required/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -251,7 +251,7 @@
                                                     <div class="form-group">
                                                         <div class="controls">
                                                             <label for="TxtUsuario" class="control-label">Usuario</label>
-                                                            <input name="ctl00$BodyPadre$TxtUsuario" type="text" value="Alberth123" readonly="readonly" id="BodyPadre_TxtUsuario" disabled="disabled" class="aspNetDisabled form-control" onkeypress="return Enter(this, event)">
+                                                            <input name="correo_comprobacion" type="text" value="Alberth123" readonly="readonly" id="correo_comprobacion" disabled="disabled" class="aspNetDisabled form-control" onkeypress="return Enter(this, event)">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -266,7 +266,7 @@
                                                                         <i id="icon" class="fa fa-eye"></i>
                                                                     </span>
                                                                 </div>                                                    
-                                                                <input name="ctl00$BodyPadre$TxtContrasenia" value="132456" id="BodyPadre_TxtContrasenia" class="form-control" onkeypress="return Enter(this, event)" type="text">
+                                                                <input name="contraseña" value="132456" id="contraseña" class="form-control" onkeypress="return Enter(this, event)" type="text">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -282,7 +282,7 @@
                                                                         <i id="icon2" class="fa fa-eye-slash"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="ctl00$BodyPadre$TxtContraseniaConfirmada" value="123456" id="BodyPadre_TxtContraseniaConfirmada" class="form-control" onkeypress="return Enter(this, event)" type="password">
+                                                                <input name="contraseña_confirmada" value="123456" id="contraseña_confirmada" class="form-control" onkeypress="return Enter(this, event)" type="password">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -293,14 +293,14 @@
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <div class="controls">
-                                                            <label for="TxtEmail" class="control-label">Correo electrónico</label>
+                                                            <label for="correo_comprobacion" class="control-label">Correo electrónico</label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
                                                                         <i class="fa fa-envelope"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="ctl00$BodyPadre$TxtEmail" type="text" value="albeerthronaldo@hotmail.com" id="BodyPadre_TxtEmail" class="form-control" onkeypress="return Enter(this, event)">
+                                                                <input name="correo_comprobacion" type="text" value="albeerthronaldo@hotmail.com" id="correo_comprobacion" class="form-control" onkeypress="return Enter(this, event)">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -309,8 +309,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <div class="controls">
-                                                            <label for="TxtCelular" class="control-label">Celular</label>
-                                                            <input name="ctl00$BodyPadre$TxtCelular" type="text" value="959856138" id="BodyPadre_TxtCelular" class="form-control" onkeypress="return Enter(this, event)">
+                                                            <label for="celular_comprobacion" class="control-label">Celular</label>
+                                                            <input name="celular_comprobacion" type="text" value="959856138" id="celular_comprobacion" class="form-control" onkeypress="return Enter(this, event)">
                                                         </div>
                                                     </div>
                                                 </div>   
