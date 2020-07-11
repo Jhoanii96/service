@@ -53,9 +53,12 @@
             $res = Model::query_execute($query);
             return $res;
         }
-
-
-        // public function 
+        
+        public function showProfile($user){
+            $query = "CALL showProfile('".$user."');";
+            $res = Model::query_execute($query);
+            return $res;
+        } 
     }
 
     

@@ -1,6 +1,7 @@
 <?php
 
     require ROOT . FOLDER_PATH . "/" . DATA . "admin/autoload" . DATAI . "php";
+    require ROTT . FOLDER_PATH . "/app/models/perfil/perfilModel.php";
     require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 
     class perfil extends Controller 
@@ -12,6 +13,7 @@
             include(ROOT . FOLDER_PATH . "/app/controllers/data_sesion" . DATAI . "php");
 
             $this->dataPerfil = new dataAdmin();
+            $this->model = new perfilModel();
 
             if (isset($_POST['update']) && !empty($_POST['update'])) {
                 $update = $_POST['update'];
@@ -86,12 +88,11 @@
             
 
         }
-/* 
-        public function perfil($link = '', $data = '')
-		{
-            
-            
-        } */
+
+        protected function showProfile(){
+            $res = $this->model->showProfile($this->session->get('admin'));
+            return $response->fetch();
+        }
     }
 
     
