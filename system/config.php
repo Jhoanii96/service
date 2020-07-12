@@ -30,4 +30,4 @@ define('PASS', '');
 define('ERROR_REPORTING_LEVEL', -1);
 
 /* ICONS */
-define('ROUTE', '/service');
+// define('ROUTE', '/service');

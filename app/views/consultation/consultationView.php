@@ -888,7 +888,7 @@ RESULTADOS:</textarea>
     </script>
     <script>
         
-        document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+        // document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
         document.getElementById("btn-adm_close").addEventListener("click", close_admin);
 
         function consulta_admin() {
