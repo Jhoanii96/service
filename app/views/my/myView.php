@@ -604,7 +604,7 @@
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
     <script>
-        // document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+        document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
         document.getElementById("btn-adm_close").addEventListener("click", close_admin);
 
         function consulta_admin() {

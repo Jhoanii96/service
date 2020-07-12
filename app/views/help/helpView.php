@@ -32,7 +32,21 @@
           
           <div class="app-main__outer">
             <div class="app-main__inner">
-                
+                <div class="app-page-title">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-heading">
+                            <div class="page-title-icon">
+                                <i class="pe-7s-home icon-gradient bg-mean-fruit">
+                                </i>
+                            </div>
+                            <div>Ayuda
+                                <div class="page-title-subheading">
+                                    Envianos tus problemas.
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
               <!-- CONTENIDO AYUDA -->
               <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                 <div class="row">

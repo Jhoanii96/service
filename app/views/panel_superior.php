@@ -307,7 +307,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="widget-content-left  ml-3 header-user-info">
+                        <div class="widget-content-left ml-3 header-user-info">
                             <div class="widget-heading"> <?php echo $_SESSION['Nombres']; ?> </div>
                             <div class="widget-subheading"> <?php echo $_SESSION['especialidad']; ?> </div>
                         </div>

@@ -9,6 +9,7 @@ class consultation extends Controller
     public function __construct()
     {
         $this->session = new Session;
+        $this->session->getAll();
 
         if (!empty($this->session->get('userAdmin')) || $this->session->get('userAdmin') != "" || $this->session->get('userAdmin') != NULL) {
             header("Location: " . FOLDER_PATH . "/");
