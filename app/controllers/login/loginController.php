@@ -17,11 +17,11 @@ class login extends Controller
 			header("Location: " . FOLDER_PATH . "/my");
 		} */
 
-		if ($this->session->get('admin')) {
+		/* if ($this->session->get('admin')) {
 
 			echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
 
-		}
+		} */
 
 		$this->model = new loginModel();
 	}
@@ -59,6 +59,7 @@ class login extends Controller
 					$this->renderErrorMessage('*La contraseña es incorrecta');
 				} else {
 					$this->session->add('admin', $param[0]);
+					header("Location: " . FOLDER_PATH . "/my");
 					// if (!empty($_POST["chkb"])) {
 					// 	setcookie("member_login", $id, time() + (10 * 365 * 24 * 60 * 60));
 					// 	setcookie("member_password", $pass, time() + (10 * 365 * 24 * 60 * 60));
@@ -70,7 +71,6 @@ class login extends Controller
 					// 		setcookie("member_password", "");
 					// 	}
 					// }
-					header("Location: " . FOLDER_PATH . "/my");
 				}
 			}
 		}
