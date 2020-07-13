@@ -46,8 +46,8 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <div id="smartwizard2" class="forms-wizard-alt">
-                                    <ul class="forms-wizard">
+                                <div id="smartwizard2" class="forms-wizard-alt sw-main sw-theme-default">
+                                    <ul class="forms-wizard nav nav-tabs step-anchor">
                                         <li>
                                             <a href="#step-1">
                                                 <em>1</em><span>Datos perfil</span>
@@ -59,8 +59,8 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    <div class="form-wizard-content">
-                                        <div id="step-1">
+                                    <div class="form-wizard-content sw-container tab-content">
+                                        <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
                                             <form >
                                                 <div class="form-row mb-2">
@@ -320,7 +320,7 @@
                                             </div> -->
                                         </div>
                         
-                                        <div id="step-2">
+                                        <div id="step-2" class="tab-pane step-content">
                                             <h2>Cuestionario</h2>
                                             <form>
                                                 <div class="form-group col-md-6">
