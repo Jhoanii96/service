@@ -8,7 +8,7 @@ class my extends Controller
 {
     protected $session; 
     protected $stateProfile;
-    public $profile;
+    // public $profile;
 
     public function __construct()
     {

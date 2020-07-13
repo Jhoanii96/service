@@ -1,13 +1,14 @@
-<?php 
+<?php
 
 class Session
 {
-    public function add($name, $value){
-        if(session_status() == PHP_SESSION_NONE) {
-			ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);
-			ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30);
-			session_start();
-		}
+	public function add($name, $value){
+
+	    if(session_status() == PHP_SESSION_NONE) {
+	    	ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);
+	    	ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30);
+	    		session_start();
+	    	}
 			
 		$_SESSION[$name] = $value;
 	}
@@ -20,7 +21,8 @@ class Session
 			return $_SESSION[$name];
 		}
 	}
-	public function getAll(){
+    
+    public function getAll(){
 		if(session_status() == PHP_SESSION_NONE) {				
 			session_start();
 		}
@@ -41,3 +43,5 @@ class Session
 		session_destroy();
 	}
 }
+
+?>}

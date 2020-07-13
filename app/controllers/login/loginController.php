@@ -5,7 +5,7 @@ require ROOT . FOLDER_PATH . "/app/models/login/loginModel.php";
 
 class login extends Controller
 {
-	private $session;
+	protected $session;
 
 	public function __construct()
 	{

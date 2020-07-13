@@ -12,15 +12,16 @@ require ROOT . FOLDER_PATH . "/app/models/register/registerModel.php";
 
 class register extends Controller
 {
-	private $session;
+	protected $session;
 
 	public function __construct()
 	{
 		$this->session = new Session;
+		$this->session->getAll(); 
 
-		if (!empty($this->session->get('userAdmin')) || $this->session->get('userAdmin') != "" || $this->session->get('userAdmin') != NULL) {
-			header("Location: " . FOLDER_PATH . "/");
-		}
+        if (!empty($this->session->get('admin'))) {
+            echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
+        }
 	}
 
 	public function index()

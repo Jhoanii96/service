@@ -550,9 +550,9 @@ RESULTADOS:</textarea>
                                     </div>
                                     <div class="divider"></div>
                                     <div class="clearfix">
-                                        <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Reset</button>
-                                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
-                                        <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+                                        <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Resetear</button>
+                                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
+                                        <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Anterior</button>
                                     </div>
                                 </div>
                             </div>
@@ -887,16 +887,20 @@ RESULTADOS:</textarea>
         });
     </script>
     <script>
-        
-        // document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
-        document.getElementById("btn-adm_close").addEventListener("click", close_admin);
-
-        function consulta_admin() {
-            location.href = "<?= FOLDER_PATH ?>/consultation"
+        let cons = document.getElementById("btn-adm_consulta");
+        let close = document.getElementById("btn-adm_close");
+        if (cons != null) {
+            document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+            function consulta_admin() {
+                location.href = "<?= FOLDER_PATH ?>/consultation"
+            }
         }
-        function close_admin() {
-            location.href = "<?= FOLDER_PATH ?>/login/salir"
-        } 
+        if (close != null) {
+            document.getElementById("btn-adm_close").addEventListener("click", close_admin);
+            function close_admin() {
+                location.href = "<?= FOLDER_PATH ?>/login/salir"
+            }
+        }
     </script>
 
 </body>

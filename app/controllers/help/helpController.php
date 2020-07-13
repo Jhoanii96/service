@@ -1,8 +1,11 @@
 <?php
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 
-class help extends Controller{
- 
+class help extends Controller
+{
+
+  protected $session;
+
   public function __construct(){
     $this->session = new Session;
     $this->session->getAll();

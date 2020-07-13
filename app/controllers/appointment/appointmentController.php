@@ -5,7 +5,7 @@ require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 
 class appointment extends Controller
 {
-    private $session;
+  protected $session;
 
   public function index()
   {

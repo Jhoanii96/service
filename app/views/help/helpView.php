@@ -90,15 +90,20 @@
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script>
-        // document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
-        document.getElementById("btn-adm_close").addEventListener("click", close_admin);
-
-        function consulta_admin() {
-            location.href = "<?= FOLDER_PATH ?>/consultation"
+        let cons = document.getElementById("btn-adm_consulta");
+        let close = document.getElementById("btn-adm_close");
+        if (cons != null) {
+            document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+            function consulta_admin() {
+                location.href = "<?= FOLDER_PATH ?>/consultation"
+            }
         }
-        function close_admin() {
-            location.href = "<?= FOLDER_PATH ?>/login/salir"
-        } 
+        if (close != null) {
+            document.getElementById("btn-adm_close").addEventListener("click", close_admin);
+            function close_admin() {
+                location.href = "<?= FOLDER_PATH ?>/login/salir"
+            }
+        }
     </script>
 </body>
 </html>
