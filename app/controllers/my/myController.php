@@ -15,16 +15,10 @@ class my extends Controller
         $this->session = new Session;
         $this->session->getAll(); 
 
-        /* if (empty($this->session->get('admin')) || $this->session->get('admin') == "" || $this->session->get('admin') == NULL) {
-            header("Location: " . FOLDER_PATH . "/login");
-        } */
-
-        if (!$this->session->get('admin')) {
+        if (empty($this->session->get('admin'))) {
             echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
         }
-        // $this->session->add('firstUpdateProfile',true);
-        // $this->profile = true;
-        
+
         $this->model = new perfilModel();
         $this->tipadoModel = new tipadoModel();
         // $this->profile = $this->showProfile();
