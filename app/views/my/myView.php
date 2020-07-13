@@ -81,11 +81,7 @@
                                             </a>
                                         </li>
                                     </ul>
-<<<<<<< HEAD
                                     <div class="form-wizard-content sw-container tab-content">
-=======
-                                    <div class="form-wizard-content">
->>>>>>> 84db1b8c592480472b3e3c6b942182817f59d253
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
                                             <form>
@@ -373,13 +369,7 @@
                                         </div>
                         
                                         <div id="step-2" class="tab-pane step-content">
-<<<<<<< HEAD
                                             <h2>Cuestionario</h2>
-=======
-                                            <!-- <div>
-                                                <h2>Cuestionario</h2>
-                                            </div> -->
->>>>>>> 84db1b8c592480472b3e3c6b942182817f59d253
                                             <form>
                                                 <div class="form-group col-md-6">
                                                     <label>Ingrese la cantidad de preguntas :</label>
