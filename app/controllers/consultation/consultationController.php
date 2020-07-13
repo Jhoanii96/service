@@ -4,11 +4,12 @@ require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 
 class consultation extends Controller
 {
-    private $session;
+    protected $session;
 
     public function __construct()
     {
         $this->session = new Session;
+        $this->session->getAll();
 
         if (!empty($this->session->get('userAdmin')) || $this->session->get('userAdmin') != "" || $this->session->get('userAdmin') != NULL) {
             header("Location: " . FOLDER_PATH . "/");

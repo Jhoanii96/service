@@ -5,24 +5,17 @@ require ROOT . FOLDER_PATH . "/app/models/login/loginModel.php";
 
 class login extends Controller
 {
-	private $session;
+	protected $session;
 
 	public function __construct()
 	{
 		$this->session = new Session;
-
 		$this->session->getAll();
 
-		/* if (!empty($this->session->get('admin')) || $this->session->get('admin') != "" || $this->session->get('admin') != NULL) {
-			header("Location: " . FOLDER_PATH . "/my");
-		} */
-
-		if ($this->session->get('admin')) {
-
+		if (!empty($this->session->get('admin'))) {
 			echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
-
 		}
-
+		
 		$this->model = new loginModel();
 	}
 
@@ -59,6 +52,7 @@ class login extends Controller
 					$this->renderErrorMessage('*La contraseña es incorrecta');
 				} else {
 					$this->session->add('admin', $param[0]);
+					header("Location: " . FOLDER_PATH . "/my");
 					// if (!empty($_POST["chkb"])) {
 					// 	setcookie("member_login", $id, time() + (10 * 365 * 24 * 60 * 60));
 					// 	setcookie("member_password", $pass, time() + (10 * 365 * 24 * 60 * 60));
@@ -70,7 +64,6 @@ class login extends Controller
 					// 		setcookie("member_password", "");
 					// 	}
 					// }
-					header("Location: " . FOLDER_PATH . "/my");
 				}
 			}
 		}
@@ -79,7 +72,7 @@ class login extends Controller
 	public function salir()
 	{
 		$this->session->close();
-		header("Location: " . FOLDER_PATH . "/login");
+		echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
 	}
 
 	public function VerificarParametros($param)

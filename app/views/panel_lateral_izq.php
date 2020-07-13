@@ -47,19 +47,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= FOLDER_PATH ?>/suggestions">
+                    <a href="javascript:;">
                         <i class="metismenu-icon pe-7s-comment"></i>
                         Sugerencias
                     </a>
                 </li>
                 <li>
-                    <a href="<?= FOLDER_PATH ?>/Reports">
+                    <a href="javascript:;">
                         <i class="metismenu-icon pe-7s-display1"></i>
                         Reportes
                     </a>
                 </li>
                 <li>
-                    <a href="<?= FOLDER_PATH ?>/Payments">
+                    <a href="javascript:;">
                         <i class="metismenu-icon pe-7s-cash"></i>
                         Pagos
                     </a>
@@ -73,12 +73,12 @@
 
                     <ul>
                         <li>
-                            <a href="<?= FOLDER_PATH ?>/questionnaire/manage">
+                            <a href="javascript:;">
                                 Administrar
                             </a>
                         </li>
                         <li>
-                            <a href="<?= FOLDER_PATH ?>/questionnaire/list">
+                            <a href="javascript:;">
                                 Listado
                             </a>
                         </li>
@@ -91,7 +91,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="<?= FOLDER_PATH ?>/setting">
+                    <a href="javascript:;">
                         <i class="metismenu-icon pe-7s-config"></i>
                         Configuración
                     </a>

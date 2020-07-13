@@ -249,8 +249,8 @@
                                                             <img width="42" class="rounded-circle" src="<?= FOLDER_PATH ?>/src/assets/media/images/avatars/1.jpg" alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">Alina Mcloughlin</div>
-                                                            <div class="widget-subheading opacity-8">Administradora</div>
+                                                            <div class="widget-heading"><?php echo $this->session->get('Nombres'); ?></div>
+                                                            <div class="widget-subheading opacity-8"><?php echo $this->session->get('especialidad'); ?></div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
                                                             <button id="btn-adm_close" class="btn-pill btn-shadow btn-shine btn btn-focus">&MediumSpace;Salir&MediumSpace;</button>
@@ -307,9 +307,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="widget-content-left  ml-3 header-user-info">
-                            <div class="widget-heading"> Alina Mclourd </div>
-                            <div class="widget-subheading"> Administradora </div>
+                        <div class="widget-content-left ml-3 header-user-info">
+                            <div class="widget-heading"> <?php echo $this->session->get('Nombres'); ?> </div>
+                            <div class="widget-subheading"> <?php echo $this->session->get('especialidad'); ?> </div>
                         </div>
                         <div class="widget-content-right header-user-info ml-3">
                             <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">

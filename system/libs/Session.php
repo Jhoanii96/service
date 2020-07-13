@@ -1,42 +1,47 @@
-<?php class Session
+<?php
+
+class Session
 {
-    public function add($name, $value)
-    {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        $_SESSION[$name] = $value;
-    }
-    public function get($name)
-    {
-        if (empty($_SESSION[$name])) {
-            return null;
-        } else {
-            return $_SESSION[$name];
-        }
-    }
+	public function add($name, $value){
 
-    public function set($name,$value){
-        if (empty($_SESSION[$name])) {
-            $_SESSION[$name]=$value;
-        }else{
-            $_SESSION[$name]=$value;
-        }
-    }
+	    if(session_status() == PHP_SESSION_NONE) {
+	    	ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);
+	    	ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30);
+	    		session_start();
+	    	}
+			
+		$_SESSION[$name] = $value;
+	}
 
-    public function getAll()
-    {
-        session_start();
-        return $_SESSION;
-    }
-    public function getStatus()
-    {
-        session_start();
-        return session_status();
-    }
-    public function close()
-    {
-        session_start();
-        session_destroy();
-    }
+	public function get($name){
+		if(empty($_SESSION[$name])) {
+			return null;
+		}
+		else{
+			return $_SESSION[$name];
+		}
+	}
+    
+    public function getAll(){
+		if(session_status() == PHP_SESSION_NONE) {				
+			session_start();
+		}
+		return $_SESSION;
+	}
+
+	public function getStatus(){
+		if(session_status() == PHP_SESSION_NONE) {				
+			session_start();
+		}
+		return session_status();
+	}
+
+	public function close(){
+		if(session_status() == PHP_SESSION_NONE) {				
+			session_start();
+		}
+		session_destroy();
+	}
 }
+
+?>}
