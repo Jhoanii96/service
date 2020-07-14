@@ -81,11 +81,7 @@
                                             </a>
                                         </li>
                                     </ul>
-<<<<<<< HEAD
                                     <div class="form-wizard-content sw-container tab-content">
-=======
-                                    <div class="form-wizard-content">
->>>>>>> 84db1b8c592480472b3e3c6b942182817f59d253
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
                                             <form>
@@ -296,7 +292,7 @@
                                                     <button type="button" class="btn btn-success" id="btn_guardar">GUARDAR</button>
                                                 </div> -->
                                                 <!-- <button class="mt-2 btn btn-primary">GUARDAR</button> -->
-                                            </form>
+                                            
                                             <!-- <h5 class="title mt-3" style="margin-bottom: 30px;">SEGURIDAD DE CONTRASEÑA</h5>               
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -373,14 +369,7 @@
                                         </div>
                         
                                         <div id="step-2" class="tab-pane step-content">
-<<<<<<< HEAD
                                             <h2>Cuestionario</h2>
-=======
-                                            <!-- <div>
-                                                <h2>Cuestionario</h2>
-                                            </div> -->
->>>>>>> 84db1b8c592480472b3e3c6b942182817f59d253
-                                            <form>
                                                 <div class="form-group col-md-6">
                                                     <label>Ingrese la cantidad de preguntas :</label>
                                                     <div class="input-group">
@@ -390,10 +379,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
                                             <div class="container" id="questions">
                                             </div>
-                                            <div class="main-card mb-3 card" id="tableQuestions">
+                                                <div class="main-card mb-3 card" id="tableQuestions">
                                             </div>
                                         </div>
                                     </div> 
@@ -642,7 +630,7 @@
         }
     </script>
     <script>
-        $('#show1').click(function() {
+        /* $('#show1').click(function() {
             var type = document.getElementById('contraseña').type;
             if (type == "text") {
                 document.getElementById('contraseña').type = 'password';
@@ -662,14 +650,14 @@
                 document.getElementById('contraseña_confirmada').type = 'text';
                 document.getElementById("confirm_show").className = "fa fa-eye-slash";
             }
-        });
+        }); */
     </script>
     <script>
-        $('#smartwizard2').smartWizard({
+        /* $('#smartwizard2').smartWizard({
             keyboardSettings: {
                 keyNavigation: false
             }
-        });
+        }); */
     </script>
 </body>
 </html>

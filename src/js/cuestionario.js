@@ -2,9 +2,9 @@ let quantity = document.getElementById('cantidad')
 let buttonEnviar = document.getElementById('button')
 let questions = document.getElementById('questions')
 
-// if (quantity != null || buttonEnviar != null || questions != null) {
+if (quantity != null || buttonEnviar != null || questions != null) {
     
-    // function showQuestion(){
+    function showQuestion(){
         buttonEnviar.addEventListener('click', (event) => {
             event.preventDefault();
             let showQuestion = '';
@@ -26,7 +26,7 @@ let questions = document.getElementById('questions')
             showQuestion += '<button class="btn btn-primary mb-2 mt-2" id="btn_question">Guardar</button>'
             questions.innerHTML = showQuestion;
         });
-    // }
+    }
 
 
     function showTable(){
@@ -72,4 +72,4 @@ let questions = document.getElementById('questions')
             tableQuestion.innerHTML = createTableQuestions
     }
 
-
+}
