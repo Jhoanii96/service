@@ -68,8 +68,8 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <div id="smartwizard2" class="forms-wizard-alt">
-                                    <ul class="forms-wizard">
+                                <div id="smartwizard2" class="forms-wizard-alt sw-main sw-theme-default">
+                                    <ul class="forms-wizard nav nav-tabs step-anchor">
                                         <li>
                                             <a href="#step-1" class="nav-link">
                                                 <em>1</em><span>Datos perfil</span>
@@ -81,7 +81,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    <div class="form-wizard-content">
+                                    <div class="form-wizard-content sw-container tab-content">
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
                                             <form action="<?= FOLDER_PATH . '/my/insertProfile' ?>"  method="post" name="form-profile">
@@ -295,9 +295,13 @@
                                                     <button type="button" class="btn btn-success" id="btn_guardar">GUARDAR</button>
                                                 </div> -->
                                                 <!-- <button class="mt-2 btn btn-primary">GUARDAR</button> -->
+<<<<<<< HEAD
 
                                                 <!-- END FORMULARIO PROFILE -->
                                             </form>
+=======
+                                            
+>>>>>>> 48caf7d1d82de51c7929d1465985a8017385cea1
                                             <!-- <h5 class="title mt-3" style="margin-bottom: 30px;">SEGURIDAD DE CONTRASEÑA</h5>               
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -637,7 +641,7 @@
         }
     </script>
     <script>
-        $('#show1').click(function() {
+        /* $('#show1').click(function() {
             var type = document.getElementById('contraseña').type;
             if (type == "text") {
                 document.getElementById('contraseña').type = 'password';
@@ -657,14 +661,14 @@
                 document.getElementById('contraseña_confirmada').type = 'text';
                 document.getElementById("confirm_show").className = "fa fa-eye-slash";
             }
-        });
+        }); */
     </script>
     <script>
-        $('#smartwizard2').smartWizard({
+        /* $('#smartwizard2').smartWizard({
             keyboardSettings: {
                 keyNavigation: false
             }
-        });
+        }); */
     </script>
 </body>
 </html>
