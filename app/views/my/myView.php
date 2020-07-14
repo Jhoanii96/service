@@ -36,7 +36,7 @@
         <div class="app-main">
 
             <!-- PANEL LATERAL IZQUIERDO -->
-            <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
+            <!--?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?-->
             
             <div class="app-main__outer">
                 <div class="app-main__inner">

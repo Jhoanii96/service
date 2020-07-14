@@ -8,7 +8,6 @@ class my extends Controller
 {
     protected $session; 
     protected $stateProfile;
-    // public $profile;
 
     public function __construct()
     {
@@ -21,7 +20,7 @@ class my extends Controller
 
         $this->model = new perfilModel();
         $this->tipadoModel = new tipadoModel();
-        // $this->profile = $this->showProfile();
+      
     }
     
     public function index()
