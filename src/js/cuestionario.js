@@ -2,11 +2,20 @@ let quantity = document.getElementById('cantidad')
 let buttonEnviar = document.getElementById('button')
 let questions = document.getElementById('questions')
 
-// if (quantity != null || buttonEnviar != null || questions != null) {
-    
-    // function showQuestion(){
-        buttonEnviar.addEventListener('click', (event) => {
+
+    function showQuestion(event){
+    // buttonEnviar.addEventListener('click', (event) => {
+        let keycode  = (event.keycode ? event.keycode : event.which);
+        if(keycode == '13'){
             event.preventDefault();
+            showFunctionQuestion();
+        }
+        // });
+    }
+    
+    function showFunctionQuestion(){
+        
+        if (quantity != null || buttonEnviar != null || questions != null) {
             let showQuestion = '';
             let cantidad = parseInt(quantity.value);
             showQuestion += '<form>'
@@ -25,8 +34,9 @@ let questions = document.getElementById('questions')
             showQuestion += '</form>'
             showQuestion += '<button class="btn btn-primary mb-2 mt-2" id="btn_question">Guardar</button>'
             questions.innerHTML = showQuestion;
-        });
-    // }
+        }
+    }
+
 
 
     function showTable(){
@@ -71,5 +81,3 @@ let questions = document.getElementById('questions')
             createTableQuestions += '</div>'
             tableQuestion.innerHTML = createTableQuestions
     }
-
-
