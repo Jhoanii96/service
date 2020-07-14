@@ -31,6 +31,8 @@ END
 create view showPerfil AS
 
 
+/* PROCEDIMIENTO PARA MOSTRAR PERFIL*/
+
 create PROCEDURE showPerfil(name VARCHAR(30))
 
 SELECT Nombres,Apellido_Paterno,Apellido_Materno,es.Descripcion,Documento,CMP,pa.Descripcion,dep.Descripcion,
@@ -47,19 +49,51 @@ dis.ID_Distrito = doc.ID_Distrito WHERE us.Nombre = name
 /* PROCEDIMIENTO PARA ACTUALIZAR PERFIL*/
 
 create procedure updateProfile(
+    user varchar(40),
     nombre varchar(80),
     apellidoPA varchar(80),
     apellidoMA varchar(80),
     especialidad varchar(50),
     dni char(8),
     cmp varchar(10),
-    pais varchar(50),
-    departamento varchar(),
-    provincia varchar(),
-    distrito varchar(),
-    telefono varchar(),
+    pais int,
+    departamento int,
+    provincia int,
+    distrito int,
+    telefono1 varchar(20),
+    telefono2 varchar(20),
+    celular1 varchar(20),
+    celular2 varchar(20),
     precioconsulta int,
+    tiempoatencion int,
+    diapago datetime
 )
-UPDATE usuario SET Monto_Pago =  WHERE Nombre = '".$user."';"
+
+UPDATE doctor doc INNER JOIN pais pa ON
+doc.Id_Pais = pa.Id_Pais INNER JOIN provincia pro ON
+pro.Id_Provincia = doc.Id_Provincia INNER JOIN departamento dep ON
+dep.Id_Departamento = doc.Id_Departamento INNER JOIN usuario us ON
+us.Id_Doctor = doc.Id_Doctor INNER JOIN especialidad es ON
+es.Id_Especialidad = doc.Id_Especialidad INNER JOIN distrito dis ON
+dis.ID_Distrito = doc.ID_Distrito
+SET doc.Nombres = nombre,Apellido_Paterno = apellidoPA,Apellido_Materno = apellidoMA,
+especialidad = es.Descripcion,Documento = dni,CMP = cmp,doc.Id_Pais = pais,doc.Id_Departamento = departamento,
+doc.Id_Provincia = provincia,doc.Id_Distrito = provincia,Telefono_Fijo01 = telefono1,Telefono_Fijo02 = telefono2,
+Celular01 = celular1,Celular02 = celular2,Monto_Pago = precioconsulta,
+Tiempo_Atencion_Promedio = tiempoatencion,Dia_Pago = diapago WHERE Nombre = user;
+
+
+
+
+-- UPDATE usuario  
+-- UPDATE doctor SET , WHERE 
+
+
+SELECT pa.Id_Pais,pa.Descripcion,dep.Id_Departamento,dep.Descripcion,pro.Id_Provincia,pro.Descripcion,
+dis.Id_Distrito,dis.Descripcion FROM pais pa inner join departamento dep ON
+pa.Id_Pais = dep.Id_Pais inner join provincia pro ON
+dep.Id_Departamento = pro.Id_Departamento inner join distrito dis ON
+pro.Id_Provincia = dis.Id_Provincia
+
 
 

@@ -18,7 +18,7 @@ class my extends Controller
             echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
         }
 
-        $this->model = new perfilModel();
+        $this->perfilModel = new perfilModel();
         $this->tipadoModel = new tipadoModel();
       
     }
@@ -31,45 +31,68 @@ class my extends Controller
     
     
     protected function updateStateProfile(){
-        $res = $this->model->updateStateProfile($this->session->get('admin'));
+        $res = $this->perfilModel->updateStateProfile($this->session->get('admin'));
         $res->fetch();
     }
     
     
-    protected function showTableSelect($table){
-        $res = $this->tipadoModel->showTipadoSelect($table);
+    protected function showTableSelect($table,$id=null,$compare=''){
+        $res = $this->tipadoModel->showTipadoSelect($table,$id,$compare);
         return $res->fetchAll();
     }
     
     protected function stateProfile(){
-        $response = $this->model->getStateProfile($this->session->get('admin'));
+        $response = $this->perfilModel->getStateProfile($this->session->get('admin'));
         return $response->fetch();    
     }
 
     protected function showProfile(){
-        $res = $this->model->showProfile($this->session->get('admin'));
+        $res = $this->perfilModel->showProfile($this->session->get('admin'));
         return $res->fetch();
     }
 
     protected function updateProfile(){
-        $_POST['nombre'];
-        $_POST['apellidopa'];
-        $_POST['apellidoma'];
-        $_POST['especialidad'];
-        $_POST['dni'];
-        $_POST['cmp'];
-        $_POST['pais'];
-        $_POST['departamento'];
-        $_POST['provincia'];
-        $_POST['distrito'];
-        $_POST['telefono1'];
-        $_POST['telefono2'];
-        $_POST['celular1'];
-        $_POST['celular2'];
-        $_POST['correo'];
-        $_POST['tiempoatencion'];
-        $_POST['precioconsulta'];
-        $_POST['imagen'];
+
+        // $_POST['nombre'];
+        // $_POST['apellidopa'];
+        // $_POST['apellidoma'];
+        // $_POST['especialidad'];
+        // $_POST['dni'];
+        // $_POST['cmp'];
+        // $_POST['pais'];
+        // $_POST['departamento'];
+        // $_POST['provincia'];
+        // $_POST['distrito'];
+        // $_POST['telefono1'];
+        // $_POST['telefono2'];
+        // $_POST['celular1'];
+        // $_POST['celular2'];
+        // $_POST['correo'];
+        // $_POST['tiempoatencion'];
+        // $_POST['precioconsulta'];
+        // $_POST['diapago'];
+        
+        // $res = $this->perfilModel->updateProfile(
+        //     $_POST['nombre'],
+        //     $_POST['apellidopa'],
+        //     $_POST['apellidoma'],
+        //     $_POST['especialidad'],
+        //     $_POST['dni'],
+        //     $_POST['cmp'],
+        //     $_POST['pais'],
+        //     $_POST['departamento'],
+        //     $_POST['provincia'],
+        //     $_POST['distrito'],
+        //     $_POST['telefono1'],
+        //     $_POST['telefono2'],
+        //     $_POST['celular1'],
+        //     $_POST['celular2'],
+        //     $_POST['correo'],
+        //     $_POST['tiempoatencion'],
+        //     $_POST['precioconsulta'],
+        //     $_POST['diapago']
+        // );
+        // return $res-fetch();
     }
 
     protected function createQuestionnaire(){

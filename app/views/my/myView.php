@@ -36,7 +36,7 @@
         <div class="app-main">
 
             <!-- PANEL LATERAL IZQUIERDO -->
-            <!--?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?-->
+            <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
             
             <div class="app-main__outer">
                 <div class="app-main__inner">
@@ -137,9 +137,10 @@
                                                                     $pais = $this->showTableSelect('pais');
                                                                     foreach($pais as $row) { 
                                                                         if($row['Descripcion'] == $profile['pais']){
-                                                                            echo '<option value="'.$row["Descripcion"].'" selected>'.$row["Descripcion"].'</option>';    
+                                                                            echo '<option value="'.$row["Id_Pais"].'" selected>'.$row["Descripcion"].'</option>';    
+                                                                            $_SESSION["id_pais"]= $row["Id_Pais"];
                                                                         }else{
-                                                                            echo '<option value="'.$row["Descripcion"].'">'.$row["Descripcion"].'</option>';
+                                                                            echo '<option value="'.$row["Id_Pais"].'">'.$row["Descripcion"].'</option>';
                                                                         }
                                                                     }
                                                                 ?>
@@ -152,12 +153,13 @@
                                                             <select class="custom-select" name="departamento" id="departamento">
                                                                 <option selected>Seleccione su departamento</option>
                                                                 <?php  
-                                                                    $depa = $this->showTableSelect('departamento');
+                                                                    $depa = $this->showTableSelect('departamento',$_SESSION["id_pais"],'Pais');
                                                                     foreach ($depa as $row) { 
                                                                         if($row['Descripcion'] == $profile['departamento']){
-                                                                            echo '<option value="'.$row["Descripcion"].'" selected>'.$row["Descripcion"].'</option>';
+                                                                            echo '<option value="'.$row["Id_Departamento"].'" selected>'.$row["Descripcion"].'</option>';
+                                                                            $_SESSION['id_departamento']= $row['Id_Departamento'];
                                                                         }else{
-                                                                            echo '<option value="'.$row["Descripcion"].'">'.$row["Descripcion"].'</option>';
+                                                                            echo '<option value="'.$row["Id_Departamento"].'">'.$row["Descripcion"].'</option>';
                                                                         }
                                                                     }
                                                                 ?>
@@ -170,12 +172,13 @@
                                                             <select class="custom-select" name="provincia" id="provincia">
                                                                 <option selected>Seleccione su provincia</option>
                                                                 <?php  
-                                                                    $prov = $this->showTableSelect('provincia');
+                                                                    $prov = $this->showTableSelect('provincia',$_SESSION['id_departamento'],'Departamento');
                                                                     foreach ($prov as $row) { 
                                                                         if($row['Descripcion'] == $profile['provincia']){
-                                                                            echo '<option value="'.$row["Descripcion"].'" selected>'.$row["Descripcion"].'</option>';
+                                                                            echo '<option value="'.$row["Id_Provincia"].'" selected>'.$row["Descripcion"].'</option>';
+                                                                            $_SESSION['id_provincia']= $row['Id_Provincia'];
                                                                         }else{
-                                                                            echo '<option value="'.$row["Descripcion"].'">'.$row["Descripcion"].'</option>';
+                                                                            echo '<option value="'.$row["Id_Provincia"].'">'.$row["Descripcion"].'</option>';
                                                                         }
                                                                     }
                                                                 ?>
@@ -188,12 +191,12 @@
                                                             <select class="custom-select" name="distrito" id="distrito" >
                                                                 <option selected>Seleccione su opcion</option>
                                                                 <?php  
-                                                                    $dist = $this->showTableSelect('distrito');
+                                                                    $dist = $this->showTableSelect('distrito',$_SESSION['id_provincia'],'Provincia');
                                                                     foreach ($dist as $row) { 
                                                                         if($row['Descripcion'] == $profile['distrito']){
-                                                                            echo '<option value="'.$row["Descripcion"].'" selected>'.$row["Descripcion"].'</option>';
+                                                                            echo '<option value="'.$row["Id_Distrito"].'" selected>'.$row["Descripcion"].'</option>';
                                                                         }else{
-                                                                            echo '<option value="'.$row["Descripcion"].'">'.$row["Descripcion"].'</option>';
+                                                                            echo '<option value="'.$row["Id_Distrito"].'">'.$row["Descripcion"].'</option>';
                                                                         }
                                                                     }
                                                                 ?>

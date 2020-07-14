@@ -59,6 +59,31 @@
             $res = Model::query_execute($query);
             return $res;
         } 
+
+        // public function updateProfile(
+        //     $user,
+        //     $apellidopa,
+        //     $apellidoma,
+        //     $especialidad,
+        //     $dni,
+        //     $cmp,
+        //     $pais,
+        //     $departamento,
+        //     $provincia,
+        //     $distrito,
+        //     $telefono1,
+        //     $telefono2,
+        //     $celular1,
+        //     $celular2,
+        //     $correo,
+        //     $tiempoatencion,
+        //     $precioconsulta,
+        //     $diapago
+        // ){
+        //     $query = "CALL updateProfile($user)";
+        //     $res = MODEL::query_execute($query);
+        //     return $res;
+        // }
     }
 
     
