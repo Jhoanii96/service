@@ -31,7 +31,7 @@
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
 
         <!-- PANEL LATERAL DERECHO/CONFIGURACIONES DE DISEÑO -->
-        <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?>
+        <!--?php require(ROOT . '/'  . PATH_VIEWS . 'panel_lateral_der.php'); ?-->
 
         <div class="app-main">
 
@@ -84,7 +84,7 @@
                                     <div class="form-wizard-content">
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
-                                            <form>
+                                            <form action="<?= FOLDER_PATH . '/my/insertProfile' ?>"  method="post" name="form-profile">
                                                 <div class="form-row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
@@ -274,7 +274,10 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="position-relative form-group"><label >Precio de Consulta Promedio</label><input name="precioconsulta" id="precioconsulta" placeholder="" type="text"class="form-control" required></div>
+                                                        <div class="position-relative form-group">
+                                                            <label >Precio de Consulta Promedio</label>
+                                                            <input name="precioconsulta" id="precioconsulta" placeholder="" type="text"class="form-control" required>
+                                                            </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago"  type="date" class="form-control" required></div>
@@ -292,6 +295,8 @@
                                                     <button type="button" class="btn btn-success" id="btn_guardar">GUARDAR</button>
                                                 </div> -->
                                                 <!-- <button class="mt-2 btn btn-primary">GUARDAR</button> -->
+
+                                                <!-- END FORMULARIO PROFILE -->
                                             </form>
                                             <!-- <h5 class="title mt-3" style="margin-bottom: 30px;">SEGURIDAD DE CONTRASEÑA</h5>               
                                             <div class="row">
@@ -366,27 +371,25 @@
                                             <!-- <div class="float-right">
                                                 <button type="button" class="btn btn-success" id="showtoast">GUARDAR</button>
                                             </div> -->
-                                        </div>
+                                            </div>
+                                        <!-- </form> -->
                         
                                         <div id="step-2" class="tab-pane step-content">
-                                            <!-- <div>
-                                                <h2>Cuestionario</h2>
-                                            </div> -->
-                                            <form>
+                                            <form action="<?= FOLDER_PATH . '/my/createQuestionnaire' ?>"  method="post">
                                                 <div class="form-group col-md-6">
                                                     <label>Ingrese la cantidad de preguntas :</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="cantidad" autofocus="autofocus">
+                                                        <input type="text" class="form-control" id="cantidad" onkeypress="showQuestion(event)">
                                                         <div class="input-group-append">
-                                                            <button type="button" class="btn btn-info" id="button">Generar</button>
+                                                            <button type="button" class="btn btn-info" id="button" onclick="showFunctionQuestion()" >Generar</button>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="container" id="questions">
+                                                </div>
+                                                <div class="main-card mb-3 card" id="tableQuestions">
+                                                </div>
                                             </form>
-                                            <div class="container" id="questions">
-                                            </div>
-                                            <div class="main-card mb-3 card" id="tableQuestions">
-                                            </div>
                                         </div>
                                     </div> 
                                 </div>
