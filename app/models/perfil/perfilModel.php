@@ -37,7 +37,7 @@
         }
 
         public function mostrar_perfil($codPerfil){
-            $query = "CALL mostrar_perfil('".$codPerfil."');";
+            $query = "CALL mostrar_perfil($codPerfil);";
             $res = Model::query_execute($query);
             return $res;
         }
@@ -60,30 +60,23 @@
             return $res;
         } 
 
-        // public function updateProfile(
-        //     $user,
-        //     $apellidopa,
-        //     $apellidoma,
-        //     $especialidad,
-        //     $dni,
-        //     $cmp,
-        //     $pais,
-        //     $departamento,
-        //     $provincia,
-        //     $distrito,
-        //     $telefono1,
-        //     $telefono2,
-        //     $celular1,
-        //     $celular2,
-        //     $correo,
-        //     $tiempoatencion,
-        //     $precioconsulta,
-        //     $diapago
-        // ){
-        //     $query = "CALL updateProfile($user)";
-        //     $res = MODEL::query_execute($query);
+        // public function updateProfile($user,$nombre,$apellidopa,$apellidoma,$especialidad,
+        //     $dni,$cmp,$pais,$departamento,$provincia,$distrito,$telefono1,$telefono2,$celular1,
+        //     $celular2,$precioconsulta,$tiempoatencion,$diapago){
+
+        //     $query = "CALL updateProfile($user,$nombre,$apellidopa,$apellidoma,$especialidad,$dni,$cmp,$pais,$departamento,$provincia,
+        //     $distrito,$telefono1,$telefono2,$celular1,$celular2,$precioconsulta,$tiempoatencion,$diapago)";
+        //     $res = Model::query_execute($query);
         //     return $res;
         // }
+
+        public function updateProfile($user,$nombre,$apellidopa,$apellidoma,$especialidad,
+            $dni,$pais){
+                
+            $query = "CALL updateProfile('$user','$nombre','$apellidopa','$apellidoma',$especialidad,'$dni',$pais)";
+            Model::query_execute($query);
+        
+        }
     }
 
     

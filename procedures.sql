@@ -80,7 +80,36 @@ SET doc.Nombres = nombre,Apellido_Paterno = apellidoPA,Apellido_Materno = apelli
 especialidad = es.Descripcion,Documento = dni,CMP = cmp,doc.Id_Pais = pais,doc.Id_Departamento = departamento,
 doc.Id_Provincia = provincia,doc.Id_Distrito = provincia,Telefono_Fijo01 = telefono1,Telefono_Fijo02 = telefono2,
 Celular01 = celular1,Celular02 = celular2,Monto_Pago = precioconsulta,
-Tiempo_Atencion_Promedio = tiempoatencion,Dia_Pago = diapago WHERE Nombre = user;
+Tiempo_Atencion_Promedio = tiempoatencion,Dia_Pago = diapago WHERE us.Nombre = user;
+
+/**/
+
+create procedure updatep(
+    user varchar(40),
+    nombre varchar(80),
+    apellidoPA varchar(80),
+    apellidoMA varchar(80),
+    especialidad varchar(50),
+    dni char(8),
+    pais int
+)
+
+UPDATE doctor doc INNER JOIN pais pa ON
+doc.Id_Pais = pa.Id_Pais INNER JOIN usuario us ON
+us.Id_Doctor = doc.Id_Doctor INNER JOIN especialidad es ON
+es.Id_Especialidad = doc.Id_Especialidad 
+SET doc.Nombres = nombre,doc.Apellido_Paterno = apellidoPA,doc.Apellido_Materno = apellidoMA,
+es.Descripcion = especialidad,Documento = dni WHERE us.Nombre = user;
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -51,51 +51,18 @@ class my extends Controller
         return $res->fetch();
     }
 
-    protected function updateProfile(){
-
-        // $_POST['nombre'];
-        // $_POST['apellidopa'];
-        // $_POST['apellidoma'];
-        // $_POST['especialidad'];
-        // $_POST['dni'];
-        // $_POST['cmp'];
-        // $_POST['pais'];
-        // $_POST['departamento'];
-        // $_POST['provincia'];
-        // $_POST['distrito'];
-        // $_POST['telefono1'];
-        // $_POST['telefono2'];
-        // $_POST['celular1'];
-        // $_POST['celular2'];
-        // $_POST['correo'];
-        // $_POST['tiempoatencion'];
-        // $_POST['precioconsulta'];
-        // $_POST['diapago'];
-        
-        // $res = $this->perfilModel->updateProfile(
-        //     $_POST['nombre'],
-        //     $_POST['apellidopa'],
-        //     $_POST['apellidoma'],
-        //     $_POST['especialidad'],
-        //     $_POST['dni'],
-        //     $_POST['cmp'],
-        //     $_POST['pais'],
-        //     $_POST['departamento'],
-        //     $_POST['provincia'],
-        //     $_POST['distrito'],
-        //     $_POST['telefono1'],
-        //     $_POST['telefono2'],
-        //     $_POST['celular1'],
-        //     $_POST['celular2'],
-        //     $_POST['correo'],
-        //     $_POST['tiempoatencion'],
-        //     $_POST['precioconsulta'],
-        //     $_POST['diapago']
-        // );
-        // return $res-fetch();
-    }
-
-    protected function createQuestionnaire(){
-        
+    // public function updateProfile(){
+    //     $res = $this->perfilModel->updateProfile($this->session->get('admin'),$_POST['nombre'],$_POST['apellidopa'],
+    //         $_POST['apellidoma'],$_POST['especialidad'],$_POST['dni'],$_POST['cmp'],$_POST['pais'],$_POST['departamento'],
+    //         $_POST['provincia'],$_POST['distrito'],$_POST['telefono1'],$_POST['telefono2'],$_POST['celular1'],$_POST['celular2'],
+    //         $_POST['precioconsulta'],$_POST['tiempoatencion'],$_POST['diapago']);
+    //     return $res->fetch();
+    
+    // }
+    public function updateP(){
+        $this->perfilModel->updateProfile($this->session->get('admin'),$_POST['nombre'],$_POST['apellidopa'],
+            $_POST['apellidoma'],$_POST['especialidad'],$_POST['dni'],$_POST['pais']);
+    
+        // header("Location: " . FOLDER_PATH . "/my");
     }
 }

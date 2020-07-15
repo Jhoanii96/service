@@ -84,7 +84,7 @@
                                     <div class="form-wizard-content sw-container tab-content">
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
-                                            <form action="<?= FOLDER_PATH . '/my/insertProfile' ?>"  method="post" name="form-profile">
+                                            <form action="<?= FOLDER_PATH . '/my/updateP' ?>"  method="post" name="form-profile">
                                                 <div class="form-row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
@@ -122,7 +122,7 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group"> 
                                                             <label>Codigo Medico del Peru</label>
-                                                            <input name="cmp" id="cmp" type="text" value="<?php echo $profile['CMP']; ?>" class="form-control" maxLength="6" required/>
+                                                            <input name="cmp" id="cmp" type="text" value="<?php echo $profile['CMP']; ?>" class="form-control" maxLength="6" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -213,7 +213,7 @@
                                                                     <span class="input-group-text">
                                                                     <i class="fa fa-phone"></i>
                                                                 </span>
-                                                                </div><input name="telefono1" id="telefono1" value="<?php echo $profile['Telefono_Fijo01']; ?>" type="text" class="form-control" required/></div>
+                                                                </div><input name="telefono1" id="telefono1" value="<?php echo $profile['Telefono_Fijo01']; ?>" type="text" class="form-control"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -233,7 +233,7 @@
                                                                     <span class="input-group-text">
                                                                     <i class="fas fa-mobile-alt"></i>
                                                                 </span>
-                                                                </div><input name="celular1" id="celular1" type="text" value="<?php echo $profile['Celular01']; ?>" class="form-control" required></div>
+                                                                </div><input name="celular1" id="celular1" type="text" value="<?php echo $profile['Celular01']; ?>" class="form-control"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -257,7 +257,7 @@
                                                                         <i class="fa fa-envelope"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="correo" id="correo" value="<?php echo $profile['email01']; ?>" type="email" class="form-control" required/>
+                                                                <input name="correo" id="correo" value="<?php echo $profile['email01']; ?>" type="email" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -273,25 +273,29 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Tiempo de Atencion Promedio</label>
-                                                            <input name="tiempoatencion" id="tiempoatencion" type="text" class="form-control" required/>
+                                                            <input name="tiempoatencion" id="tiempoatencion" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label >Precio de Consulta Promedio</label>
-                                                            <input name="precioconsulta" id="precioconsulta" placeholder="" type="text"class="form-control" required>
+                                                            <input name="precioconsulta" id="precioconsulta" type="text"class="form-control">
                                                             </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago"  type="date" class="form-control" required></div>
+                                                        <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago"  type="date" class="form-control"></div>
                                                     </div>
                                                 </div> 
+                                                <!-- <div class="divider"></div> -->
                                                 <div class="form-row">
-                                                    <div class="col-md-6">
+                                                    <!-- <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label>Agregar imagen</label>
                                                             <input name="imagen" id="imagen" type="file" class="form-control-file" required/>
                                                         </div>
+                                                    </div> -->
+                                                    <div class="col-md-6">
+                                                        <button type="submit" class="btn btn-success ">Actualizar perfil</button>
                                                     </div>
                                                 </div>
                                                 <!-- <div class="float-right">
@@ -379,7 +383,7 @@
                         
                                         <div id="step-2" class="tab-pane step-content">
                                             <h2>Cuestionario</h2>
-                                            <form>
+                                            <!-- <form> -->
                                                 <div class="form-group col-md-6">
                                                     <label>Ingrese la cantidad de preguntas :</label>
                                                     <div class="input-group">
@@ -393,7 +397,7 @@
                                                 </div>
                                                 <div class="main-card mb-3 card" id="tableQuestions">
                                                 </div>
-                                            </form>
+                                            <!-- </form> -->
                                         </div>
                                     </div> 
                                 </div>
