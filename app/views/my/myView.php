@@ -84,7 +84,7 @@
                                     <div class="form-wizard-content sw-container tab-content">
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
-                                            <form action="<?= FOLDER_PATH . '/my/updateP' ?>"  method="post" name="form-profile">
+                                            <form action="<?= FOLDER_PATH . '/my/updateProfile' ?>"  method="post" name="form-profile">
                                                 <div class="form-row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
@@ -110,7 +110,7 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Especialidad</label>
-                                                            <input name="especialidad" id="especialidad" type="text" value="<?php echo $profile['especialidad']; ?>" class="form-control" required/>
+                                                            <input name="especialidad" id="especialidad" type="text" value="2" class="form-control" required/>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">

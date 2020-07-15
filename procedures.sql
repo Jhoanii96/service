@@ -82,7 +82,65 @@ doc.Id_Provincia = provincia,doc.Id_Distrito = provincia,Telefono_Fijo01 = telef
 Celular01 = celular1,Celular02 = celular2,Monto_Pago = precioconsulta,
 Tiempo_Atencion_Promedio = tiempoatencion,Dia_Pago = diapago WHERE us.Nombre = user;
 
-/**/
+/* PROCEDIMIENTO PARA ACTUALIZAR PERFIL  VERSION  DE SHON  */
+CREATE PROCEDURE `updateProfile`(
+
+	user varchar(40),
+    nombre varchar(80),
+    apellidoPA varchar(80),
+    apellidoMA varchar(80),
+    especialidad int,
+    dni char(8),
+    cmp varchar(10),
+    pais int,
+    departamento int,
+    provincia int,
+    distrito int,
+    telefono1 varchar(20),
+    telefono2 varchar(20),
+    celular1 varchar(20),
+    celular2 varchar(20),
+    precioconsulta float,
+    tiempoatencion int,
+    diapago date
+	
+)
+BEGIN
+
+	declare iddoctor int;
+    declare idusuario int;
+
+	SELECT @iddoctor := d.Id_Doctor FROM doctor d WHERE d.Documento = dni; 
+    SELECT @idusuario := u.Id_Usuario FROM usuario u WHERE u.Nombre = user; 
+
+	UPDATE `doctor`
+	SET
+	`Id_Especialidad` = especialidad,
+	`Id_Pais` = pais,
+	`Id_Departamento` = departamento,
+	`Id_Provincia` = provincia,
+	`Id_Distrito` = distrito,
+	`Documento` = dni,
+	`CMP` = cmp,
+	`Nombres` = nombre,
+	`Apellido_Paterno` = apellidoPA,
+	`Apellido_Materno` = apellidoMA,
+	`Telefono_Fijo01` = telefono1,
+	`Telefono_Fijo02` = telefono2,
+	`Celular01` = celular1,
+	`Celular02` = celular2  
+	WHERE `Documento` = @iddoctor;
+	
+    UPDATE `usuario` 
+	SET
+	`Monto_Pago` = precioconsulta,
+	`Dia_Pago` = diapago,
+	`Tiempo_Atencion_Promedio` = tiempoatencion,
+	`Precio_Predeterminado` = precioconsulta 
+	WHERE `Id_Usuario` = @idusuario;
+	
+END
+
 
 create procedure updatep(
     user varchar(40),
