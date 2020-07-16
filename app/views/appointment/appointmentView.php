@@ -14,8 +14,7 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <!-- HEADER -->
-    <?php require(ROOT . '/' . PATH_VIEWS . 'fonts.php'); ?>
-
+    <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 </head>
 
@@ -61,18 +60,21 @@
                             <h5 class="card-title">REGISTRO DE CITAS</h5>
                             <div class="mt-4 mb-1" style="align-content: center; align-items: center;">
                                 <div class="form-inline">
-                                    <div class="input-group pb-4" style="align-items: center;">
-                                        <div class="position-relative input-group ">
-                                            <label for="exampleCustomSelect" class="mr-2 mt-auto mb-auto">Fecha Cita</label>
-                                            <input name="date" id="date" placeholder="password placeholder" type="date" class="mr-2 form-control">
+                                    <div class="input-group" style="align-items: center;">
+                                        <div class="position-relative input-group mb-4">
+                                            <label class="mr-2 mt-auto mb-auto">Nombre</label>
+                                            <input name="date" id="date" placeholder="Ingresar nombre" type="text" class="mr-2 form-control">
+                                            
+                                        </div>
+                                        <div class="position-relative input-group mb-4">
+                                        <label class="mr-2 mt-auto mb-auto">Fecha Cita</label>
+                                            <input name="date" id="date" type="date" class="mr-2 form-control">
                                             <button class="btn-icon btn-pill btn btn-primary"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group pb-4" style="margin-left: auto;">
                                         <div class="position-relative input-group">
-                                            <label for="exampleCustomSelect" class="mr-2 mt-auto mb-auto">Horas</label>
-                                            <input class="form-control input-mask-trigger mr-2" id="endTime">
-                                            <button class="btn-icon btn-pill btn btn-success">Agregar</button>
+                                            <button class="btn-icon btn-pill btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -217,22 +219,56 @@
     </div>
     <!-- MODAL USER CONFIGURATIONS  -->
 
-
-    <!-- END MODAL -->
-    <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar hora</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Agregue la hora en que realizará la consulta</p>
+                    <br>
+                    <label for="exampleCustomSelect" class="mr-2 mt-auto mb-auto">Horas</label>
+                    <input class="form-control input-mask-trigger mr-2" id="endTime">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JQUERY -->
+    <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script>
+        $('input[id$="endTime"]').inputmask("hh:mm", {
+            placeholder: "HH:MM",
+            insertMode: false,
+            showMaskOnHover: false,
+            hourFormat: "24"
+        });
+    </script>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
         let close = document.getElementById("btn-adm_close");
         if (cons != null) {
             document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+
             function consulta_admin() {
                 location.href = "<?= FOLDER_PATH ?>/consultation"
             }
         }
         if (close != null) {
             document.getElementById("btn-adm_close").addEventListener("click", close_admin);
+
             function close_admin() {
                 location.href = "<?= FOLDER_PATH ?>/login/salir"
             }
@@ -241,3 +277,4 @@
 </body>
 
 </html>
+
