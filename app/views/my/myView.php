@@ -25,6 +25,8 @@
             $profile = $this->showProfile();
             $this->session->add('Nombres', $profile['Nombres']);
             $this->session->add('especialidad', $profile['especialidad']);
+            $this->session->add('idUser',$profile['Id_Usuario']);
+            $this->session->add('idDoctor',$profile['Id_Doctor']);
         ?>
 
         <!-- HEADER -->
@@ -84,24 +86,25 @@
                                     <div class="form-wizard-content sw-container tab-content">
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
-                                            <form action="<?= FOLDER_PATH . '/my/updateProfile' ?>"  method="post" name="form-profile">
+                                            <!-- <form action="<--?= FOLDER_PATH . '/my/updateProfile' ?>"  method="post" name="form-profile"> -->
+                                            <form method="post" name="frm-profile" id="frm-profile">
                                                 <div class="form-row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Nombre</label>
-                                                            <input name="nombre" id="nombre"  type="text" value="<?php echo $profile['Nombres']; ?>" class="form-control" required/>
+                                                            <input name="nombre" id="nombre"  type="text" value="<?php echo $profile['Nombres']; ?>" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Apellido Paterno</label>
-                                                            <input name="apellidopa" id="apellidopa"  type="text" value="<?php echo $profile['Apellido_Paterno']; ?>" class="form-control" required/>
+                                                            <input name="apellidopa" id="apellidopa"  type="text" value="<?php echo $profile['Apellido_Paterno']; ?>" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Apellido Materno</label>
-                                                            <input name="apellidoma" id="apellidoma" type="text" value="<?php echo $profile['Apellido_Materno']; ?>" class="form-control" required/>
+                                                            <input name="apellidoma" id="apellidoma" type="text" value="<?php echo $profile['Apellido_Materno']; ?>" class="form-control" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -110,19 +113,32 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Especialidad</label>
-                                                            <input name="especialidad" id="especialidad" type="text" value="2" class="form-control" required/>
+                                                            <select class="custom-select" name="especialidad" id="especialidad" required>
+                                                                <option selected>Seleccione su especialidad</option>
+                                                                <?php  
+                                                                    $especialidad = $this->showTableSelect('especialidad');
+                                                                    foreach($especialidad as $row) { 
+                                                                        if($row['Descripcion'] == $profile['especialidad']){
+                                                                            echo '<option value="'.$row["Id_Especialidad"].'" selected>'.$row["Descripcion"].'</option>';    
+                                                                    
+                                                                        }else{
+                                                                            echo '<option value="'.$row["Id_Especialidad"].'">'.$row["Descripcion"].'</option>';
+                                                                        }
+                                                                    }
+                                                                ?>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group"> 
                                                             <label>DNI</label>
-                                                            <input name="dni" id="dni" type="text" value="<?php echo $profile['Documento']; ?>" class="form-control"  maxLength="8" required/>
+                                                            <input name="dni" id="dni" type="text" value="<?php echo $profile['Documento']; ?>" class="form-control"  maxLength="8" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group"> 
                                                             <label>Codigo Medico del Peru</label>
-                                                            <input name="cmp" id="cmp" type="text" value="<?php echo $profile['CMP']; ?>" class="form-control" maxLength="6" >
+                                                            <input name="cmp" id="cmp" type="text" value="<?php echo $profile['CMP']; ?>" class="form-control" maxLength="6" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,7 +147,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Pais</label>
-                                                            <select class="custom-select" name="pais" id="pais">
+                                                            <select class="custom-select" name="pais" id="pais" required>
                                                                 <option selected>Seleccione su pais</option>
                                                                 <?php  
                                                                     $pais = $this->showTableSelect('pais');
@@ -150,7 +166,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Departamento</label>
-                                                            <select class="custom-select" name="departamento" id="departamento">
+                                                            <select class="custom-select" name="departamento" id="departamento" required>
                                                                 <option selected>Seleccione su departamento</option>
                                                                 <?php  
                                                                     $depa = $this->showTableSelect('departamento',$_SESSION["id_pais"],'Pais');
@@ -169,7 +185,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Provincia</label>
-                                                            <select class="custom-select" name="provincia" id="provincia">
+                                                            <select class="custom-select" name="provincia" id="provincia" required>
                                                                 <option selected>Seleccione su provincia</option>
                                                                 <?php  
                                                                     $prov = $this->showTableSelect('provincia',$_SESSION['id_departamento'],'Departamento');
@@ -188,7 +204,7 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Distrito</label>
-                                                            <select class="custom-select" name="distrito" id="distrito" >
+                                                            <select class="custom-select" name="distrito" id="distrito" required>
                                                                 <option selected>Seleccione su opcion</option>
                                                                 <?php  
                                                                     $dist = $this->showTableSelect('distrito',$_SESSION['id_provincia'],'Provincia');
@@ -211,9 +227,11 @@
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
-                                                                    <i class="fa fa-phone"></i>
-                                                                </span>
-                                                                </div><input name="telefono1" id="telefono1" value="<?php echo $profile['Telefono_Fijo01']; ?>" type="text" class="form-control"></div>
+                                                                        <i class="fa fa-phone"></i>
+                                                                    </span>
+                                                                </div>
+                                                                    <input name="telefono1" id="telefono1" value="<?php echo $profile['Telefono_Fijo01']; ?>" type="text" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -221,9 +239,11 @@
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
-                                                                    <i class="fa fa-phone"></i>
-                                                                </span>
-                                                                </div><input name="telefono2" id="telefono2" placeholder="Ingrese su segundo telefono" type="text" class="form-control"></div>
+                                                                        <i class="fa fa-phone"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input name="telefono2" id="telefono2" value="<?php echo $profile['Telefono_Fijo02']; ?>" placeholder="Ingrese su segundo telefono" type="text" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -231,9 +251,11 @@
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
-                                                                    <i class="fas fa-mobile-alt"></i>
-                                                                </span>
-                                                                </div><input name="celular1" id="celular1" type="text" value="<?php echo $profile['Celular01']; ?>" class="form-control"></div>
+                                                                        <i class="fas fa-mobile-alt"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input name="celular1" id="celular1" type="text" value="<?php echo $profile['Celular01']; ?>" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -241,9 +263,11 @@
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
-                                                                    <i class="fas fa-mobile-alt"></i>
-                                                                </span>
-                                                                </div><input name="celular2" id="celular2" placeholder="Ingrese su segundo celular" type="text" class="form-control"></div>
+                                                                        <i class="fas fa-mobile-alt"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input name="celular2" id="celular2"  value="<?php echo $profile['Celular02']; ?>" type="text" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,7 +281,7 @@
                                                                         <i class="fa fa-envelope"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="correo" id="correo" value="<?php echo $profile['email01']; ?>" type="email" class="form-control">
+                                                                <input name="correo" id="correo" value="<?php echo $profile['email01']; ?>" type="email" class="form-control" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -273,17 +297,20 @@
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Tiempo de Atencion Promedio</label>
-                                                            <input name="tiempoatencion" id="tiempoatencion" type="text" class="form-control">
+                                                            <input name="tiempoatencion" id="tiempoatencion" value="<?php echo $profile['Tiempo_Atencion_Promedio']; ?>"type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label >Precio de Consulta Promedio</label>
-                                                            <input name="precioconsulta" id="precioconsulta" type="text"class="form-control">
-                                                            </div>
+                                                            <input name="precioconsulta" id="precioconsulta" value="<?php echo $profile['Precio_Predeterminado']; ?>" type="text"class="form-control" required>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="position-relative form-group"><label>Dia de pago</label><input name="diapago" id="diapago"  type="date" class="form-control"></div>
+                                                        <div class="position-relative form-group">
+                                                            <label>Dia de pago</label>
+                                                            <input name="diapago" id="diapago" type="date" value="<?php echo $profile['Dia_Pago']; ?>" class="form-control" required>
+                                                        </div>
                                                     </div>
                                                 </div> 
                                                 <!-- <div class="divider"></div> -->
@@ -295,7 +322,7 @@
                                                         </div>
                                                     </div> -->
                                                     <div class="col-md-6">
-                                                        <button type="submit" class="btn btn-success ">Actualizar perfil</button>
+                                                        <button class="btn btn-success " id="btnSaveProfile">Actualizar perfil</button>
                                                     </div>
                                                 </div>
                                                 <!-- <div class="float-right">
@@ -387,16 +414,16 @@
                                                 <div class="form-group col-md-6">
                                                     <label>Ingrese la cantidad de preguntas :</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="cantidad" onkeypress="showQuestion(event)">
+                                                        <input type="text" class="form-control" id="cantidad" onkeypress="showQuestion2(event)">
                                                         <div class="input-group-append">
-                                                            <button type="button" class="btn btn-info" id="button" onclick="showFunctionQuestion()" >Generar</button>
+                                                            <button type="button" class="btn btn-info" id="button" onclick="showFunctionQuestion2(event)" >Crear</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="container" id="questions">
                                                 </div>
-                                                <div class="main-card mb-3 card" id="tableQuestions">
-                                                </div>
+                                                <!-- <div class="main-card mb-3 card" id="tableQuestions">
+                                                </div> -->
                                             <!-- </form> -->
                                         </div>
                                     </div> 
@@ -618,15 +645,15 @@
 
                     <?php } ?>             
                 </div>
-
             </div>
         </div>
-
     </div>
     <!-- MODAL USER CONFIGURATIONS  -->
     
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
@@ -673,6 +700,38 @@
                 keyNavigation: false
             }
         }); */
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#btnSaveProfile').click(function(){
+                let datos = $('#frm-profile').serialize();
+                // alert(datos);
+                $.ajax({
+                    type:"post",
+                    url: "<?php echo FOLDER_PATH ?>/my/updateProfile",
+                    data: datos,
+                    success:function(response){
+                        swal({
+                            title: '¡Actualizado con exito !',
+                            text: response,
+                            icon: 'success',
+                            timer: 10000,
+                            buttons: false
+                        });
+                    },
+                    error:function(xhr,ajaxOptions, thrownError){
+                        alert(xhr.status);
+                        alert(thrownError);
+                        swal({
+                            text: resp,
+                            timer: 3000,
+                            icon: "success"
+                        })
+                    }
+                });
+                return false;
+            });
+        });
     </script>
 </body>
 </html>

@@ -56,7 +56,8 @@ class my extends Controller
 
     public function updateProfile()
     {
-        $user = $this->session->get('admin');
+        $idUser = $this->session->get('idUser');
+        $idDoctor = $this->session->get('idDoctor');
         $nombre = $_POST['nombre'];
         $apellidopa = $_POST['apellidopa'];
         $apellidoma = $_POST['apellidoma'];
@@ -73,10 +74,11 @@ class my extends Controller
         $celular2 = $_POST['celular2'];
         $precioconsulta = $_POST['precioconsulta'];
         $tiempoatencion = $_POST['tiempoatencion'];
-        $diapago = $_POST['diapago'];
-
+        $diapago = strtotime($_POST['diapago']);
+        $diapago = date('y-m-d',$diapago);
         $this->perfilModel->updateProfile(
-            $user,
+            $idUser,
+            $idDoctor,
             $nombre,
             $apellidopa,
             $apellidoma,
@@ -96,10 +98,4 @@ class my extends Controller
             $diapago
         );
     }
-    /* public function updateP(){
-        $this->perfilModel->updateProfile($this->session->get('admin'),$_POST['nombre'],$_POST['apellidopa'],
-            $_POST['apellidoma'],$_POST['especialidad'],$_POST['dni'],$_POST['pais']);
-    
-        // header("Location: " . FOLDER_PATH . "/my");
-    } */
 }

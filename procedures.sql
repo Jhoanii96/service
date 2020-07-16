@@ -141,25 +141,58 @@ BEGIN
 	
 END
 
+/*UPDATE PROFILE 2.0*/
 
-create procedure updatep(
-    user varchar(40),
+CREATE PROCEDURE updateProfile(
+
+	idUser int,
+    idDoctor int,
     nombre varchar(80),
     apellidoPA varchar(80),
     apellidoMA varchar(80),
-    especialidad varchar(50),
+    especialidad int,
     dni char(8),
-    pais int
+    cmp varchar(10),
+    pais int,
+    departamento int,
+    provincia int,
+    distrito int,
+    telefono1 varchar(20),
+    telefono2 varchar(20),
+    celular1 varchar(20),
+    celular2 varchar(20),
+    precioconsulta float,
+    tiempoatencion int,
+    diapago date
+	
 )
 
-UPDATE doctor doc INNER JOIN pais pa ON
-doc.Id_Pais = pa.Id_Pais INNER JOIN usuario us ON
-us.Id_Doctor = doc.Id_Doctor INNER JOIN especialidad es ON
-es.Id_Especialidad = doc.Id_Especialidad 
-SET doc.Nombres = nombre,doc.Apellido_Paterno = apellidoPA,doc.Apellido_Materno = apellidoMA,
-es.Descripcion = especialidad,Documento = dni WHERE us.Nombre = user;
+BEGIN
 
+    UPDATE usuario 
+	SET
+	Monto_Pago = precioconsulta,
+	Dia_Pago = diapago,
+	Tiempo_Atencion_Promedio = tiempoatencion,
+	Precio_Predeterminado = precioconsulta WHERE Id_Usuario = idUser;
 
+    UPDATE doctor
+	SET
+	Id_Especialidad = especialidad,
+	Id_Pais = pais,
+	Id_Departamento = departamento,
+	Id_Provincia = provincia,
+	Id_Distrito = distrito,
+	Documento = dni,
+	CMP = cmp,
+	Nombres = nombre,
+	Apellido_Paterno = apellidoPA,
+	Apellido_Materno = apellidoMA,
+	Telefono_Fijo01 = telefono1,
+	Telefono_Fijo02 = telefono2,
+	Celular01 = celular1,
+	Celular02 = celular2  WHERE Id_Doctor = idDoctor;
+END
 
 
 

@@ -64,15 +64,42 @@ class perfilModel extends Model
         return $res;
     }
 
-    public function updateProfile($user,$nombre,$apellidopa,$apellidoma,$especialidad,
+    public function updateProfile($idUser,$idDoctor,$nombre,$apellidopa,$apellidoma,$especialidad,
         $dni,$cmp,$pais,$departamento,$provincia,$distrito,$telefono1,$telefono2,$celular1,
         $celular2,$precioconsulta,$tiempoatencion,$diapago){
 
-        $query = "CALL updateProfile('$user','$nombre','$apellidopa','$apellidoma',
-           $especialidad,'$dni','$cmp',$pais,$departamento,$provincia,
-           $distrito,'$telefono1','$telefono2','$celular1','$celular2','$precioconsulta',
-           $tiempoatencion,'$diapago')";
-        Model::query_execute($query);
+        // $query = "CALL updateProfile('$user','$nombre','$apellidopa','$apellidoma',
+        //    $especialidad,'$dni','$cmp',$pais,$departamento,$provincia,
+        //    $distrito,'$telefono1','$telefono2','$celular1','$celular2','$precioconsulta',
+        //    $tiempoatencion,'$diapago')";
+        // Model::query_execute($query);
+
+        $queryUser ="UPDATE usuario 
+                    SET
+                    Dia_Pago = '$diapago',
+                    Tiempo_Atencion_Promedio = $tiempoatencion,
+                    Precio_Predeterminado = $precioconsulta 
+                    WHERE Id_Usuario = $idUser;";
+        Model::query_execute($queryUser);
+
+        $queryDoctor = "UPDATE doctor
+                    SET
+                    Id_Especialidad = $especialidad,
+                    Id_Pais = $pais,
+                    Id_Departamento = $departamento,
+                    Id_Provincia = $provincia,
+                    Id_Distrito = $distrito,
+                    Documento = '$dni',
+                    CMP = '$cmp',
+                    Nombres = '$nombre',
+                    Apellido_Paterno = '$apellidopa',
+                    Apellido_Materno = '$apellidoma',
+                    Telefono_Fijo01 = '$telefono1',
+                    Telefono_Fijo02 = '$telefono2',
+                    Celular01 = '$celular1',
+                    Celular02 = '$celular2'  
+                    WHERE Id_Doctor = $idDoctor;";
+        Model::query_execute($queryDoctor);
     }
 
     /* public function updateProfile(

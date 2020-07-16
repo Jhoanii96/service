@@ -3,39 +3,76 @@ let buttonEnviar = document.getElementById('button')
 let questions = document.getElementById('questions')
 
 
-    function showQuestion(event){
-    // buttonEnviar.addEventListener('click', (event) => {
+    // function showQuestion(event){
+    
+    //     let keycode  = (event.keycode ? event.keycode : event.which);
+    //     if(keycode == '13'){
+    //         event.preventDefault();
+    //         showFunctionQuestion();
+    //     }
+        
+    // }
+    
+    // function showFunctionQuestion(){
+        
+    //     if (quantity != null || buttonEnviar != null || questions != null) {
+    //         let showQuestion = '';
+    //         let cantidad = parseInt(quantity.value);
+    //         showQuestion += '<form>'
+    //         showQuestion += '<div class="row">'
+    //         for (let i = 1; i <= cantidad; i++) {
+    //             showQuestion += '<div class="col-md-6">'
+    //             showQuestion += '<div class="input-group mb-2">'
+    //             showQuestion += '<div class="input-group-prepend">'
+    //             showQuestion += '<span class="input-group-text">Pregunta ' + i + ':</span>'
+    //             showQuestion += '</div>'
+    //             showQuestion += '<input type="text"  class="form-control" id="question' + i + '">'
+    //             showQuestion += '</div>'
+    //             showQuestion += '</div>'
+    //         }
+    //         showQuestion += '</div>'
+    //         showQuestion += '</form>'
+    //         showQuestion += '<button class="btn btn-primary mb-2 mt-2" id="btn_question">Guardar</button>'
+    //         questions.innerHTML = showQuestion;
+    //     }
+    // }
+    /** pruebas */
+
+    function showQuestion2(event){
+    
         let keycode  = (event.keycode ? event.keycode : event.which);
         if(keycode == '13'){
             event.preventDefault();
-            showFunctionQuestion();
+            showFunctionQuestion2();
         }
-        // });
     }
     
-    function showFunctionQuestion(){
+    function showFunctionQuestion2(){
         
-        if (quantity != null || buttonEnviar != null || questions != null) {
+        let clicks = quantity;
+        
+        $.ajax({
+            type:"post",
+            url: ""
+        });
+
             let showQuestion = '';
-            let cantidad = parseInt(quantity.value);
-            showQuestion += '<form>'
+            // let cantidad = parseInt(quantity.value);
+            // showQuestion += '<form>'
             showQuestion += '<div class="row">'
-            for (let i = 1; i <= cantidad; i++) {
-                showQuestion += '<div class="col-md-6">'
-                showQuestion += '<div class="input-group mb-2">'
-                showQuestion += '<div class="input-group-prepend">'
-                showQuestion += '<span class="input-group-text">Pregunta ' + i + ':</span>'
-                showQuestion += '</div>'
-                showQuestion += '<input type="text"  class="form-control" id="question' + i + '">'
-                showQuestion += '</div>'
-                showQuestion += '</div>'
-            }
+            showQuestion +=     '<div class="col-md-6">'
+            showQuestion +=         '<div class="input-group mb-2">'
+            showQuestion +=             '<div class="input-group-prepend">'
+            showQuestion +=                 '<span class="input-group-text">Pregunta :</span>'
+            showQuestion +=              '</div>'
+            showQuestion +=         '<input type="text" class="form-control" value="'+ quantity.value +'" id="question">'
+            showQuestion +=     '</div>'
             showQuestion += '</div>'
-            showQuestion += '</form>'
-            showQuestion += '<button class="btn btn-primary mb-2 mt-2" id="btn_question">Guardar</button>'
             questions.innerHTML = showQuestion;
-        }
+        
     }
+
+
 
 
 

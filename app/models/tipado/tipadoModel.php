@@ -5,7 +5,7 @@ class tipadoModel extends Model{
 
   //Muestra cualquier tabla 
   public function showTipadoSelect($table,$id,$compareTable){
-    if($table == 'pais'){
+    if($table == 'pais' || $table == 'especialidad'){
       $query = "SELECT Id_".ucwords($table).",Descripcion FROM $table";
     }
     else{
