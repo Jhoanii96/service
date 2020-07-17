@@ -414,13 +414,16 @@
                                                 <div class="form-group col-md-6">
                                                     <label>Ingrese la cantidad de preguntas :</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="cantidad" onkeypress="showQuestion2(event)">
+                                                        <input type="text" class="form-control" id="cantidad" onkeypress="showQuestion2(event)" oninput="validarInput()">
                                                         <div class="input-group-append">
-                                                            <button type="button" class="btn btn-info" id="button" onclick="showFunctionQuestion2(event)" >Crear</button>
+                                                            <button type="button" class="btn btn-info" id="button"  onclick="showFunctionQuestion2(event)" disabled>Crear</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="container" id="questions">
+                                                <div class="container">
+                                                    <div class="row" id="questions">
+                                                    
+                                                    </div>
                                                 </div>
                                                 <!-- <div class="main-card mb-3 card" id="tableQuestions">
                                                 </div> -->
@@ -715,7 +718,7 @@
                             title: '¡Actualizado con exito !',
                             text: response,
                             icon: 'success',
-                            timer: 10000,
+                            timer: 3000,
                             buttons: false
                         });
                     },
@@ -732,6 +735,54 @@
                 return false;
             });
         });
+
+        function showQuestion2(event){
+            let dato = quantity.value;
+            let keycode  = (event.keycode ? event.keycode : event.which);
+            if(keycode == '13'){
+                event.preventDefault();
+                let showQuestion = '';
+                showQuestion +=     '<div class="col-md-6">'
+                showQuestion +=         '<div class="input-group mb-2">'
+                showQuestion +=             '<div class="input-group-prepend">'
+                showQuestion +=                 '<span class="input-group-text">Pregunta :</span>'
+                showQuestion +=             '</div>'
+                showQuestion +=             '<input type="text" class="form-control" value="'+ dato +'" id="question">'
+                showQuestion +=         '</div>'
+                showQuestion +=     '</div>'
+                questions.innerHTML = showQuestion;
+                // showFunctionQuestion2();
+            }
+        }
+
+
+        function showFunctionQuestion2(event){
+            event.preventDefault();
+            let dato = quantity.value;
+            let showQuestion = '';
+            showQuestion +=     '<div class="col-md-6">'
+            showQuestion +=         '<div class="input-group mb-2">'
+            showQuestion +=             '<div class="input-group-prepend">'
+            showQuestion +=                 '<span class="input-group-text">Pregunta :</span>'
+            showQuestion +=             '</div>'
+            showQuestion +=             '<input type="text" class="form-control" value="'+ dato +'" id="question">'
+            showQuestion +=         '</div>'
+            showQuestion +=     '</div>'
+            questions.innerHTML = showQuestion;
+            $.ajax({
+                type:"post",
+                url: "<?php echo FOLDER_PATH ?>/my/insertQuestion",
+                data:{dato:dato},
+                success:function(response){
+                    // alert('Se inserto correctamente' + response);
+                    
+                    
+                },
+                error:function(thrownError){
+                    alert('Error'+thrownError);
+                }
+            });
+        }
     </script>
 </body>
 </html>

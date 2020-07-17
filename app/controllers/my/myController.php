@@ -3,11 +3,13 @@
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/perfil/perfilModel.php";
 require ROOT . FOLDER_PATH . "/app/models/tipado/tipadoModel.php";
+require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
 
 class my extends Controller
 {
     protected $session;
     protected $stateProfile;
+    protected $questionnaireModel;
 
     public function __construct()
     {
@@ -20,6 +22,7 @@ class my extends Controller
 
         $this->perfilModel = new perfilModel();
         $this->tipadoModel = new tipadoModel();
+        $this->questionnaireModel = new questionnaireModel();
     }
 
     public function index()
@@ -97,5 +100,37 @@ class my extends Controller
             $tiempoatencion,
             $diapago
         );
+    }
+
+    public function questionCounter(){
+        $idUser = $this->session->get('idUser');
+        $count = $this->questionnaireModel->getQuestionnaireCounter($idUser);
+        return $count->fetch();
+    }
+
+
+    public function createQuestionnaire(){
+        $idUser = $this->session->get('idUser');
+        $questionnaire = $this->questionnaireModel->createQuestionnaire($idUser);
+        $questionnaire->fetch();
+    }
+
+    
+
+    public function insertQuestion(){
+        $question = $_POST['dato'];
+        $idUser = $this->session->get('idUser');
+        $idCuestionario = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
+        if($idCuestionario > 0){
+            $resQuestion = $this->questionnaireModel->insertQuestion($idCuestionario['Id_Cuestionario'],$question);
+            $resQuestion->fetch();
+        }else{
+            $questionnaire = $this->questionnaireModel->createQuestionnaire($idUser);
+            $questionnaire->fetch();
+            $idLastInsert = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
+            $questionResult =  $this->questionnaireModel->insertQuestion($idLastInsert['Id_Cuestionario'],$question);
+            $questionResult->fetch();
+
+        }
     }
 }

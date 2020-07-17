@@ -64,7 +64,7 @@ class perfilModel extends Model
         return $res;
     }
 
-    public function updateProfile($idUser,$idDoctor,$nombre,$apellidopa,$apellidoma,$especialidad,
+    public function updateProfile($idUser,$idDoctor,$nombre,$apelligitdopa,$apellidoma,$especialidad,
         $dni,$cmp,$pais,$departamento,$provincia,$distrito,$telefono1,$telefono2,$celular1,
         $celular2,$precioconsulta,$tiempoatencion,$diapago){
 

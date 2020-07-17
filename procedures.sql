@@ -217,3 +217,20 @@ pro.Id_Provincia = dis.Id_Provincia
 
 
 
+/*TRIGGER PARA ACTUALIZAR CANTIDAD DE PREGUNTAS INSERTADAS*/
+
+CREATE TRIGGER sumaPreguntas AFTER INSERT ON detalle_cuestionario
+FOR EACH ROW
+
+    BEGIN
+        UPDATE cuestionario 
+            SET cant_preguntas = cant_preguntas+1 
+        WHERE  Id_cuestionario = NEW.Id_Detalle_cuestionario
+    END
+
+CREATE TRIGGER restaPreguntas AFTER DELETE ON detalle_cuestionario
+FOR EACH ROW
+
+    UPDATE cuestionario 
+       SET cant_preguntas = IF(cant_preguntas > 0 ,cant_preguntas-1,0)
+    	WHERE  Id_Cuestionario = old.Id_Cuestionario

@@ -1,6 +1,6 @@
 <?php 
 
-class questionnaire extends Model{
+class questionnaireModel extends Model{
 
 
   //Mostrara las preguntas del cuestionario desde la bd
@@ -11,6 +11,36 @@ class questionnaire extends Model{
 
   public function editQuestionnaire(){
     
+  }
+
+  public function getQuestionnaireCounter($idUser){
+    $query = "SELECT cant_preguntas FROM cuestionario WHERE $idUser";
+    $res = Model::query_execute($query);
+    return $res;
+  }
+
+  public function createQuestionnaire($idUser){
+    $query = "INSERT INTO cuestionario(Id_Usuario) VALUES($idUser)";
+    $res = Model::query_execute($query);
+    return $res;
+  }
+
+  public function insertQuestion($idQuestionnaire,$pregunta){
+    $query = "INSERT INTO detalle_cuestionario(Id_Cuestionario,Pregunta) VALUES($idQuestionnaire,'".$pregunta."')";
+    $res = Model::query_execute($query);
+    return $res;
+  }
+
+  public function getStateQuestionnaire($idUser){
+    $query = "SELECT estado_crear_mas FROM cuestionario WHERE Id_Usuario = $idUser";
+    $res = Model::query_execute($query);
+    return $res;
+  }
+
+  public function getIdQuestionnaire($idUser){
+    $query = "SELECT Id_Cuestionario FROM cuestionario WHERE Id_Usuario = $idUser";
+    $res = Model::query_execute($query);
+    return $res;
   }
 }
 ?>

@@ -2,6 +2,9 @@ let quantity = document.getElementById('cantidad')
 let buttonEnviar = document.getElementById('button')
 let questions = document.getElementById('questions')
 
+    function validarInput() {
+        buttonEnviar.disabled = !quantity.value.length;
+    }
 
     // function showQuestion(event){
     
@@ -38,43 +41,7 @@ let questions = document.getElementById('questions')
     // }
     /** pruebas */
 
-    function showQuestion2(event){
     
-        let keycode  = (event.keycode ? event.keycode : event.which);
-        if(keycode == '13'){
-            event.preventDefault();
-            showFunctionQuestion2();
-        }
-    }
-    
-    function showFunctionQuestion2(){
-        
-        let clicks = quantity;
-        
-        $.ajax({
-            type:"post",
-            url: ""
-        });
-
-            let showQuestion = '';
-            // let cantidad = parseInt(quantity.value);
-            // showQuestion += '<form>'
-            showQuestion += '<div class="row">'
-            showQuestion +=     '<div class="col-md-6">'
-            showQuestion +=         '<div class="input-group mb-2">'
-            showQuestion +=             '<div class="input-group-prepend">'
-            showQuestion +=                 '<span class="input-group-text">Pregunta :</span>'
-            showQuestion +=              '</div>'
-            showQuestion +=         '<input type="text" class="form-control" value="'+ quantity.value +'" id="question">'
-            showQuestion +=     '</div>'
-            showQuestion += '</div>'
-            questions.innerHTML = showQuestion;
-        
-    }
-
-
-
-
 
     function showTable(){
 
