@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-07-2020 a las 16:12:20
+-- Tiempo de generación: 19-07-2020 a las 22:21:17
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.2
 
@@ -83,13 +83,6 @@ us.Id_Doctor = doc.Id_Doctor INNER JOIN especialidad es ON
 es.Id_Especialidad = doc.Id_Especialidad INNER JOIN distrito dis ON
 dis.ID_Distrito = doc.ID_Distrito WHERE us.Nombre = name$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updatep` (`user` VARCHAR(40), `nombre` VARCHAR(80), `apellidoPA` VARCHAR(80), `apellidoMA` VARCHAR(80), `especialidad` VARCHAR(50), `dni` CHAR(8), `pais` INT)  UPDATE doctor doc INNER JOIN pais pa ON
-doc.Id_Pais = pa.Id_Pais INNER JOIN usuario us ON
-us.Id_Doctor = doc.Id_Doctor INNER JOIN especialidad es ON
-es.Id_Especialidad = doc.Id_Especialidad 
-SET doc.Nombres = nombre,doc.Apellido_Paterno = apellidoPA,doc.Apellido_Materno = apellidoMA,
-es.Descripcion = especialidad,Documento = dni WHERE us.Nombre = user$$
-
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -153,8 +146,18 @@ INSERT INTO `codigo_registro` (`id_codigo`, `nombre_codigo`, `codigo_usado`, `fe
 CREATE TABLE `cuestionario` (
   `Id_Cuestionario` int(11) NOT NULL,
   `Id_Usuario` int(11) NOT NULL,
-  `Fecha_creacion` int(11) DEFAULT NULL
+  `Fecha_creacion` timestamp NULL DEFAULT current_timestamp(),
+  `cant_preguntas` int(11) NOT NULL DEFAULT 0,
+  `estado_crear_mas` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cuestionario`
+--
+
+INSERT INTO `cuestionario` (`Id_Cuestionario`, `Id_Usuario`, `Fecha_creacion`, `cant_preguntas`, `estado_crear_mas`) VALUES
+(24, 1, '2020-07-17 01:18:08', 5, 0),
+(26, 2, '2020-07-17 02:36:07', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -212,6 +215,39 @@ CREATE TABLE `detalle_cuestionario` (
   `Pregunta` varchar(40) DEFAULT NULL,
   `respuesta` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `detalle_cuestionario`
+--
+
+INSERT INTO `detalle_cuestionario` (`Id_Detalle_Cuestionario`, `Id_Cuestionario`, `Pregunta`, `respuesta`) VALUES
+(22, 24, 'tabaco', NULL),
+(26, 26, 'asdasd', NULL),
+(95, 24, '123456', NULL),
+(96, 24, '4548484', NULL),
+(97, 24, 'pregunta 1', NULL),
+(98, 24, 'pregunta 2', NULL),
+(99, 26, '4564', NULL),
+(100, 26, '4545', NULL),
+(101, 26, '454545', NULL),
+(102, 26, '454545ddd', NULL),
+(103, 26, '45454', NULL);
+
+--
+-- Disparadores `detalle_cuestionario`
+--
+DELIMITER $$
+CREATE TRIGGER `restaPreguntas` AFTER DELETE ON `detalle_cuestionario` FOR EACH ROW UPDATE cuestionario 
+       SET cant_preguntas = cant_preguntas-1
+    	WHERE  Id_Cuestionario = old.Id_Cuestionario
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `sumaPreguntas` AFTER INSERT ON `detalle_cuestionario` FOR EACH ROW UPDATE cuestionario 
+            SET cant_preguntas = cant_preguntas+1 
+        WHERE  Id_Cuestionario = NEW.Id_Cuestionario
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -2268,19 +2304,20 @@ CREATE TABLE `usuario` (
   `Precio_Predeterminado` decimal(18,2) DEFAULT NULL,
   `Hora_Inicio_Atencion` int(11) DEFAULT NULL,
   `Hora_Fin_Atencion` int(11) DEFAULT NULL,
-  `estado_perfil` tinyint(1) NOT NULL DEFAULT 1
+  `estado_perfil` tinyint(1) NOT NULL DEFAULT 1,
+  `imagen` longblob NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Id_Usuario`, `Id_Doctor`, `Nombre`, `Password`, `Direccion`, `Ubicacion_GPS`, `Activo`, `Fecha_Activacion`, `Monto_Pago`, `Fecha_Habilitado`, `Fecha_Registro`, `Dia_Pago`, `Codigo_Web_Registro`, `Visualizo_Indicaciones`, `Tiempo_Atencion_Promedio`, `Precio_Predeterminado`, `Hora_Inicio_Atencion`, `Hora_Fin_Atencion`, `estado_perfil`) VALUES
-(1, 1, 'alberth', '123456', NULL, NULL, 1, '2020-06-28 00:00:00.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(2, 2, 'jhon', '123456', NULL, NULL, 1, '2020-06-28 00:00:00.000', '4000.00', NULL, NULL, '2020-04-15', NULL, NULL, 30, '4500.00', NULL, NULL, 1),
-(3, 9, 'jhonxdas123', '4eM9Jqb3yBVXD7D', 'Centro de tacna', NULL, 1, '2020-07-05 00:00:00.000', '150.60', '2020-07-05', '2020-07-05 19:12:17.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4, 10, 'ericksolitario', 'B4NHL32da7v8zSa', 'Fuera de la catedral', NULL, 1, '2020-07-05 00:00:00.000', '50.00', '2020-07-05', '2020-07-05 19:18:14.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(5, 11, 'ruthlapanda', 'g78WWQhKrihsPjJ', 'en la plaza zela', NULL, 1, '2020-07-05 00:00:00.000', '150.00', '2020-07-05', '2020-07-05 19:32:23.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `usuario` (`Id_Usuario`, `Id_Doctor`, `Nombre`, `Password`, `Direccion`, `Ubicacion_GPS`, `Activo`, `Fecha_Activacion`, `Monto_Pago`, `Fecha_Habilitado`, `Fecha_Registro`, `Dia_Pago`, `Codigo_Web_Registro`, `Visualizo_Indicaciones`, `Tiempo_Atencion_Promedio`, `Precio_Predeterminado`, `Hora_Inicio_Atencion`, `Hora_Fin_Atencion`, `estado_perfil`, `imagen`) VALUES
+(1, 1, 'alberth', '123456', NULL, NULL, 1, '2020-06-28 00:00:00.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, ''),
+(2, 2, 'jhon', '123456', NULL, NULL, 1, '2020-06-28 00:00:00.000', '4000.00', NULL, NULL, '2020-04-15', NULL, NULL, 30, '4500.00', NULL, NULL, 1, ''),
+(3, 9, 'jhonxdas123', '4eM9Jqb3yBVXD7D', 'Centro de tacna', NULL, 1, '2020-07-05 00:00:00.000', '150.60', '2020-07-05', '2020-07-05 19:12:17.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, ''),
+(4, 10, 'ericksolitario', 'B4NHL32da7v8zSa', 'Fuera de la catedral', NULL, 1, '2020-07-05 00:00:00.000', '50.00', '2020-07-05', '2020-07-05 19:18:14.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, ''),
+(5, 11, 'ruthlapanda', 'g78WWQhKrihsPjJ', 'en la plaza zela', NULL, 1, '2020-07-05 00:00:00.000', '150.00', '2020-07-05', '2020-07-05 19:32:23.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '');
 
 -- --------------------------------------------------------
 
@@ -2498,7 +2535,7 @@ ALTER TABLE `codigo_registro`
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  MODIFY `Id_Cuestionario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Cuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -2510,7 +2547,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `detalle_cuestionario`
 --
 ALTER TABLE `detalle_cuestionario`
-  MODIFY `Id_Detalle_Cuestionario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Detalle_Cuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_paciente_cuestionario`
