@@ -79,27 +79,61 @@ class my extends Controller
         $tiempoatencion = $_POST['tiempoatencion'];
         $diapago = strtotime($_POST['diapago']);
         $diapago = date('y-m-d',$diapago);
-        $this->perfilModel->updateProfile(
-            $idUser,
-            $idDoctor,
-            $nombre,
-            $apellidopa,
-            $apellidoma,
-            $especialidad,
-            $dni,
-            $cmp,
-            $pais,
-            $departamento,
-            $provincia,
-            $distrito,
-            $telefono1,
-            $telefono2,
-            $celular1,
-            $celular2,
-            $precioconsulta,
-            $tiempoatencion,
-            $diapago
-        );
+        if(isset($_POST['submit'])){
+            print_r($_FILES);
+        }
+        // $revisar = getimagesize($_FILES["imagen"]["tmp_name"]);
+        // if($revisar !== false){
+        //     $image = $_FILES['imagen']['tmp_name'];
+        //     $imgContenido = addslashes(file_get_contents($image));
+        //     $this->perfilModel->updateProfile(
+        //         $idUser,
+        //         $idDoctor,
+        //         $nombre,
+        //         $apellidopa,
+        //         $apellidoma,
+        //         $especialidad,
+        //         $dni,
+        //         $cmp,
+        //         $pais,
+        //         $departamento,
+        //         $provincia,
+        //         $distrito,
+        //         $telefono1,
+        //         $telefono2,
+        //         $celular1,
+        //         $celular2,
+        //         $precioconsulta,
+        //         $tiempoatencion,
+        //         $diapago,
+        //         $imgContenido
+        //     );
+        // }
+        // else{
+        //     $this->perfilModel->updateProfile(
+        //         $idUser,
+        //         $idDoctor,
+        //         $nombre,
+        //         $apellidopa,
+        //         $apellidoma,
+        //         $especialidad,
+        //         $dni,
+        //         $cmp,
+        //         $pais,
+        //         $departamento,
+        //         $provincia,
+        //         $distrito,
+        //         $telefono1,
+        //         $telefono2,
+        //         $celular1,
+        //         $celular2,
+        //         $precioconsulta,
+        //         $tiempoatencion,
+        //         $diapago,
+        //         $imgContenido=null
+        //     );
+        // }
+
     }
 
     public function questionCounter(){
@@ -130,7 +164,6 @@ class my extends Controller
             $idLastInsert = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
             $questionResult =  $this->questionnaireModel->insertQuestion($idLastInsert['Id_Cuestionario'],$question);
             $questionResult->fetch();
-
         }
     }
 }

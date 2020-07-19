@@ -23,7 +23,7 @@
       <!-- HEADER -->
       <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
       <!-- PANEL LATERAL DERECHO/CONFIGURACIONES DE DISEÑO -->
-      <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?>
+      <!--?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?-->
 
       <div class="app-main">
 

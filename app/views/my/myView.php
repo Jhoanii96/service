@@ -315,14 +315,14 @@
                                                 </div> 
                                                 <!-- <div class="divider"></div> -->
                                                 <div class="form-row">
-                                                    <!-- <div class="col-md-6">
+                                                    <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label>Agregar imagen</label>
-                                                            <input name="imagen" id="imagen" type="file" class="form-control-file" required/>
+                                                            <input name="imagen" id="imagen" type="file" class="form-control-file" >
                                                         </div>
-                                                    </div> -->
+                                                    </div>
                                                     <div class="col-md-6">
-                                                        <button class="btn btn-success " id="btnSaveProfile">Actualizar perfil</button>
+                                                        <button class="btn btn-success " id="btnSaveProfile" name="submit">Actualizar perfil</button>
                                                     </div>
                                                 </div>
                                                 <!-- <div class="float-right">
@@ -409,14 +409,28 @@
                                         <!-- </form> -->
                         
                                         <div id="step-2" class="tab-pane step-content">
-                                            <h2>Cuestionario</h2>
                                             <!-- <form> -->
-                                                <div class="form-group col-md-6">
-                                                    <label>Ingrese la cantidad de preguntas :</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="cantidad" onkeypress="showQuestion2(event)" oninput="validarInput()">
-                                                        <div class="input-group-append">
-                                                            <button type="button" class="btn btn-info" id="button"  onclick="showFunctionQuestion2(event)" disabled>Crear</button>
+                                                <div class="container">
+                                                    <div class="row mb-5">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <h2>Cuestionario</h2>
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" placeholder="Ingrese su pregunta " id="cantidad" onkeypress="showQuestion2(event)" oninput="validarInput()" onFocus="if (this.value!='') this.value='';">
+                                                                    <div class="input-group-append">
+                                                                        <button type="button" class="btn btn-info" id="button"  onclick="showFunctionQuestion2(event)" disabled>Crear</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="card border-info" style="max-width:18rem;margin:auto;">
+                                                                <!-- <div class="card-header ">Nota :</div> -->
+                                                                <div class="card-body text-info">
+                                                                    <h5 class="card-title">Nota :</h5>
+                                                                    <p class="card-text">Solo puede crear un cuestionario</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -708,7 +722,7 @@
         $(document).ready(function(){
             $('#btnSaveProfile').click(function(){
                 let datos = $('#frm-profile').serialize();
-                // alert(datos);
+                
                 $.ajax({
                     type:"post",
                     url: "<?php echo FOLDER_PATH ?>/my/updateProfile",
@@ -718,7 +732,7 @@
                             title: '¡Actualizado con exito !',
                             text: response,
                             icon: 'success',
-                            timer: 3000,
+                            timer: 10000,
                             buttons: false
                         });
                     },
@@ -736,47 +750,52 @@
             });
         });
 
+        let click = 0;
+
+
         function showQuestion2(event){
-            let dato = quantity.value;
-            let keycode  = (event.keycode ? event.keycode : event.which);
-            if(keycode == '13'){
-                event.preventDefault();
-                let showQuestion = '';
-                showQuestion +=     '<div class="col-md-6">'
-                showQuestion +=         '<div class="input-group mb-2">'
-                showQuestion +=             '<div class="input-group-prepend">'
-                showQuestion +=                 '<span class="input-group-text">Pregunta :</span>'
-                showQuestion +=             '</div>'
-                showQuestion +=             '<input type="text" class="form-control" value="'+ dato +'" id="question">'
-                showQuestion +=         '</div>'
-                showQuestion +=     '</div>'
-                questions.innerHTML = showQuestion;
-                // showFunctionQuestion2();
+            
+            if(quantity != null || buttonEnviar != null || questions != null || click != null){
+                let dato = quantity.value;
+                let keycode  = (event.keycode ? event.keycode : event.which);
+                if(keycode == '13'){
+                    event.preventDefault();
+                    showFunctionQuestion2();
+                }
             }
         }
 
-
-        function showFunctionQuestion2(event){
-            event.preventDefault();
+        function showFunctionQuestion2(){
+            // event.preventDefault();
             let dato = quantity.value;
-            let showQuestion = '';
-            showQuestion +=     '<div class="col-md-6">'
-            showQuestion +=         '<div class="input-group mb-2">'
-            showQuestion +=             '<div class="input-group-prepend">'
-            showQuestion +=                 '<span class="input-group-text">Pregunta :</span>'
-            showQuestion +=             '</div>'
-            showQuestion +=             '<input type="text" class="form-control" value="'+ dato +'" id="question">'
-            showQuestion +=         '</div>'
-            showQuestion +=     '</div>'
-            questions.innerHTML = showQuestion;
+            click += 1;
             $.ajax({
                 type:"post",
                 url: "<?php echo FOLDER_PATH ?>/my/insertQuestion",
                 data:{dato:dato},
                 success:function(response){
-                    // alert('Se inserto correctamente' + response);
-                    
-                    
+                    let div1 = document.createElement('div');
+                    let div2 = document.createElement('div');
+                    let div3 = document.createElement('div');
+                    let span = document.createElement('span');
+                    let input = document.createElement("input");
+                    let content = document.createTextNode("Pregunta "+click);
+                    div1.classList.add('col-md-6')
+                    div2.classList.add('input-group')
+                    div2.classList.add('mb-2')
+                    div3.classList.add('input-group-prepend')
+                    span.classList.add('input-group-text')
+                    input.type = 'text'
+                    input.classList.add('form-control')
+                    input.value = dato
+                    input.disabled = true
+            
+                    questions.appendChild(div1)
+                    div1.appendChild(div2)
+                    div2.appendChild(div3)
+                    div3.appendChild(span)
+                    span.appendChild(content)
+                    div2.appendChild(input)  
                 },
                 error:function(thrownError){
                     alert('Error'+thrownError);

@@ -64,9 +64,9 @@ class perfilModel extends Model
         return $res;
     }
 
-    public function updateProfile($idUser,$idDoctor,$nombre,$apelligitdopa,$apellidoma,$especialidad,
+    public function updateProfile($idUser,$idDoctor,$nombre,$apellidopa,$apellidoma,$especialidad,
         $dni,$cmp,$pais,$departamento,$provincia,$distrito,$telefono1,$telefono2,$celular1,
-        $celular2,$precioconsulta,$tiempoatencion,$diapago){
+        $celular2,$precioconsulta,$tiempoatencion,$diapago,$image){
 
         // $query = "CALL updateProfile('$user','$nombre','$apellidopa','$apellidoma',
         //    $especialidad,'$dni','$cmp',$pais,$departamento,$provincia,
@@ -78,7 +78,8 @@ class perfilModel extends Model
                     SET
                     Dia_Pago = '$diapago',
                     Tiempo_Atencion_Promedio = $tiempoatencion,
-                    Precio_Predeterminado = $precioconsulta 
+                    Precio_Predeterminado = $precioconsulta,
+                    imagen = '$image'
                     WHERE Id_Usuario = $idUser;";
         Model::query_execute($queryUser);
 

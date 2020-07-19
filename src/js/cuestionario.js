@@ -2,6 +2,7 @@ let quantity = document.getElementById('cantidad')
 let buttonEnviar = document.getElementById('button')
 let questions = document.getElementById('questions')
 
+
     function validarInput() {
         buttonEnviar.disabled = !quantity.value.length;
     }
@@ -85,3 +86,6 @@ let questions = document.getElementById('questions')
             createTableQuestions += '</div>'
             tableQuestion.innerHTML = createTableQuestions
     }
+
+
+    
