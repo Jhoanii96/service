@@ -78,7 +78,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:;">
+                            <a href="<?= FOLDER_PATH ?>/questionnaire">
                                 Listado
                             </a>
                         </li>

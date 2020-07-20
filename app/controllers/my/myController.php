@@ -79,61 +79,36 @@ class my extends Controller
         $tiempoatencion = $_POST['tiempoatencion'];
         $diapago = strtotime($_POST['diapago']);
         $diapago = date('y-m-d',$diapago);
-        if(isset($_POST['submit'])){
-            print_r($_FILES);
-        }
-        // $revisar = getimagesize($_FILES["imagen"]["tmp_name"]);
-        // if($revisar !== false){
-        //     $image = $_FILES['imagen']['tmp_name'];
-        //     $imgContenido = addslashes(file_get_contents($image));
-        //     $this->perfilModel->updateProfile(
-        //         $idUser,
-        //         $idDoctor,
-        //         $nombre,
-        //         $apellidopa,
-        //         $apellidoma,
-        //         $especialidad,
-        //         $dni,
-        //         $cmp,
-        //         $pais,
-        //         $departamento,
-        //         $provincia,
-        //         $distrito,
-        //         $telefono1,
-        //         $telefono2,
-        //         $celular1,
-        //         $celular2,
-        //         $precioconsulta,
-        //         $tiempoatencion,
-        //         $diapago,
-        //         $imgContenido
-        //     );
+        // if(isset($_POST['submit'])){
+        //     print_r($_FILES);
         // }
-        // else{
-        //     $this->perfilModel->updateProfile(
-        //         $idUser,
-        //         $idDoctor,
-        //         $nombre,
-        //         $apellidopa,
-        //         $apellidoma,
-        //         $especialidad,
-        //         $dni,
-        //         $cmp,
-        //         $pais,
-        //         $departamento,
-        //         $provincia,
-        //         $distrito,
-        //         $telefono1,
-        //         $telefono2,
-        //         $celular1,
-        //         $celular2,
-        //         $precioconsulta,
-        //         $tiempoatencion,
-        //         $diapago,
-        //         $imgContenido=null
-        //     );
-        // }
-
+        $revisar = getimagesize($_FILES["imagen"]["tmp_name"]);
+        if($revisar !== false){
+            $image = $_FILES['imagen']['tmp_name'];
+            $imgContenido = addslashes(file_get_contents($image));
+            $this->perfilModel->updateProfile(
+                $idUser,
+                $idDoctor,
+                $nombre,
+                $apellidopa,
+                $apellidoma,
+                $especialidad,
+                $dni,
+                $cmp,
+                $pais,
+                $departamento,
+                $provincia,
+                $distrito,
+                $telefono1,
+                $telefono2,
+                $celular1,
+                $celular2,
+                $precioconsulta,
+                $tiempoatencion,
+                $diapago,
+                $imgContenido
+            );
+        }   
     }
 
     public function questionCounter(){
@@ -165,5 +140,11 @@ class my extends Controller
             $questionResult =  $this->questionnaireModel->insertQuestion($idLastInsert['Id_Cuestionario'],$question);
             $questionResult->fetch();
         }
+    }
+
+    public function showUserImage(){
+        $image = $this->perfilModel->showUserImage($this->session->get('idUser'));
+        $result = $image->fetch();
+        echo $result['imagen'];
     }
 }

@@ -235,7 +235,7 @@
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                    <img width="42" class="rounded-circle" src="<?= FOLDER_PATH ?>/src/assets/media/images/avatars/1.jpg" alt="">
+                                    <img width="42" height="42" class="rounded-circle" src="<?= FOLDER_PATH . '/my/showUserImage' ?>" alt="">
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
@@ -246,7 +246,7 @@
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left mr-3">
-                                                            <img width="42" class="rounded-circle" src="<?= FOLDER_PATH ?>/src/assets/media/images/avatars/1.jpg" alt="">
+                                                            <img width="42" height="42" class="rounded-circle" src="<?= FOLDER_PATH . '/my/showUserImage' ?> " alt="">
                                                         </div>
                                                         <div class="widget-content-left">
                                                             <div class="widget-heading"><?php echo $this->session->get('Nombres'); ?></div>

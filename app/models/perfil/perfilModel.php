@@ -103,17 +103,9 @@ class perfilModel extends Model
         Model::query_execute($queryDoctor);
     }
 
-    /* public function updateProfile(
-        $user,
-        $nombre,
-        $apellidopa,
-        $apellidoma,
-        $especialidad,
-        $dni,
-        $pais
-    ) {
-
-        $query = "CALL updateProfile('$user','$nombre','$apellidopa','$apellidoma',$especialidad,'$dni',$pais)";
-        Model::query_execute($query);
-    } */
+    public function showUserImage($idUser){
+        $query = "SELECT imagen FROM usuario WHERE Id_Usuario = $idUser";
+        $res = Model::query_execute($query);
+        return $res;
+    }
 }

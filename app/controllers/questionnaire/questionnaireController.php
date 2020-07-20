@@ -1,24 +1,29 @@
 <?php
-require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 
-class help extends Controller
-{
+require ROOT . FOLDER_PATH . "/system/libs/Session.php";
+require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
+
+class questionnaire extends Controller{
 
   protected $session;
+
 
   public function __construct(){
     $this->session = new Session;
     $this->session->getAll();
 
-    if (!$this->session->get('admin')) {
+    if (empty($this->session->get('admin'))) {
       echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
     }
-    
+
+    $this->questionnaireModel = new questionnaireModel();
   }
 
   public function index(){
-    $this->view('help/help');
+    $this->view('questionnaire/questionnaire');
   }
+
+  
 }
 
 ?>
