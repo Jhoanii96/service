@@ -321,8 +321,8 @@
                                                             <input name="imagen" id="imagen" type="file" class="form-control-file" >
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <button class="btn btn-success " id="btnSaveProfile" name="submit">Actualizar perfil</button>
+                                                    <div class="col-md-6" style="display:flex;justify-content:flex-end;align-items:center">
+                                                        <button class="btn btn-success" id="btnSaveProfile" name="submit">Actualizar perfil</button>
                                                     </div>
                                                 </div>
                                                 <!-- <div class="float-right">
