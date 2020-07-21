@@ -13,9 +13,6 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- HEADER -->
-    <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
-    
     <style>
         #example1_wrapper>div:nth-child(2) {
             overflow-x: auto;
@@ -47,18 +44,20 @@
             color: #000;
         }
     </style>
+    <!-- HEADER -->
+    <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-        
+
         <!-- HEADER -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
 
         <!-- PANEL LATERAL DERECHO/CONFIGURACIONES DE DISEÑO -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?>
-        
+
         <div class="app-main">
 
             <!-- PANEL LATERAL IZQUIERDO -->
@@ -145,7 +144,7 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">DNI</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -170,13 +169,13 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">Nombres</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Apellido Paterno</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -190,13 +189,13 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">Número Celular</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Correo Electrónico</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -230,13 +229,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="dni">DNI</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="genero">Nombres</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -244,13 +243,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="dni">Apellido Paterno</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="genero">Apellido Materno</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -262,13 +261,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="dni">P1: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="genero">P2: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -276,13 +275,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="dni">P3: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="genero">P4: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -290,13 +289,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="dni">P5: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="genero">P6: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -304,13 +303,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="dni">P7: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="genero">P8: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -318,13 +317,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="dni">P9: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="genero">P10: ¿?</label>
-                                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -338,13 +337,13 @@
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">DNI</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Nombres</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -352,13 +351,13 @@
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">Apellido Paterno</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Apellido Materno</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -431,13 +430,13 @@ RESULTADOS:</textarea>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">DNI</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Nombres</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -445,25 +444,21 @@ RESULTADOS:</textarea>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">Apellido Paterno</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Apellido Materno</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail3">--------------------------------------------</label>
-                                                    <p class="form-control-plaintext">Control de preguntas</p>
-                                                </div>
+                                                <div tabindex="-1" class="dropdown-divider mt-4 mb-4" style="border-top: 1px solid #d6d6d6;"></div>
 
 
                                                 <div class="form-inline">
-
                                                     <div class="position-relative form-group">
                                                         <label for="exampleCustomSelect" class="mr-2">Fecha Cita</label>
                                                         <input name="date" id="date" placeholder="password placeholder" type="date" class="mr-2 form-control">
@@ -472,7 +467,6 @@ RESULTADOS:</textarea>
                                                     <div class="position-relative form-group">
                                                         <label for="exampleCustomSelect" class="mr-2">Horas</label>
                                                         <input class="form-control input-mask-trigger" id="endTime">
-
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="position-relative form-group">
@@ -482,65 +476,58 @@ RESULTADOS:</textarea>
                                                 </div>
 
                                                 <div class="card-body">
-                                                    <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                                    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th>ID</th>
-                                                                <th>Fecha consulta</th>
-                                                                <th>Anamnesis</th>
-                                                                <th>Exámen físico</th>
-                                                                <th>Exámenes</th>
-                                                                <th>Archivos</th>
-                                                                <th>Imágenes</th>
-                                                                <th>Opciones</th>
+                                                                <th>Paciente</th>
+                                                                <th>Edad</th>
+                                                                <th>Atención</th>
+                                                                <th>Fecha y hora</th>
+                                                                <th>Detalles</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>15</td>
-                                                                <td>2011/04/25</td>
-                                                                <td>TE: SP:</td>
-                                                                <td>Orofaringe</td>
-                                                                <td>Pedidos: Resultados:</td>
-                                                                <td>..Archivo..</td>
-                                                                <td>..Imágen..</td>
+                                                                <td>Arturito</td>
+                                                                <td class="text-center">6 años</td>
+                                                                <td class="text-center">8 días</td>
+                                                                <td class="text-center">09/07/2020 15:30</td>
                                                                 <td class="text-center">
                                                                     <div role="group" class="btn-group-sm btn-group">
-                                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                                        <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                                        <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>15</td>
-                                                                <td>2011/04/25</td>
-                                                                <td>TE: SP:</td>
-                                                                <td>Orofaringe</td>
-                                                                <td>Pedidos: Resultados:</td>
-                                                                <td>..Archivo..</td>
-                                                                <td>..Imágen..</td>
+                                                                <td>Arturito</td>
+                                                                <td class="text-center">6 años</td>
+                                                                <td class="text-center">8 días</td>
+                                                                <td class="text-center">09/07/2020 15:30</td>
                                                                 <td class="text-center">
                                                                     <div role="group" class="btn-group-sm btn-group">
-                                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                                        <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                                        <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
                                                                     </div>
                                                                 </td>
                                                             </tr>
-
-
+                                                            <tr>
+                                                                <td>Arturito</td>
+                                                                <td class="text-center">6 años</td>
+                                                                <td class="text-center">8 días</td>
+                                                                <td class="text-center">09/07/2020 15:30</td>
+                                                                <td class="text-center">
+                                                                    <div role="group" class="btn-group-sm btn-group">
+                                                                        <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
-                                                                <th>ID</th>
-                                                                <th>Fecha consulta</th>
-                                                                <th>Anamnesis</th>
-                                                                <th>Exámen físico</th>
-                                                                <th>Exámenes</th>
-                                                                <th>Archivos</th>
-                                                                <th>Imágenes</th>
-                                                                <th>Opciones</th>
+                                                                <th>Paciente</th>
+                                                                <th>Edad</th>
+                                                                <th>Atención</th>
+                                                                <th>Fecha y hora</th>
+                                                                <th>Detalles</th>
                                                             </tr>
                                                         </tfoot>
                                                     </table>
@@ -560,10 +547,6 @@ RESULTADOS:</textarea>
 
                     </div>
 
-                    <div class="mbg-3 h-auto pl-0 pr-0 bg-transparent no-border card-header" style="border-bottom: 1px solid #9c9c9c;padding-bottom: 15px;padding-top: 25px;">
-                        <div class="card-header-title fsize-2 font-weight-normal">Registro: LAURA</div>
-                    </div>
-
                     <div class="main-card mb-3 card">
                         <div class="card-body">
                             <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
@@ -571,9 +554,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <th>ID</th>
                                         <th>Fecha consulta</th>
-                                        <th>Anamnesis</th>
-                                        <th>Exámen físico</th>
-                                        <th>Exámenes</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Edad</th>
                                         <th>Archivos</th>
                                         <th>Imágenes</th>
                                         <th>Opciones</th>
@@ -583,9 +566,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -599,9 +582,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -615,9 +598,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -631,9 +614,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -647,9 +630,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -663,9 +646,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -682,9 +665,9 @@ RESULTADOS:</textarea>
                                     <tr>
                                         <th>ID</th>
                                         <th>Fecha consulta</th>
-                                        <th>Anamnesis</th>
-                                        <th>Exámen físico</th>
-                                        <th>Exámenes</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Edad</th>
                                         <th>Archivos</th>
                                         <th>Imágenes</th>
                                         <th>Opciones</th>
@@ -891,12 +874,14 @@ RESULTADOS:</textarea>
         let close = document.getElementById("btn-adm_close");
         if (cons != null) {
             document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
+
             function consulta_admin() {
                 location.href = "<?= FOLDER_PATH ?>/consultation"
             }
         }
         if (close != null) {
             document.getElementById("btn-adm_close").addEventListener("click", close_admin);
+
             function close_admin() {
                 location.href = "<?= FOLDER_PATH ?>/login/salir"
             }
