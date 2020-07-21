@@ -42,7 +42,7 @@
                     <?php                                           
                         $state = $this->stateProfile();
                         if($state[0] == 1){
-                            // $this->updateStateProfile();
+                            $this->updateStateProfile();
                     ?>
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
@@ -315,7 +315,7 @@
                                                 <div class="col-md-6">
                                                     <div class="position-relative form-group">
                                                         <label>Agregar imagen</label>
-                                                        <input name="imagen" id="imagen" type="file" class="form-control-file" >
+                                                        <input name="imagen" id="imagen" type="file" class="form-control-file">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" style="display:flex;justify-content:flex-end;align-items:center">

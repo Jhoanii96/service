@@ -1,6 +1,7 @@
 <?php
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
+require ROOT . FOLDER_PATH . "/app/models/consultation/consultationModel.php";
 
 class consultation extends Controller
 {
@@ -21,8 +22,6 @@ class consultation extends Controller
         $this->view('consultation/consultation');
     }
 
-    
-
     public function salir()
     {
         $this->session->close();
@@ -41,6 +40,10 @@ class consultation extends Controller
     private function renderErrorMessage($message)
     {
         $this->view('login/login', ['error_message' => $message]);
+    }
+
+    public function insertPatient(){
+        
     }
 
 }

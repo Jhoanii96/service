@@ -92,7 +92,7 @@
                                         <ul class="forms-wizard">
                                             <li>
                                                 <a href="#step-1">
-                                                    <em>1</em><span>Datos usuario</span>
+                                                    <em>1</em><span>Datos paciente</span>
                                                 </a>
                                             </li>
                                             <li>

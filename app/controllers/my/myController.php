@@ -108,7 +108,29 @@ class my extends Controller
                 $diapago,
                 $imgContenido
             );
-        }   
+        }else{
+            $this->perfilModel->updateProfile(
+                $idUser,
+                $idDoctor,
+                $nombre,
+                $apellidopa,
+                $apellidoma,
+                $especialidad,
+                $dni,
+                $cmp,
+                $pais,
+                $departamento,
+                $provincia,
+                $distrito,
+                $telefono1,
+                $telefono2,
+                $celular1,
+                $celular2,
+                $precioconsulta,
+                $tiempoatencion,
+                $diapago
+            );
+        }  
     }
 
     public function questionCounter(){
