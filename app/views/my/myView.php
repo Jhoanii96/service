@@ -532,9 +532,9 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Fecha consulta</th>
-                                        <th>Anamnesis</th>
-                                        <th>Exámen físico</th>
-                                        <th>Exámenes</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Edad</th>
                                         <th>Archivos</th>
                                         <th>Imágenes</th>
                                         <th>Opciones</th>
@@ -544,9 +544,9 @@
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -560,9 +560,9 @@
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -576,9 +576,9 @@
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -592,9 +592,9 @@
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -608,9 +608,9 @@
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -624,9 +624,9 @@
                                     <tr>
                                         <td>15</td>
                                         <td>2011/04/25</td>
-                                        <td>TE: SP:</td>
-                                        <td>Orofaringe</td>
-                                        <td>Pedidos: Resultados:</td>
+                                        <td>Jhon</td>
+                                        <td>Alvarado Achata</td>
+                                        <td>24 años</td>
                                         <td>..Archivo..</td>
                                         <td>..Imágen..</td>
                                         <td class="text-center">
@@ -643,9 +643,9 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Fecha consulta</th>
-                                        <th>Anamnesis</th>
-                                        <th>Exámen físico</th>
-                                        <th>Exámenes</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Edad</th>
                                         <th>Archivos</th>
                                         <th>Imágenes</th>
                                         <th>Opciones</th>
