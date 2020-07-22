@@ -141,85 +141,92 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-row">
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="dni">DNI</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                <form method="post" id="frm-patient" name="frm-patient">
+                                                    <div class="form-row">
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="dni">DNI</label>
+                                                                <input name="dni" id="dni" type="text" class="form-control" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="genero">Género</label>
+                                                                <select type="select" id="exampleCustomSelect" name="genero" class="custom-select" required>
+                                                                    <option value="0">Seleccionar</option>
+                                                                    <option value="F">Femenino</option>
+                                                                    <option value="M">Másculino</option>
+                                                                    <option value="3">Otros</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="fechana">Fecha Nacimiento</label>
+                                                                <input name="fechana" id="fechana" type="date" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Género</label>
-                                                            <select type="select" id="exampleCustomSelect" name="customSelect" class="custom-select">
-                                                                <option value="0">Seleccionar</option>
-                                                                <option value="1">Femenino</option>
-                                                                <option value="2">Másculino</option>
-                                                                <option value="3">Otros</option>
-                                                            </select>
+                                                    <div class="form-row">
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="nombre">Nombres</label>
+                                                                <input name="nombre" id="nombre" placeholder="ingrese su nombre" type="text" class="form-control" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="apellidopa">Apellido Paterno</label>
+                                                                <input name="apellidopa" id="apellidopa" type="text" class="form-control" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="apellidoma">Apellido Materno</label>
+                                                                <input name="apellidoma" id="apellidoma" type="text" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="examplePassword22">Fecha Nacimiento</label>
-                                                            <input name="date" id="date" placeholder="password placeholder" type="date" class="form-control">
+                                                    <div class="form-row">
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="celular">Número Celular</label>
+                                                                <input name="celular" id="celular" type="text" class="form-control" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="correo">Correo Electrónico</label>
+                                                                <input name="correo" id="correo" type="text" class="form-control" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative form-group">
+                                                                <label for="procedencia">Procedencia</label>
+                                                                <input name="procedencia" id="procedencia" type="text" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="dni">Nombres</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <div class="position-relative form-group">
+                                                                <label for="ocupacionan">Ocupación Anterior</label>
+                                                                <input name="ocupacionan" id="ocupacionan" type="text" class="form-control" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="position-relative form-group">
+                                                                <label for="ocupacionac">Ocupación Actual</label>
+                                                                <input name="ocupacionac" id="ocupacionac" type="text" class="form-control" required>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Apellido Paterno</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <button class="btn btn-outline-warning" type="submit" id="btnSavePatient">Guardar paciente</button>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="examplePassword22">Apellido Materno</label>
-                                                            <input name="date" id="date" placeholder="password placeholder" type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="dni">Número Celular</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Correo Electrónico</label>
-                                                            <input name="dni" id="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="position-relative form-group">
-                                                            <label for="procedencia">Procedencia</label>
-                                                            <input name="procedencia" id="procedencia" placeholder="password placeholder" type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="anterior">Ocupación Anterior</label>
-                                                            <input name="anterior" id="anterior" type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="actual">Ocupación Actual</label>
-                                                            <input name="actual" id="actual" type="text" placeholder="" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
                                             <div id="step-2">
                                                 <div id="accordion" class="accordion-wrapper mb-3">
@@ -902,6 +909,27 @@ RESULTADOS:</textarea>
             }
         }
     </script>
+
+    <script>
+        
+        $('#btnSavePatient').on("click",function(){
+            let datos = $('#frm-patient').serialize();
+            $.ajax({
+                type:"post",
+                url:"<?php echo FOLDER_PATH ?>/consultation/insertPatient",
+                data:datos,
+                success:function(response){
+                    alert(response);
+                },
+                error:function(xhr,throwError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            return false;
+        })
+    </script>
+
 
 </body>
 

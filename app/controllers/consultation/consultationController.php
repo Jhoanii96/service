@@ -1,11 +1,12 @@
 <?php
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
-require ROOT . FOLDER_PATH . "/app/models/consultation/consultationModel.php";
+require ROOT . FOLDER_PATH . "/app/models/patient/patientModel.php";
 
 class consultation extends Controller
 {
     protected $session;
+    protected $patientModel;
 
     public function __construct()
     {
@@ -15,6 +16,7 @@ class consultation extends Controller
         if (!empty($this->session->get('userAdmin')) || $this->session->get('userAdmin') != "" || $this->session->get('userAdmin') != NULL) {
             header("Location: " . FOLDER_PATH . "/");
         }
+        $this->patientModel = new patientModel();
     }
 
     public function index()
@@ -43,7 +45,27 @@ class consultation extends Controller
     }
 
     public function insertPatient(){
-        
+        $idUser = $this->session->get('idUser');
+        $dni = $_POST['dni']; 
+        $nombre = $_POST['nombre'];
+        $apellidoPa = $_POST['apellidopa'];
+        $apellidoMa = $_POST['apellidoma'];
+        $fechana = $_POST['fechana'];
+        $fechana = strtotime($fechana);
+        $fechana = date('y-m-d',$fechana);
+        $celular = $_POST['celular'];
+        $correo = $_POST['correo'];
+        $procedencia = $_POST['procedencia'];
+        $ocupan = $_POST['ocupacionan'];
+        $ocupaac = $_POST['ocupacionac'];
+        $genero = $_POST['genero'];
+
+        $patient = $this->patientModel->insertPatient($idUser,$dni,$nombre,$apellidoPa,$apellidoMa,$genero,$fechana,$celular,$correo,$procedencia,$ocupan,$ocupaac);
+        if($patient->rowCount()>0){
+            echo "Agregado con exito";
+        }else{
+            echo "No se inserto nada";
+        }
     }
 
 }
