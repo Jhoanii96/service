@@ -249,8 +249,8 @@
                                                             <img width="42" height="42" class="rounded-circle" src="<?= FOLDER_PATH . '/my/showUserImage' ?> " alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading"><?php echo $this->session->get('Nombres'); ?></div>
-                                                            <div class="widget-subheading opacity-8"><?php echo $this->session->get('especialidad'); ?></div>
+                                                            <div class="widget-heading"><?php /* echo $this->session->get('Nombres'); */ ?></div>
+                                                            <div class="widget-subheading opacity-8"><?php /* echo $this->session->get('especialidad'); */ ?></div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
                                                             <button id="btn-adm_close" class="btn-pill btn-shadow btn-shine btn btn-focus">&MediumSpace;Salir&MediumSpace;</button>
@@ -265,7 +265,7 @@
                                             <ul class="nav flex-column">
                                                 <li class="nav-item-header nav-item">Mi cuenta</li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Ver perfil
+                                                    <a href="<?= FOLDER_PATH ?>/perfil" class="nav-link">Ver perfil
                                                         <!-- <div class="ml-auto badge badge-success">New</div> -->
                                                     </a>
                                                 </li>
@@ -308,8 +308,8 @@
                             </div>
                         </div>
                         <div class="widget-content-left ml-3 header-user-info">
-                            <div class="widget-heading"> <?php echo $this->session->get('Nombres'); ?> </div>
-                            <div class="widget-subheading"> <?php echo $this->session->get('especialidad'); ?> </div>
+                            <div class="widget-heading"> <?php /* echo $this->session->get('Nombres'); */ ?> </div>
+                            <div class="widget-subheading"> <?php /* echo $this->session->get('especialidad'); */ ?> </div>
                         </div>
                         <div class="widget-content-right header-user-info ml-3">
                             <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">

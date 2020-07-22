@@ -1,0 +1,52 @@
+.img-circle {
+    border-radius: 50%;
+}
+.profile-user-img {
+    border: 3px solid #adb5bd;
+    margin: 0 auto;
+    padding: 3px;
+    width: 100px;
+}
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.list-group-unbordered>.list-group-item {
+    border-left: 0;
+    border-radius: 0;
+    border-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+.nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.card-header>.nav {
+    margin-left: 0;
+    height: 100%;
+    width: 100%;
+}
+a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+.nav-pills .nav-link {
+    border-radius: .25rem;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: #007bff;
+}
+.card-header>.nav .nav-link.active::before {
+    display: none;
+}
