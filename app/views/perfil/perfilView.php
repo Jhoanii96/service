@@ -71,17 +71,6 @@
                         <h3 class="profile-username text-center">Nina Mcintire</h3>
 
                         <p class="text-muted text-center">Doctora</p>
-
-                        <ul class="list-group list-group-unbordered mb-3">
-                          <li class="list-group-item">
-                            <b>Siguiendo</b> <a class="float-right">24</a>
-                          </li>
-                          <li class="list-group-item">
-                            <b>Seguidores</b> <a class="float-right">1,205</a>
-                          </li>
-                        </ul>
-
-                        <a href="#" class="btn btn-primary btn-block"><b>Seguir</b></a>
                       </div>
                       <!-- /.card-body -->
                     </div>
@@ -89,29 +78,25 @@
 
                     <!-- About Me Box -->
                     <div class="card card-primary">
-                      <div class="card-header">
-                        <h3 class="card-title">Acerca de mi</h3>
-                      </div>
                       <!-- /.card-header -->
                       <div class="card-body">
 
+                        <span><i class="fas fa-phone mr-1"></i><b>Celular</b></span><a class="float-right">910 181 425</a>
 
-                        <span><i class="fas fa-birthday-cake mr-1"></i><b>Mi cumpleaños</b></span><a class="float-right">24/Dic</a>
+                        <hr>
+
+                        <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
+
+                        <p class="text-muted">
+                          <a href="mailto:ciistacna@unjbg.edu.pe">jhon_123_jw@hotmail.com</a>
+                        </p>
 
                         <hr>
 
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación actual</strong>
 
-                        <p class="text-muted">Malibu, California</p>
+                        <p class="text-muted">Perú, Tacna</p>
 
-                        <hr>
-
-                        <strong><i class="fas fa-book mr-1"></i> Educación</strong>
-
-                        <p class="text-muted">
-                          Master Science en Medicina Humana en la Universidad Jorge Basadre Grohmann
-                        </p>
-                        
                       </div>
                       <!-- /.card-body -->
                     </div>
@@ -127,6 +112,7 @@
                           <li class="nav-item"><a class="nav-link" href="#ubicacion" data-toggle="tab">Ubicación</a></li>
                           <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Configuración</a></li>
                           <li class="nav-item"><a class="nav-link" href="#linked" data-toggle="tab">Conexiones</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#change" data-toggle="tab">Cambiar contraseña</a></li>
                         </ul>
                       </div><!-- /.card-header -->
                       <div class="card-body">
@@ -195,16 +181,7 @@
                               </div>
                               <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                  <div class="checkbox">
-                                    <label>
-                                      <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                  <button type="submit" class="btn btn-danger">Submit</button>
+                                  <button type="button" class="btn btn-primary">Actualizar</button>
                                 </div>
                               </div>
                             </form>
@@ -249,7 +226,7 @@
                               </div>
                               <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                  <button type="submit" class="btn btn-danger">Submit</button>
+                                  <button type="button" class="btn btn-primary">Actualizar</button>
                                 </div>
                               </div>
                             </form>
@@ -300,7 +277,7 @@
                               </div>
                               <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                  <button type="submit" class="btn btn-danger">Submit</button>
+                                  <button type="button" class="btn btn-primary">Actualizar</button>
                                 </div>
                               </div>
                             </form>
@@ -354,7 +331,34 @@
                               </div>
                               <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                  <button type="submit" class="btn btn-danger">Submit</button>
+                                  <button type="button" class="btn btn-primary">Actualizar</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="tab-pane" id="change">
+                            <form class="form-horizontal">
+                              <div class="form-group row">
+                                <label for="actual_pass" class="col-sm-2 col-form-label">Contraseña actual</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="actual_pass">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="new_pass" class="col-sm-2 col-form-label">Nueva contraseña</label>
+                                <div class="col-sm-10">
+                                  <input type="password" class="form-control" id="new_pass">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="conf_pass" class="col-sm-2 col-form-label">Confirmar contraseña</label>
+                                <div class="col-sm-10">
+                                  <input type="password" class="form-control" id="conf_pass">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                  <button type="button" class="btn btn-danger">Cambiar contraseña</button>
                                 </div>
                               </div>
                             </form>
