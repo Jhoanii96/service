@@ -2,11 +2,14 @@
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/patient/patientModel.php";
+require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
+
 
 class consultation extends Controller
 {
     protected $session;
     protected $patientModel;
+    protected $questionModel;
 
     public function __construct()
     {
@@ -17,6 +20,7 @@ class consultation extends Controller
             header("Location: " . FOLDER_PATH . "/");
         }
         $this->patientModel = new patientModel();
+        $this->questionModel = new questionnaireModel();
     }
 
     public function index()
@@ -66,6 +70,17 @@ class consultation extends Controller
         }else{
             echo "No se inserto nada";
         }
+    }
+
+    public function getQuestionnaire(){
+        $idUser = $this->session->get('idUser');
+        $questions = $this->questionModel->getQuestionnaire($idUser);
+        return $questions->fetchAll();
+    }
+
+    public function getPatient(){
+        $patient = $this->patientModel->getPatient();
+        return $patient->fetch();
     }
 
 }

@@ -195,6 +195,21 @@ BEGIN
 END
 
 
+/*PROCEDIMIENTO PARA MOSTRAR LAS PREGUNTAS DE CADA DOCTOR*/
+
+CREATE PROCEDURE getQuestionnaire(
+    idUser int 
+)
+
+SELECT pa.Documento,pa.Nombre,pa.Apellido_Paterno,pa.Apellido_Materno,de.Pregunta 
+FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
+de.Id_Cuestionario = cu.Id_Cuestionario INNER JOIN detalle_cuestionario_paciente decupa ON 
+decupa.Id_Detalle_cuestionario = de.Id_Detalle_cuestionario INNER JOIN paciente pa ON
+pa.Id_Paciente = decupa.Id_Paciente
+WHERE cu.Id_Usuario = idUser
+
+
+
 
 
 

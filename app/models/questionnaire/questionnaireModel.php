@@ -42,5 +42,11 @@ class questionnaireModel extends Model{
     $res = Model::query_execute($query);
     return $res;
   }
+
+  public function getQuestionnaire($idUser){
+    $query = "CALL getQuestionnaire($idUser)";
+    $res = Model::query_execute($query);
+    return $res;
+  }
 }
 ?>

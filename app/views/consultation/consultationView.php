@@ -232,31 +232,34 @@
                                                     <div class="card">
                                                         <div>
                                                             <div class="card-body">
+                                                                <?php 
+                                                                    $patient = $this->getPatient();
+                                                                ?>
                                                                 <div class="form-row">
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
-                                                                            <label for="dni">DNI</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <label for="documento">DNI</label>
+                                                                            <input name="documento" value="<?php echo $patient['Documento']; ?>" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
-                                                                            <label for="genero">Nombres</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <label for="nombre">Nombres</label>
+                                                                            <input name="nombre" value="<?php echo $patient['Nombre']; ?>" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-row">
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
-                                                                            <label for="dni">Apellido Paterno</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <label for="apellidopa">Apellido Paterno</label>
+                                                                            <input name="apellidopa" value="<?php echo $patient['Apellido_Paterno']; ?>" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
-                                                                            <label for="genero">Apellido Materno</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                                            <label for="apellidoma">Apellido Materno</label>
+                                                                            <input name="apellidoma" value="<?php echo $patient['Apellido_Materno']; ?>"  type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -265,74 +268,20 @@
                                                                     <p class="form-control-plaintext">Control de preguntas</p>
                                                                 </div>
                                                                 <div class="form-row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="dni">P1: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="genero">P2: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="dni">P3: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="genero">P4: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="dni">P5: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="genero">P6: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="dni">P7: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="genero">P8: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="dni">P9: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="position-relative form-group">
-                                                                            <label for="genero">P10: ¿?</label>
-                                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
+                                                                <?php 
+                                                                     
+                                                                    $questions = $this->getQuestionnaire();
+                                                                    
+                                                                    foreach($questions as $row){
+                                                                        echo "<div class='col-md-6'>";
+                                                                        echo    "<div class='position-relative form-group'>";
+                                                                        echo        "<label for='question'>P: ¿".$row['Pregunta']."?</label>";
+                                                                        echo        "<input name='question' type='text' class='form-control'>";
+                                                                        echo    "</div>";
+                                                                        echo "</div>";
+                                                                    }
+                                                                ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
