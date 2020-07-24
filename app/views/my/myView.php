@@ -45,7 +45,7 @@
                     <?php
                     $state = $this->stateProfile();
                     if ($state[0] == 1) {
-                        $this->updateStateProfile();
+                        // $this->updateStateProfile();
                     ?>
                         <div class="app-page-title">
                             <div class="page-title-wrapper">
@@ -87,7 +87,7 @@
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
                                             <!-- <form action="<--?= FOLDER_PATH . '/my/updateProfile' ?>"  method="post" name="form-profile"> -->
-                                            <form method="post" enctype="multipart/form-data" name="frm-profile" id="frm-profile">
+                                            <form method="post" enctype="multipart/form-data" name="frm-profile" id="frm-profile" novalidate="novalidate">
                                                 <div class="form-row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
@@ -104,7 +104,8 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Apellido Materno</label>
-                                                            <input name="apellidoma" id="apellidoma" type="text" value="<?php echo $profile['Apellido_Materno']; ?>" class="form-control" required>
+                                                            <input name="apellidoma" id="apellidoma" type="text" value="<?php echo $profile['Apellido_Materno']; ?>" class="form-control is-valid" required>
+                                                            <em id="lastname-error" class="error invalid-feedback" style="display:none"></em>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -670,6 +671,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
         let close = document.getElementById("btn-adm_close");
@@ -712,11 +714,9 @@
         }); */
     </script>
     <script>
-        /* $('#smartwizard2').smartWizard({
-            keyboardSettings: {
-                keyNavigation: false
-            }
-        }); */
+        function validate(){
+            
+        }
     </script>
     <script>
         $(document).ready(function() {
