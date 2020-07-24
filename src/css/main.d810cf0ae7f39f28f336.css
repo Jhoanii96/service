@@ -45051,3 +45051,15 @@ span.multiselect-native-select select {
 .after-img {
   max-width: 100%
 }
+
+.rounded-image {
+  width: 42px;
+  height: 42px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  border-style: none;
+  display: inline-block;
+  border-radius: 50%;
+}

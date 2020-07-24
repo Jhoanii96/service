@@ -15,5 +15,3 @@ class tipadoModel extends Model{
     return $res;
   }
 }
-
-?>

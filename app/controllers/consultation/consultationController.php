@@ -17,7 +17,7 @@ class consultation extends Controller
         $this->session->getAll();
 
         if (!empty($this->session->get('userAdmin')) || $this->session->get('userAdmin') != "" || $this->session->get('userAdmin') != NULL) {
-            header("Location: " . FOLDER_PATH . "/");
+            echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
         }
         $this->patientModel = new patientModel();
         $this->questionModel = new questionnaireModel();
@@ -31,7 +31,7 @@ class consultation extends Controller
     public function salir()
     {
         $this->session->close();
-        header("Location: " . FOLDER_PATH . "/login");
+        echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
     }
 
     public function VerificarParametros($param)

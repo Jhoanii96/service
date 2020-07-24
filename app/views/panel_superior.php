@@ -235,7 +235,7 @@
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                    <img width="42" height="42" class="rounded-circle" src="<?= FOLDER_PATH . '/my/showUserImage' ?>" alt="">
+                                    <div class="rounded-image" alt="" style="background-image: url(<?php echo FOLDER_PATH . '/' . $this->session->get('image_user'); ?>);"></div>
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
@@ -246,11 +246,11 @@
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left mr-3">
-                                                            <img width="42" height="42" class="rounded-circle" src="<?= FOLDER_PATH . '/my/showUserImage' ?> " alt="">
+                                                            <div width="42" height="42" class="rounded-image" alt="" style="background-image: url(<?php echo FOLDER_PATH . '/' . $this->session->get('image_user'); ?>);"></div>
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading"><?php /* echo $this->session->get('Nombres'); */ ?></div>
-                                                            <div class="widget-subheading opacity-8"><?php /* echo $this->session->get('especialidad'); */ ?></div>
+                                                            <div class="widget-heading"><?php echo $this->session->get('Nombres'); ?></div>
+                                                            <div class="widget-subheading opacity-8"><?php echo $this->session->get('especialidad'); ?></div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
                                                             <button id="btn-adm_close" class="btn-pill btn-shadow btn-shine btn btn-focus">&MediumSpace;Salir&MediumSpace;</button>
@@ -308,8 +308,8 @@
                             </div>
                         </div>
                         <div class="widget-content-left ml-3 header-user-info">
-                            <div class="widget-heading"> <?php /* echo $this->session->get('Nombres'); */ ?> </div>
-                            <div class="widget-subheading"> <?php /* echo $this->session->get('especialidad'); */ ?> </div>
+                            <div class="widget-heading"> <?php echo $this->session->get('Nombres'); ?> </div>
+                            <div class="widget-subheading"> <?php echo $this->session->get('especialidad'); ?> </div>
                         </div>
                         <div class="widget-content-right header-user-info ml-3">
                             <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">

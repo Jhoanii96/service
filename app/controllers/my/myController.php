@@ -27,7 +27,6 @@ class my extends Controller
 
     public function index()
     {
-
         $this->view('my/my');
     }
 
@@ -77,96 +76,81 @@ class my extends Controller
         $celular2 = $_POST['celular2'];
         $precioconsulta = $_POST['precioconsulta'];
         $tiempoatencion = $_POST['tiempoatencion'];
-        $diapago = strtotime($_POST['diapago']);
-        $diapago = date('y-m-d',$diapago);
-        // if(isset($_POST['submit'])){
-        //     print_r($_FILES);
-        // }
-        $revisar = getimagesize($_FILES["imagen"]["tmp_name"]);
-        if($revisar !== false){
-            $image = $_FILES['imagen']['tmp_name'];
-            $imgContenido = addslashes(file_get_contents($image));
-            $this->perfilModel->updateProfile(
-                $idUser,
-                $idDoctor,
-                $nombre,
-                $apellidopa,
-                $apellidoma,
-                $especialidad,
-                $dni,
-                $cmp,
-                $pais,
-                $departamento,
-                $provincia,
-                $distrito,
-                $telefono1,
-                $telefono2,
-                $celular1,
-                $celular2,
-                $precioconsulta,
-                $tiempoatencion,
-                $diapago,
-                $imgContenido
-            );
-        }else{
-            $this->perfilModel->updateProfile(
-                $idUser,
-                $idDoctor,
-                $nombre,
-                $apellidopa,
-                $apellidoma,
-                $especialidad,
-                $dni,
-                $cmp,
-                $pais,
-                $departamento,
-                $provincia,
-                $distrito,
-                $telefono1,
-                $telefono2,
-                $celular1,
-                $celular2,
-                $precioconsulta,
-                $tiempoatencion,
-                $diapago
-            );
-        }  
+        $diapago = $_POST['diapago'];
+
+        if (!isset($_FILES["imagen"]["tmp_name"]) || $_FILES["imagen"]["tmp_name"] == "") {
+            $file_tmp = '';
+            $dont_edit_photo = '1';
+        } else {
+            $file_tmp = $_FILES["imagen"]["tmp_name"];
+            $dont_edit_photo = '0';
+        }
+        if (!isset($_FILES["imagen"]["name"]) || $_FILES["imagen"]["name"] == "") {
+            $file_name = 'avatar1.png';
+        } else {
+            $file_name = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['imagen']['type']);
+        }
+
+        $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/media/images/profile/';
+        move_uploaded_file($file_tmp, $imagen_destino . $file_name);
+        $imagen_bd = 'src/assets/media/images/profile/' . $file_name;
+
+        $this->perfilModel->updateProfile(
+            $idUser,
+            $idDoctor,
+            $nombre,
+            $apellidopa,
+            $apellidoma,
+            $especialidad,
+            $dni,
+            $cmp,
+            $pais,
+            $departamento,
+            $provincia,
+            $distrito,
+            $telefono1,
+            $telefono2,
+            $celular1,
+            $celular2,
+            $precioconsulta,
+            $tiempoatencion,
+            $diapago,
+            $dont_edit_photo,
+            $imagen_bd
+        );
     }
 
-    public function questionCounter(){
+    public function questionCounter()
+    {
         $idUser = $this->session->get('idUser');
         $count = $this->questionnaireModel->getQuestionnaireCounter($idUser);
         return $count->fetch();
     }
 
 
-    public function createQuestionnaire(){
+    public function createQuestionnaire()
+    {
         $idUser = $this->session->get('idUser');
         $questionnaire = $this->questionnaireModel->createQuestionnaire($idUser);
         $questionnaire->fetch();
     }
 
-    
 
-    public function insertQuestion(){
+
+    public function insertQuestion()
+    {
         $question = $_POST['dato'];
         $idUser = $this->session->get('idUser');
         $idCuestionario = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
-        if($idCuestionario > 0){
-            $resQuestion = $this->questionnaireModel->insertQuestion($idCuestionario['Id_Cuestionario'],$question);
+        if ($idCuestionario > 0) {
+            $resQuestion = $this->questionnaireModel->insertQuestion($idCuestionario['Id_Cuestionario'], $question);
             $resQuestion->fetch();
-        }else{
+        } else {
             $questionnaire = $this->questionnaireModel->createQuestionnaire($idUser);
             $questionnaire->fetch();
             $idLastInsert = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
-            $questionResult =  $this->questionnaireModel->insertQuestion($idLastInsert['Id_Cuestionario'],$question);
+            $questionResult =  $this->questionnaireModel->insertQuestion($idLastInsert['Id_Cuestionario'], $question);
             $questionResult->fetch();
         }
-    }
-
-    public function showUserImage(){
-        $image = $this->perfilModel->showUserImage($this->session->get('idUser'));
-        $result = $image->fetch();
-        echo $result['imagen'];
     }
 }

@@ -14,7 +14,7 @@ class appointment extends Controller
     $this->session->getAll();
 
     /* if (empty($this->session->get('usuarioUsi')) || $this->session->get('usuarioUsi') == "" || $this->session->get('usuarioUsi') == NULL) {
-      header("Location: " . FOLDER_PATH . "/login");
+      echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
     } */
 
     $this->view('appointment/appointment' /*, ['noticiasRecientes' => $this->parametro1, 'noticiasAntiguas' => $this->parametro2] */);

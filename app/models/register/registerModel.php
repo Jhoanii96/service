@@ -8,7 +8,7 @@ class registerModel extends Model
     public function mostrar_especialidad()
     {
 
-        $query = "select Id_Especialidad as id, Descripcion as nombre from Especialidad;";
+        $query = "select Id_Especialidad as id, Descripcion as nombre from especialidad;";
         $res = Model::query_execute($query);
         return $res;
 
@@ -17,7 +17,7 @@ class registerModel extends Model
     public function mostrar_pais()
     {
 
-        $query = "select Id_Pais as id, Descripcion as nombre from Pais;";
+        $query = "select Id_Pais as id, Descripcion as nombre from pais;";
         $res = Model::query_execute($query);
         return $res;
         
