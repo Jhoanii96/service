@@ -176,7 +176,7 @@
                             <span class="mr-3 opacity-8 flag large ES" style="background: url('<?= FOLDER_PATH ?>/src/assets/media/images/ES.svg') no-repeat; background-size: 32px 32px;"></span>Spain
                         </button>
                         <button type="button" tabindex="0" class="dropdown-item">
-                            <span class="mr-3 opacity-8 flag large US" style="background: url('<?= FOLDER_PATH ?>/src/assets/media/images/DE.svg') no-repeat; background-size: 32px 32px;"></span> USA
+                            <span class="mr-3 opacity-8 flag large US" style="background: url('<?= FOLDER_PATH ?>/src/assets/media/images/US.svg') no-repeat; background-size: 32px 32px;"></span> USA
                         </button>
                     </div>
                 </div>

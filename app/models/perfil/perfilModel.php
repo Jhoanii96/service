@@ -8,7 +8,7 @@ class perfilModel extends Model
     
     public function mostrar_perfil($codPerfil)
     {
-        $query = "CALL mostrar_perfil($codPerfil);";
+        $query = "CALL mostrar_perfil('$codPerfil');";
         $res = Model::query_execute($query);
         return $res;
     }

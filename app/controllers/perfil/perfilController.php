@@ -16,7 +16,7 @@ class perfil extends Controller
             echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
         }
 
-        $this->perfilModel = new perfilModel();
+        $this->model = new perfilModel();
         
     }
 
@@ -93,17 +93,11 @@ class perfil extends Controller
             echo ("<script>location.href = '" . FOLDER_PATH . "/perfil';</script>");
         } else {
             
-            /* $this->perfilModel->showProfile($this->session->get('admin')); */
+            $datos_perfil = $this->model->mostrar_perfil($this->session->get('admin'));
 
-            $this->AdminView('perfil/perfil'/* , [
-                    'nombre' => $this->datos_usu['nombre'], 
-                    'apellido' => $this->datos_usu['apellido'], 
-                    'tipouser' => $this->datos_usu['nombreTipo'], 
-                    'online' => 'online', 
-                    'foto' => $this->datos_usu['foto'], 
-                    'BellNtf' => $this->BellNtf, 
-                    'datos_perfil' => $this->allDatos_usu
-                ] */);
+            $this->AdminView('perfil/perfil', [
+                    'datos_perfil' => $datos_perfil
+                ]);
         }
     }
 
