@@ -3,7 +3,7 @@
     font-family: 'Font Awesome 5 Free';
     font-style: normal;
     font-weight: 900;
-    src: url("/service/service/src/fonts/fa-solid-900.eot");
+    src: url("/service/src/fonts/fa-solid-900.eot");
     src: url("/service/src/fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"),
         url("/service/src/fonts/fa-solid-900.woff2") format("woff2"),
         url("/service/src/fonts/fa-solid-900.woff") format("woff"),
