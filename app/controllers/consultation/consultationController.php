@@ -79,8 +79,30 @@ class consultation extends Controller
     }
 
     public function getPatient(){
-        $patient = $this->patientModel->getPatient();
+        $idPaciente = $this->session->get('idPaciente');
+        
+            $patient = $this->patientModel->getPatient($idPaciente);
+        
         return $patient->fetch();
+    }
+
+    public function searchPatient(){
+        $documento = $_POST['filter'];
+        $searchPatient = $this->patientModel->searchDocumentPatient($documento);
+        $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
+        if($result){
+            $this->session->add('idPaciente',$result['Id_Paciente']);
+            $arrayJSON =  json_encode($result);
+        }else{
+            $error = ['No se pudo encontrar ese paciente'];
+            $arrayJSON =  json_encode($error);
+        }
+        print_r($arrayJSON);
+    }
+
+    public function insertAnswers(){
+        $idPaciente = $this->session->get('idPaciente');
+        $this->questionModel->insertAnswers($idPaciente);
     }
 
 }

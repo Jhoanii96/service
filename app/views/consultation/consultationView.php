@@ -55,9 +55,6 @@
         <!-- HEADER -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
 
-        <!-- PANEL LATERAL DERECHO/CONFIGURACIONES DE DISEÑO -->
-        <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?>
-
         <div class="app-main">
 
             <!-- PANEL LATERAL IZQUIERDO -->
@@ -112,33 +109,36 @@
                                         </ul>
                                         <div class="form-wizard-content">
                                             <div id="step-1">
-                                                <div class="form-row">
-                                                    <div class="col-md-2">
-                                                        <label for="exampleCustomSelect" class="">Buscar</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-2">
-                                                        <div class="position-relative form-group">
-                                                            <select type="select" id="exampleCustomSelect" name="customSelect" class="custom-select">
-                                                                <option value="0">Seleccionar</option>
-                                                                <option value="1">DNI</option>
-                                                                <option value="2">Nombres</option>
-                                                                <option value="3">Apellidos</option>
-                                                            </select>
+                                                <form id="frm-search-patient" method="post">
+                                                    <div class="form-row">
+                                                        <div class="col-md-2">
+                                                            <label for="customSelect">Buscar</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <div class="position-relative form-group">
-                                                            <input name="filter" id="filter" placeholder="Ingresar buscador" type="text" class="form-control">
+                                                    <div class="form-row">
+                                                        <div class="col-md-2">
+                                                            <div class="position-relative form-group">
+                                                                <select type="select" id="customSelect" name="customSelect" class="custom-select">
+                                                                    <option value="0">Seleccionar</option>
+                                                                    <option value="1">DNI</option>
+                                                                    <option value="2">Nombres</option>
+                                                                    <option value="3">Apellidos</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="position-relative form-group">
+                                                                <input name="filter" id="filter" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="position-relative form-group">
+                                                                <button class="mb-2 mr-2 btn-icon btn-pill btn btn-primary" id="btnSearchPatient"><i class="pe-7s-search btn-icon-wrapper"> </i>Buscar</button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="position-relative form-group">
-                                                            <button class="mb-2 mr-2 btn-icon btn-pill btn btn-primary"><i class="pe-7s-search btn-icon-wrapper"> </i>Buscar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
+                                                </form>
 
                                                 <form method="post" id="frm-patient" name="frm-patient">
                                                     <div class="form-row">
@@ -151,7 +151,7 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Género</label>
-                                                                <select type="select" id="exampleCustomSelect" name="genero" class="custom-select" required>
+                                                                <select type="select" id="genero" name="genero" class="custom-select" required>
                                                                     <option value="0">Seleccionar</option>
                                                                     <option value="F">Femenino</option>
                                                                     <option value="M">Másculino</option>
@@ -170,7 +170,7 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="nombre">Nombres</label>
-                                                                <input name="nombre" id="nombre" placeholder="ingrese su nombre" type="text" class="form-control" required>
+                                                                <input name="nombre" id="nombre" type="text" class="form-control" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -232,20 +232,20 @@
                                                     <div class="card">
                                                         <div>
                                                             <div class="card-body">
-                                                                <?php 
+                                                                <!--?php 
                                                                     $patient = $this->getPatient();
-                                                                ?>
+                                                                ?-->
                                                                 <div class="form-row">
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="documento">DNI</label>
-                                                                            <input name="documento" value="<?php echo $patient['Documento']; ?>" type="text" class="form-control">
+                                                                            <input name="dni" id="cuest-dni" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="nombre">Nombres</label>
-                                                                            <input name="nombre" value="<?php echo $patient['Nombre']; ?>" type="text" class="form-control">
+                                                                            <input name="nombre" id="cuest-nombre"  type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -253,13 +253,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="apellidopa">Apellido Paterno</label>
-                                                                            <input name="apellidopa" value="<?php echo $patient['Apellido_Paterno']; ?>" type="text" class="form-control">
+                                                                            <input name="apellidopa" id="cuest-apellidopa" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="position-relative form-group">
                                                                             <label for="apellidoma">Apellido Materno</label>
-                                                                            <input name="apellidoma" value="<?php echo $patient['Apellido_Materno']; ?>"  type="text" class="form-control">
+                                                                            <input name="apellidoma" id="cuest-apellidoma" type="text" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -267,22 +267,26 @@
                                                                     <label for="exampleEmail3">--------------------------------------------</label>
                                                                     <p class="form-control-plaintext">Control de preguntas</p>
                                                                 </div>
-                                                                <div class="form-row">
-                                                                <?php 
-                                                                     
-                                                                    $questions = $this->getQuestionnaire();
-                                                                    
-                                                                    foreach($questions as $row){
-                                                                        echo "<div class='col-md-6'>";
-                                                                        echo    "<div class='position-relative form-group'>";
-                                                                        echo        "<label for='question'>P: ¿".$row['Pregunta']."?</label>";
-                                                                        echo        "<input name='question' type='text' class='form-control'>";
-                                                                        echo    "</div>";
-                                                                        echo "</div>";
-                                                                    }
-                                                                ?>
-                                                                    
-                                                                </div>
+                                                                <!-- <form method="post" id="frm-answers-patient"> -->
+                                                                    <div class="form-row">
+                                                                        <?php 
+                                                                            $questions = $this->getQuestionnaire();
+                                                                            
+                                                                            foreach($questions as $key=>$row){
+                                                                                echo "<div class='col-md-6'>";
+                                                                                echo    "<div class='position-relative form-group'>";
+                                                                                echo        "<label for='question'>P $key: ¿".$row['Pregunta']."?</label>";
+                                                                                echo        "<input type='hidden' name='detalle$key' value='".$row['Id_Detalle']."'>";
+                                                                                echo        "<input name='question$key' type='text' class='form-control'>";
+                                                                                echo    "</div>";
+                                                                                echo "</div>";
+                                                                            }
+                                                                        ?>
+                                                                            <div class="col-md-12">
+                                                                                <button class="btn btn-info" id="btnSaveAnswers">Guardar Respuestas</button>
+                                                                            </div>
+                                                                    </div>
+                                                                <!-- </form> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -292,28 +296,28 @@
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
-                                                            <label for="dni">DNI</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <label for="pru-dni">DNI</label>
+                                                            <input name="pru-dni" id="pru-dni"  type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
-                                                            <label for="genero">Nombres</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <label for="pru-nombre">Nombres</label>
+                                                            <input name="pru-nombre" id="pru-nombre" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
-                                                            <label for="dni">Apellido Paterno</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <label for="pru-apellidopa">Apellido Paterno</label>
+                                                            <input name="pru-apellidopa" id="pru-apellidopa"  type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
-                                                            <label for="genero">Apellido Materno</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <label for="pru-apellidoma">Apellido Materno</label>
+                                                            <input name="pru-apellidoma" id="pru-apellidoma"  type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -325,7 +329,7 @@
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Anamnesis</label>
-                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;">TE:
+                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;padding-left:40px;">TE:
 SP:</textarea>
                                                         </div>
                                                     </div>
@@ -386,27 +390,27 @@ RESULTADOS:</textarea>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">DNI</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <input name="cita-dni" id="cita-dni" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
-                                                            <label for="genero">Nombres</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <label for="cita-nombre">Nombres</label>
+                                                            <input name="cita-nombre" id="cita-nombre" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
-                                                            <label for="dni">Apellido Paterno</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <label for="cita-apellidopa">Apellido Paterno</label>
+                                                            <input name="cita-apellidopa" id="cita-apellidopa" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
-                                                            <label for="genero">Apellido Materno</label>
-                                                            <input name="dni" placeholder="with a placeholder" type="text" class="form-control">
+                                                            <label for="cita-apellidoma">Apellido Materno</label>
+                                                            <input name="cita-apellidoma" id="cita-apellidoma" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -857,11 +861,74 @@ RESULTADOS:</textarea>
                 },
                 error:function(xhr,throwError){
                     alert(xhr.status);
-                    alert(thrownError);
+                    alert(throwError);
                 }
             });
             return false;
         })
+
+        $('#btnSearchPatient').on("click",function(){
+            let datos = $('#frm-search-patient').serialize();
+            
+            console.log(datos);
+            let request = $.ajax({
+                type:"post",
+                dataType:'JSON',
+                url:"<?php echo FOLDER_PATH ?>/consultation/searchPatient",
+                data:datos
+            });
+            request.done(function(data){
+                
+                if(Object.keys(data).length > 1){
+                    $('#nombre').val(data.Nombre);
+                    $('#apellidopa').val(data.Apellido_Paterno);
+                    $('#apellidoma').val(data.Apellido_Materno);
+                    $('#procedencia').val(data.Procedencia);
+                    $('#ocupacionac').val(data.Ocupacion_Actual);
+                    $('#ocupacionan').val(data.Ocupacion_Anterior);
+                    $('#dni').val(data.Documento);
+                    $('#correo').val(data.Email);
+                    $('#celular').val(data.Celular);
+                    $("#genero option[value="+ data.Genero +"]").attr("selected",true);
+                    $('#fechana').val(data.Fecha_Nacimiento);
+                    $('#btnSavePatient').attr("disabled",true);
+                    $('#cuest-nombre').val(data.Nombre);
+                    $('#cuest-apellidopa').val(data.Apellido_Paterno);
+                    $('#cuest-apellidoma').val(data.Apellido_Materno);
+                    $('#cuest-dni').val(data.Documento);
+                    $('#pru-nombre').val(data.Nombre);
+                    $('#pru-apellidopa').val(data.Apellido_Paterno);
+                    $('#pru-apellidoma').val(data.Apellido_Materno);
+                    $('#pru-dni').val(data.Documento);
+                    $('#cita-nombre').val(data.Nombre);
+                    $('#cita-apellidopa').val(data.Apellido_Paterno);
+                    $('#cita-apellidoma').val(data.Apellido_Materno);
+                    $('#cita-dni').val(data.Documento);
+                }else{
+                    alert(data);
+                }
+            });
+            request.fail(function(){
+                console.log('fallo')
+            });
+            return false;
+        });
+
+        // $('#btnSaveAnswers').on('click',function(){
+        //     let datos = $('#frm-answers-patient').serialize();
+        //     $.ajax({
+        //         type="post",
+        //         url:"<?php echo FOLDER_PATH ?>/consultation/insertAnswers",
+        //         data:datos
+        //     });
+        //     done(function(){
+        //         console.log('exito');
+        //     });
+        //     fail(function(){
+        //         console.log('fallo');
+        //     });
+        // });
+
     </script>
 
 

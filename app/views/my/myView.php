@@ -45,7 +45,7 @@
                     <?php
                     $state = $this->stateProfile();
                     if ($state[0] == 1) {
-                        // $this->updateStateProfile();
+                        $this->updateStateProfile();
                     ?>
                         <div class="app-page-title">
                             <div class="page-title-wrapper">
@@ -87,7 +87,7 @@
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
                                             <!-- <form action="<--?= FOLDER_PATH . '/my/updateProfile' ?>"  method="post" name="form-profile"> -->
-                                            <form method="post" enctype="multipart/form-data" name="frm-profile" id="frm-profile" novalidate="novalidate">
+                                            <form method="post" enctype="multipart/form-data" name="frm-profile" id="frm-profile" >
                                                 <div class="form-row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
@@ -104,8 +104,8 @@
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Apellido Materno</label>
-                                                            <input name="apellidoma" id="apellidoma" type="text" value="<?php echo $profile['Apellido_Materno']; ?>" class="form-control is-valid" required>
-                                                            <em id="lastname-error" class="error invalid-feedback" style="display:none"></em>
+                                                            <input name="apellidoma" id="apellidoma" type="text" value="<?php echo $profile['Apellido_Materno']; ?>" class="form-control " required>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -133,12 +133,14 @@
                                                         <div class="position-relative form-group">
                                                             <label>DNI</label>
                                                             <input name="dni" id="dni" type="text" value="<?php echo $profile['Documento']; ?>" class="form-control" maxLength="8" required>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Codigo Medico del Peru</label>
                                                             <input name="cmp" id="cmp" type="text" value="<?php echo $profile['CMP']; ?>" class="form-control" maxLength="6" required>
+                                                        
                                                         </div>
                                                     </div>
                                                 </div>
@@ -242,7 +244,7 @@
                                                                         <i class="fa fa-phone"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="telefono2" id="telefono2" value="<?php echo $profile['Telefono_Fijo02']; ?>" placeholder="Ingrese su segundo telefono" type="text" class="form-control" required>
+                                                                <input name="telefono2" id="telefono2" value="<?php echo $profile['Telefono_Fijo02']; ?>" placeholder="Ingrese su segundo telefono" type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -266,7 +268,7 @@
                                                                         <i class="fas fa-mobile-alt"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="celular2" id="celular2" value="<?php echo $profile['Celular02']; ?>" type="text" class="form-control" required>
+                                                                <input name="celular2" id="celular2" value="<?php echo $profile['Celular02']; ?>" type="text" class="form-control" novalidate="true">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -713,11 +715,7 @@
             }
         }); */
     </script>
-    <script>
-        function validate(){
-            
-        }
-    </script>
+
     <script>
         $(document).ready(function() {
             $('#frm-profile').on('submit', function() {
@@ -808,6 +806,6 @@
             });
         }
     </script>
-</body>
+    </body>
 
 </html>
