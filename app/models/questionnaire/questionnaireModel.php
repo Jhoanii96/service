@@ -50,8 +50,11 @@ class questionnaireModel extends Model{
   }
 
   public function insertAnswers($idDetalleCuest,$idPaciente,$respuesta){
-    $query = "INSERT INTO detalle_cuestionario_paciente(Id_Detalle_Cuestionario,Respuesta,Id_Paciente) VALUES($idDetalleCuest,$respuesta,$idPaciente)";
-    $res = Model::query_execute($query);
+    
+    for ($i=0; $i < count($respuesta); $i++) { 
+      $query = "INSERT INTO detalle_cuestionario_paciente(Id_Detalle_Cuestionario,Respuesta,Id_Paciente) VALUES($idDetalleCuest[$i],'$respuesta[$i]',$idPaciente)";
+      $res = Model::query_execute($query);
+    }
     return $res;
   }
 }

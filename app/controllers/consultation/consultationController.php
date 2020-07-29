@@ -101,8 +101,22 @@ class consultation extends Controller
     }
 
     public function insertAnswers(){
-        $idPaciente = $this->session->get('idPaciente');
-        $this->questionModel->insertAnswers($idPaciente);
-    }
 
+
+        if(isset($_POST['answers']) && !$_POST['answers']===""){
+            $detalle = $_POST['detalle'];
+            $respuestas = $_POST['answers'];
+    
+            $idPaciente = $this->session->get('idPaciente');
+            $ResultAnswers = $this->questionModel->insertAnswers($detalle,$idPaciente,$respuestas);
+            if($ResultAnswers->rowCount()>0){
+                echo "Agregados con exito";
+            }else{
+                echo "No se inserto nada";
+            }
+
+        }else{
+            echo "Llene los campos";
+        }
+    }
 }
