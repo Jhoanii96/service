@@ -249,3 +249,11 @@ FOR EACH ROW
     UPDATE cuestionario 
        SET cant_preguntas = IF(cant_preguntas > 0 ,cant_preguntas-1,0)
     	WHERE  Id_Cuestionario = old.Id_Cuestionario
+
+
+
+
+/* Agregar unique dni*/
+
+alter table paciente
+add constraint UN_DOC UNIQUE(Documento)
