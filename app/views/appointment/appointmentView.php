@@ -64,10 +64,10 @@
                                         <div class="position-relative input-group mb-4">
                                             <label class="mr-2 mt-auto mb-auto">Nombre</label>
                                             <input name="date" id="date" placeholder="Ingresar nombre" type="text" class="mr-2 form-control">
-                                            
+
                                         </div>
                                         <div class="position-relative input-group mb-4">
-                                        <label class="mr-2 mt-auto mb-auto">Fecha Cita</label>
+                                            <label class="mr-2 mt-auto mb-auto">Fecha Cita</label>
                                             <input name="date" id="date" type="date" class="mr-2 form-control">
                                             <button class="btn-icon btn-pill btn btn-primary"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
                                         </div>
@@ -82,7 +82,8 @@
                             <table style="width: 100%;" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Paciente</th>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
                                         <th>Edad</th>
                                         <th>Atención</th>
                                         <th>Fecha y hora</th>
@@ -92,115 +93,48 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Arturito</td>
-                                        <td class="text-center">6 años</td>
-                                        <td class="text-center">8 días</td>
-                                        <td class="text-center">09/07/2020 15:30</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Arturito</td>
-                                        <td class="text-center">6 años</td>
-                                        <td class="text-center">8 días</td>
-                                        <td class="text-center">09/07/2020 15:30</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Arturito</td>
-                                        <td class="text-center">6 años</td>
-                                        <td class="text-center">8 días</td>
-                                        <td class="text-center">09/07/2020 15:30</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Arturito</td>
-                                        <td class="text-center">6 años</td>
-                                        <td class="text-center">8 días</td>
-                                        <td class="text-center">09/07/2020 15:30</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Arturito</td>
-                                        <td class="text-center">6 años</td>
-                                        <td class="text-center">8 días</td>
-                                        <td class="text-center">09/07/2020 15:30</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php
+
+                                    while ($datos_cita = $data['datos_cita']->fetch()) {
+                                        
+                                        $birthDate = explode("-", $datos_cita['fecha_nac']);
+                                        $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
+                                            ? ((date("Y") - $birthDate[0]) - 1)
+                                            : (date("Y") - $birthDate[0]));
+
+                                    ?>
+                                        <tr>
+                                            <td><?= $datos_cita['nombre'] ?></td>
+                                            <td><?= $datos_cita['apellidos'] ?></td>
+                                            <td class="text-center"><?= $age ?> años</td>
+                                            <td class="text-center">8 días</td>
+                                            <td class="text-center">09/07/2020 15:30</td>
+                                            <td class="text-center">
+                                                <div role="group" class="btn-group-sm btn-group">
+                                                    <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div role="group" class="btn-group-sm btn-group">
+                                                    <button class="btn btn-warning text-white">Editar <i class="fa fa-edit"></i></button>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div role="group" class="btn-group-sm btn-group">
+                                                    <button class="btn btn-danger">Eliminar <i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php
+
+                                    }
+
+                                    ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Paciente</th>
+                                        <th>Apellidos</th>
                                         <th>Edad</th>
                                         <th>Atención</th>
                                         <th>Fecha y hora</th>
@@ -220,8 +154,7 @@
     <!-- MODAL USER CONFIGURATIONS  -->
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -277,4 +210,3 @@
 </body>
 
 </html>
-

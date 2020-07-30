@@ -3,6 +3,7 @@
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/patient/patientModel.php";
 require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
+require ROOT . FOLDER_PATH . "/app/models/consultation/consultationModel.php";
 
 
 class consultation extends Controller
@@ -21,6 +22,7 @@ class consultation extends Controller
         }
         $this->patientModel = new patientModel();
         $this->questionModel = new questionnaireModel();
+        $this->model = new consultationModel();
     }
 
     public function index()
@@ -48,15 +50,16 @@ class consultation extends Controller
         $this->view('login/login', ['error_message' => $message]);
     }
 
-    public function insertPatient(){
+    public function insertPatient()
+    {
         $idUser = $this->session->get('idUser');
-        $dni = $_POST['dni']; 
+        $dni = $_POST['dni'];
         $nombre = $_POST['nombre'];
         $apellidoPa = $_POST['apellidopa'];
         $apellidoMa = $_POST['apellidoma'];
         $fechana = $_POST['fechana'];
         $fechana = strtotime($fechana);
-        $fechana = date('y-m-d',$fechana);
+        $fechana = date('y-m-d', $fechana);
         $celular = $_POST['celular'];
         $correo = $_POST['correo'];
         $procedencia = $_POST['procedencia'];
@@ -64,68 +67,109 @@ class consultation extends Controller
         $ocupaac = $_POST['ocupacionac'];
         $genero = $_POST['genero'];
 
-        $patient = $this->patientModel->insertPatient($idUser,$dni,$nombre,$apellidoPa,$apellidoMa,$genero,$fechana,$celular,$correo,$procedencia,$ocupan,$ocupaac);
-        
-        if($patient->rowCount()>0){
+        $patient = $this->patientModel->insertPatient($idUser, $dni, $nombre, $apellidoPa, $apellidoMa, $genero, $fechana, $celular, $correo, $procedencia, $ocupan, $ocupaac);
+
+        if ($patient->rowCount() > 0) {
             // print_r(['Se insertó correctamente']);
             $idPatient = $this->patientModel->getIDPatient();
             $result = $idPatient->fetch(PDO::FETCH_ASSOC);
-            if($result){
-                $this->session->add('idPaciente',$result['Id_Paciente']);
+            if ($result) {
+                $this->session->add('idPaciente', $result['Id_Paciente']);
                 $patientArray = json_encode($result);
-            }else{
+            } else {
                 $patientArray = json_encode(['no se obtuvo paciente']);
             }
             print_r($patientArray);
-        }else{
+        } else {
             print_r(json_encode(["No se inserto nada"]));
         }
     }
 
-    public function getQuestionnaire(){
+    public function getQuestionnaire()
+    {
         $idUser = $this->session->get('idUser');
         $questions = $this->questionModel->getQuestionnaire($idUser);
         return $questions->fetchAll();
     }
 
-    public function getPatient(){
+    public function getPatient()
+    {
         $idPaciente = $this->session->get('idPaciente');
-        
-            $patient = $this->patientModel->getPatient($idPaciente);
-        
+
+        $patient = $this->patientModel->getPatient($idPaciente);
+
         return $patient->fetch();
     }
 
-    public function searchPatient(){
+    public function searchPatient()
+    {
         $documento = $_POST['filter'];
         $searchPatient = $this->patientModel->searchDocumentPatient($documento);
         $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
-        if($result){
-            $this->session->add('idPaciente',$result['Id_Paciente']);
+        if ($result) {
+            $this->session->add('idPaciente', $result['Id_Paciente']);
             $arrayJSON =  json_encode($result);
-        }else{
+        } else {
             $error = ['No se pudo encontrar ese paciente'];
             $arrayJSON =  json_encode($error);
         }
         print_r($arrayJSON);
     }
 
-    public function insertAnswers(){
+    public function insertAnswers()
+    {
 
 
-        if(isset($_POST['answers']) && $_POST['answers'] !== ""){
+        if (isset($_POST['answers']) && $_POST['answers'] !== "") {
             $detalle = $_POST['detalle'];
             $respuestas = $_POST['answers'];
-    
+
             $idPaciente = $this->session->get('idPaciente');
-            $ResultAnswers = $this->questionModel->insertAnswers($detalle,$idPaciente,$respuestas);
-            if($ResultAnswers->rowCount()>0){
+            $ResultAnswers = $this->questionModel->insertAnswers($detalle, $idPaciente, $respuestas);
+            if ($ResultAnswers->rowCount() > 0) {
                 echo "Agregados con exito";
-            }else{
+            } else {
                 echo "No se inserto nada";
             }
-        }else{
+        } else {
             echo "Llene los campos";
+        }
+    }
+
+    public function citas()
+    {
+        $dni = $_POST['dni'];
+        
+        $usu_cod = $this->session->get('admin');
+        $ResultAnswers = $this->model->lista_citas_paciente($dni, $usu_cod);
+        while ($datos_cita = $ResultAnswers->fetch()) {
+
+            $birthDate = explode("-", $datos_cita['fecha_nac']);
+            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
+                ? ((date("Y") - $birthDate[0]) - 1)
+                : (date("Y") - $birthDate[0]));
+
+            if ($datos_cita['estado'] == 0) {
+                $estado = "En espera";
+                $css = "#ff0000";
+            }
+            if ($datos_cita['estado'] == 1) {
+                $estado = "Atendido";
+                $css = "#0000ff";
+            }
+            
+            echo '
+            
+                <tr>
+                    <td>' . $datos_cita['nombre'] . '</td>
+                    <td>' . $datos_cita['apellidos'] . '</td>
+                    <td class="text-center">' . $age . ' años</td>
+                    <td class="text-center">' . date("d/m/Y", strtotime($datos_cita['fecha_atencion'])) . '</td>
+                    <td class="text-center">' . date("h:i:s A", strtotime($datos_cita['fecha_atencion'])) . '</td>
+                    <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>
+                </tr>
+            
+            ';
         }
     }
 }

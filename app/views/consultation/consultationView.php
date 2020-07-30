@@ -109,7 +109,7 @@
                                         </ul>
                                         <div class="form-wizard-content">
                                             <div id="step-1">
-                                                <form id="frm-search-patient" >
+                                                <form id="frm-search-patient">
                                                     <div class="form-row">
                                                         <div class="col-md-2">
                                                             <label for="customSelect">Buscar</label>
@@ -137,7 +137,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                
+
                                                 </form>
 
                                                 <form id="frm-patient" name="frm-patient" method="post">
@@ -210,7 +210,7 @@
                                                         <div class="col-md-6">
                                                             <div class="position-relative form-group">
                                                                 <label for="ocupacionan">Ocupación Anterior</label>
-                                                                <input name="ocupacionan" id="ocupacionan" type="text" class="form-control" >
+                                                                <input name="ocupacionan" id="ocupacionan" type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -243,7 +243,7 @@
                                                                         <div class="col-md-6">
                                                                             <div class="position-relative form-group">
                                                                                 <label for="nombre">Nombres</label>
-                                                                                <input name="nombre" id="cuest-nombre"  type="text" class="form-control" disabled>
+                                                                                <input name="nombre" id="cuest-nombre" type="text" class="form-control" disabled>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -267,23 +267,23 @@
                                                                         <p class="form-control-plaintext">Control de preguntas</p>
                                                                     </div>
                                                                     <div class="form-row">
-                                                                        <?php 
-                                                                            $questions = $this->getQuestionnaire();
-                                                                            
-                                                                            foreach($questions as $key=>$row){
-                                                                                echo "<div class='col-md-6'>";
-                                                                                echo    "<div class='position-relative form-group'>";
-                                                                                echo        "<label for='question'>P $key: ¿".$row['Pregunta']."?</label>";
-                                                                                echo        "<input type='hidden' name='detalle[]' value='".$row['Id_Detalle']."' class='input-detalle'>";
-                                                                                echo        "<input name='answers[]' type='text' class='form-control input-answers' required>";
-                                                                                echo    "</div>";
-                                                                                echo "</div>";
-                                                                            }
+                                                                        <?php
+                                                                        $questions = $this->getQuestionnaire();
+
+                                                                        foreach ($questions as $key => $row) {
+                                                                            echo "<div class='col-md-6'>";
+                                                                            echo    "<div class='position-relative form-group'>";
+                                                                            echo        "<label for='question'>P $key: ¿" . $row['Pregunta'] . "?</label>";
+                                                                            echo        "<input type='hidden' name='detalle[]' value='" . $row['Id_Detalle'] . "' class='input-detalle'>";
+                                                                            echo        "<input name='answers[]' type='text' class='form-control input-answers' required>";
+                                                                            echo    "</div>";
+                                                                            echo "</div>";
+                                                                        }
                                                                         ?>
                                                                     </div>
-                                                                            <div class="col-md-12">
-                                                                                <button class="btn btn-info" id="btnSaveAnswers">Guardar Respuestas</button>
-                                                                            </div>
+                                                                    <div class="col-md-12">
+                                                                        <button class="btn btn-info" id="btnSaveAnswers">Guardar Respuestas</button>
+                                                                    </div>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -295,7 +295,7 @@
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="pru-dni">DNI</label>
-                                                            <input name="pru-dni" id="pru-dni"  type="text" class="form-control" disabled>
+                                                            <input name="pru-dni" id="pru-dni" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -309,13 +309,13 @@
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="pru-apellidopa">Apellido Paterno</label>
-                                                            <input name="pru-apellidopa" id="pru-apellidopa"  type="text" class="form-control" disabled>
+                                                            <input name="pru-apellidopa" id="pru-apellidopa" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="pru-apellidoma">Apellido Materno</label>
-                                                            <input name="pru-apellidoma" id="pru-apellidoma"  type="text" class="form-control" disabled>
+                                                            <input name="pru-apellidoma" id="pru-apellidoma" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -415,7 +415,7 @@ RESULTADOS:</textarea>
                                                 <div class="form-inline">
                                                     <div class="position-relative form-group">
                                                         <label for="exampleCustomSelect" class="mr-2">Fecha Cita</label>
-                                                        <input name="date" id="date" placeholder="password placeholder" type="date" class="mr-2 form-control">
+                                                        <input name="date" id="date" placeholder="password placeholder" type="date" class="mr-2 form-control" value="<?= date("Y-m-d") ?>">
                                                         <button class="mr-5 btn-icon btn-pill btn btn-primary"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
                                                     </div>
                                                     <div class="position-relative form-group">
@@ -433,68 +433,36 @@ RESULTADOS:</textarea>
                                                     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th>Paciente</th>
+                                                                <th>Nombre</th>
+                                                                <th>Apellidos</th>
                                                                 <th>Edad</th>
-                                                                <th>Atención</th>
-                                                                <th>Fecha y hora</th>
-                                                                <th>Detalles</th>
+                                                                <th>Fecha atención</th>
+                                                                <th>Hora atención</th>
+                                                                <th>Estado</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Arturito</td>
-                                                                <td class="text-center">6 años</td>
-                                                                <td class="text-center">8 días</td>
-                                                                <td class="text-center">09/07/2020 15:30</td>
-                                                                <td class="text-center">
-                                                                    <div role="group" class="btn-group-sm btn-group">
-                                                                        <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Arturito</td>
-                                                                <td class="text-center">6 años</td>
-                                                                <td class="text-center">8 días</td>
-                                                                <td class="text-center">09/07/2020 15:30</td>
-                                                                <td class="text-center">
-                                                                    <div role="group" class="btn-group-sm btn-group">
-                                                                        <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Arturito</td>
-                                                                <td class="text-center">6 años</td>
-                                                                <td class="text-center">8 días</td>
-                                                                <td class="text-center">09/07/2020 15:30</td>
-                                                                <td class="text-center">
-                                                                    <div role="group" class="btn-group-sm btn-group">
-                                                                        <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                        <tbody id="list_citas">
+                                                            
                                                         </tbody>
                                                         <tfoot>
-                                                            <tr>
-                                                                <th>Paciente</th>
-                                                                <th>Edad</th>
-                                                                <th>Atención</th>
-                                                                <th>Fecha y hora</th>
-                                                                <th>Detalles</th>
-                                                            </tr>
+                                                            <th>Nombre</th>
+                                                            <th>Apellidos</th>
+                                                            <th>Edad</th>
+                                                            <th>Fecha atención</th>
+                                                            <th>Hora atención</th>
+                                                            <th>Estado</th>
                                                         </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                        <div class="divider"></div>
-                                        <div class="clearfix">
-                                            <!-- <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Resetear</button> -->
-                                            <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
-                                            <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Anterior</button>
-                                        </div>
+                                    <div class="divider"></div>
+                                    <div class="clearfix">
+                                        <!-- <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Resetear</button> -->
+                                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
+                                        <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Anterior</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -533,87 +501,6 @@ RESULTADOS:</textarea>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>Jhon</td>
-                                        <td>Alvarado Achata</td>
-                                        <td>24 años</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>Jhon</td>
-                                        <td>Alvarado Achata</td>
-                                        <td>24 años</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>Jhon</td>
-                                        <td>Alvarado Achata</td>
-                                        <td>24 años</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>Jhon</td>
-                                        <td>Alvarado Achata</td>
-                                        <td>24 años</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>Jhon</td>
-                                        <td>Alvarado Achata</td>
-                                        <td>24 años</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -844,73 +731,22 @@ RESULTADOS:</textarea>
 
     <script>
         // let click = false;
-        $('#frm-patient').submit(function(e){
+        $('#frm-patient').submit(function(e) {
             e.preventDefault();
             // if(click === false){
             //     click = true;
-                let datos = $('#frm-patient').serialize();
-                console.log(datos);
-                let request = $.ajax({
-                    type:"post",
-                    dataType:'JSON',
-                    url:"<?php echo FOLDER_PATH ?>/consultation/insertPatient",
-                    data:datos
-                });
-                request.done(function(data){
-                    // alert('Se insertó correctamente');
-                    if(Object.keys(data).length > 1){
-                        alert('Se insertó correctamente');
-                        $('#cuest-nombre').val(data.Nombre);
-                        $('#cuest-apellidopa').val(data.Apellido_Paterno);
-                        $('#cuest-apellidoma').val(data.Apellido_Materno);
-                        $('#cuest-dni').val(data.Documento);
-                        $('#pru-nombre').val(data.Nombre);
-                        $('#pru-apellidopa').val(data.Apellido_Paterno);
-                        $('#pru-apellidoma').val(data.Apellido_Materno);
-                        $('#pru-dni').val(data.Documento);
-                        $('#cita-nombre').val(data.Nombre);
-                        $('#cita-apellidopa').val(data.Apellido_Paterno);
-                        $('#cita-apellidoma').val(data.Apellido_Materno);
-                        $('#cita-dni').val(data.Documento);
-                    }else{
-                        alert(data);
-                    }
-                });
-                request.fail(function(){
-                        alert('error');
-                });
-                
-            // }else{
-            //     alert("No puede insertar un paciente mas");
-            // }
-        });
-
-        $('#btnSearchPatient').on("click",function(){
-            // e.preventDefault();
-            let datos = $('#frm-search-patient').serialize();
-            
-            // console.log(datos);
+            let datos = $('#frm-patient').serialize();
+            console.log(datos);
             let request = $.ajax({
-                type:"post",
-                dataType:'JSON',
-                url:"<?php echo FOLDER_PATH ?>/consultation/searchPatient",
-                data:datos
+                type: "post",
+                dataType: 'JSON',
+                url: "<?php echo FOLDER_PATH ?>/consultation/insertPatient",
+                data: datos
             });
-            request.done(function(data){
-                
-                if(Object.keys(data).length > 1){
-                    $('#nombre').val(data.Nombre);
-                    $('#apellidopa').val(data.Apellido_Paterno);
-                    $('#apellidoma').val(data.Apellido_Materno);
-                    $('#procedencia').val(data.Procedencia);
-                    $('#ocupacionac').val(data.Ocupacion_Actual);
-                    $('#ocupacionan').val(data.Ocupacion_Anterior);
-                    $('#dni').val(data.Documento);
-                    $('#correo').val(data.Email);
-                    $('#celular').val(data.Celular);
-                    $("#genero option[value="+ data.Genero +"]").attr("selected",true);
-                    $('#fechana').val(data.Fecha_Nacimiento);
-                    $('#btnSavePatient').attr("disabled",true);
+            request.done(function(data) {
+                // alert('Se insertó correctamente');
+                if (Object.keys(data).length > 1) {
+                    alert('Se insertó correctamente');
                     $('#cuest-nombre').val(data.Nombre);
                     $('#cuest-apellidopa').val(data.Apellido_Paterno);
                     $('#cuest-apellidoma').val(data.Apellido_Materno);
@@ -923,47 +759,118 @@ RESULTADOS:</textarea>
                     $('#cita-apellidopa').val(data.Apellido_Paterno);
                     $('#cita-apellidoma').val(data.Apellido_Materno);
                     $('#cita-dni').val(data.Documento);
-                }else{
+                } else {
                     alert(data);
                 }
             });
-            request.fail(function(){
+            request.fail(function() {
+                alert('error');
+            });
+
+            // }else{
+            //     alert("No puede insertar un paciente mas");
+            // }
+        });
+
+        $('#btnSearchPatient').on("click", function() {
+            // e.preventDefault();
+            let datos = $('#frm-search-patient').serialize();
+
+            // console.log(datos);
+            let request = $.ajax({
+                type: "post",
+                dataType: 'JSON',
+                url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient",
+                data: datos
+            });
+            request.done(function(data) {
+
+                if (Object.keys(data).length > 1) {
+                    $('#nombre').val(data.Nombre);
+                    $('#apellidopa').val(data.Apellido_Paterno);
+                    $('#apellidoma').val(data.Apellido_Materno);
+                    $('#procedencia').val(data.Procedencia);
+                    $('#ocupacionac').val(data.Ocupacion_Actual);
+                    $('#ocupacionan').val(data.Ocupacion_Anterior);
+                    $('#dni').val(data.Documento);
+                    $('#correo').val(data.Email);
+                    $('#celular').val(data.Celular);
+                    $("#genero option[value=" + data.Genero + "]").attr("selected", true);
+                    $('#fechana').val(data.Fecha_Nacimiento);
+                    $('#btnSavePatient').attr("disabled", true);
+                    $('#cuest-nombre').val(data.Nombre);
+                    $('#cuest-apellidopa').val(data.Apellido_Paterno);
+                    $('#cuest-apellidoma').val(data.Apellido_Materno);
+                    $('#cuest-dni').val(data.Documento);
+                    $('#pru-nombre').val(data.Nombre);
+                    $('#pru-apellidopa').val(data.Apellido_Paterno);
+                    $('#pru-apellidoma').val(data.Apellido_Materno);
+                    $('#pru-dni').val(data.Documento);
+                    $('#cita-nombre').val(data.Nombre);
+                    $('#cita-apellidopa').val(data.Apellido_Paterno);
+                    $('#cita-apellidoma').val(data.Apellido_Materno);
+                    $('#cita-dni').val(data.Documento);
+
+                    generar_citas_paciente(data.Documento);
+                } else {
+                    alert(data);
+                }
+            });
+            request.fail(function() {
                 console.log('fallo')
             });
             return false;
         });
 
-        $('#frm-answers-patient').submit(function(e){
+        function generar_citas_paciente(dni) {
+            var data = new FormData();
+            data.append("dni", dni);
+            $.ajax({
+                url: "<?= FOLDER_PATH ?>/consultation/citas",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    $('#list_citas').html(resp);
+                }
+            })
+        }
+
+        $('#frm-answers-patient').submit(function(e) {
             e.preventDefault();
             let answersArray = new Array();
             let detalleArray = new Array();
-            
-            $('.input-detalle').each(function(){
+
+            $('.input-detalle').each(function() {
                 detalleArray.push($(this).val());
             })
 
-            $('.input-answers').each(function(){
+            $('.input-answers').each(function() {
                 answersArray.push($(this).val());
             })
 
             // let datos = $('#frm-answers-patient').serialize();
             $.ajax({
-                type:"post",
-                url:"<?php echo FOLDER_PATH ?>/consultation/insertAnswers",
-                data:{detalle:detalleArray,answers:answersArray}
-                
-            })
-            .done(function(response){
-                alert(response);
-                // $('.input-answers').attr('disabled',true);
-                // $('#btnSaveAnswers').attr('disabled',true);
-                $('#btnSaveAnswers').html('Actualizar respuestas');
-                $('#btnSaveAnswers').removeClass('btn-primary');
-                $('#btnSaveAnswers').addClass('btn-warning');
-            })
-            .fail(function(){
-                alert('fallo');
-            });
+                    type: "post",
+                    url: "<?php echo FOLDER_PATH ?>/consultation/insertAnswers",
+                    data: {
+                        detalle: detalleArray,
+                        answers: answersArray
+                    }
+
+                })
+                .done(function(response) {
+                    alert(response);
+                    // $('.input-answers').attr('disabled',true);
+                    // $('#btnSaveAnswers').attr('disabled',true);
+                    $('#btnSaveAnswers').html('Actualizar respuestas');
+                    $('#btnSaveAnswers').removeClass('btn-primary');
+                    $('#btnSaveAnswers').addClass('btn-warning');
+                })
+                .fail(function() {
+                    alert('fallo');
+                });
             // return false;
         });
 
@@ -974,29 +881,29 @@ RESULTADOS:</textarea>
         // });
     </script>
     <script>
-        $('#prev-btn2').css('display','none');
+        $('#prev-btn2').css('display', 'none');
 
-        $('#prev-btn2').on('click',function(){
-            $('#next-btn2').css('display','block');
-            if(detectCSS('#step-2','display','block')){
-                $('#prev-btn2').css('display','none');
+        $('#prev-btn2').on('click', function() {
+            $('#next-btn2').css('display', 'block');
+            if (detectCSS('#step-2', 'display', 'block')) {
+                $('#prev-btn2').css('display', 'none');
                 console.log('true');
-            }else{
+            } else {
                 // $('#prev-btn2').css('display','block');
                 // console.log('false');
             }
         });
 
-        $('#next-btn2').on('click',function(){
-            $('#prev-btn2').css('display','block');
-            if(detectCSS('#step-3','display','block')){
-                $('#next-btn2').css('display','none');
+        $('#next-btn2').on('click', function() {
+            $('#prev-btn2').css('display', 'block');
+            if (detectCSS('#step-3', 'display', 'block')) {
+                $('#next-btn2').css('display', 'none');
                 console.log('true');
             }
         });
-        
-        function detectCSS(attr,css,value){
-            let result = $(attr).css(css) === value ? true:false;
+
+        function detectCSS(attr, css, value) {
+            let result = $(attr).css(css) === value ? true : false;
             return result;
         }
     </script>
