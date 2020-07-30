@@ -113,7 +113,7 @@ class consultation extends Controller
     public function insertAnswers(){
 
 
-        if(isset($_POST['answers']) && !$_POST['answers']===""){
+        if(isset($_POST['answers']) && $_POST['answers'] !== ""){
             $detalle = $_POST['detalle'];
             $respuestas = $_POST['answers'];
     

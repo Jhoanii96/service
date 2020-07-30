@@ -222,7 +222,7 @@
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <button class="btn btn-outline-warning" id="btnSavePatient" type="submit">Guardar paciente</button>
+                                                            <button class="btn btn-warning" id="btnSavePatient" type="submit">Guardar paciente</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -237,13 +237,13 @@
                                                                         <div class="col-md-6">
                                                                             <div class="position-relative form-group">
                                                                                 <label for="documento">DNI</label>
-                                                                                <input name="dni" id="cuest-dni" type="text" class="form-control">
+                                                                                <input name="dni" id="cuest-dni" type="text" class="form-control" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="position-relative form-group">
                                                                                 <label for="nombre">Nombres</label>
-                                                                                <input name="nombre" id="cuest-nombre"  type="text" class="form-control">
+                                                                                <input name="nombre" id="cuest-nombre"  type="text" class="form-control" disabled>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -251,18 +251,19 @@
                                                                         <div class="col-md-6">
                                                                             <div class="position-relative form-group">
                                                                                 <label for="apellidopa">Apellido Paterno</label>
-                                                                                <input name="apellidopa" id="cuest-apellidopa" type="text" class="form-control">
+                                                                                <input name="apellidopa" id="cuest-apellidopa" type="text" class="form-control" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="position-relative form-group">
                                                                                 <label for="apellidoma">Apellido Materno</label>
-                                                                                <input name="apellidoma" id="cuest-apellidoma" type="text" class="form-control">
+                                                                                <input name="apellidoma" id="cuest-apellidoma" type="text" class="form-control" disabled>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="divider"></div>
                                                                     <div class="position-relative form-group">
-                                                                        <label for="exampleEmail3">--------------------------------------------</label>
+                                                                        <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
                                                                         <p class="form-control-plaintext">Control de preguntas</p>
                                                                     </div>
                                                                     <div class="form-row">
@@ -294,13 +295,13 @@
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="pru-dni">DNI</label>
-                                                            <input name="pru-dni" id="pru-dni"  type="text" class="form-control">
+                                                            <input name="pru-dni" id="pru-dni"  type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="pru-nombre">Nombres</label>
-                                                            <input name="pru-nombre" id="pru-nombre" type="text" class="form-control">
+                                                            <input name="pru-nombre" id="pru-nombre" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -308,18 +309,19 @@
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="pru-apellidopa">Apellido Paterno</label>
-                                                            <input name="pru-apellidopa" id="pru-apellidopa"  type="text" class="form-control">
+                                                            <input name="pru-apellidopa" id="pru-apellidopa"  type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="pru-apellidoma">Apellido Materno</label>
-                                                            <input name="pru-apellidoma" id="pru-apellidoma"  type="text" class="form-control">
+                                                            <input name="pru-apellidoma" id="pru-apellidoma"  type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="divider"></div>
                                                 <div class="position-relative form-group">
-                                                    <label for="exampleEmail3">--------------------------------------------</label>
+                                                    <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
                                                     <p class="form-control-plaintext">Control de preguntas</p>
                                                 </div>
                                                 <div class="form-row">
@@ -382,13 +384,13 @@ RESULTADOS:</textarea>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="dni">DNI</label>
-                                                            <input name="cita-dni" id="cita-dni" type="text" class="form-control">
+                                                            <input name="cita-dni" id="cita-dni" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="cita-nombre">Nombres</label>
-                                                            <input name="cita-nombre" id="cita-nombre" type="text" class="form-control">
+                                                            <input name="cita-nombre" id="cita-nombre" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -396,13 +398,13 @@ RESULTADOS:</textarea>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="cita-apellidopa">Apellido Paterno</label>
-                                                            <input name="cita-apellidopa" id="cita-apellidopa" type="text" class="form-control">
+                                                            <input name="cita-apellidopa" id="cita-apellidopa" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="position-relative form-group">
                                                             <label for="cita-apellidoma">Apellido Materno</label>
-                                                            <input name="cita-apellidoma" id="cita-apellidoma" type="text" class="form-control">
+                                                            <input name="cita-apellidoma" id="cita-apellidoma" type="text" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -931,7 +933,7 @@ RESULTADOS:</textarea>
             return false;
         });
 
-        $('#btnSaveAnswers').on('submit',function(e){
+        $('#frm-answers-patient').submit(function(e){
             e.preventDefault();
             let answersArray = new Array();
             let detalleArray = new Array();
@@ -949,16 +951,27 @@ RESULTADOS:</textarea>
                 type:"post",
                 url:"<?php echo FOLDER_PATH ?>/consultation/insertAnswers",
                 data:{detalle:detalleArray,answers:answersArray}
-                // data:datos
+                
             })
             .done(function(response){
-                console.log(response);
+                alert(response);
+                // $('.input-answers').attr('disabled',true);
+                // $('#btnSaveAnswers').attr('disabled',true);
+                $('#btnSaveAnswers').html('Actualizar respuestas');
+                $('#btnSaveAnswers').removeClass('btn-primary');
+                $('#btnSaveAnswers').addClass('btn-warning');
             })
             .fail(function(){
-                console.log('fallo');
+                alert('fallo');
             });
             // return false;
         });
+
+        // $('#btnSaveAnswers').on('click',function(){
+        //     $('#btnSaveAnswers').html('Actualizar respuestas');
+        //     $('#btnSaveAnswers').removeClass('btn-primary');
+        //         $('#btnSaveAnswers').addClass('btn-warning');
+        // });
     </script>
     <script>
         $('#prev-btn2').css('display','none');
