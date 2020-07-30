@@ -109,7 +109,7 @@
                                         </ul>
                                         <div class="form-wizard-content">
                                             <div id="step-1">
-                                                <form id="frm-search-patient" method="post">
+                                                <form id="frm-search-patient" >
                                                     <div class="form-row">
                                                         <div class="col-md-2">
                                                             <label for="customSelect">Buscar</label>
@@ -140,7 +140,7 @@
                                                 
                                                 </form>
 
-                                                <form method="post" id="frm-patient" name="frm-patient">
+                                                <form id="frm-patient" name="frm-patient" method="post">
                                                     <div class="form-row">
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
@@ -196,7 +196,7 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="correo">Correo Electrónico</label>
-                                                                <input name="correo" id="correo" type="text" class="form-control" required>
+                                                                <input name="correo" id="correo" type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -222,7 +222,7 @@
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <button class="btn btn-outline-warning" type="submit" id="btnSavePatient">Guardar paciente</button>
+                                                            <button class="btn btn-outline-warning" id="btnSavePatient" type="submit">Guardar paciente</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -280,10 +280,10 @@
                                                                             }
                                                                         ?>
                                                                     </div>
-                                                                </form>
                                                                             <div class="col-md-12">
                                                                                 <button class="btn btn-info" id="btnSaveAnswers">Guardar Respuestas</button>
                                                                             </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -841,25 +841,50 @@ RESULTADOS:</textarea>
     </script>
 
     <script>
-        
-        $('#btnSavePatient').on("click",function(){
-            let datos = $('#frm-patient').serialize();
-            $.ajax({
-                type:"post",
-                url:"<?php echo FOLDER_PATH ?>/consultation/insertPatient",
-                data:datos,
-                success:function(response){
-                    alert(response);
-                },
-                error:function(xhr,throwError){
-                    alert(xhr.status);
-                    alert(throwError);
-                }
-            });
-            return false;
-        })
+        // let click = false;
+        $('#frm-patient').submit(function(e){
+            e.preventDefault();
+            // if(click === false){
+            //     click = true;
+                let datos = $('#frm-patient').serialize();
+                console.log(datos);
+                let request = $.ajax({
+                    type:"post",
+                    dataType:'JSON',
+                    url:"<?php echo FOLDER_PATH ?>/consultation/insertPatient",
+                    data:datos
+                });
+                request.done(function(data){
+                    // alert('Se insertó correctamente');
+                    if(Object.keys(data).length > 1){
+                        alert('Se insertó correctamente');
+                        $('#cuest-nombre').val(data.Nombre);
+                        $('#cuest-apellidopa').val(data.Apellido_Paterno);
+                        $('#cuest-apellidoma').val(data.Apellido_Materno);
+                        $('#cuest-dni').val(data.Documento);
+                        $('#pru-nombre').val(data.Nombre);
+                        $('#pru-apellidopa').val(data.Apellido_Paterno);
+                        $('#pru-apellidoma').val(data.Apellido_Materno);
+                        $('#pru-dni').val(data.Documento);
+                        $('#cita-nombre').val(data.Nombre);
+                        $('#cita-apellidopa').val(data.Apellido_Paterno);
+                        $('#cita-apellidoma').val(data.Apellido_Materno);
+                        $('#cita-dni').val(data.Documento);
+                    }else{
+                        alert(data);
+                    }
+                });
+                request.fail(function(){
+                        alert('error');
+                });
+                
+            // }else{
+            //     alert("No puede insertar un paciente mas");
+            // }
+        });
 
         $('#btnSearchPatient').on("click",function(){
+            // e.preventDefault();
             let datos = $('#frm-search-patient').serialize();
             
             // console.log(datos);
@@ -906,7 +931,8 @@ RESULTADOS:</textarea>
             return false;
         });
 
-        $('#btnSaveAnswers').on('click',function(){
+        $('#btnSaveAnswers').on('submit',function(e){
+            e.preventDefault();
             let answersArray = new Array();
             let detalleArray = new Array();
             
@@ -931,6 +957,7 @@ RESULTADOS:</textarea>
             .fail(function(){
                 console.log('fallo');
             });
+            // return false;
         });
     </script>
     <script>

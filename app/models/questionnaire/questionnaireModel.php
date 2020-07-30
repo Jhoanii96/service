@@ -2,17 +2,6 @@
 
 class questionnaireModel extends Model{
 
-
-  //Mostrara las preguntas del cuestionario desde la bd
-  public function showQuestionnaire(){
-
-
-  }
-
-  public function editQuestionnaire(){
-    
-  }
-
   public function getQuestionnaireCounter($idUser){
     $query = "SELECT cant_preguntas FROM cuestionario WHERE $idUser";
     $res = Model::query_execute($query);

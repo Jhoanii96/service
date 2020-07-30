@@ -65,10 +65,20 @@ class consultation extends Controller
         $genero = $_POST['genero'];
 
         $patient = $this->patientModel->insertPatient($idUser,$dni,$nombre,$apellidoPa,$apellidoMa,$genero,$fechana,$celular,$correo,$procedencia,$ocupan,$ocupaac);
+        
         if($patient->rowCount()>0){
-            echo "Agregado con exito";
+            // print_r(['Se insertó correctamente']);
+            $idPatient = $this->patientModel->getIDPatient();
+            $result = $idPatient->fetch(PDO::FETCH_ASSOC);
+            if($result){
+                $this->session->add('idPaciente',$result['Id_Paciente']);
+                $patientArray = json_encode($result);
+            }else{
+                $patientArray = json_encode(['no se obtuvo paciente']);
+            }
+            print_r($patientArray);
         }else{
-            echo "No se inserto nada";
+            print_r(json_encode(["No se inserto nada"]));
         }
     }
 
@@ -114,7 +124,6 @@ class consultation extends Controller
             }else{
                 echo "No se inserto nada";
             }
-
         }else{
             echo "Llene los campos";
         }
