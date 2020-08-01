@@ -81,7 +81,7 @@ class consultation extends Controller
             }
             print_r($patientArray);
         } else {
-            print_r(json_encode(["No se inserto nada"]));
+            print_r(json_encode(["Este paciente ya existe"]));
         }
     }
 
@@ -108,6 +108,15 @@ class consultation extends Controller
         $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             $this->session->add('idPaciente', $result['Id_Paciente']);
+            $idPaciente = $this->session->get('idPaciente');
+            // $answers = $this->getAnswers($idPaciente);
+            $answers = $this->questionModel->getAnswers($idPaciente);
+            $cantidad = $answers->rowCount();
+            if($cantidad > 0){
+                $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
+                array_push($result,$cantidad);
+                $result = array_merge($result ,$answers);
+            }
             $arrayJSON =  json_encode($result);
         } else {
             $error = ['No se pudo encontrar ese paciente'];
@@ -127,13 +136,18 @@ class consultation extends Controller
             $idPaciente = $this->session->get('idPaciente');
             $ResultAnswers = $this->questionModel->insertAnswers($detalle, $idPaciente, $respuestas);
             if ($ResultAnswers->rowCount() > 0) {
-                echo "Agregados con exito";
+                echo "Respuestas agregadas con exito";
             } else {
-                echo "No se inserto nada";
+                echo "No se agregaron las respuestas";
             }
         } else {
             echo "Llene los campos";
         }
+    }
+
+    public function getAnswers($idPaciente){
+        $Answers = $this->questionModel->getAnswers($idPaciente);
+        return $Answers->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function citas()
