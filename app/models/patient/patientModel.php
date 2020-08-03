@@ -27,6 +27,11 @@ class patientModel extends Model{
     $query = "SELECT Id_Paciente,Documento,Nombre,Apellido_Paterno,Apellido_Materno FROM paciente ORDER BY Id_Paciente DESC LIMIT 1";
     return Model::query_execute($query);
   }
+
+  public function updatePatient($idUser,$idPaciente,$dni,$nombre,$apellidoPa,$apellidoMa,$genero,$fechana,$celular,$correo,$procedencia,$ocupan,$ocupaac){
+    $query = "UPDATE paciente SET Documento = '$dni',Nombre = '$nombre',Apellido_Paterno = '$apellidoPa', Apellido_Materno = '$apellidoMa',Genero = '$genero',Fecha_Nacimiento = '$fechana',Celular = '$celular',Email = '$correo',Procedencia = '$procedencia',Ocupacion_Anterior = '$ocupan', Ocupacion_Actual = '$ocupaac',Id_Usuario = $idUser WHERE Id_Paciente = $idPaciente";
+    return Model::query_execute($query);
+  }
 }
 
 ?>

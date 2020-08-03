@@ -120,15 +120,14 @@
                                                             <div class="position-relative form-group">
                                                                 <select type="select" id="customSelect" name="customSelect" class="custom-select">
                                                                     <option value="0">Seleccionar</option>
-                                                                    <option value="1">DNI</option>
-                                                                    <option value="2">Nombres</option>
-                                                                    <option value="3">Apellidos</option>
+                                                                    <option value="1" selected>DNI</option>
+                                                                    <option value="2">Paciente</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
                                                             <div class="position-relative form-group">
-                                                                <input name="filter" id="filter" type="text" class="form-control" maxlength="8" minlength="7" onkeypress="return validaNumericos(event)">
+                                                                <input name="filter" id="filter" type="text" placeholder="Ingrese su dni" class="form-control" maxlength="8" minlength="7" onkeypress="return validaNumericos(event)">
                                                                 <span class="err" style="display:none;">* Minimo de 8 caracteres</span>
                                                             </div>
                                                         </div>
@@ -191,13 +190,13 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="celular">Número Celular</label>
-                                                                <input name="celular" id="celular" type="text" maxlength="9" onkeypress="return validaNumericos(event)" class="form-control" required>
+                                                                <input name="celular" id="celular" type="text" maxlength="9" onkeypress="return validaNumericos(event)" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="correo">Correo Electrónico</label>
-                                                                <input name="correo" id="correo" type="text" class="form-control">
+                                                                <input name="correo" id="correo" type="email" class="form-control"  pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -217,13 +216,14 @@
                                                         <div class="col-md-6">
                                                             <div class="position-relative form-group">
                                                                 <label for="ocupacionac">Ocupación Actual</label>
-                                                                <input name="ocupacionac" id="ocupacionac" type="text" class="form-control" onkeyup="mayus(this);" required>
+                                                                <input name="ocupacionac" id="ocupacionac" type="text" class="form-control" onkeyup="mayus(this);">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <button class="btn btn-warning" id="btnSavePatient" type="submit">Guardar paciente</button>
+                                                            <button class="btn btn-warning submitPatient" id="btnSavePatient">Guardar paciente</button>
+                                                            <button class="btn btn-warning submitPatient" id="btnUpdatePatient" style="display:none" >Actualizar Respuestas</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -233,7 +233,7 @@
                                                     <div class="card">
                                                         <div>
                                                             <div class="card-body">
-                                                                <form id="frm-answers-patient">
+                                                                <form id="frm-answers-patient" >
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
                                                                             <div class="position-relative form-group">
@@ -278,12 +278,15 @@
                                                                             echo        "<input type='hidden' name='detalle[]' value='" . $row['Id_Detalle'] . "' class='input-detalle'>";
                                                                             echo        "<input name='answers[]' type='text' id='answwer-$key' class='form-control input-answers' required>";
                                                                             echo    "</div>";
-                                                                            echo "</div>";
+                                                                             echo "</div>";
                                                                         }
                                                                         ?>
                                                                     </div>
-                                                                    <div class="col-md-12">
-                                                                        <button class="btn btn-info" id="btnSaveAnswers">Guardar Respuestas</button>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-12">
+                                                                            <button class="btn btn-info submitAnswers" id="btnSaveAnswers" type="submit">Guardar Respuestas</button>
+                                                                            <button class="btn btn-warning submitAnswers" id="btnUpdateAnswers" style="display:none" >Actualizar Respuestas</button>
+                                                                        </div>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -744,63 +747,100 @@ RESULTADOS:</textarea>
         }
 
 
-        // let click = false;
+        $('.submitPatient').click(function(){
+            buttonPressed = $(this).attr('id');
+            console.log(buttonPressed);
+        });
+
         $('#frm-patient').submit(function(e) {
             e.preventDefault();
-            // if(click === false){
-            //     click = true;
-            let datos = $('#frm-patient').serialize();
-            // console.log(datos);
-            let request = $.ajax({
-                type: "post",
-                dataType: 'JSON',
-                url: "<?php echo FOLDER_PATH ?>/consultation/insertPatient",
-                data: datos
-            });
-            request.done(function(data) {
-               
-                if (Object.keys(data).length > 1) {
-                    // alert('Se insertó correctamente');
+
+            
+            if(buttonPressed === 'btnSavePatient'){
+                console.log('savePatient');
+                let datos = $('#frm-patient').serialize();
+                
+                let request = $.ajax({
+                    type: "post",
+                    dataType: 'JSON',
+                    url: "<?php echo FOLDER_PATH ?>/consultation/insertPatient",
+                    data: datos
+                });
+                request.done(function(data) {
+                   
+                    if (Object.keys(data).length > 1) {
+                        // alert('Se insertó correctamente');
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'El paciente fue agregado',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+                        $('#cuest-nombre').val(data.Nombre);
+                        $('#cuest-apellidopa').val(data.Apellido_Paterno);
+                        $('#cuest-apellidoma').val(data.Apellido_Materno);
+                        $('#cuest-dni').val(data.Documento);
+                        $('#pru-nombre').val(data.Nombre);
+                        $('#pru-apellidopa').val(data.Apellido_Paterno);
+                        $('#pru-apellidoma').val(data.Apellido_Materno);
+                        $('#pru-dni').val(data.Documento);
+                        $('#cita-nombre').val(data.Nombre);
+                        $('#cita-apellidopa').val(data.Apellido_Paterno);
+                        $('#cita-apellidoma').val(data.Apellido_Materno);
+                        $('#cita-dni').val(data.Documento);
+                        $('#btnSaveAnswers').css('display','block');
+                        $('#btnUpdateAnswers').css('display','none');
+                        $('.input-answers').val('');
+                        
+                    } else {
+                        // alert(data);
+                        Swal.fire({
+                        icon: 'error',
+                        title: data,
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                    }
+                });
+                request.fail(function() {
                     Swal.fire({
-                    icon: 'success',
-                    title: 'El paciente fue agregado',
-                    showConfirmButton: false,
-                    timer: 1500
-                    })
-                    $('#cuest-nombre').val(data.Nombre);
-                    $('#cuest-apellidopa').val(data.Apellido_Paterno);
-                    $('#cuest-apellidoma').val(data.Apellido_Materno);
-                    $('#cuest-dni').val(data.Documento);
-                    $('#pru-nombre').val(data.Nombre);
-                    $('#pru-apellidopa').val(data.Apellido_Paterno);
-                    $('#pru-apellidoma').val(data.Apellido_Materno);
-                    $('#pru-dni').val(data.Documento);
-                    $('#cita-nombre').val(data.Nombre);
-                    $('#cita-apellidopa').val(data.Apellido_Paterno);
-                    $('#cita-apellidoma').val(data.Apellido_Materno);
-                    $('#cita-dni').val(data.Documento);
-                } else {
-                    // alert(data);
+                        icon: 'error',
+                        title: 'Hubo un error',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                });
+
+            }else if(buttonPressed = 'btnUpdatePatient'){
+                console.log('UpdatePatient');
+
+                let datos = $('#frm-patient').serialize();
+                $.ajax({
+                    type:"post",
+                    url:"<?php echo FOLDER_PATH ?>/consultation/updatePatient",
+                    data:datos
+                })
+                .done(function(response){
                     Swal.fire({
-                    icon: 'error',
-                    title: data,
-                    showConfirmButton: false,
-                    timer: 1500
+                        icon: 'success',
+                        title: response,
+                        showConfirmButton: false,
+                        timer: 1500
                     });
-                }
-            });
-            request.fail(function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hubo un error',
-                    showConfirmButton: false,
-                    timer: 1500
+                })
+                .fail(function(){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hubo un error',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
-            });
+                })
+            }
         });
 
         $('#btnSearchPatient').on("click", function() {
-            // e.preventDefault();
+            
             let datos = $('#frm-search-patient').serialize();
 
             // console.log(datos);
@@ -811,7 +851,7 @@ RESULTADOS:</textarea>
                 data: datos
             });
             request.done(function(data) {
-                console.log(Object.keys(data).length);
+                // console.log(Object.keys(data).length);
                 if (Object.keys(data).length > 1) {
                     $('#nombre').val(data.Nombre);
                     $('#apellidopa').val(data.Apellido_Paterno);
@@ -837,11 +877,16 @@ RESULTADOS:</textarea>
                     $('#cita-apellidopa').val(data.Apellido_Paterno);
                     $('#cita-apellidoma').val(data.Apellido_Materno);
                     $('#cita-dni').val(data.Documento);
-
+                    $('#btnSaveAnswers').css('display','none');
+                    $('#btnUpdateAnswers').css('display','block');
+                    $('#btnSavePatient').css('display','none');
+                    $('#filter').val("");
+                    $('#btnUpdatePatient').css('display','block');
                     // let cantQuestion = $('.input-answers').toArray().length;
                     $('.input-answers').each(function(index){
                         if(index < data[0]){
                             $(this).val(data[index+1].Respuesta);
+                            // console.log(data[index+1].Respuesta);
                         }
                     });
 
@@ -866,7 +911,7 @@ RESULTADOS:</textarea>
                             $('#filter').val("");
                         }
                     })
-                    // $('#frm-search-patient')[0].reset();
+                    
                     $('#nombre').val("");
                     $('#apellidopa').val("");
                     $('#apellidoma').val("");
@@ -919,47 +964,115 @@ RESULTADOS:</textarea>
             })
         }
 
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input[type=text]').forEach( node => node.addEventListener('keypress', e => {
+                if(e.keyCode == 13) {
+                    e.preventDefault();
+                }
+            }))
+        });
+
+        let buttonPressed;
+
+
+        $('.submitAnswers').on('click',function(e){
+            
+            buttonPressed = $(this).attr('id');
+            console.log(buttonPressed);
+        });
+        
         $('#frm-answers-patient').submit(function(e) {
             e.preventDefault();
-            let answersArray = new Array();
-            let detalleArray = new Array();
+            
+            if($('#cuest-nombre').val() !== "" ){                
+                if(buttonPressed === 'btnSaveAnswers'){
+                    
+                    let answersArray = new Array();
+                    let detalleArray = new Array();
 
-            $('.input-detalle').each(function() {
-                detalleArray.push($(this).val());
-            })
-
-            $('.input-answers').each(function() {
-                answersArray.push($(this).val());
-            })
-
-            // let datos = $('#frm-answers-patient').serialize();
-            $.ajax({
-                    type: "post",
-                    url: "<?php echo FOLDER_PATH ?>/consultation/insertAnswers",
-                    data: {
-                        detalle: detalleArray,
-                        answers: answersArray
-                    }
-
-                })
-                .done(function(response) {
-                    alert(response);
-                    Swal.fire({
-                    icon: 'success',
-                    title: response,
-                    showConfirmButton: false,
-                    timer: 1500
+                    $('.input-detalle').each(function() {
+                        detalleArray.push($(this).val());
                     })
-                    // $('.input-answers').attr('disabled',true);
-                    // $('#btnSaveAnswers').attr('disabled',true);
-                    $('#btnSaveAnswers').html('Actualizar respuestas');
-                    $('#btnSaveAnswers').removeClass('btn-primary');
-                    $('#btnSaveAnswers').addClass('btn-warning');
-                })
-                .fail(function() {
-                    alert('fallo');
-                });
-            // return false;
+
+                    $('.input-answers').each(function() {
+                        answersArray.push($(this).val());
+                    })
+
+                    $.ajax({
+                            type: "post",
+                            url: "<?php echo FOLDER_PATH ?>/consultation/insertAnswers",
+                            data: {
+                                detalle: detalleArray,
+                                answers: answersArray
+                            }
+                    })
+                    .done(function(response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: 'success',
+                            title: response,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        $('#btnUpdateAnswers').css('display','block');
+                        $('#btnSaveAnswers').css('display','none');
+                    })
+                    .fail(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ocurrió un problema',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    });
+                }else if(buttonPressed === 'btnUpdateAnswers'){
+                
+                    let answersArray = new Array();
+                    let detalleArray = new Array();
+
+                    $('.input-detalle').each(function() {
+                        detalleArray.push($(this).val());
+                    })
+
+                    $('.input-answers').each(function() {
+                        answersArray.push($(this).val());
+                    })
+
+                    $.ajax({
+                            type: "post",
+                            url: "<?php echo FOLDER_PATH ?>/consultation/updateAnswers",
+                            data: {
+                                detalle: detalleArray,
+                                answers: answersArray
+                            }
+                    })
+                    .done(function(response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: 'success',
+                            title: response,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                    })
+                    .fail(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ocurrió un problema',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    });
+                }
+            }else{
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Por favor busque o agregue un paciente',
+                            showConfirmButton: false,
+                            timer: 1500
+                    });
+            }
         });
 
     </script>
@@ -970,7 +1083,7 @@ RESULTADOS:</textarea>
             $('#next-btn2').css('display', 'block');
             if (detectCSS('#step-2', 'display', 'block')) {
                 $('#prev-btn2').css('display', 'none');
-                console.log('true');
+                // console.log('true');
             } else {
                 // $('#prev-btn2').css('display','block');
                 // console.log('false');

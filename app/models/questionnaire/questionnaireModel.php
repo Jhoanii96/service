@@ -51,5 +51,16 @@ class questionnaireModel extends Model{
     $query= "SELECT Respuesta FROM detalle_cuestionario_paciente WHERE Id_Paciente = $idPaciente";
     return $res = Model::query_execute($query);
   }
+
+  public function updateAnswers($idDetalleCuest,$idPaciente,$respuestas){
+    $cont = 0;
+    for ($i=0; $i < count($respuestas); $i++) {
+      $idDetalleCuest[$i] = intval($idDetalleCuest[$i]);
+      $query = "UPDATE detalle_cuestionario_paciente SET Respuesta = '$respuestas[$i]' WHERE Id_Paciente = $idPaciente AND Id_Detalle_Cuestionario = $idDetalleCuest[$i]";
+      $res = Model::query_execute($query);
+      $cont += $res->rowCount();
+    }
+    return $cont;
+  }
 }
 ?>

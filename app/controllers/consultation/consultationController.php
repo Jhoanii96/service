@@ -101,6 +101,29 @@ class consultation extends Controller
         return $patient->fetch();
     }
 
+    public function updatePatient(){
+        $idPaciente = $this->session->get('idPaciente');
+        $idUser = $this->session->get('idUser');
+        $dni = $_POST['dni'];
+        $nombre = $_POST['nombre'];
+        $apellidoPa = $_POST['apellidopa'];
+        $apellidoMa = $_POST['apellidoma'];
+        $fechana = $_POST['fechana'];
+        $celular = $_POST['celular'];
+        $correo = $_POST['correo'];
+        $procedencia = $_POST['procedencia'];
+        $ocupan = $_POST['ocupacionan'];
+        $ocupaac = $_POST['ocupacionac'];
+        $genero = $_POST['genero'];
+        $resultPatient = $this->patientModel->updatePatient($idUser,$idPaciente,$dni,$nombre,$apellidoPa,$apellidoMa,$genero,$fechana,$celular,$correo,$procedencia,$ocupan,$ocupaac);
+        $contPatient = $resultPatient->rowCount();
+        if($contPatient > 0){
+            echo "Se actualizó el paciente";
+        }else{
+            echo "No se actualizó el paciente";
+        }
+    }
+
     public function searchPatient()
     {
         $documento = $_POST['filter'];
@@ -127,8 +150,6 @@ class consultation extends Controller
 
     public function insertAnswers()
     {
-
-
         if (isset($_POST['answers']) && $_POST['answers'] !== "") {
             $detalle = $_POST['detalle'];
             $respuestas = $_POST['answers'];
@@ -148,6 +169,23 @@ class consultation extends Controller
     public function getAnswers($idPaciente){
         $Answers = $this->questionModel->getAnswers($idPaciente);
         return $Answers->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateAnswers(){
+        if (isset($_POST['answers']) && $_POST['answers'] !== "") {
+            $detalle = $_POST['detalle'];
+            $respuestas = $_POST['answers']; 
+
+            $idPaciente = $this->session->get('idPaciente');
+            $ResultAnswers = $this->questionModel->updateAnswers($detalle, $idPaciente, $respuestas);
+            if ($ResultAnswers > 0) {
+                echo "Sus respuestas fueron actualizadas";
+            } else {
+                echo "No se actualizaron las respuestas";
+            }
+        } else {
+            echo "Llene los campos";
+        }
     }
 
     public function citas()
