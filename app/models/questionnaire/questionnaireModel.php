@@ -46,5 +46,10 @@ class questionnaireModel extends Model{
     }
     return $res;
   }
+
+  public function getAnswers($idPaciente){
+    $query= "SELECT Respuesta FROM detalle_cuestionario_paciente WHERE Id_Paciente = $idPaciente";
+    return $res = Model::query_execute($query);
+  }
 }
 ?>

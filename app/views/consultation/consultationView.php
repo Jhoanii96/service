@@ -128,7 +128,8 @@
                                                         </div>
                                                         <div class="col-md-3">
                                                             <div class="position-relative form-group">
-                                                                <input name="filter" id="filter" type="text" class="form-control">
+                                                                <input name="filter" id="filter" type="text" class="form-control" maxlength="8" minlength="7" onkeypress="return validaNumericos(event)">
+                                                                <span class="err" style="display:none;">* Minimo de 8 caracteres</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-2">
@@ -152,7 +153,7 @@
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Género</label>
                                                                 <select type="select" id="genero" name="genero" class="custom-select" required>
-                                                                    <option value="0">Seleccionar</option>
+                                                                    <option >Seleccionar</option>
                                                                     <option value="F">Femenino</option>
                                                                     <option value="M">Másculino</option>
                                                                     <option value="3">Otros</option>
@@ -170,19 +171,19 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="nombre">Nombres</label>
-                                                                <input name="nombre" id="nombre" type="text" class="form-control" required>
+                                                                <input name="nombre" id="nombre" type="text" class="form-control" onkeyup="mayus(this);" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="apellidopa">Apellido Paterno</label>
-                                                                <input name="apellidopa" id="apellidopa" type="text" class="form-control" required>
+                                                                <input name="apellidopa" id="apellidopa" type="text" class="form-control" onkeyup="mayus(this);" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="apellidoma">Apellido Materno</label>
-                                                                <input name="apellidoma" id="apellidoma" type="text" class="form-control" required>
+                                                                <input name="apellidoma" id="apellidoma" type="text" class="form-control" onkeyup="mayus(this);" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -190,7 +191,7 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="celular">Número Celular</label>
-                                                                <input name="celular" id="celular" type="text" class="form-control" required>
+                                                                <input name="celular" id="celular" type="text" maxlength="9" onkeypress="return validaNumericos(event)" class="form-control" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -202,7 +203,7 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="procedencia">Procedencia</label>
-                                                                <input name="procedencia" id="procedencia" type="text" class="form-control" required>
+                                                                <input name="procedencia" id="procedencia" type="text" class="form-control" onkeyup="mayus(this);" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -210,13 +211,13 @@
                                                         <div class="col-md-6">
                                                             <div class="position-relative form-group">
                                                                 <label for="ocupacionan">Ocupación Anterior</label>
-                                                                <input name="ocupacionan" id="ocupacionan" type="text" class="form-control">
+                                                                <input name="ocupacionan" id="ocupacionan" type="text" class="form-control" onkeyup="mayus(this);">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="position-relative form-group">
                                                                 <label for="ocupacionac">Ocupación Actual</label>
-                                                                <input name="ocupacionac" id="ocupacionac" type="text" class="form-control" required>
+                                                                <input name="ocupacionac" id="ocupacionac" type="text" class="form-control" onkeyup="mayus(this);" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -275,7 +276,7 @@
                                                                             echo    "<div class='position-relative form-group'>";
                                                                             echo        "<label for='question'>P $key: ¿" . $row['Pregunta'] . "?</label>";
                                                                             echo        "<input type='hidden' name='detalle[]' value='" . $row['Id_Detalle'] . "' class='input-detalle'>";
-                                                                            echo        "<input name='answers[]' type='text' class='form-control input-answers' required>";
+                                                                            echo        "<input name='answers[]' type='text' id='answwer-$key' class='form-control input-answers' required>";
                                                                             echo    "</div>";
                                                                             echo "</div>";
                                                                         }
@@ -521,7 +522,7 @@ RESULTADOS:</textarea>
     </div>
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!-- JQUERY -->
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script>
@@ -726,13 +727,26 @@ RESULTADOS:</textarea>
     </script>
 
     <script>
+
+        function validaNumericos(event) {
+            if(event.charCode >= 48 && event.charCode <= 57){
+            return true;
+            }
+            return false;        
+        }
+
+        function mayus(e) {
+            e.value = e.value.toUpperCase();
+        }
+
+
         // let click = false;
         $('#frm-patient').submit(function(e) {
             e.preventDefault();
             // if(click === false){
             //     click = true;
             let datos = $('#frm-patient').serialize();
-            console.log(datos);
+            // console.log(datos);
             let request = $.ajax({
                 type: "post",
                 dataType: 'JSON',
@@ -740,9 +754,15 @@ RESULTADOS:</textarea>
                 data: datos
             });
             request.done(function(data) {
-                // alert('Se insertó correctamente');
+               
                 if (Object.keys(data).length > 1) {
-                    alert('Se insertó correctamente');
+                    // alert('Se insertó correctamente');
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'El paciente fue agregado',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
                     $('#cuest-nombre').val(data.Nombre);
                     $('#cuest-apellidopa').val(data.Apellido_Paterno);
                     $('#cuest-apellidoma').val(data.Apellido_Materno);
@@ -756,16 +776,23 @@ RESULTADOS:</textarea>
                     $('#cita-apellidoma').val(data.Apellido_Materno);
                     $('#cita-dni').val(data.Documento);
                 } else {
-                    alert(data);
+                    // alert(data);
+                    Swal.fire({
+                    icon: 'error',
+                    title: data,
+                    showConfirmButton: false,
+                    timer: 1500
+                    });
                 }
             });
             request.fail(function() {
-                alert('error');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hubo un error',
+                    showConfirmButton: false,
+                    timer: 1500
+                    });
             });
-
-            // }else{
-            //     alert("No puede insertar un paciente mas");
-            // }
         });
 
         $('#btnSearchPatient').on("click", function() {
@@ -780,7 +807,7 @@ RESULTADOS:</textarea>
                 data: datos
             });
             request.done(function(data) {
-
+                console.log(Object.keys(data).length);
                 if (Object.keys(data).length > 1) {
                     $('#nombre').val(data.Nombre);
                     $('#apellidopa').val(data.Apellido_Paterno);
@@ -793,7 +820,7 @@ RESULTADOS:</textarea>
                     $('#celular').val(data.Celular);
                     $("#genero option[value=" + data.Genero + "]").attr("selected", true);
                     $('#fechana').val(data.Fecha_Nacimiento);
-                    $('#btnSavePatient').attr("disabled", true);
+                    // $('#btnSavePatient').attr("disabled", true);
                     $('#cuest-nombre').val(data.Nombre);
                     $('#cuest-apellidopa').val(data.Apellido_Paterno);
                     $('#cuest-apellidoma').val(data.Apellido_Materno);
@@ -807,13 +834,68 @@ RESULTADOS:</textarea>
                     $('#cita-apellidoma').val(data.Apellido_Materno);
                     $('#cita-dni').val(data.Documento);
 
+                    // let cantQuestion = $('.input-answers').toArray().length;
+                    $('.input-answers').each(function(index){
+                        if(index < data[0]){
+                            $(this).val(data[index+1].Respuesta);
+                        }
+                    });
+
+                    // console.log(Object.keys(data.0).length);
                     generar_citas_paciente(data.Documento);
                 } else {
-                    alert(data);
+                    // alert(data);
+
+                    Swal.fire({
+                    title: data,
+                    text: "Desea agregarlo ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si'
+                    }).then((result) => {
+                        if(result.value){
+                            let dni = $('#filter').val();
+                            $('#dni').val(dni);
+                        }else{
+                            $('#filter').val("");
+                        }
+                    })
+                    // $('#frm-search-patient')[0].reset();
+                    $('#nombre').val("");
+                    $('#apellidopa').val("");
+                    $('#apellidoma').val("");
+                    $('#procedencia').val("");
+                    $('#ocupacionac').val("");
+                    $('#ocupacionan').val("");
+                    $('#dni').val("");
+                    $('#correo').val("");
+                    $('#celular').val("");
+                    $("#genero").prop("selectedIndex",0);
+                    $('#fechana').val("");
+                    $('#cuest-nombre').val("");
+                    $('#cuest-apellidopa').val("");
+                    $('#cuest-apellidoma').val("");
+                    $('#cuest-dni').val("");
+                    $('#pru-nombre').val("");
+                    $('#pru-apellidopa').val("");
+                    $('#pru-apellidoma').val("");
+                    $('#pru-dni').val("");
+                    $('#cita-nombre').val("");
+                    $('#cita-apellidopa').val("");
+                    $('#cita-apellidoma').val("");
+                    $('#cita-dni').val("");
+                    // $('#filter').val("");
                 }
             });
             request.fail(function() {
-                console.log('fallo')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hubo un error',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             });
             return false;
         });
@@ -858,6 +940,12 @@ RESULTADOS:</textarea>
                 })
                 .done(function(response) {
                     alert(response);
+                    Swal.fire({
+                    icon: 'success',
+                    title: response,
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
                     // $('.input-answers').attr('disabled',true);
                     // $('#btnSaveAnswers').attr('disabled',true);
                     $('#btnSaveAnswers').html('Actualizar respuestas');
@@ -870,11 +958,6 @@ RESULTADOS:</textarea>
             // return false;
         });
 
-        // $('#btnSaveAnswers').on('click',function(){
-        //     $('#btnSaveAnswers').html('Actualizar respuestas');
-        //     $('#btnSaveAnswers').removeClass('btn-primary');
-        //         $('#btnSaveAnswers').addClass('btn-warning');
-        // });
     </script>
     <script>
         $('#prev-btn2').css('display', 'none');
