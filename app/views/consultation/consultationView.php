@@ -12,6 +12,9 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/selectize.css">
 
     <style>
         #example1_wrapper>div:nth-child(2) {
@@ -42,6 +45,53 @@
         .dropzone.dragover {
             border-color: #000;
             color: #000;
+        }
+    </style>
+
+<style>
+        .select_users {
+            font-family: Arial, Helvetica, sans-serif;
+            flex: 1 1 auto;
+            margin-right: 5px;
+        }
+
+        .selectize-control.select_users::before {
+            -moz-transition: opacity 0.2s;
+            -webkit-transition: opacity 0.2s;
+            transition: opacity 0.2s;
+            content: ' ';
+            z-index: 2;
+            position: absolute;
+            display: block;
+            top: 12px;
+            right: 34px;
+            width: 16px;
+            height: calc(2.25rem + 2px);
+            background: url("<?= FOLDER_PATH ?>/src/assets/media/images/icons/spinner.gif") no-repeat;
+            background-size: 16px 16px;
+            opacity: 0;
+        }
+
+        .selectize-control.select_users.loading::before {
+            opacity: 0.4;
+        }
+
+        .item_name {
+            padding-left: 10px;
+            height: 30px;
+            width: 100%;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .selectize-input {
+            /* overflow: initial; */
+        }
+
+        @media (min-width: 576px) {
+            #form-search {
+                width: 70%;
+            }
         }
     </style>
     <!-- HEADER -->
@@ -117,19 +167,42 @@
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col-md-2">
-                                                            <div class="position-relative form-group">
-                                                                <select type="select" id="customSelect" name="customSelect" class="custom-select">
+                                                            <div class="position-relative input-group">
+                                                                <select type="select" id="filter-search" name="filter-search" class="custom-select">
                                                                     <option value="0">Seleccionar</option>
                                                                     <option value="1" selected>DNI</option>
                                                                     <option value="2">Paciente</option>
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <div class="position-relative form-group">
+                                                        <div class="col-md-5">
+                                                            <div class="position-relative form-group" style="display:none ">
                                                                 <input name="filter" id="filter" type="text" placeholder="Ingrese su dni" class="form-control" maxlength="8" minlength="7" onkeypress="return validaNumericos(event)">
                                                                 <span class="err" style="display:none;">* Minimo de 8 caracteres</span>
                                                             </div>
+                                                    
+                                                            <!-- <div class="position-relative form-group" >
+                                                                <input list="patients" name="patients" id="browser" class="form-control" placeholder="Ingrese el paciente">
+                                                                <datalist id="patients">
+                                                                    <option value="Carlos">
+                                                                    <option value="Firefox">
+                                                                    <option value="Chrome">
+                                                                    <option value="Opera">
+                                                                    <option value="Safari">
+                                                                </datalist>
+                                                            </div> -->
+
+                                                            <div class="position-relative input-group mb-4" id="b-name" >
+                                                                <label class="mr-2 mt-auto mb-auto">Nombre paciente</label>
+                                                                <select id="user-search1" class="select_users" placeholder="Escriba el usuario..."></select>
+                                                                <button id="btnsrc1" class="btn-icon btn-pill btn btn-primary ml-2" onclick="search(1)"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
+                                                            </div>
+                                                            <!-- <div class="position-relative input-group" >
+                                                                <select class="js-example-basic-single custom-select name="state">
+                                                                    <option value="AL">Alabama</option>
+                                                                    <option value="WY">Wyoming</option>
+                                                                </select>
+                                                            </div> -->
                                                         </div>
                                                         <div class="col-md-2">
                                                             <div class="position-relative form-group">
@@ -526,6 +599,7 @@ RESULTADOS:</textarea>
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <!-- JQUERY -->
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script>
@@ -835,116 +909,137 @@ RESULTADOS:</textarea>
             }
         });
 
-        $('#btnSearchPatient').on("click", function() {
+        // $('#btnSearchPatient').on("click", function() {
             
+        //     let datos = $('#frm-search-patient').serialize();
+
+        //     // console.log(datos);
+        //     let request = $.ajax({
+        //         type: "post",
+        //         dataType: 'JSON',
+        //         url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient",
+        //         data: datos
+        //     });
+        //     request.done(function(data) {
+        //         // console.log(Object.keys(data).length);
+        //         if (Object.keys(data).length > 1) {
+        //             $('#nombre').val(data.Nombre);
+        //             $('#apellidopa').val(data.Apellido_Paterno);
+        //             $('#apellidoma').val(data.Apellido_Materno);
+        //             $('#procedencia').val(data.Procedencia);
+        //             $('#ocupacionac').val(data.Ocupacion_Actual);
+        //             $('#ocupacionan').val(data.Ocupacion_Anterior);
+        //             $('#dni').val(data.Documento);
+        //             $('#correo').val(data.Email);
+        //             $('#celular').val(data.Celular);
+        //             $("#genero option[value=" + data.Genero + "]").attr("selected", true);
+        //             $('#fechana').val(data.Fecha_Nacimiento);
+        //             // $('#btnSavePatient').attr("disabled", true);
+        //             $('#cuest-nombre').val(data.Nombre);
+        //             $('#cuest-apellidopa').val(data.Apellido_Paterno);
+        //             $('#cuest-apellidoma').val(data.Apellido_Materno);
+        //             $('#cuest-dni').val(data.Documento);
+        //             $('#pru-nombre').val(data.Nombre);
+        //             $('#pru-apellidopa').val(data.Apellido_Paterno);
+        //             $('#pru-apellidoma').val(data.Apellido_Materno);
+        //             $('#pru-dni').val(data.Documento);
+        //             $('#cita-nombre').val(data.Nombre);
+        //             $('#cita-apellidopa').val(data.Apellido_Paterno);
+        //             $('#cita-apellidoma').val(data.Apellido_Materno);
+        //             $('#cita-dni').val(data.Documento);
+        //             $('#btnSaveAnswers').css('display','none');
+        //             $('#btnUpdateAnswers').css('display','block');
+        //             $('#btnSavePatient').css('display','none');
+        //             $('#filter').val("");
+        //             $('#btnUpdatePatient').css('display','block');
+        //             // let cantQuestion = $('.input-answers').toArray().length;
+        //             $('.input-answers').each(function(index){
+        //                 if(index < data[0]){
+        //                     $(this).val(data[index+1].Respuesta);
+        //                     // console.log(data[index+1].Respuesta);
+        //                 }
+        //             });
+
+        //             // console.log(Object.keys(data.0).length);
+        //             generar_citas_paciente(data.Documento);
+        //         } else {
+        //             // alert(data);
+
+        //             Swal.fire({
+        //             title: data,
+        //             text: "Desea agregarlo ?",
+        //             icon: 'warning',
+        //             showCancelButton: true,
+        //             confirmButtonColor: '#3085d6',
+        //             cancelButtonColor: '#d33',
+        //             confirmButtonText: 'Si'
+        //             }).then((result) => {
+        //                 if(result.value){
+        //                     let dni = $('#filter').val();
+        //                     $('#dni').val(dni);
+        //                 }else{
+        //                     $('#filter').val("");
+        //                 }
+        //             })
+                    
+        //             $('#nombre').val("");
+        //             $('#apellidopa').val("");
+        //             $('#apellidoma').val("");
+        //             $('#procedencia').val("");
+        //             $('#ocupacionac').val("");
+        //             $('#ocupacionan').val("");
+        //             $('#dni').val("");
+        //             $('#correo').val("");
+        //             $('#celular').val("");
+        //             $("#genero").prop("selectedIndex",0);
+        //             $('#fechana').val("");
+        //             $('#cuest-nombre').val("");
+        //             $('#cuest-apellidopa').val("");
+        //             $('#cuest-apellidoma').val("");
+        //             $('#cuest-dni').val("");
+        //             $('#pru-nombre').val("");
+        //             $('#pru-apellidopa').val("");
+        //             $('#pru-apellidoma').val("");
+        //             $('#pru-dni').val("");
+        //             $('#cita-nombre').val("");
+        //             $('#cita-apellidopa').val("");
+        //             $('#cita-apellidoma').val("");
+        //             $('#cita-dni').val("");
+        //             // $('#filter').val("");
+        //         }
+        //     });
+        //     request.fail(function() {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Hubo un error',
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         });
+        //     });
+        //     return false;
+        // });
+
+        $('#btnSearchPatient').on('click',function(){
+            let search = $('#filter-search').val();
+            // alert(search);
             let datos = $('#frm-search-patient').serialize();
 
-            // console.log(datos);
-            let request = $.ajax({
-                type: "post",
-                dataType: 'JSON',
-                url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient",
-                data: datos
-            });
-            request.done(function(data) {
-                // console.log(Object.keys(data).length);
-                if (Object.keys(data).length > 1) {
-                    $('#nombre').val(data.Nombre);
-                    $('#apellidopa').val(data.Apellido_Paterno);
-                    $('#apellidoma').val(data.Apellido_Materno);
-                    $('#procedencia').val(data.Procedencia);
-                    $('#ocupacionac').val(data.Ocupacion_Actual);
-                    $('#ocupacionan').val(data.Ocupacion_Anterior);
-                    $('#dni').val(data.Documento);
-                    $('#correo').val(data.Email);
-                    $('#celular').val(data.Celular);
-                    $("#genero option[value=" + data.Genero + "]").attr("selected", true);
-                    $('#fechana').val(data.Fecha_Nacimiento);
-                    // $('#btnSavePatient').attr("disabled", true);
-                    $('#cuest-nombre').val(data.Nombre);
-                    $('#cuest-apellidopa').val(data.Apellido_Paterno);
-                    $('#cuest-apellidoma').val(data.Apellido_Materno);
-                    $('#cuest-dni').val(data.Documento);
-                    $('#pru-nombre').val(data.Nombre);
-                    $('#pru-apellidopa').val(data.Apellido_Paterno);
-                    $('#pru-apellidoma').val(data.Apellido_Materno);
-                    $('#pru-dni').val(data.Documento);
-                    $('#cita-nombre').val(data.Nombre);
-                    $('#cita-apellidopa').val(data.Apellido_Paterno);
-                    $('#cita-apellidoma').val(data.Apellido_Materno);
-                    $('#cita-dni').val(data.Documento);
-                    $('#btnSaveAnswers').css('display','none');
-                    $('#btnUpdateAnswers').css('display','block');
-                    $('#btnSavePatient').css('display','none');
-                    $('#filter').val("");
-                    $('#btnUpdatePatient').css('display','block');
-                    // let cantQuestion = $('.input-answers').toArray().length;
-                    $('.input-answers').each(function(index){
-                        if(index < data[0]){
-                            $(this).val(data[index+1].Respuesta);
-                            // console.log(data[index+1].Respuesta);
-                        }
-                    });
-
-                    // console.log(Object.keys(data.0).length);
-                    generar_citas_paciente(data.Documento);
-                } else {
-                    // alert(data);
-
-                    Swal.fire({
-                    title: data,
-                    text: "Desea agregarlo ?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                    }).then((result) => {
-                        if(result.value){
-                            let dni = $('#filter').val();
-                            $('#dni').val(dni);
-                        }else{
-                            $('#filter').val("");
-                        }
-                    })
-                    
-                    $('#nombre').val("");
-                    $('#apellidopa').val("");
-                    $('#apellidoma').val("");
-                    $('#procedencia').val("");
-                    $('#ocupacionac').val("");
-                    $('#ocupacionan').val("");
-                    $('#dni').val("");
-                    $('#correo').val("");
-                    $('#celular').val("");
-                    $("#genero").prop("selectedIndex",0);
-                    $('#fechana').val("");
-                    $('#cuest-nombre').val("");
-                    $('#cuest-apellidopa').val("");
-                    $('#cuest-apellidoma').val("");
-                    $('#cuest-dni').val("");
-                    $('#pru-nombre').val("");
-                    $('#pru-apellidopa').val("");
-                    $('#pru-apellidoma').val("");
-                    $('#pru-dni').val("");
-                    $('#cita-nombre').val("");
-                    $('#cita-apellidopa').val("");
-                    $('#cita-apellidoma').val("");
-                    $('#cita-dni').val("");
-                    // $('#filter').val("");
-                }
-            });
-            request.fail(function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hubo un error',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            });
-            return false;
+            if(search === '1'){
+                // alert("1")
+            }else if(search === '2'){
+                
+                $('#filter').get(0).type = 'select-one';
+                // $('#password').get(0).type = 'text';
+            }
         });
 
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+
+        
+        
+        
         function generar_citas_paciente(dni) {
             var data = new FormData();
             data.append("dni", dni);

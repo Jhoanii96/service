@@ -23,6 +23,11 @@ class patientModel extends Model{
     return Model::query_execute($query);
   }
 
+  public function getAllPatient(){
+    $query = "SELECT nombre,apellidos FROM v_paciente";
+    return Model::query_execute($query);
+  }
+
   public function getIDPatient(){
     $query = "SELECT Id_Paciente,Documento,Nombre,Apellido_Paterno,Apellido_Materno FROM paciente ORDER BY Id_Paciente DESC LIMIT 1";
     return Model::query_execute($query);
