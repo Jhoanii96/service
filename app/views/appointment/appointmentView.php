@@ -16,6 +16,54 @@
     <!-- HEADER -->
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/selectize.css">
+
+    <style>
+        .select_users {
+            font-family: Arial, Helvetica, sans-serif;
+            flex: 1 1 auto;
+            margin-right: 5px;
+        }
+
+        .selectize-control.select_users::before {
+            -moz-transition: opacity 0.2s;
+            -webkit-transition: opacity 0.2s;
+            transition: opacity 0.2s;
+            content: ' ';
+            z-index: 2;
+            position: absolute;
+            display: block;
+            top: 12px;
+            right: 34px;
+            width: 16px;
+            height: calc(2.25rem + 2px);
+            background: url("<?= FOLDER_PATH ?>/src/assets/media/images/icons/spinner.gif") no-repeat;
+            background-size: 16px 16px;
+            opacity: 0;
+        }
+
+        .selectize-control.select_users.loading::before {
+            opacity: 0.4;
+        }
+
+        .item_name {
+            padding-left: 10px;
+            height: 30px;
+            width: 100%;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .selectize-input {
+            overflow: initial;
+        }
+
+        @media (min-width: 576px) {
+            #form-search {
+                width: 70%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -60,16 +108,28 @@
                             <h5 class="card-title">REGISTRO DE CITAS</h5>
                             <div class="mt-4 mb-1" style="align-content: center; align-items: center;">
                                 <div class="form-inline">
-                                    <div class="input-group" style="align-items: center;">
+                                    <div id="form-search" class="input-group" style="align-items: center;">
                                         <div class="position-relative input-group mb-4">
-                                            <label class="mr-2 mt-auto mb-auto">Nombre</label>
-                                            <input name="date" id="date" placeholder="Ingresar nombre" type="text" class="mr-2 form-control">
-
+                                            <label class="mr-2 mt-auto mb-auto">Filtro</label>
+                                            <select type="select" id="filter" name="filter" class="custom-select mr-2">
+                                                <option value="1">Nombre paciente</option>
+                                                <option value="2" selected>Fecha cita</option>
+                                            </select>
+                                        </div>
+                                        <div id="busqueda" style="display: block;">
+                                            <div class="position-relative input-group mb-4" id="b-name" style="display: none;">
+                                                <label class="mr-2 mt-auto mb-auto">Nombre paciente</label>
+                                                <select id="user-search1" class="select_users" placeholder="Escriba el usuario..."></select>
+                                                <button id="btnsrc1" class="btn-icon btn-pill btn btn-primary ml-2" onclick="search(1)"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
+                                            </div>
+                                            <div class="position-relative input-group mb-4" id="b-date">
+                                                <label class="mr-2 mt-auto mb-auto">Fecha Cita</label>
+                                                <input type="date" name="date" id="date" class="mr-2 form-control" value="<?= date("Y-m-d"); ?>">
+                                                <button id="btnsrc2" class="btn-icon btn-pill btn btn-primary" onclick="search(2)"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
+                                            </div>
                                         </div>
                                         <div class="position-relative input-group mb-4">
-                                            <label class="mr-2 mt-auto mb-auto">Fecha Cita</label>
-                                            <input name="date" id="date" type="date" class="mr-2 form-control">
-                                            <button class="btn-icon btn-pill btn btn-primary"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
+                                            <div id="spsearch"></div>
                                         </div>
                                     </div>
                                     <div class="input-group pb-4" style="margin-left: auto;">
@@ -79,15 +139,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+                            <table id="list-citas" style="width: 100%;" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Apellidos</th>
+                                        <th>Paciente</th>
                                         <th>Edad</th>
-                                        <th>Atención</th>
-                                        <th>Fecha y hora</th>
-                                        <th>Atender</th>
+                                        <th>Hora</th>
+                                        <th>Estado</th>
+                                        <th>Detalles</th>
                                         <th>Editar</th>
                                         <th>Eliminar</th>
                                     </tr>
@@ -96,19 +155,47 @@
                                     <?php
 
                                     while ($datos_cita = $data['datos_cita']->fetch()) {
-                                        
-                                        $birthDate = explode("-", $datos_cita['fecha_nac']);
+
+                                        if ($datos_cita['estado'] == 0) {
+                                            $estado = "Atender";
+                                            $css = "#000eb9";
+                                        }
+                                        if ($datos_cita['estado'] == 1) {
+                                            $estado = "Atendido";
+                                            $css = "#008c44";
+                                        }
+
+                                        $birthDate = explode("-", $datos_cita['fenac']);
                                         $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
                                             ? ((date("Y") - $birthDate[0]) - 1)
                                             : (date("Y") - $birthDate[0]));
 
+                                        $nombre = $datos_cita['nombre'] . ' ' . $datos_cita['apepa'] . ' ' . $datos_cita['apema'];
+                                        $nombre = base64_encode(utf8_encode($nombre));
+
                                     ?>
                                         <tr>
-                                            <td><?= $datos_cita['nombre'] ?></td>
-                                            <td><?= $datos_cita['apellidos'] ?></td>
+                                            <td><?= $datos_cita['nombre'] ?> <?= $datos_cita['apepa'] ?> <?= $datos_cita['apema'] ?></td>
                                             <td class="text-center"><?= $age ?> años</td>
-                                            <td class="text-center">8 días</td>
-                                            <td class="text-center">09/07/2020 15:30</td>
+                                            <td class="text-center"><?= date("h:i:s A", strtotime($datos_cita['fechacita'])) ?></td>
+                                            <?php 
+                                            if ($datos_cita['estado'] == 0) {
+                                            ?>
+                                                <td class="text-center">
+                                                    <a href="<?php echo(FOLDER_PATH . '/consultation/' . $nombre); ?>" target="_blank" style="background-color: #00e6dc;color: <?= $css ?>;white-space: nowrap; padding: 0px 4px;">
+                                                        <?= $estado ?>
+                                                    </a>    
+                                                </td>
+                                            <?php 
+                                            }
+                                            ?>
+                                            <?php 
+                                            if ($datos_cita['estado'] == 1) {
+                                            ?>
+                                                <td class="text-center" style="color: <?= $css ?>;"><?= $estado ?></td>
+                                            <?php 
+                                            }
+                                            ?>
                                             <td class="text-center">
                                                 <div role="group" class="btn-group-sm btn-group">
                                                     <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
@@ -134,11 +221,10 @@
                                 <tfoot>
                                     <tr>
                                         <th>Paciente</th>
-                                        <th>Apellidos</th>
                                         <th>Edad</th>
-                                        <th>Atención</th>
-                                        <th>Fecha y hora</th>
-                                        <th>Atender</th>
+                                        <th>Hora</th>
+                                        <th>Estado</th>
+                                        <th>Detalles</th>
                                         <th>Editar</th>
                                         <th>Eliminar</th>
                                     </tr>
@@ -158,20 +244,24 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar hora</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar cita</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-0">Agregue la hora en que realizará la consulta</p>
+                    <p class="mb-0">Busque el usuario, la fecha y la hora en que realizará la cita</p>
                     <br>
-                    <label for="exampleCustomSelect" class="mr-2 mt-auto mb-auto">Horas</label>
+                    <label class="mr-2 mt-auto mb-auto">Buscar usuario</label>
+                    <select id="user-search2" class="select_users mr-0" placeholder="Escriba el usuario..."></select>
+                    <label class="mr-2 mt-auto mb-auto">Fecha</label>
+                    <input type="date" name="date2" id="date2" class="mr-2 form-control" value="<?= date("Y-m-d"); ?>">
+                    <label class="mr-2 mt-auto mb-auto">Horas</label>
                     <input class="form-control input-mask-trigger mr-2" id="endTime">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cita</button>
                 </div>
             </div>
         </div>
@@ -180,7 +270,9 @@
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
     <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
         $('input[id$="endTime"]').inputmask("hh:mm", {
             placeholder: "HH:MM",
@@ -206,6 +298,147 @@
                 location.href = "<?= FOLDER_PATH ?>/login/salir"
             }
         }
+    </script>
+    <script>
+        $("#filter").on("change", function() {
+            var data = document.getElementById("filter").value;
+            if (data == '0') {
+                $("#busqueda").css("display", "none");
+
+                var data = new FormData();
+                data.append("search", '');
+                data.append("filter", '0');
+
+                $.ajax({
+                    beforeSend: function() {
+                        $("#spsearch").append('<span id="spinner-src" class="fa fa-spinner fa-spin" style="width: 14px; height: 14px; margin: 12px 12px;"></span>');
+                        $("#btnsrc").attr("disabled", true);
+                    },
+                    url: "<?= FOLDER_PATH ?>/appointment/search",
+                    type: "POST",
+                    data: data,
+                    contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                    processData: false, // NEEDED, DON'T OMIT THIS
+                    success: function(resp) {
+                        $("#spinner-src").remove();
+                        $("#list-citas").html(resp);
+                    }
+                })
+            }
+            if (data == '1') {
+                $("#busqueda").css("display", "block");
+                $("#b-name").css("display", "flex");
+                $("#b-date").css("display", "none");
+            }
+            if (data == '2') {
+                $("#busqueda").css("display", "block");
+                $("#b-date").css("display", "flex");
+                $("#b-name").css("display", "none");
+            }
+        });
+
+        function search(codbtn) {
+            var numbtn = codbtn;
+            var filter = document.getElementById("filter").value;
+            if (filter != 1 && filter != 2) {
+                swal("Atención!", "Operación inválida", "warning");
+                return;
+            }
+            if (numbtn == 1 || numbtn == 2) {
+                if (numbtn == 1) {
+                    var sendsearch = $("#user-search1").children("option:selected").val();
+                    var sendfilter = numbtn;
+                }
+                if (numbtn == 2) {
+                    var sendsearch = document.getElementById("date").value;
+                    var sendfilter = numbtn;
+                }
+            } else {
+                swal("Atención!", "Operación inválida", "warning");
+            }
+
+            var data = new FormData();
+            data.append("search", sendsearch);
+            /* var usersearch = $("#user-search").children("option:selected").val(); */
+            data.append("filter", sendfilter);
+
+            $.ajax({
+                beforeSend: function() {
+                    $("#spsearch").append('<span id="spinner-src-' + numbtn + '" class="fa fa-spinner fa-spin" style="width: 14px; height: 14px; margin: 12px 12px;"></span>');
+                    $("#btnsrc" + numbtn).attr("disabled", true);
+                },
+                url: "<?= FOLDER_PATH ?>/appointment/search",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    $("#spinner-src-" + numbtn).remove();
+                    $("#btnsrc" + numbtn).attr("disabled", false);
+                    $("#list-citas").html(resp);
+                }
+            })
+        }
+    </script>
+    <script>
+        $('#user-search1').selectize({
+            valueField: 'id',
+            labelField: 'name',
+            searchField: 'name',
+            options: [],
+            create: false,
+            render: {
+                option: function(item) {
+                    return '<div><span class="item_name">' + item.name + '</span></div>';
+                }
+            },
+            load: function(query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: "<?php echo FOLDER_PATH ?>/appointment/load_users",
+                    type: 'POST',
+                    data: {
+                        nom_user: query
+                    },
+                    error: function() {
+                        callback();
+                    },
+                    success: function(res) {
+                        var as = JSON.parse(res);
+                        callback(as.users);
+                    }
+                });
+            }
+        });
+        $('#user-search2').selectize({
+            valueField: 'id',
+            labelField: 'name',
+            searchField: 'name',
+            options: [],
+            create: false,
+            render: {
+                option: function(item) {
+                    return '<div><span class="item_name">' + item.name + '</span></div>';
+                }
+            },
+            load: function(query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: "<?php echo FOLDER_PATH ?>/appointment/load_users",
+                    type: 'POST',
+                    data: {
+                        nom_user: query
+                    },
+                    error: function() {
+                        callback();
+                    },
+                    success: function(res) {
+                        var as = JSON.parse(res);
+                        callback(as.users);
+                    }
+                });
+            }
+        });
     </script>
 </body>
 

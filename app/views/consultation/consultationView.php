@@ -433,22 +433,18 @@ RESULTADOS:</textarea>
                                                     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th>Nombre</th>
-                                                                <th>Apellidos</th>
+                                                                <th>Paciente</th>
                                                                 <th>Edad</th>
-                                                                <th>Fecha atención</th>
                                                                 <th>Hora atención</th>
                                                                 <th>Estado</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody id="list_citas">
-                                                            
+
                                                         </tbody>
                                                         <tfoot>
-                                                            <th>Nombre</th>
-                                                            <th>Apellidos</th>
+                                                            <th>Paciente</th>
                                                             <th>Edad</th>
-                                                            <th>Fecha atención</th>
                                                             <th>Hora atención</th>
                                                             <th>Estado</th>
                                                         </tfoot>

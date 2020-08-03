@@ -151,20 +151,18 @@ class consultation extends Controller
 
             if ($datos_cita['estado'] == 0) {
                 $estado = "En espera";
-                $css = "#ff0000";
+                $css = "#b90000";
             }
             if ($datos_cita['estado'] == 1) {
                 $estado = "Atendido";
-                $css = "#0000ff";
+                $css = "#008c44";
             }
             
             echo '
             
                 <tr>
-                    <td>' . $datos_cita['nombre'] . '</td>
-                    <td>' . $datos_cita['apellidos'] . '</td>
+                    <td>' . $datos_cita['nombre'] . ' ' . $datos_cita['apellidos'] . '</td>
                     <td class="text-center">' . $age . ' años</td>
-                    <td class="text-center">' . date("d/m/Y", strtotime($datos_cita['fecha_atencion'])) . '</td>
                     <td class="text-center">' . date("h:i:s A", strtotime($datos_cita['fecha_atencion'])) . '</td>
                     <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>
                 </tr>
