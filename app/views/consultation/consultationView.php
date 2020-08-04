@@ -302,6 +302,7 @@
                                                                             <tr>
                                                                                 <th scope="col">DNI</th>
                                                                                 <th scope="col">Paciente</th>
+                                                                                <th scope="col">Género</th>
                                                                                 <th scope="col">Fecha Nacimiento</th>
                                                                             </tr>
                                                                         </thead>
@@ -309,6 +310,7 @@
                                                                             <tr>
                                                                                 <td id="cuest-dni"></td>
                                                                                 <td id="cuest-nombre"></td>
+                                                                                <td id="cuest-genero"></td>
                                                                                 <td id="cuest-fechana"></td>
                                                                             </tr>
                                                                         </tbody>
@@ -351,6 +353,7 @@
                                                         <tr>
                                                             <th scope="col">DNI</th>
                                                             <th scope="col">Paciente</th>
+                                                            <th scope="col">Género</th>
                                                             <th scope="col">Fecha Nacimiento</th>
                                                         </tr>
                                                     </thead>
@@ -358,6 +361,7 @@
                                                         <tr>
                                                             <td id="pru-dni"></td>
                                                             <td id="pru-nombre"></td>
+                                                            <td id="pru-genero"></td>
                                                             <td id="pru-fechana"></td>
                                                         </tr>
                                                     </tbody>
@@ -428,6 +432,7 @@ RESULTADOS:</textarea>
                                                         <tr>
                                                             <th scope="col">DNI</th>
                                                             <th scope="col">Paciente</th>
+                                                            <th scope="col">Género</th>
                                                             <th scope="col">Fecha Nacimiento</th>
                                                         </tr>
                                                     </thead>
@@ -435,6 +440,7 @@ RESULTADOS:</textarea>
                                                         <tr>
                                                             <td id="cita-dni"></td>
                                                             <td id="cita-nombre"></td>
+                                                            <td id="cita-genero"></td>
                                                             <td id="cita-fechana"></td>
                                                         </tr>
                                                     </tbody>
@@ -799,18 +805,24 @@ RESULTADOS:</textarea>
                         showConfirmButton: false,
                         timer: 1500
                         })
-                        $('#cuest-nombre').val(data.Nombre);
-                        $('#cuest-apellidopa').val(data.Apellido_Paterno);
-                        $('#cuest-apellidoma').val(data.Apellido_Materno);
-                        $('#cuest-dni').val(data.Documento);
-                        $('#pru-nombre').val(data.Nombre);
-                        $('#pru-apellidopa').val(data.Apellido_Paterno);
-                        $('#pru-apellidoma').val(data.Apellido_Materno);
-                        $('#pru-dni').val(data.Documento);
-                        $('#cita-nombre').val(data.Nombre);
-                        $('#cita-apellidopa').val(data.Apellido_Paterno);
-                        $('#cita-apellidoma').val(data.Apellido_Materno);
-                        $('#cita-dni').val(data.Documento);
+
+                        if(data.Genero == 'F'){
+                            data.Genero = 'FEMENINO';
+                        }else{
+                            data.Genero = 'MASCULINO';
+                        }
+                        $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cuest-dni').html(data.Documento);
+                        $('#cuest-fechana').html(data.Fecha_Nacimiento);
+                        $('#cuest-genero').html(data.Genero);
+                        $('#pru-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#pru-dni').html(data.Documento);
+                        $('#pru-fechana').html(data.Fecha_Nacimiento);
+                        $('#pru-genero').html(data.Genero);
+                        $('#cita-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cita-dni').html(data.Documento);
+                        $('#cita-fechana').html(data.Fecha_Nacimiento);
+                        $('#cita-genero').html(data.Genero);
                         $('#btnSaveAnswers').css('display','block');
                         $('#btnUpdateAnswers').css('display','none');
                         $('#btnUpdatePatient').css('display','block');
@@ -852,6 +864,25 @@ RESULTADOS:</textarea>
                         showConfirmButton: false,
                         timer: 1500
                     });
+
+                    if(data.Genero == 'F'){
+                            data.Genero = 'FEMENINO';
+                        }else{
+                            data.Genero = 'MASCULINO';
+                    }
+                    $('#cuest-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
+                    $('#cuest-dni').html($('#dni').val());
+                    $('#cuest-genero').html($('#genero').val());
+                    $('#cuest-fechana').html($('#fechana').val());
+                    $('#pru-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
+                    $('#pru-dni').html($('#dni').val());
+                    $('#pru-genero').html($('#genero').val());
+                    $('#pru-fechana').html($('#fechana').val());
+                    $('#cita-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
+                    $('#cita-dni').html($('#dni').val());
+                    $('#cita-genero').html($('#genero').val());
+                    $('#cita-fechana').html($('#fechana').val());
+
                 })
                 .fail(function(){
                     Swal.fire({
@@ -868,6 +899,8 @@ RESULTADOS:</textarea>
             let select = $('select[name="single"] option:selected').text();
             let documento = $('#filter').val();
             let search = $('#filter-search').val();
+            let valuePaciente = $('select[name="single"] option:selected').val();
+            let arrayPaciente = new Array();
             if(documento === "" &&  (search === '1' || search === '0')){
                 console.log('ingrese dni')
                 Swal.fire({
@@ -885,9 +918,10 @@ RESULTADOS:</textarea>
                     timer: 1500
                 });
             }else{
-
+                arrayPaciente.push(select);
+                arrayPaciente.push(valuePaciente);
                 let request = $.ajax({
-                data: {namePaciente:select , filter:documento},
+                data: {namePaciente:arrayPaciente , filter:documento },
                 type: "post",
                 dataType: 'JSON',
                 url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient"
@@ -907,15 +941,23 @@ RESULTADOS:</textarea>
                         $("#genero option[value=" + data.Genero + "]").attr("selected", true);
                         $('#fechana').val(data.Fecha_Nacimiento);
                         // $('#btnSavePatient').attr("disabled", true);
+                        if(data.Genero == 'F'){
+                            data.Genero = 'FEMENINO';
+                        }else{
+                            data.Genero = 'MASCULINO';
+                        }
                         $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#cuest-dni').html(data.Documento);
                         $('#cuest-fechana').html(data.Fecha_Nacimiento);
+                        $('#cuest-genero').html(data.Genero);
                         $('#pru-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#pru-dni').html(data.Documento);
                         $('#pru-fechana').html(data.Fecha_Nacimiento);
+                        $('#pru-genero').html(data.Genero);
                         $('#cita-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#cita-dni').html(data.Documento);
                         $('#cita-fechana').html(data.Fecha_Nacimiento);
+                        $('#cita-genero').html(data.Genero);
                         $('#btnSaveAnswers').css('display','none');
                         $('#btnUpdateAnswers').css('display','block');
                         $('#filter').val("");
@@ -1000,12 +1042,15 @@ RESULTADOS:</textarea>
             $('#fechana').val("");
             $('#cuest-nombre').html("");
             $('#cuest-dni').html("");
+            $('#cuest-genero').html("");
             $('#cuest-fechana').html("");
             $('#pru-nombre').html("");
             $('#pru-dni').html("");
+            $('#pru-genero').html("");
             $('#pru-fechana').html("");
             $('#cita-nombre').html("");
             $('#cita-dni').html("");
+            $('#cita-genero').html(""); 
             $('#cita-fechana').html("");
             $('.input-answers').val("");
         }
@@ -1086,7 +1131,7 @@ RESULTADOS:</textarea>
         $('#frm-answers-patient').submit(function(e) {
             e.preventDefault();
             
-            if($('#cuest-nombre').val() !== "" ){                
+            if($('#cuest-nombre').html() !== "" ){                
                 if(buttonPressed === 'btnSaveAnswers'){
                     
                     let answersArray = new Array();

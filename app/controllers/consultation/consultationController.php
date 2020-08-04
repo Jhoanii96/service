@@ -125,15 +125,17 @@ class consultation extends Controller
     }
 
     public function searchPatient()
-    {
+    {   
         $documento = $_POST['filter'];
         $namePaciente = $_POST['namePaciente'];
         
-        if(is_numeric($documento) && $documento !== null){
-            $searchPatient = $this->patientModel->searchDocumentPatient($documento,true);
-        }else if(is_string($namePaciente)){
+        if(is_string($namePaciente[0]) && strlen($namePaciente[0])>1){
             $searchPatient = $this->patientModel->searchDocumentPatient($namePaciente,false);
         }
+        if(strlen($documento)<= 8 && is_numeric($documento)){
+            $searchPatient = $this->patientModel->searchDocumentPatient($documento,true);
+        }
+
         $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
         if($result){
             $this->session->add('idPaciente', $result['Id_Paciente']);
