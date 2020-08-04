@@ -127,10 +127,11 @@ class consultation extends Controller
     public function searchPatient()
     {
         $documento = $_POST['filter'];
+        $namePaciente = $_POST['single'];
         
-        if(is_numeric($documento)){
+        if(is_numeric($documento) || is_numeric($namePaciente)){
             
-            $searchPatient = $this->patientModel->searchDocumentPatient($documento);
+            $searchPatient = $this->patientModel->searchDocumentPatient($documento,true);
             $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 $this->session->add('idPaciente', $result['Id_Paciente']);
@@ -149,13 +150,38 @@ class consultation extends Controller
                 $arrayJSON =  json_encode($error);
             }
         }else{
-            $allPatient = $this->patientModel->getAllPatient();
-            $allPatient->fetchAll(PDO::FETCH_ASSOC);
-            if($allPatient){
-                $arrayJSON = json_encode($allPatient);
+            $searchPatient = $this->patientModel->searchDocumentPatient($namePaciente,false);
+            $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
+            if($result){
+                $this->session->add('idPaciente', $result['Id_Paciente']);
+                $idPaciente = $this->session->get('idPaciente');
+                // $answers = $this->getAnswers($idPaciente);
+                $answers = $this->questionModel->getAnswers($idPaciente);
+                $cantidad = $answers->rowCount();
+                if($cantidad > 0){
+                    $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
+                    array_push($result,$cantidad);
+                    $result = array_merge($result ,$answers);
+                }
+                $arrayJSON =  json_encode($result);
+            } else {
+                $error = ['No se pudo encontrar ese paciente'];
+                $arrayJSON =  json_encode($error);
             }
         }
         print_r($arrayJSON);
+    }
+
+    public function showPatients(){
+        $busqueda = $_GET['q'];
+        $patient = $this->patientModel->getAllPatient($busqueda);
+        $json = [];
+        while($result = $patient->fetch(PDO::FETCH_ASSOC)){
+            $json[] = ['id'=>$result['id'], 'text'=>$result['nombres']];
+        }
+        
+        $arrayJSON = json_encode($json);
+        echo $arrayJSON;
     }
 
 

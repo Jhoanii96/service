@@ -18,13 +18,17 @@ class patientModel extends Model{
     return Model::query_execute($query);
   }
 
-  public function searchDocumentPatient($documento){
-    $query = "SELECT Id_Paciente,Documento,Nombre,Apellido_Paterno,Apellido_Materno,Genero,Celular,Email,Procedencia,Ocupacion_Anterior,Ocupacion_Actual,Fecha_Nacimiento FROM paciente WHERE Documento = '$documento'";
+  public function searchDocumentPatient($filter,$state){
+    if($state){
+      $query = "SELECT Id_Paciente,Documento,Nombre,Apellido_Paterno,Apellido_Materno,Genero,Celular,Email,Procedencia,Ocupacion_Anterior,Ocupacion_Actual,Fecha_Nacimiento FROM paciente WHERE Documento = '$filter'";
+    }else{
+      $query = "SELECT Id_Paciente,Documento,Nombre,Apellido_Paterno,Apellido_Materno,Genero,Celular,Email,Procedencia,Ocupacion_Anterior,Ocupacion_Actual,Fecha_Nacimiento FROM paciente WHERE concat(Nombre,' ',concat(Apellido_Paterno,' ',Apellido_Materno)) like '%$filter%'";
+    }
     return Model::query_execute($query);
   }
 
-  public function getAllPatient(){
-    $query = "SELECT nombre,apellidos FROM v_paciente";
+  public function getAllPatient($busqueda){
+    $query = "SELECT id,concat(nombre, ' ', apellidos) AS nombres FROM v_paciente WHERE concat(nombre,' ',apellidos) LIKE '%$busqueda%' LIMIT 10";
     return Model::query_execute($query);
   }
 
