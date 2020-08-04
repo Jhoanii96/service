@@ -286,7 +286,7 @@
                                                     <div class="form-row">
                                                         <div class="col-md-6">
                                                             <button class="btn btn-warning submitPatient" id="btnSavePatient">Guardar paciente</button>
-                                                            <button class="btn btn-warning submitPatient" id="btnUpdatePatient" style="display:none" >Actualizar Respuestas</button>
+                                                            <button class="btn btn-warning submitPatient" id="btnUpdatePatient" style="display:none" >Actualizar Paciente</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -297,34 +297,22 @@
                                                         <div>
                                                             <div class="card-body">
                                                                 <form id="frm-answers-patient" >
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-6">
-                                                                            <div class="position-relative form-group">
-                                                                                <label for="documento">DNI</label>
-                                                                                <input name="dni" id="cuest-dni" type="text" class="form-control" disabled>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <div class="position-relative form-group">
-                                                                                <label for="nombre">Nombres</label>
-                                                                                <input name="nombre" id="cuest-nombre" type="text" class="form-control" disabled>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-6">
-                                                                            <div class="position-relative form-group">
-                                                                                <label for="apellidopa">Apellido Paterno</label>
-                                                                                <input name="apellidopa" id="cuest-apellidopa" type="text" class="form-control" disabled>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <div class="position-relative form-group">
-                                                                                <label for="apellidoma">Apellido Materno</label>
-                                                                                <input name="apellidoma" id="cuest-apellidoma" type="text" class="form-control" disabled>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                    <table class="table">
+                                                                        <thead class="thead-dark">
+                                                                            <tr>
+                                                                                <th scope="col">DNI</th>
+                                                                                <th scope="col">Paciente</th>
+                                                                                <th scope="col">Fecha Nacimiento</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td id="cuest-dni"></td>
+                                                                                <td id="cuest-nombre"></td>
+                                                                                <td id="cuest-fechana"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                     <div class="divider"></div>
                                                                     <div class="position-relative form-group">
                                                                         <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
@@ -358,34 +346,22 @@
                                                 </div>
                                             </div>
                                             <div id="step-3">
-                                                <div class="form-row">
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="pru-dni">DNI</label>
-                                                            <input name="pru-dni" id="pru-dni" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="pru-nombre">Nombres</label>
-                                                            <input name="pru-nombre" id="pru-nombre" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="pru-apellidopa">Apellido Paterno</label>
-                                                            <input name="pru-apellidopa" id="pru-apellidopa" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="pru-apellidoma">Apellido Materno</label>
-                                                            <input name="pru-apellidoma" id="pru-apellidoma" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <table class="table">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th scope="col">DNI</th>
+                                                            <th scope="col">Paciente</th>
+                                                            <th scope="col">Fecha Nacimiento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td id="pru-dni"></td>
+                                                            <td id="pru-nombre"></td>
+                                                            <td id="pru-fechana"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                                 <div class="divider"></div>
                                                 <div class="position-relative form-group">
                                                     <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
@@ -447,35 +423,22 @@ RESULTADOS:</textarea>
                                                 </div>
                                             </div>
                                             <div id="step-4">
-                                                <div class="form-row">
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="dni">DNI</label>
-                                                            <input name="cita-dni" id="cita-dni" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="cita-nombre">Nombres</label>
-                                                            <input name="cita-nombre" id="cita-nombre" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="cita-apellidopa">Apellido Paterno</label>
-                                                            <input name="cita-apellidopa" id="cita-apellidopa" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="position-relative form-group">
-                                                            <label for="cita-apellidoma">Apellido Materno</label>
-                                                            <input name="cita-apellidoma" id="cita-apellidoma" type="text" class="form-control" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                                <table class="table">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th scope="col">DNI</th>
+                                                            <th scope="col">Paciente</th>
+                                                            <th scope="col">Fecha Nacimiento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td id="cita-dni"></td>
+                                                            <td id="cita-nombre"></td>
+                                                            <td id="cita-fechana"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                                 <div tabindex="-1" class="dropdown-divider mt-4 mb-4" style="border-top: 1px solid #d6d6d6;"></div>
 
 
@@ -809,7 +772,7 @@ RESULTADOS:</textarea>
 
         $('.submitPatient').click(function(){
             buttonPressed = $(this).attr('id');
-            console.log(buttonPressed);
+            // console.log(buttonPressed);
         });
 
         $('#frm-patient').submit(function(e) {
@@ -817,7 +780,7 @@ RESULTADOS:</textarea>
 
             
             if(buttonPressed === 'btnSavePatient'){
-                console.log('savePatient');
+                // console.log('savePatient');
                 let datos = $('#frm-patient').serialize();
                 
                 let request = $.ajax({
@@ -850,6 +813,8 @@ RESULTADOS:</textarea>
                         $('#cita-dni').val(data.Documento);
                         $('#btnSaveAnswers').css('display','block');
                         $('#btnUpdateAnswers').css('display','none');
+                        $('#btnUpdatePatient').css('display','block');
+                        $('#btnSavePatient').css('display','none');
                         $('.input-answers').val('');
                         
                     } else {
@@ -872,7 +837,7 @@ RESULTADOS:</textarea>
                 });
 
             }else if(buttonPressed = 'btnUpdatePatient'){
-                console.log('UpdatePatient');
+                // console.log('UpdatePatient');
 
                 let datos = $('#frm-patient').serialize();
                 $.ajax({
@@ -900,131 +865,150 @@ RESULTADOS:</textarea>
         });
 
         $('#btnSearchPatient').on("click", function() {
-            
-            let datos = $('#frm-search-patient').serialize();
-
-            // console.log(datos);
-            let request = $.ajax({
-                type: "post",
-                dataType: 'JSON',
-                url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient",
-                data: datos
-            });
-            request.done(function(data) {
-                // console.log(Object.keys(data).length);
-                if (Object.keys(data).length > 1) {
-                    $('#nombre').val(data.Nombre);
-                    $('#apellidopa').val(data.Apellido_Paterno);
-                    $('#apellidoma').val(data.Apellido_Materno);
-                    $('#procedencia').val(data.Procedencia);
-                    $('#ocupacionac').val(data.Ocupacion_Actual);
-                    $('#ocupacionan').val(data.Ocupacion_Anterior);
-                    $('#dni').val(data.Documento);
-                    $('#correo').val(data.Email);
-                    $('#celular').val(data.Celular);
-                    $("#genero option[value=" + data.Genero + "]").attr("selected", true);
-                    $('#fechana').val(data.Fecha_Nacimiento);
-                    // $('#btnSavePatient').attr("disabled", true);
-                    $('#cuest-nombre').val(data.Nombre);
-                    $('#cuest-apellidopa').val(data.Apellido_Paterno);
-                    $('#cuest-apellidoma').val(data.Apellido_Materno);
-                    $('#cuest-dni').val(data.Documento);
-                    $('#pru-nombre').val(data.Nombre);
-                    $('#pru-apellidopa').val(data.Apellido_Paterno);
-                    $('#pru-apellidoma').val(data.Apellido_Materno);
-                    $('#pru-dni').val(data.Documento);
-                    $('#cita-nombre').val(data.Nombre);
-                    $('#cita-apellidopa').val(data.Apellido_Paterno);
-                    $('#cita-apellidoma').val(data.Apellido_Materno);
-                    $('#cita-dni').val(data.Documento);
-                    $('#btnSaveAnswers').css('display','none');
-                    $('#btnUpdateAnswers').css('display','block');
-                    $('#btnSavePatient').css('display','none');
-                    $('#filter').val("");
-                    $('#btnUpdatePatient').css('display','block');
-                    // let cantQuestion = $('.input-answers').toArray().length;
-                    $('.input-answers').each(function(index){
-                        if(index < data[0]){
-                            $(this).val(data[index+1].Respuesta);
-                            // console.log(data[index+1].Respuesta);
-                        }
-                    });
-
-                    // console.log(Object.keys(data.0).length);
-                    generar_citas_paciente(data.Documento);
-                } else {
-                    // alert(data);
-
-                    Swal.fire({
-                    title: data,
-                    text: "Desea agregarlo ?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                    }).then((result) => {
-                        if(result.value){
-                            let dni = $('#filter').val();
-                            $('#dni').val(dni);
-                        }else{
-                            $('#filter').val("");
-                        }
-                    })
-                    
-                    $('#nombre').val("");
-                    $('#apellidopa').val("");
-                    $('#apellidoma').val("");
-                    $('#procedencia').val("");
-                    $('#ocupacionac').val("");
-                    $('#ocupacionan').val("");
-                    $('#dni').val("");
-                    $('#correo').val("");
-                    $('#celular').val("");
-                    $("#genero").prop("selectedIndex",0);
-                    $('#fechana').val("");
-                    $('#cuest-nombre').val("");
-                    $('#cuest-apellidopa').val("");
-                    $('#cuest-apellidoma').val("");
-                    $('#cuest-dni').val("");
-                    $('#pru-nombre').val("");
-                    $('#pru-apellidopa').val("");
-                    $('#pru-apellidoma').val("");
-                    $('#pru-dni').val("");
-                    $('#cita-nombre').val("");
-                    $('#cita-apellidopa').val("");
-                    $('#cita-apellidoma').val("");
-                    $('#cita-dni').val("");
-                    // $('#filter').val("");
-                }
-            });
-            request.fail(function() {
+            let select = $('select[name="single"] option:selected').text();
+            let documento = $('#filter').val();
+            let search = $('#filter-search').val();
+            if(documento === "" &&  (search === '1' || search === '0')){
+                console.log('ingrese dni')
                 Swal.fire({
                     icon: 'error',
-                    title: 'Hubo un error',
+                    title: 'Ingrese el dni',
                     showConfirmButton: false,
                     timer: 1500
                 });
-            });
-            return false;
-        });
+            }else if(select === "" && search === '2'){
+                console.log('ingrese paciente')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ingrese el paciente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }else{
+
+                let request = $.ajax({
+                data: {namePaciente:select , filter:documento},
+                type: "post",
+                dataType: 'JSON',
+                url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient"
+                });
+                request.done(function(data) {
+                    // console.log(Object.keys(data).length);
+                    if (Object.keys(data).length > 1) {
+                        $('#nombre').val(data.Nombre);
+                        $('#apellidopa').val(data.Apellido_Paterno);
+                        $('#apellidoma').val(data.Apellido_Materno);
+                        $('#procedencia').val(data.Procedencia);
+                        $('#ocupacionac').val(data.Ocupacion_Actual);
+                        $('#ocupacionan').val(data.Ocupacion_Anterior);
+                        $('#dni').val(data.Documento);
+                        $('#correo').val(data.Email);
+                        $('#celular').val(data.Celular);
+                        $("#genero option[value=" + data.Genero + "]").attr("selected", true);
+                        $('#fechana').val(data.Fecha_Nacimiento);
+                        // $('#btnSavePatient').attr("disabled", true);
+                        $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cuest-dni').html(data.Documento);
+                        $('#cuest-fechana').html(data.Fecha_Nacimiento);
+                        $('#pru-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#pru-dni').html(data.Documento);
+                        $('#pru-fechana').html(data.Fecha_Nacimiento);
+                        $('#cita-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cita-dni').html(data.Documento);
+                        $('#cita-fechana').html(data.Fecha_Nacimiento);
+                        $('#btnSaveAnswers').css('display','none');
+                        $('#btnUpdateAnswers').css('display','block');
+                        $('#filter').val("");
+                        $('#btnSavePatient').css('display','none');
+                        $('#btnUpdatePatient').css('display','block');
+                        // let cantQuestion = $('.input-answers').toArray().length;
+                        $('.input-answers').each(function(index){
+                            if(index < data[0]){
+                                $(this).val(data[index+1].Respuesta);
+                                // console.log(data[index+1].Respuesta);
+                            }
+                        });
+
+                        // console.log(Object.keys(data.0).length);
+                        generar_citas_paciente(data.Documento);
+                    } else {
+
+                        Swal.fire({
+                        title: data,
+                        text: "Desea agregarlo ?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si'
+                        }).then((result) => {
+                            if(result.value){
+                                let dni = $('#filter').val();
+                                $('#dni').val(dni);
+                            }else{
+                                $('#filter').val("");
+                            }
+                        })
+                        $('#btnSavePatient').css('display','block');
+                        $('#btnUpdatePatient').css('display','none');
+                        resetear_form();
+                    }
+                });
+                request.fail(function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hubo un error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+                return false;
+            }
 
             
-        
+        });
 
         $('#filter-search').change(function(){
             if($(this).val() === '1'){
                 $('#content-filter').css('display','block');
                 $('#content-select').css('display','none');
+                resetear_form();
+
             }else if($(this).val() === '2'){
                 $('#content-filter').css('display','none');
                 $('#content-select').css('display','block');
+                resetear_form();
+                
             }else{
                 $('#content-filter').css('display','block');
                 $('#content-select').css('display','none');
             }
 
         })
+
+        function resetear_form(){
+            $('#nombre').val("");
+            $('#apellidopa').val("");
+            $('#apellidoma').val("");
+            $('#procedencia').val("");
+            $('#ocupacionac').val("");
+            $('#ocupacionan').val("");
+            $('#dni').val("");
+            $('#correo').val("");
+            $('#celular').val("");
+            $("#genero").prop("selectedIndex",0);
+            $('#fechana').val("");
+            $('#cuest-nombre').html("");
+            $('#cuest-dni').html("");
+            $('#cuest-fechana').html("");
+            $('#pru-nombre').html("");
+            $('#pru-dni').html("");
+            $('#pru-fechana').html("");
+            $('#cita-nombre').html("");
+            $('#cita-dni').html("");
+            $('#cita-fechana').html("");
+            $('.input-answers').val("");
+        }
 
 
         // SELECT2 LIBRERIA

@@ -127,47 +127,28 @@ class consultation extends Controller
     public function searchPatient()
     {
         $documento = $_POST['filter'];
-        $namePaciente = $_POST['single'];
+        $namePaciente = $_POST['namePaciente'];
         
-        if(is_numeric($documento) || is_numeric($namePaciente)){
-            
+        if(is_numeric($documento) && $documento !== null){
             $searchPatient = $this->patientModel->searchDocumentPatient($documento,true);
-            $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
-            if ($result) {
-                $this->session->add('idPaciente', $result['Id_Paciente']);
-                $idPaciente = $this->session->get('idPaciente');
-                // $answers = $this->getAnswers($idPaciente);
-                $answers = $this->questionModel->getAnswers($idPaciente);
-                $cantidad = $answers->rowCount();
-                if($cantidad > 0){
-                    $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
-                    array_push($result,$cantidad);
-                    $result = array_merge($result ,$answers);
-                }
-                $arrayJSON =  json_encode($result);
-            } else {
-                $error = ['No se pudo encontrar ese paciente'];
-                $arrayJSON =  json_encode($error);
-            }
-        }else{
+        }else if(is_string($namePaciente)){
             $searchPatient = $this->patientModel->searchDocumentPatient($namePaciente,false);
-            $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
-            if($result){
-                $this->session->add('idPaciente', $result['Id_Paciente']);
-                $idPaciente = $this->session->get('idPaciente');
-                // $answers = $this->getAnswers($idPaciente);
-                $answers = $this->questionModel->getAnswers($idPaciente);
-                $cantidad = $answers->rowCount();
-                if($cantidad > 0){
-                    $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
-                    array_push($result,$cantidad);
-                    $result = array_merge($result ,$answers);
-                }
-                $arrayJSON =  json_encode($result);
-            } else {
-                $error = ['No se pudo encontrar ese paciente'];
-                $arrayJSON =  json_encode($error);
+        }
+        $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
+        if($result){
+            $this->session->add('idPaciente', $result['Id_Paciente']);
+            $idPaciente = $this->session->get('idPaciente');
+            $answers = $this->questionModel->getAnswers($idPaciente);
+            $cantidad = $answers->rowCount();
+            if($cantidad > 0){
+                $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
+                array_push($result,$cantidad);
+                $result = array_merge($result ,$answers);
             }
+            $arrayJSON =  json_encode($result);
+        } else {
+            $error = ['No se pudo encontrar ese paciente'];
+            $arrayJSON =  json_encode($error);
         }
         print_r($arrayJSON);
     }
