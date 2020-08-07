@@ -25,5 +25,11 @@ class appointmentModel extends Model
         $res = Model::query_execute($query);
         return $res;
     }
+    
+    public function insertar_cita($usersearch, $datecita, $timecita, $admin)
+    {
+        $query = "CALL `insertar_cita`(" . $usersearch . ", '" . $datecita . "', '" . $timecita . "', '" . $admin . "');";
+        Model::query_execute($query);
+    }
 
 }

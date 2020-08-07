@@ -44,6 +44,23 @@ class appointment extends Controller
 		$out = json_encode($DatosDep);
 		echo $out;
   }
+
+  public function load_users_new_cita()
+	{
+		$this->mostrar_users = $this->model->mostrar_paciente($_POST["nom_user"], $this->session->get('admin'));
+
+		$datos = '';
+		$DatosDep_array = [];
+		while ($mostrar_users = $this->mostrar_users->fetch()) {
+			$DatosDep_array[] = array(
+				"id" => $mostrar_users[0],
+				"name" => $mostrar_users[1]
+			);
+		}
+		$DatosDep = array("users" => ($DatosDep_array));
+		$out = json_encode($DatosDep);
+		echo $out;
+  }
   
   public function search()
   {
@@ -51,7 +68,7 @@ class appointment extends Controller
     $filter = $_POST['filter'];
     $lista_citas = $this->model->buscar_citas($search, $filter, $this->session->get('admin'));
 
-    if ($filter == 1) {
+    if ($filter == 1 || $filter == 3) {
       echo '
     
       <thead>
@@ -115,18 +132,21 @@ class appointment extends Controller
           <td>' . $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '</td>
           <td class="text-center">' . $age . ' años</td>
           ';
-          if ($filter == 1) {
+          if ($filter == 1 || $filter == 3) {
             echo '<td class="text-center">' . date("d/m/Y", strtotime($datos_lista_cita['fechacita'])) . '</td>';
           }
           echo'
-          <td class="text-center">' . date("h:i:s A", strtotime($datos_lista_cita['fechacita'])) . '</td>
+          <td class="text-center">' . date("h:i A", strtotime($datos_lista_cita['fechacita'])) . '</td>
           ';
-          if ($datos_lista_cita['estado'] == 0) {
+          if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") >= $datos_lista_cita['fechacita'])) {
             echo '<td class="text-center">
                 <a href="' . FOLDER_PATH . '/consultation/' . $nombre . '" style="background-color: #00e6dc; color: ' . $css . '; white-space: nowrap; padding: 0px 4px;">
                   ' . $estado . '
                 </a>    
               </td>';
+          }
+          if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") < $datos_lista_cita['fechacita'])) {
+            echo '<td class="text-center" style="color: #000;">' . $estado . '</td>';
           }
           if ($datos_lista_cita['estado'] == 1) {
             echo '<td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>';
@@ -152,7 +172,7 @@ class appointment extends Controller
       ';
     }
 
-    if ($filter == 1) {
+    if ($filter == 1 || $filter == 3) {
       echo '
     
       </tbody>
@@ -192,4 +212,17 @@ class appointment extends Controller
 
     
   }
+
+  public function save(){
+    
+    $usersearch = $_POST["usersearch"];
+    $datecita = $_POST["datecita"];
+    $timecita = $_POST["timecita"];
+
+    $timecita = $timecita . ':00';
+
+    $this->model->insertar_cita($usersearch, $datecita, $timecita, $this->session->get('admin'));
+
+  }
+  
 }
