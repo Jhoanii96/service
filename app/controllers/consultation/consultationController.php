@@ -4,6 +4,7 @@ require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/patient/patientModel.php";
 require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
 require ROOT . FOLDER_PATH . "/app/models/consultation/consultationModel.php";
+require ROOT . FOLDER_PATH . "/app/models/settings/settingsModel.php";
 
 
 class consultation extends Controller
@@ -11,6 +12,7 @@ class consultation extends Controller
     protected $session;
     protected $patientModel;
     protected $questionModel;
+    protected $settingsModel;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class consultation extends Controller
         $this->patientModel = new patientModel();
         $this->questionModel = new questionnaireModel();
         $this->model = new consultationModel();
+        $this->settingsModel = new settingsModel();
     }
 
     public function index()
@@ -208,6 +211,15 @@ class consultation extends Controller
         }
     }
 
+    public function getHistoryPred(){
+        $idUser = $this->session->get("idUser");
+    
+        $resultHistory = $this->settingsModel->getHistoryPred($idUser);
+        $result = $resultHistory->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        
+    }
+
     public function citas()
     {
         $dni = $_POST['dni'];
@@ -242,4 +254,10 @@ class consultation extends Controller
             ';
         }
     }
+
+    public function redirect()
+	{
+		$this->session->close();
+		echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
+	}
 }

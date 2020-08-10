@@ -91,10 +91,25 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript:;">
-                        <i class="metismenu-icon pe-7s-config"></i>
+                    <a href="javascript:void(0);">
+                        <i class="metismenu-icon pe-7s-note2"></i>
                         Configuración
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
+
+                    <ul>
+                        <li>
+                            <a href="<?= FOLDER_PATH ?>/settings">
+                                Prueba clinica
+                            </a>
+                        </li>
+                        <!-- <li>
+                                        <a href="elements-utilities.html">
+                                            <i class="metismenu-icon">
+                                            </i>Utilities
+                                        </a>
+                                    </li> -->
+                    </ul>
                 </li>
                 <li>
                     <a href="<?= FOLDER_PATH ?>/help">

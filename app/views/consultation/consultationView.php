@@ -303,7 +303,7 @@
                                                                                 <th scope="col">DNI</th>
                                                                                 <th scope="col">Paciente</th>
                                                                                 <th scope="col">Género</th>
-                                                                                <th scope="col">Fecha Nacimiento</th>
+                                                                                <th scope="col">Edad</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -354,7 +354,7 @@
                                                             <th scope="col">DNI</th>
                                                             <th scope="col">Paciente</th>
                                                             <th scope="col">Género</th>
-                                                            <th scope="col">Fecha Nacimiento</th>
+                                                            <th scope="col">Edad</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -371,12 +371,15 @@
                                                     <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
                                                     <p class="form-control-plaintext">Control de preguntas</p>
                                                 </div>
+                                                <?php 
+                                                    $history = $this->getHistoryPred();
+    
+                                                ?>
                                                 <div class="form-row">
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Anamnesis</label>
-                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;padding-left:40px;">TE:
-SP:</textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" " style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -384,9 +387,7 @@ SP:</textarea>
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Examen Físico</label>
-                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;">OROFARINGE:
-PULMONES:
-OTROS:</textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Examen_Fisico_Pred']:""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -394,8 +395,7 @@ OTROS:</textarea>
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Exámenes</label>
-                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;">PEDIDOS:
-RESULTADOS:</textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Examenes_Pred']:""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -403,7 +403,7 @@ RESULTADOS:</textarea>
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Diagnóstico</label>
-                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;"></textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Diagnostico_Pred']:""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -411,7 +411,7 @@ RESULTADOS:</textarea>
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Tratamiento</label>
-                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;"></textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Tratamiento_Pred']:""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -433,7 +433,7 @@ RESULTADOS:</textarea>
                                                             <th scope="col">DNI</th>
                                                             <th scope="col">Paciente</th>
                                                             <th scope="col">Género</th>
-                                                            <th scope="col">Fecha Nacimiento</th>
+                                                            <th scope="col">Edad</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -492,6 +492,7 @@ RESULTADOS:</textarea>
                                     <div class="divider"></div>
                                     <div class="clearfix">
                                         <!-- <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Resetear</button> -->
+                                        <button type="button" id="save-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-warning">Guardar y Continuar</button>
                                         <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
                                         <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Anterior</button>
                                     </div>
@@ -746,6 +747,7 @@ RESULTADOS:</textarea>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
         let close = document.getElementById("btn-adm_close");
+        let save = document.getElementById("save-btn2");
         if (cons != null) {
             document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
 
@@ -753,6 +755,22 @@ RESULTADOS:</textarea>
                 location.href = "<?= FOLDER_PATH ?>/consultation"
             }
         }
+
+        if(save != null){
+            document.getElementById("save-btn2").addEventListener("click",function(){
+
+                Swal.fire({
+                        icon: 'success',
+                        title: 'Guardando su consulta',
+                        showConfirmButton: false,
+                        timer: 850
+                }).then(function(){
+
+                    location.href = "<?= FOLDER_PATH ?>/my";
+                });
+            });
+        }
+
         if (close != null) {
             document.getElementById("btn-adm_close").addEventListener("click", close_admin);
 
@@ -763,6 +781,21 @@ RESULTADOS:</textarea>
     </script>
 
     <script>
+
+        function calcularEdad(fechana) {
+            console.log(fechana);
+            let dateParts = fechana.split("-");
+            let hoy = new Date();
+            let cumpleanos = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));
+            let edad = hoy.getFullYear() - cumpleanos.getFullYear();
+            let m = hoy.getMonth() - cumpleanos.getMonth();
+
+            if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                edad--;
+            }
+            edad = edad.toString() + " años";
+            return edad;
+        }
 
         function validaNumericos(event) {
             if(event.charCode >= 48 && event.charCode <= 57){
@@ -811,17 +844,18 @@ RESULTADOS:</textarea>
                         }else{
                             data.Genero = 'MASCULINO';
                         }
+                        let edad = calcularEdad(data.Fecha_Nacimiento);
                         $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#cuest-dni').html(data.Documento);
-                        $('#cuest-fechana').html(data.Fecha_Nacimiento);
+                        $('#cuest-fechana').html(edad);
                         $('#cuest-genero').html(data.Genero);
                         $('#pru-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#pru-dni').html(data.Documento);
-                        $('#pru-fechana').html(data.Fecha_Nacimiento);
+                        $('#pru-fechana').html(edad);
                         $('#pru-genero').html(data.Genero);
                         $('#cita-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#cita-dni').html(data.Documento);
-                        $('#cita-fechana').html(data.Fecha_Nacimiento);
+                        $('#cita-fechana').html(edad);
                         $('#cita-genero').html(data.Genero);
                         $('#btnSaveAnswers').css('display','block');
                         $('#btnUpdateAnswers').css('display','none');
@@ -864,24 +898,26 @@ RESULTADOS:</textarea>
                         showConfirmButton: false,
                         timer: 1500
                     });
-
-                    if(data.Genero == 'F'){
-                            data.Genero = 'FEMENINO';
+                    let genero = $('#genero').val();
+                    if(genero == 'F'){
+                            genero = 'FEMENINO';
                         }else{
-                            data.Genero = 'MASCULINO';
+                            genero = 'MASCULINO';
                     }
+                    let fechana = $('#fechana').val();
+                    let edad = calcularEdad(fechana);
                     $('#cuest-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
                     $('#cuest-dni').html($('#dni').val());
-                    $('#cuest-genero').html($('#genero').val());
-                    $('#cuest-fechana').html($('#fechana').val());
+                    $('#cuest-genero').html(genero);
+                    $('#cuest-fechana').html(edad);
                     $('#pru-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
                     $('#pru-dni').html($('#dni').val());
-                    $('#pru-genero').html($('#genero').val());
-                    $('#pru-fechana').html($('#fechana').val());
+                    $('#pru-genero').html(genero);
+                    $('#pru-fechana').html(edad);
                     $('#cita-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
                     $('#cita-dni').html($('#dni').val());
-                    $('#cita-genero').html($('#genero').val());
-                    $('#cita-fechana').html($('#fechana').val());
+                    $('#cita-genero').html(genero);
+                    $('#cita-fechana').html(edad);
 
                 })
                 .fail(function(){
@@ -946,17 +982,19 @@ RESULTADOS:</textarea>
                         }else{
                             data.Genero = 'MASCULINO';
                         }
+                        let edad = calcularEdad(data.Fecha_Nacimiento);
                         $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#cuest-dni').html(data.Documento);
-                        $('#cuest-fechana').html(data.Fecha_Nacimiento);
+                        // console.log(calcularEdad(data.Fecha_Nacimiento));
+                        $('#cuest-fechana').html(edad);
                         $('#cuest-genero').html(data.Genero);
                         $('#pru-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#pru-dni').html(data.Documento);
-                        $('#pru-fechana').html(data.Fecha_Nacimiento);
+                        $('#pru-fechana').html(edad);
                         $('#pru-genero').html(data.Genero);
                         $('#cita-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
                         $('#cita-dni').html(data.Documento);
-                        $('#cita-fechana').html(data.Fecha_Nacimiento);
+                        $('#cita-fechana').html(edad);
                         $('#cita-genero').html(data.Genero);
                         $('#btnSaveAnswers').css('display','none');
                         $('#btnUpdateAnswers').css('display','block');
@@ -1225,15 +1263,16 @@ RESULTADOS:</textarea>
     </script>
     <script>
         $('#prev-btn2').css('display', 'none');
+        $('#save-btn2').css('display', 'none');
 
         $('#prev-btn2').on('click', function() {
             $('#next-btn2').css('display', 'block');
+            $('#save-btn2').css('display', 'none');
             if (detectCSS('#step-2', 'display', 'block')) {
                 $('#prev-btn2').css('display', 'none');
                 // console.log('true');
             } else {
-                // $('#prev-btn2').css('display','block');
-                // console.log('false');
+
             }
         });
 
@@ -1241,6 +1280,7 @@ RESULTADOS:</textarea>
             $('#prev-btn2').css('display', 'block');
             if (detectCSS('#step-3', 'display', 'block')) {
                 $('#next-btn2').css('display', 'none');
+                $('#save-btn2').css('display', 'block');
                 console.log('true');
             }
         });
