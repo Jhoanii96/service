@@ -30,7 +30,18 @@ class consultation extends Controller
 
     public function index()
     {
-        $this->view('consultation/consultation');
+
+        if (isset($_GET['cod_name'])) {
+            $nombre_usuario = utf8_decode(base64_decode($_GET['cod_name']));
+            $id_nombre = explode('|', $nombre_usuario);
+        } else {
+            $id_nombre = [];
+            $id_nombre[0] = 'nothing';
+        }
+
+        $this->view('consultation/consultation', [
+            'nombre_usuario' => $id_nombre 
+        ]);
     }
 
     public function salir()
@@ -159,7 +170,11 @@ class consultation extends Controller
     }
 
     public function showPatients(){
-        $busqueda = $_GET['q'];
+        if (isset($_GET['q'])) {
+            $busqueda = $_GET['q'];
+        }else {
+            $busqueda = '';
+        }
         $patient = $this->patientModel->getAllPatient($busqueda);
         $json = [];
         while($result = $patient->fetch(PDO::FETCH_ASSOC)){
@@ -222,10 +237,10 @@ class consultation extends Controller
 
     public function citas()
     {
-        $dni = $_POST['dni'];
+        $fecha = $_POST['fecha'];
         
         $usu_cod = $this->session->get('admin');
-        $ResultAnswers = $this->model->lista_citas_paciente($dni, $usu_cod);
+        $ResultAnswers = $this->model->lista_citas_paciente($fecha, $usu_cod);
         while ($datos_cita = $ResultAnswers->fetch()) {
 
             $birthDate = explode("-", $datos_cita['fecha_nac']);
@@ -260,4 +275,37 @@ class consultation extends Controller
 		$this->session->close();
 		echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
 	}
+
+    public function consultas()
+    {
+        $paciente = $_POST['paciente'];
+        
+        $usu_cod = $this->session->get('admin');
+        $ResultAnswers = $this->model->lista_historia_clinica($paciente, $usu_cod);
+        while ($datos_consulta = $ResultAnswers->fetch()) {
+
+            $birthDate = explode("-", $datos_consulta['fecha_nacimiento']);
+            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
+                ? ((date("Y") - $birthDate[0]) - 1)
+                : (date("Y") - $birthDate[0]));
+            
+            echo '
+                <tr>
+                    <td>' . $datos_consulta['nombre_paciente'] . '</td>
+                    <td>' . $age . '</td>
+                    <td>' . date("Y-m-d", strtotime($datos_consulta['fecha_consulta'])). '</td>
+                    <td>' . date("H:i", strtotime($datos_consulta['fecha_consulta'])). '</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td class="text-center">
+                        <div role="group" class="btn-group-sm btn-group">
+                            <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
+                            <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
+                            <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            ';
+        }
+    }
 }

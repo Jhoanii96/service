@@ -87,7 +87,7 @@
                                         <div id="step-1" class="tab-pane step-content">
                                             <!-- <h5 class="title" style="margin-bottom: 30px;">MI PERFIL</h5> -->
                                             <!-- <form action="<--?= FOLDER_PATH . '/my/updateProfile' ?>"  method="post" name="form-profile"> -->
-                                            <form method="post" enctype="multipart/form-data" name="frm-profile" id="frm-profile" >
+                                            <form method="post" enctype="multipart/form-data" name="frm-profile" id="frm-profile">
                                                 <div class="form-row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
@@ -105,7 +105,7 @@
                                                         <div class="position-relative form-group">
                                                             <label>Apellido Materno</label>
                                                             <input name="apellidoma" id="apellidoma" type="text" value="<?php echo $profile['Apellido_Materno']; ?>" class="form-control " required>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -133,14 +133,14 @@
                                                         <div class="position-relative form-group">
                                                             <label>DNI</label>
                                                             <input name="dni" id="dni" type="text" value="<?php echo $profile['Documento']; ?>" class="form-control" maxLength="8" required>
-                                                            
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="position-relative form-group">
                                                             <label>Codigo Medico del Peru</label>
                                                             <input name="cmp" id="cmp" type="text" value="<?php echo $profile['CMP']; ?>" class="form-control" maxLength="6" required>
-                                                        
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -535,122 +535,54 @@
                                 <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Fecha consulta</th>
-                                            <th>Nombres</th>
-                                            <th>Apellidos</th>
+                                            <th>Paciente</th>
                                             <th>Edad</th>
+                                            <th>Fecha Consulta</th>
+                                            <th>Hora Consulta</th>
                                             <th>Archivos</th>
                                             <th>Imágenes</th>
                                             <th>Opciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>15</td>
-                                            <td>2011/04/25</td>
-                                            <td>Jhon</td>
-                                            <td>Alvarado Achata</td>
-                                            <td>24 años</td>
-                                            <td>..Archivo..</td>
-                                            <td>..Imágen..</td>
-                                            <td class="text-center">
-                                                <div role="group" class="btn-group-sm btn-group">
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                    <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>15</td>
-                                            <td>2011/04/25</td>
-                                            <td>Jhon</td>
-                                            <td>Alvarado Achata</td>
-                                            <td>24 años</td>
-                                            <td>..Archivo..</td>
-                                            <td>..Imágen..</td>
-                                            <td class="text-center">
-                                                <div role="group" class="btn-group-sm btn-group">
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                    <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>15</td>
-                                            <td>2011/04/25</td>
-                                            <td>Jhon</td>
-                                            <td>Alvarado Achata</td>
-                                            <td>24 años</td>
-                                            <td>..Archivo..</td>
-                                            <td>..Imágen..</td>
-                                            <td class="text-center">
-                                                <div role="group" class="btn-group-sm btn-group">
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                    <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>15</td>
-                                            <td>2011/04/25</td>
-                                            <td>Jhon</td>
-                                            <td>Alvarado Achata</td>
-                                            <td>24 años</td>
-                                            <td>..Archivo..</td>
-                                            <td>..Imágen..</td>
-                                            <td class="text-center">
-                                                <div role="group" class="btn-group-sm btn-group">
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                    <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>15</td>
-                                            <td>2011/04/25</td>
-                                            <td>Jhon</td>
-                                            <td>Alvarado Achata</td>
-                                            <td>24 años</td>
-                                            <td>..Archivo..</td>
-                                            <td>..Imágen..</td>
-                                            <td class="text-center">
-                                                <div role="group" class="btn-group-sm btn-group">
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                    <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>15</td>
-                                            <td>2011/04/25</td>
-                                            <td>Jhon</td>
-                                            <td>Alvarado Achata</td>
-                                            <td>24 años</td>
-                                            <td>..Archivo..</td>
-                                            <td>..Imágen..</td>
-                                            <td class="text-center">
-                                                <div role="group" class="btn-group-sm btn-group">
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                    <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                    <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php
+
+                                        while ($datos_historial = $data['Result']->fetch()) {
+
+                                            $birthDate = explode("-", $datos_historial['fecha_nacimiento']);
+                                            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
+                                                ? ((date("Y") - $birthDate[0]) - 1)
+                                                : (date("Y") - $birthDate[0]));
+
+                                        ?>
+                                            <tr>
+                                                <td><?= $datos_historial['nombre_paciente'] ?></td>
+                                                <td><?= $age ?></td>
+                                                <td><?= date("Y-m-d", strtotime($datos_historial['fecha_consulta'])) ?></td>
+                                                <td><?= date("H:i", strtotime($datos_historial['fecha_consulta'])) ?></td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td class="text-center">
+                                                    <div role="group" class="btn-group-sm btn-group">
+                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
+                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
+                                                        <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php
+
+                                        }
+
+                                        ?>
 
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Fecha consulta</th>
-                                            <th>Nombres</th>
-                                            <th>Apellidos</th>
+                                            <th>Paciente</th>
                                             <th>Edad</th>
+                                            <th>Fecha Consulta</th>
+                                            <th>Hora Consulta</th>
                                             <th>Archivos</th>
                                             <th>Imágenes</th>
                                             <th>Opciones</th>
@@ -806,6 +738,6 @@
             });
         }
     </script>
-    </body>
+</body>
 
 </html>

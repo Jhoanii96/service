@@ -4,6 +4,7 @@ require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/perfil/perfilModel.php";
 require ROOT . FOLDER_PATH . "/app/models/tipado/tipadoModel.php";
 require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
+require ROOT . FOLDER_PATH . "/app/models/my/myModel.php";
 
 class my extends Controller
 {
@@ -23,11 +24,16 @@ class my extends Controller
         $this->perfilModel = new perfilModel();
         $this->tipadoModel = new tipadoModel();
         $this->questionnaireModel = new questionnaireModel();
+        $this->model = new myModel();
     }
 
     public function index()
     {
-        $this->view('my/my');
+        $usu_cod = $this->session->get('admin');
+        $Result = $this->model->lista_historia_clinica($usu_cod);
+        $this->view('my/my', [
+            'Result' => $Result
+        ]);
     }
 
 
