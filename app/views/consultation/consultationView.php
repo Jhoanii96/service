@@ -54,7 +54,7 @@
         }
     </style>
 
-<style>
+    <style>
         .select_users {
             font-family: Arial, Helvetica, sans-serif;
             flex: 1 1 auto;
@@ -174,24 +174,38 @@
                                                     <div class="form-row">
                                                         <div class="col-md-2">
                                                             <div class="position-relative input-group">
-                                                                <select type="select" id="filter-search" name="filter-search" class="custom-select" >
+                                                                <select type="select" id="filter-search" name="filter-search" class="custom-select">
                                                                     <option value="0">Seleccionar</option>
                                                                     <option value="1">DNI</option>
-                                                                    <option value="2" selected>Paciente</option>
+                                                                    <?php
+                                                                    if ($data['nombre_usuario'][0] != "nothing") {
+                                                                        echo '<option value="2" selected>Paciente</option>';
+                                                                    } else {
+                                                                        echo '<option value="2" selected>Paciente</option>';
+                                                                    }
+                                                                    ?>
+
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5" style="display:none" id="content-filter">
-                                                            <div class="position-relative form-group" >
+                                                            <div class="position-relative form-group">
                                                                 <input name="filter" id="filter" type="text" placeholder="Ingrese su dni" class="form-control" maxlength="8" minlength="7" onkeypress="return validaNumericos(event)">
                                                             </div>
 
                                                         </div>
                                                         <div class="col-md-5" id="content-select">
                                                             <!-- <div class="position-relative form-group"  id="content-select" style="display:none"> -->
-                                                                <select  id="single" class="js-states custom-select" name="single">
-                                                                    
-                                                                </select>
+                                                            <select id="single" class="js-states custom-select" name="single">
+                                                                <?php
+                                                                if (!isset($data['nombre_usuario'][1])) {
+                                                                    $data['nombre_usuario'][1] = '';
+                                                                }
+                                                                if ($data['nombre_usuario'][0] != "nothing") {
+                                                                    echo ('<option value="' . $data['nombre_usuario'][1] . '" selected="selected">' . $data['nombre_usuario'][0] . '</option>');
+                                                                }
+                                                                ?>
+                                                            </select>
                                                             <!-- </div> -->
                                                         </div>
                                                         <div class="col-md-2">
@@ -215,7 +229,7 @@
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Género</label>
                                                                 <select type="select" id="genero" name="genero" class="custom-select" required>
-                                                                    <option >Seleccionar</option>
+                                                                    <option>Seleccionar</option>
                                                                     <option value="F">Femenino</option>
                                                                     <option value="M">Másculino</option>
                                                                     <option value="3">Otros</option>
@@ -259,7 +273,7 @@
                                                         <div class="col-md-4">
                                                             <div class="position-relative form-group">
                                                                 <label for="correo">Correo Electrónico</label>
-                                                                <input name="correo" id="correo" type="email" class="form-control"  pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+                                                                <input name="correo" id="correo" type="email" class="form-control" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -286,7 +300,7 @@
                                                     <div class="form-row">
                                                         <div class="col-md-6">
                                                             <button class="btn btn-warning submitPatient" id="btnSavePatient">Guardar paciente</button>
-                                                            <button class="btn btn-warning submitPatient" id="btnUpdatePatient" style="display:none" >Actualizar Paciente</button>
+                                                            <button class="btn btn-warning submitPatient" id="btnUpdatePatient" style="display:none">Actualizar Paciente</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -296,7 +310,7 @@
                                                     <div class="card">
                                                         <div>
                                                             <div class="card-body">
-                                                                <form id="frm-answers-patient" >
+                                                                <form id="frm-answers-patient">
                                                                     <table class="table">
                                                                         <thead class="thead-dark">
                                                                             <tr>
@@ -331,14 +345,14 @@
                                                                             echo        "<input type='hidden' name='detalle[]' value='" . $row['Id_Detalle'] . "' class='input-detalle'>";
                                                                             echo        "<input name='answers[]' type='text' id='answwer-$key' class='form-control input-answers' required>";
                                                                             echo    "</div>";
-                                                                             echo "</div>";
+                                                                            echo "</div>";
                                                                         }
                                                                         ?>
                                                                     </div>
                                                                     <div class="form-row">
                                                                         <div class="col-md-12">
                                                                             <button class="btn btn-info submitAnswers" id="btnSaveAnswers" type="submit">Guardar Respuestas</button>
-                                                                            <button class="btn btn-warning submitAnswers" id="btnUpdateAnswers" style="display:none" >Actualizar Respuestas</button>
+                                                                            <button class="btn btn-warning submitAnswers" id="btnUpdateAnswers" style="display:none">Actualizar Respuestas</button>
                                                                         </div>
                                                                     </div>
                                                                 </form>
@@ -503,44 +517,28 @@ RESULTADOS:</textarea>
 
                     <div class="main-card mb-3 card">
                         <div class="card-body">
-                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                            <h5 class="card-title">Historial clínico</h5>
+                            <table style="width: 100%;" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Fecha consulta</th>
-                                        <th>Nombres</th>
-                                        <th>Apellidos</th>
+                                        <th>Paciente</th>
                                         <th>Edad</th>
+                                        <th>Fecha Consulta</th>
+                                        <th>Hora Consulta</th>
                                         <th>Archivos</th>
                                         <th>Imágenes</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>2011/04/25</td>
-                                        <td>Jhon</td>
-                                        <td>Alvarado Achata</td>
-                                        <td>24 años</td>
-                                        <td>..Archivo..</td>
-                                        <td>..Imágen..</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="list_historial">
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Fecha consulta</th>
-                                        <th>Nombres</th>
-                                        <th>Apellidos</th>
+                                        <th>Paciente</th>
                                         <th>Edad</th>
+                                        <th>Fecha Consulta</th>
+                                        <th>Hora Consulta</th>
                                         <th>Archivos</th>
                                         <th>Imágenes</th>
                                         <th>Opciones</th>
@@ -743,6 +741,24 @@ RESULTADOS:</textarea>
             hourFormat: "24"
         });
     </script>
+
+    <?php
+    if ($data['nombre_usuario'][0] != "nothing") {
+        echo '
+        <script>
+            $(document).ready(function() {
+                $("#select2-single-container").html("' . $data['nombre_usuario'][0] . '");
+                var delayInMilliseconds = 1000;
+                setTimeout(function() {
+                    $("#btnSearchPatient").trigger("click");
+                }, delayInMilliseconds);
+            });
+        </script>
+        ';
+    }
+    ?>
+
+
     <script>
         let cons = document.getElementById("btn-adm_consulta");
         let close = document.getElementById("btn-adm_close");
@@ -763,12 +779,11 @@ RESULTADOS:</textarea>
     </script>
 
     <script>
-
         function validaNumericos(event) {
-            if(event.charCode >= 48 && event.charCode <= 57){
-            return true;
+            if (event.charCode >= 48 && event.charCode <= 57) {
+                return true;
             }
-            return false;        
+            return false;
         }
 
         function mayus(e) {
@@ -776,7 +791,7 @@ RESULTADOS:</textarea>
         }
 
 
-        $('.submitPatient').click(function(){
+        $('.submitPatient').click(function() {
             buttonPressed = $(this).attr('id');
             // console.log(buttonPressed);
         });
@@ -784,11 +799,11 @@ RESULTADOS:</textarea>
         $('#frm-patient').submit(function(e) {
             e.preventDefault();
 
-            
-            if(buttonPressed === 'btnSavePatient'){
+
+            if (buttonPressed === 'btnSavePatient') {
                 // console.log('savePatient');
                 let datos = $('#frm-patient').serialize();
-                
+
                 let request = $.ajax({
                     type: "post",
                     dataType: 'JSON',
@@ -796,46 +811,46 @@ RESULTADOS:</textarea>
                     data: datos
                 });
                 request.done(function(data) {
-                   
+
                     if (Object.keys(data).length > 1) {
                         // alert('Se insertó correctamente');
                         Swal.fire({
-                        icon: 'success',
-                        title: 'El paciente fue agregado',
-                        showConfirmButton: false,
-                        timer: 1500
+                            icon: 'success',
+                            title: 'El paciente fue agregado',
+                            showConfirmButton: false,
+                            timer: 1500
                         })
 
-                        if(data.Genero == 'F'){
+                        if (data.Genero == 'F') {
                             data.Genero = 'FEMENINO';
-                        }else{
+                        } else {
                             data.Genero = 'MASCULINO';
                         }
-                        $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cuest-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#cuest-dni').html(data.Documento);
                         $('#cuest-fechana').html(data.Fecha_Nacimiento);
                         $('#cuest-genero').html(data.Genero);
-                        $('#pru-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#pru-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#pru-dni').html(data.Documento);
                         $('#pru-fechana').html(data.Fecha_Nacimiento);
                         $('#pru-genero').html(data.Genero);
-                        $('#cita-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cita-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#cita-dni').html(data.Documento);
                         $('#cita-fechana').html(data.Fecha_Nacimiento);
                         $('#cita-genero').html(data.Genero);
-                        $('#btnSaveAnswers').css('display','block');
-                        $('#btnUpdateAnswers').css('display','none');
-                        $('#btnUpdatePatient').css('display','block');
-                        $('#btnSavePatient').css('display','none');
+                        $('#btnSaveAnswers').css('display', 'block');
+                        $('#btnUpdateAnswers').css('display', 'none');
+                        $('#btnUpdatePatient').css('display', 'block');
+                        $('#btnSavePatient').css('display', 'none');
                         $('.input-answers').val('');
-                        
+
                     } else {
                         // alert(data);
                         Swal.fire({
-                        icon: 'error',
-                        title: data,
-                        showConfirmButton: false,
-                        timer: 1500
+                            icon: 'error',
+                            title: data,
+                            showConfirmButton: false,
+                            timer: 1500
                         });
                     }
                 });
@@ -845,53 +860,53 @@ RESULTADOS:</textarea>
                         title: 'Hubo un error',
                         showConfirmButton: false,
                         timer: 1500
-                        });
+                    });
                 });
 
-            }else if(buttonPressed = 'btnUpdatePatient'){
+            } else if (buttonPressed = 'btnUpdatePatient') {
                 // console.log('UpdatePatient');
 
                 let datos = $('#frm-patient').serialize();
                 $.ajax({
-                    type:"post",
-                    url:"<?php echo FOLDER_PATH ?>/consultation/updatePatient",
-                    data:datos
-                })
-                .done(function(response){
-                    Swal.fire({
-                        icon: 'success',
-                        title: response,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                        type: "post",
+                        url: "<?php echo FOLDER_PATH ?>/consultation/updatePatient",
+                        data: datos
+                    })
+                    .done(function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
 
-                    if(data.Genero == 'F'){
+                        if (data.Genero == 'F') {
                             data.Genero = 'FEMENINO';
-                        }else{
+                        } else {
                             data.Genero = 'MASCULINO';
-                    }
-                    $('#cuest-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
-                    $('#cuest-dni').html($('#dni').val());
-                    $('#cuest-genero').html($('#genero').val());
-                    $('#cuest-fechana').html($('#fechana').val());
-                    $('#pru-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
-                    $('#pru-dni').html($('#dni').val());
-                    $('#pru-genero').html($('#genero').val());
-                    $('#pru-fechana').html($('#fechana').val());
-                    $('#cita-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
-                    $('#cita-dni').html($('#dni').val());
-                    $('#cita-genero').html($('#genero').val());
-                    $('#cita-fechana').html($('#fechana').val());
+                        }
+                        $('#cuest-nombre').html($('#nombre').val() + " " + $('#apellidopa').val() + " " + $('#apellidoma').val());
+                        $('#cuest-dni').html($('#dni').val());
+                        $('#cuest-genero').html($('#genero').val());
+                        $('#cuest-fechana').html($('#fechana').val());
+                        $('#pru-nombre').html($('#nombre').val() + " " + $('#apellidopa').val() + " " + $('#apellidoma').val());
+                        $('#pru-dni').html($('#dni').val());
+                        $('#pru-genero').html($('#genero').val());
+                        $('#pru-fechana').html($('#fechana').val());
+                        $('#cita-nombre').html($('#nombre').val() + " " + $('#apellidopa').val() + " " + $('#apellidoma').val());
+                        $('#cita-dni').html($('#dni').val());
+                        $('#cita-genero').html($('#genero').val());
+                        $('#cita-fechana').html($('#fechana').val());
 
-                })
-                .fail(function(){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                })
+                    })
+                    .fail(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hubo un error',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
             }
         });
 
@@ -901,7 +916,7 @@ RESULTADOS:</textarea>
             let search = $('#filter-search').val();
             let valuePaciente = $('select[name="single"] option:selected').val();
             let arrayPaciente = new Array();
-            if(documento === "" &&  (search === '1' || search === '0')){
+            if (documento === "" && (search === '1' || search === '0')) {
                 console.log('ingrese dni')
                 Swal.fire({
                     icon: 'error',
@@ -909,7 +924,7 @@ RESULTADOS:</textarea>
                     showConfirmButton: false,
                     timer: 1500
                 });
-            }else if(select === "" && search === '2'){
+            } else if (select === "" && search === '2') {
                 console.log('ingrese paciente')
                 Swal.fire({
                     icon: 'error',
@@ -917,14 +932,17 @@ RESULTADOS:</textarea>
                     showConfirmButton: false,
                     timer: 1500
                 });
-            }else{
+            } else {
                 arrayPaciente.push(select);
                 arrayPaciente.push(valuePaciente);
                 let request = $.ajax({
-                data: {namePaciente:arrayPaciente , filter:documento },
-                type: "post",
-                dataType: 'JSON',
-                url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient"
+                    data: {
+                        namePaciente: arrayPaciente,
+                        filter: documento
+                    },
+                    type: "post",
+                    dataType: 'JSON',
+                    url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient"
                 });
                 request.done(function(data) {
                     // console.log(Object.keys(data).length);
@@ -941,58 +959,59 @@ RESULTADOS:</textarea>
                         $("#genero option[value=" + data.Genero + "]").attr("selected", true);
                         $('#fechana').val(data.Fecha_Nacimiento);
                         // $('#btnSavePatient').attr("disabled", true);
-                        if(data.Genero == 'F'){
+                        if (data.Genero == 'F') {
                             data.Genero = 'FEMENINO';
-                        }else{
+                        } else {
                             data.Genero = 'MASCULINO';
                         }
-                        $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cuest-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#cuest-dni').html(data.Documento);
                         $('#cuest-fechana').html(data.Fecha_Nacimiento);
                         $('#cuest-genero').html(data.Genero);
-                        $('#pru-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#pru-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#pru-dni').html(data.Documento);
                         $('#pru-fechana').html(data.Fecha_Nacimiento);
                         $('#pru-genero').html(data.Genero);
-                        $('#cita-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cita-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#cita-dni').html(data.Documento);
                         $('#cita-fechana').html(data.Fecha_Nacimiento);
                         $('#cita-genero').html(data.Genero);
-                        $('#btnSaveAnswers').css('display','none');
-                        $('#btnUpdateAnswers').css('display','block');
+                        $('#btnSaveAnswers').css('display', 'none');
+                        $('#btnUpdateAnswers').css('display', 'block');
                         $('#filter').val("");
-                        $('#btnSavePatient').css('display','none');
-                        $('#btnUpdatePatient').css('display','block');
+                        $('#btnSavePatient').css('display', 'none');
+                        $('#btnUpdatePatient').css('display', 'block');
                         // let cantQuestion = $('.input-answers').toArray().length;
-                        $('.input-answers').each(function(index){
-                            if(index < data[0]){
-                                $(this).val(data[index+1].Respuesta);
+                        $('.input-answers').each(function(index) {
+                            if (index < data[0]) {
+                                $(this).val(data[index + 1].Respuesta);
                                 // console.log(data[index+1].Respuesta);
                             }
                         });
 
                         // console.log(Object.keys(data.0).length);
-                        generar_citas_paciente(data.Documento);
+                        generar_citas_paciente('');
+                        generar_historial(valuePaciente);
                     } else {
 
                         Swal.fire({
-                        title: data,
-                        text: "Desea agregarlo ?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si'
+                            title: data,
+                            text: "Desea agregarlo ?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Si'
                         }).then((result) => {
-                            if(result.value){
+                            if (result.value) {
                                 let dni = $('#filter').val();
                                 $('#dni').val(dni);
-                            }else{
+                            } else {
                                 $('#filter').val("");
                             }
                         })
-                        $('#btnSavePatient').css('display','block');
-                        $('#btnUpdatePatient').css('display','none');
+                        $('#btnSavePatient').css('display', 'block');
+                        $('#btnUpdatePatient').css('display', 'none');
                         resetear_form();
                     }
                 });
@@ -1007,28 +1026,28 @@ RESULTADOS:</textarea>
                 return false;
             }
 
-            
+
         });
 
-        $('#filter-search').change(function(){
-            if($(this).val() === '1'){
-                $('#content-filter').css('display','block');
-                $('#content-select').css('display','none');
+        $('#filter-search').change(function() {
+            if ($(this).val() === '1') {
+                $('#content-filter').css('display', 'block');
+                $('#content-select').css('display', 'none');
                 resetear_form();
 
-            }else if($(this).val() === '2'){
-                $('#content-filter').css('display','none');
-                $('#content-select').css('display','block');
+            } else if ($(this).val() === '2') {
+                $('#content-filter').css('display', 'none');
+                $('#content-select').css('display', 'block');
                 resetear_form();
-                
-            }else{
-                $('#content-filter').css('display','block');
-                $('#content-select').css('display','none');
+
+            } else {
+                $('#content-filter').css('display', 'block');
+                $('#content-select').css('display', 'none');
             }
 
         })
 
-        function resetear_form(){
+        function resetear_form() {
             $('#nombre').val("");
             $('#apellidopa').val("");
             $('#apellidoma').val("");
@@ -1038,7 +1057,7 @@ RESULTADOS:</textarea>
             $('#dni').val("");
             $('#correo').val("");
             $('#celular').val("");
-            $("#genero").prop("selectedIndex",0);
+            $("#genero").prop("selectedIndex", 0);
             $('#fechana').val("");
             $('#cuest-nombre').html("");
             $('#cuest-dni').html("");
@@ -1050,7 +1069,7 @@ RESULTADOS:</textarea>
             $('#pru-fechana').html("");
             $('#cita-nombre').html("");
             $('#cita-dni').html("");
-            $('#cita-genero').html(""); 
+            $('#cita-genero').html("");
             $('#cita-fechana').html("");
             $('.input-answers').val("");
         }
@@ -1059,12 +1078,12 @@ RESULTADOS:</textarea>
         // SELECT2 LIBRERIA
         $("#single").select2({
             placeholder: 'Ingrese el paciente',
-            theme : 'bootstrap4',
+            theme: 'bootstrap4',
             ajax: {
                 url: '<?php echo FOLDER_PATH ?>/consultation/showPatients',
                 dataType: 'json',
                 delay: 250,
-                processResults: function (data) {
+                processResults: function(data) {
                     console.log(data);
                     return {
                         results: data
@@ -1096,9 +1115,9 @@ RESULTADOS:</textarea>
         //     return patient.text;
         // }
 
-        function generar_citas_paciente(dni) {
+        function generar_citas_paciente(fecha) {
             var data = new FormData();
-            data.append("dni", dni);
+            data.append("fecha", fecha);
             $.ajax({
                 url: "<?= FOLDER_PATH ?>/consultation/citas",
                 type: "POST",
@@ -1111,9 +1130,24 @@ RESULTADOS:</textarea>
             })
         }
 
+        function generar_historial(paciente) {
+            var data = new FormData();
+            data.append("paciente", paciente);
+            $.ajax({
+                url: "<?= FOLDER_PATH ?>/consultation/consultas",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    $('#list_historial').html(resp);
+                }
+            })
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('input[type=text]').forEach( node => node.addEventListener('keypress', e => {
-                if(e.keyCode == 13) {
+            document.querySelectorAll('input[type=text]').forEach(node => node.addEventListener('keypress', e => {
+                if (e.keyCode == 13) {
                     e.preventDefault();
                 }
             }))
@@ -1122,18 +1156,18 @@ RESULTADOS:</textarea>
         let buttonPressed;
 
 
-        $('.submitAnswers').on('click',function(e){
-            
+        $('.submitAnswers').on('click', function(e) {
+
             buttonPressed = $(this).attr('id');
             console.log(buttonPressed);
         });
-        
+
         $('#frm-answers-patient').submit(function(e) {
             e.preventDefault();
-            
-            if($('#cuest-nombre').html() !== "" ){                
-                if(buttonPressed === 'btnSaveAnswers'){
-                    
+
+            if ($('#cuest-nombre').html() !== "") {
+                if (buttonPressed === 'btnSaveAnswers') {
+
                     let answersArray = new Array();
                     let detalleArray = new Array();
 
@@ -1152,28 +1186,28 @@ RESULTADOS:</textarea>
                                 detalle: detalleArray,
                                 answers: answersArray
                             }
-                    })
-                    .done(function(response) {
-                        console.log(response);
-                        Swal.fire({
-                            icon: 'success',
-                            title: response,
-                            showConfirmButton: false,
-                            timer: 1500
                         })
-                        $('#btnUpdateAnswers').css('display','block');
-                        $('#btnSaveAnswers').css('display','none');
-                    })
-                    .fail(function() {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Ocurrió un problema',
-                            showConfirmButton: false,
-                            timer: 1500
+                        .done(function(response) {
+                            console.log(response);
+                            Swal.fire({
+                                icon: 'success',
+                                title: response,
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            $('#btnUpdateAnswers').css('display', 'block');
+                            $('#btnSaveAnswers').css('display', 'none');
                         })
-                    });
-                }else if(buttonPressed === 'btnUpdateAnswers'){
-                
+                        .fail(function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ocurrió un problema',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        });
+                } else if (buttonPressed === 'btnUpdateAnswers') {
+
                     let answersArray = new Array();
                     let detalleArray = new Array();
 
@@ -1192,36 +1226,35 @@ RESULTADOS:</textarea>
                                 detalle: detalleArray,
                                 answers: answersArray
                             }
-                    })
-                    .done(function(response) {
-                        console.log(response);
-                        Swal.fire({
-                            icon: 'success',
-                            title: response,
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                        })
+                        .done(function(response) {
+                            console.log(response);
+                            Swal.fire({
+                                icon: 'success',
+                                title: response,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
 
-                    })
-                    .fail(function() {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Ocurrió un problema',
-                            showConfirmButton: false,
-                            timer: 1500
+                        })
+                        .fail(function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ocurrió un problema',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
                         });
-                    });
                 }
-            }else{
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Por favor busque o agregue un paciente',
-                            showConfirmButton: false,
-                            timer: 1500
-                    });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Por favor busque o agregue un paciente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
         });
-
     </script>
     <script>
         $('#prev-btn2').css('display', 'none');

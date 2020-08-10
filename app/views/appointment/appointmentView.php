@@ -171,7 +171,7 @@
                                             ? ((date("Y") - $birthDate[0]) - 1)
                                             : (date("Y") - $birthDate[0]));
 
-                                        $nombre = $datos_cita['nombre'] . ' ' . $datos_cita['apepa'] . ' ' . $datos_cita['apema'];
+                                        $nombre = $datos_cita['nombre'] . ' ' . $datos_cita['apepa'] . ' ' . $datos_cita['apema'] . '|' . $datos_cita['id_paciente'];
                                         $nombre = base64_encode(utf8_encode($nombre));
 
                                     ?>
@@ -183,7 +183,7 @@
                                             if ($datos_cita['estado'] == 0 && (date("Y-m-d H:i:s") >= $datos_cita['fechacita'])) {
                                             ?>
                                                 <td class="text-center">
-                                                    <a href="<?php echo (FOLDER_PATH . '/consultation/' . $nombre); ?>" target="_blank" style="background-color: #00e6dc;color: <?= $css ?>;white-space: nowrap; padding: 0px 4px;">
+                                                    <a href="<?php echo (FOLDER_PATH . '/consultation?cod_name=' . $nombre); ?>" target="_blank" style="background-color: #00e6dc;color: <?= $css ?>;white-space: nowrap; padding: 0px 4px;">
                                                         <?= $estado ?>
                                                     </a>
                                                 </td>

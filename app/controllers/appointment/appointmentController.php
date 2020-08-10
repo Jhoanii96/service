@@ -123,8 +123,8 @@ class appointment extends Controller
         /* <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td> */
       }
 
-      $nombre = $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'];
-			$nombre = base64_encode(utf8_encode($nombre));
+      $nombre = $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '|' . $datos_lista_cita['id_paciente'];
+      $nombre = base64_encode(utf8_encode($nombre));
 
       echo '
       
@@ -140,7 +140,7 @@ class appointment extends Controller
           ';
           if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") >= $datos_lista_cita['fechacita'])) {
             echo '<td class="text-center">
-                <a href="' . FOLDER_PATH . '/consultation/' . $nombre . '" style="background-color: #00e6dc; color: ' . $css . '; white-space: nowrap; padding: 0px 4px;">
+                <a href="' . FOLDER_PATH . '/consultation?cod_name=' . $nombre . '" target="_blank" style="background-color: #00e6dc; color: ' . $css . '; white-space: nowrap; padding: 0px 4px;">
                   ' . $estado . '
                 </a>    
               </td>';
