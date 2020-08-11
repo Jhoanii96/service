@@ -61,9 +61,13 @@
                         $history = $this->getHistoryPred();
                        
                       ?>
-                      <div class="card">
-                        <div class="card-body">
-                          <span>saluuute</span>
+                      <div class="col-md-12">
+                        <div class="card border-info" style="max-width:18rem;margin:auto;">
+                            <!-- <div class="card-header ">Nota :</div> -->
+                            <div class="card-body text-info">
+                                <h5 class="card-title">Nota :</h5>
+                                <p class="card-text">Solo puede crear un cuestionario</p>
+                            </div>
                         </div>
                       </div>
                       <form id="frm-settings-prueba">
