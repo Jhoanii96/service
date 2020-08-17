@@ -144,7 +144,7 @@
                                     </div>
                                     <div class="input-group pb-4" style="margin-left: auto;">
                                         <div class="position-relative input-group">
-                                            <button class="btn-icon btn-pill btn btn-info mr-1" data-toggle="modal" data-target="#exampleModal1">Añadir paciente</button>
+                                            <button id="op-paciente" class="btn-icon btn-pill btn btn-info mr-1" data-toggle="modal" data-target="#exampleModal1">Añadir paciente</button>
                                             <button class="btn-icon btn-pill btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
                                         </div>
                                     </div>
@@ -268,10 +268,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-0">Busque el usuario, la fecha y la hora en que realizará la cita</p>
+                    <p class="mb-0">Busque el usuario, la fecha y la hora en que realizará la cita, si el paciente no existe haga <span id="to-paciente" style="cursor: pointer;text-decoration: underline;color: #000eb9;">click</span> aquí para añadir un nuevo paciente.</p>
                     <br>
                     <label class="mr-2 mt-auto mb-auto">Buscar paciente</label>
-                    <select id="user-search2" class="select_users mr-0" placeholder="Escriba el paciente..."></select>
+                    <select id="user-search2" class="select_users mr-0" placeholder="Escriba el paciente...">
+                    </select>
                     <label class="mr-2 mt-auto mb-auto">Fecha</label>
                     <input type="date" name="date2" id="date2" class="mr-2 form-control" value="<?= date("Y-m-d"); ?>">
                     <label class="mr-2 mt-auto mb-auto">Hora</label>
@@ -300,13 +301,13 @@
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="dni">DNI</label>
-                                <input name="dni" id="dni" type="text" class="form-control" required>
+                                <input name="dni" id="dni" type="text" class="form-control" maxlength="8" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="nombre">Nombres</label>
-                                <input name="nombre" id="nombre" type="text" class="form-control" style="text-transform: uppercase;" required>
+                                <input name="nombre" id="nombre" type="text" class="form-control" maxlength="50" style="text-transform: uppercase;" required>
                             </div>
                         </div>
                     </div>
@@ -314,13 +315,13 @@
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="apellidopa">Apellido Paterno</label>
-                                <input name="apellidopa" id="apellidopa" type="text" class="form-control" style="text-transform: uppercase;" required>
+                                <input name="apellidopa" id="apellidopa" type="text" class="form-control" maxlength="30" style="text-transform: uppercase;" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="apellidoma">Apellido Materno</label>
-                                <input name="apellidoma" id="apellidoma" type="text" class="form-control" style="text-transform: uppercase;" required>
+                                <input name="apellidoma" id="apellidoma" type="text" class="form-control" maxlength="30" style="text-transform: uppercase;" required>
                             </div>
                         </div>
                     </div>
@@ -539,6 +540,14 @@
         });
     </script>
     <script>
+        function validaNumericos(event) {
+            if (event.charCode >= 48 && event.charCode <= 57) {
+                return true;
+            }
+            return false;
+        }
+    </script>
+    <script>
         $('#save-cita').click(function() {
             var usersearch = $("#user-search2").children("option:selected").val();
             var datecita = $("#date2").val();
@@ -580,10 +589,19 @@
                     $("#save-cita").html('Agregar cita');
                     $("#save-cita").attr("disabled", false);
 
-                    /* var filter = document.getElementById("filter").value; */
+                    $("#date2").val("");
+                    $("#endTime").val("");
+                    $("#user-search2")[0].selectize.clear();
+
                     search(3);
                 }
             })
+        });
+    </script>
+    <script>
+        $('#to-paciente').click(function() {
+            $("#close-cita").trigger('click');
+            $("#op-paciente").trigger('click');
         });
     </script>
     <script>
@@ -636,18 +654,12 @@
                 swal("Atención!", "Debe ingresar la fecha de nacimiento del paciente.", "warning");
                 return;
             }
-            
-            if (correo == "" || correo == null) {
-                swal("Atención!", "Debe ingresar un correo electrónico.", "warning");
-                return;
-            }
-            if (!validateEmail(correo)) {
-                swal("Atención!", "Debe ingresar un correo electrónico válido", "warning");
-                return;
-            }
-            if (procedencia == "" || procedencia == null) {
-                swal("Atención!", "Debe definir una fecha.", "warning");
-                return;
+
+            if (correo != "") {
+                if (!validateEmail(correo)) {
+                    swal("Atención!", "Debe ingresar un correo electrónico válido", "warning");
+                    return;
+                }
             }
 
             var data = new FormData();
@@ -667,7 +679,7 @@
                     var text = btnsav.getAttribute('data-name-text');
                     $("#save-paciente").html('');
                     $("#save-paciente").append(text + '&ThinSpace;&ThinSpace;<span id="spinner-sv" class="fa fa-spinner fa-spin"></span>');
-                    $("#save-cita").attr("disabled", true);
+                    $("#save-paciente").attr("disabled", true);
                 },
                 url: "<?= FOLDER_PATH ?>/appointment/save_paciente",
                 type: "POST",
@@ -675,13 +687,21 @@
                 contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
                 processData: false, // NEEDED, DON'T OMIT THIS
                 success: function(resp) {
-                    $("#close-cita").trigger('click');
+                    $("#close-paciente").trigger('click');
                     $("#spinner-sv").remove();
                     $("#save-paciente").html('Agregar paciente');
                     $("#save-paciente").attr("disabled", false);
 
+                    $("#dni").val("");
+                    $("#nombre").val("");
+                    $("#apellidopa").val("");
+                    $("#apellidoma").val("");
+                    $("#genero").val(0);
+                    $("#celular").val("");
+                    $("#fechana").val("");
+                    $("#correo").val("");
+                    $("#procedencia").val("");
                     /* var filter = document.getElementById("filter").value; */
-                    search(3);
                 }
             })
         });

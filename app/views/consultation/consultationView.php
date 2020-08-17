@@ -497,6 +497,17 @@
                                                         <div id="spsearch"></div>
                                                     </div>
                                                 </div>
+                                                <div class="form-inline">
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleCustomSelect" class="mr-2">Hora</label>
+                                                        <input class="form-control input-mask-trigger" id="endTime">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <button id="add-apptmt" class="mr-2 btn-icon btn-pill btn btn-success">Agregar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
 
                                                 <div class="card-body">
@@ -582,6 +593,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
+        var g_paciente = "", g_edad = "", count_insert_cita = 0;
+    </script>
+    <script>
         /* document.getElementById("photoInputFilePhoto").onchange = function() {
             document.getElementById("uploadFile").value = this.files[0].name;
         }; */
@@ -604,11 +618,11 @@
                 e.preventDefault();
                 this.className = 'dropzone';
                 if (e.dataTransfer.files.length >= 2) {
-                    swal("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
+                    Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
                     return;
                 }
                 if (e.dataTransfer.files[0].type != 'application/pdf') {
-                    swal("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
+                    Swal.fire("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
                     return;
                 }
                 upload(e.dataTransfer.files);
@@ -634,11 +648,11 @@
 
             fileupload.change(function() {
                 if (this.files.length >= 2) {
-                    swal("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
+                    Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
                     return;
                 }
                 if (this.files[0].type != 'application/pdf') {
-                    swal("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
+                    Swal.fire("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
                     return;
                 }
                 upload(this.files);
@@ -677,37 +691,37 @@
         	var password = $('#password').val();
 
         	if (pdf_file == null) {
-        		swal("Atención!", "Debe ingresar el CV del usuario", "warning");
+        		Swal.fire("Atención!", "Debe ingresar el CV del usuario", "warning");
         		return;
         	}
         	if (fname == "") {
-        		swal("Atención!", "Debe ingresar el nombre del usuario", "warning");
+        		Swal.fire("Atención!", "Debe ingresar el nombre del usuario", "warning");
         		return;
         	}
         	if (lname == "") {
-        		swal("Atención!", "Debe ingresar el apellido del usuario", "warning");
+        		Swal.fire("Atención!", "Debe ingresar el apellido del usuario", "warning");
         		return;
         	}
         	if (correo == "") {
-        		swal("Atención!", "Debe ingresar el correo del usuario", "warning");
+        		Swal.fire("Atención!", "Debe ingresar el correo del usuario", "warning");
         		return;
         	}
         	if (date == "") {
-        		swal("Atención!", "Debe ingresar la fecha de nacimiento del usuario", "warning");
+        		Swal.fire("Atención!", "Debe ingresar la fecha de nacimiento del usuario", "warning");
         		return;
         	}
         	if (code.length != 0) {
         		if (code.length < 4) {
-        			swal("Atención!", "El nombre de acceso del usuario debe contener más de 4 caracteres", "warning");
+        			Swal.fire("Atención!", "El nombre de acceso del usuario debe contener más de 4 caracteres", "warning");
         			return;
         		}
         	} else {
-        		swal("Atención!", "Debe ingresar el nombre de acceso del usuario", "warning");
+        		Swal.fire("Atención!", "Debe ingresar el nombre de acceso del usuario", "warning");
         		return;
         	}
         	if (password.length != 0) {
         		if (password.length < 6) {
-        			swal("Atención!", "Debe ingresar la contraseña mayor de 6 caracteres", "warning");
+        			Swal.fire("Atención!", "Debe ingresar la contraseña mayor de 6 caracteres", "warning");
         			return;
         		}
         	}
@@ -1051,6 +1065,8 @@
                         // console.log(Object.keys(data.0).length);
                         generar_citas_paciente('');
                         generar_historial(valuePaciente);
+                        g_paciente = data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno;
+                        g_edad = edad;
                     } else {
 
                         Swal.fire({
@@ -1376,7 +1392,7 @@
             var numbtn = codbtn;
             var filter = document.getElementById("filter-cita").value;
             if (filter != 1 && filter != 2 && filter != 3) {
-                swal("Atención!", "Operación inválida", "warning");
+                Swal.fire("Atención!", "Operación inválida", "warning");
                 return;
             }
             if (numbtn == 1 || numbtn == 2 || numbtn == 3) {
@@ -1393,7 +1409,7 @@
                     var sendfilter = '3';
                 }
             } else {
-                swal("Atención!", "Operación inválida", "warning");
+                Swal.fire("Atención!", "Operación inválida", "warning");
             }
 
             var data = new FormData();
@@ -1448,6 +1464,95 @@
                 });
             }
         });
+    </script>
+    <script>
+        $("#add-apptmt").click(function() {
+
+            var row = "";
+            var filter = document.getElementById("filter-cita").value;
+
+            var hora = $("#endTime").val();
+
+            if (count_insert_cita > 0) {
+                Swal.fire("Atención!", "Usted ya no puede agregar mas citas", "warning");
+                return;
+            }
+
+            Swal.fire({
+                title: "Agregar cita",
+                html: "<span>¿Desea agregar la cita de las " + getTimeAMPMFormat(hora) + "?<br>Al agregar ya no podrá volver a agregar otra cita.</span>" ,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed == false) {
+                    return;
+                } else {
+                    if (hora == "") {
+                        Swal.fire("Atención!", "Operación inválida", "warning");
+                        return;
+                    }
+                    if (g_paciente == "") {
+                        Swal.fire("Atención!", "Operación inválida", "warning");
+                        return;
+                    }
+                    if (g_edad == "") {
+                        Swal.fire("Atención!", "Operación inválida", "warning");
+                        return;
+                    }
+
+                    if (filter != 1 && filter != 2 && filter != 3) {
+                        Swal.fire("Atención!", "Operación inválida", "warning");
+                        return;
+                    }
+
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
+
+                    datenow = dd + '/' + mm + '/' + yyyy;
+
+                    if (filter == 1 || filter == 3) {
+                        row = '<tr>' +
+                            '<td>' + g_paciente + '</td>' +
+                            '<td class="text-center">' + g_edad + '</td>' +
+                            '<td class="text-center">' + datenow + '</td>' +
+                            '<td class="text-center">' + getTimeAMPMFormat(hora) + '</td>' +
+                            '<td class="text-center">Pendiente</td></tr>';
+                    }
+                    if (filter == 2) {
+                        row = '<tr>' +
+                            '<td>' + g_paciente + '</td>' +
+                            '<td class="text-center">' + g_edad + '</td>' +
+                            '<td class="text-center">' + getTimeAMPMFormat(hora) + '</td>' +
+                            '<td class="text-center">Pendiente</td></tr>';
+                    }
+
+                    var rowCount = $('#list_citas tbody tr').length;
+
+                    if (rowCount == 0) {
+                        $("#list_citas tbody").html(row);
+                    } else {
+                        $("#list_citas tbody tr:first").before(row);
+                    }
+
+                    count_insert_cita = 1;
+                }
+            });
+        });
+
+        const getTimeAMPMFormat = (hora) => {
+            let time = hora.split(":");
+            const ampm = time[0] >= 12 ? 'PM' : 'AM';
+            hours = time[0] % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            hours = hours < 10 ? '0' + hours : hours; // appending zero in the start if hours less than 10
+            minutes = time[1];
+            return hours + ':' + minutes + ' ' + ampm;
+        };
     </script>
 
 </body>
