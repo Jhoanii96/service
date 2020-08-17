@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/selectize.css"> -->
+    <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/selectize.css">
 
     <style>
         #example1_wrapper>div:nth-child(2) {
@@ -82,6 +82,10 @@
             opacity: 0.4;
         }
 
+        .selectize-dropdown {
+            top: 35px !important;
+        }
+
         .item_name {
             padding-left: 10px;
             height: 30px;
@@ -91,13 +95,17 @@
         }
 
         .selectize-input {
-            /* overflow: initial; */
+            overflow: initial;
         }
 
         @media (min-width: 576px) {
             #form-search {
-                width: 70%;
+                width: auto;
             }
+        }
+
+        #content-select>span.select2-container--bootstrap4 {
+            width: auto !important;
         }
     </style>
     <!-- HEADER -->
@@ -385,15 +393,15 @@
                                                     <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
                                                     <p class="form-control-plaintext">Control de preguntas</p>
                                                 </div>
-                                                <?php 
-                                                    $history = $this->getHistoryPred();
-    
+                                                <?php
+                                                $history = $this->getHistoryPred();
+
                                                 ?>
                                                 <div class="form-row">
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Anamnesis</label>
-                                                            <textarea rows="1" class="form-control autosize-input" " style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Anamnesis_Pred'] : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -401,7 +409,7 @@
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Examen Físico</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Examen_Fisico_Pred']:""; ?></textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Examen_Fisico_Pred'] : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -409,7 +417,7 @@
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Exámenes</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Examenes_Pred']:""; ?></textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Examenes_Pred'] : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -417,7 +425,7 @@
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Diagnóstico</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Diagnostico_Pred']:""; ?></textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Diagnostico_Pred'] : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -425,7 +433,7 @@
                                                     <div class="col-md-12">
                                                         <div class="position-relative form-group">
                                                             <label for="genero">Tratamiento</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Tratamiento_Pred']:""; ?></textarea>
+                                                            <textarea rows="1" class="form-control autosize-input" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Tratamiento_Pred'] : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -463,24 +471,36 @@
 
 
                                                 <div class="form-inline">
-                                                    <div class="position-relative form-group">
-                                                        <label for="exampleCustomSelect" class="mr-2">Fecha Cita</label>
-                                                        <input name="date" id="date" placeholder="password placeholder" type="date" class="mr-2 form-control" value="<?= date("Y-m-d") ?>">
-                                                        <button class="mr-5 btn-icon btn-pill btn btn-primary"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
-                                                    </div>
-                                                    <div class="position-relative form-group">
-                                                        <label for="exampleCustomSelect" class="mr-2">Horas</label>
-                                                        <input class="form-control input-mask-trigger" id="endTime">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="position-relative form-group">
-                                                            <button class="mr-2 btn-icon btn-pill btn btn-success">Agregar</button>
+                                                    <div id="form-search" class="input-group" style="align-items: center;">
+                                                        <div class="position-relative input-group mb-4">
+                                                            <label class="mr-2 mt-auto mb-auto">Filtro</label>
+                                                            <select type="select" id="filter-cita" name="filter-cita" class="custom-select mr-2">
+                                                                <option value="1">Nombre paciente</option>
+                                                                <option value="2" selected>Fecha cita</option>
+                                                                <option value="3">Todas las fechas</option>
+                                                            </select>
                                                         </div>
+                                                        <div id="busqueda" style="display: block;">
+                                                            <div class="position-relative input-group mb-4" id="b-name" style="display: none;">
+                                                                <label class="mr-2 mt-auto mb-auto">Nombre paciente</label>
+                                                                <select id="user-search1" class="select_users" placeholder="Escriba el usuario..."></select>
+                                                                <button id="btnsrc1" class="btn-icon btn-pill btn btn-primary ml-2" onclick="search(1)"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
+                                                            </div>
+                                                            <div class="position-relative input-group mb-4" id="b-date">
+                                                                <label class="mr-2 mt-auto mb-auto">Fecha Cita</label>
+                                                                <input type="date" name="date" id="date" class="mr-2 form-control" value="<?= date("Y-m-d"); ?>">
+                                                                <button id="btnsrc2" class="btn-icon btn-pill btn btn-primary" onclick="search(2)"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="position-relative input-group mb-4">
+                                                        <div id="spsearch"></div>
                                                     </div>
                                                 </div>
 
+
                                                 <div class="card-body">
-                                                    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+                                                    <table style="width: 100%;" id="list_citas" class="table table-hover table-striped table-bordered">
                                                         <thead>
                                                             <tr>
                                                                 <th>Paciente</th>
@@ -489,7 +509,7 @@
                                                                 <th>Estado</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody id="list_citas">
+                                                        <tbody>
 
                                                         </tbody>
                                                         <tfoot>
@@ -560,6 +580,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
         /* document.getElementById("photoInputFilePhoto").onchange = function() {
             document.getElementById("uploadFile").value = this.files[0].name;
@@ -772,15 +793,15 @@
             }
         }
 
-        if(save != null){
-            document.getElementById("save-btn2").addEventListener("click",function(){
+        if (save != null) {
+            document.getElementById("save-btn2").addEventListener("click", function() {
 
                 Swal.fire({
-                        icon: 'success',
-                        title: 'Guardando su consulta',
-                        showConfirmButton: false,
-                        timer: 850
-                }).then(function(){
+                    icon: 'success',
+                    title: 'Guardando su consulta',
+                    showConfirmButton: false,
+                    timer: 850
+                }).then(function() {
 
                     location.href = "<?= FOLDER_PATH ?>/my";
                 });
@@ -797,12 +818,11 @@
     </script>
 
     <script>
-
         function calcularEdad(fechana) {
             console.log(fechana);
             let dateParts = fechana.split("-");
             let hoy = new Date();
-            let cumpleanos = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));
+            let cumpleanos = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0, 2));
             let edad = hoy.getFullYear() - cumpleanos.getFullYear();
             let m = hoy.getMonth() - cumpleanos.getMonth();
 
@@ -861,7 +881,7 @@
                             data.Genero = 'MASCULINO';
                         }
                         let edad = calcularEdad(data.Fecha_Nacimiento);
-                        $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cuest-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#cuest-dni').html(data.Documento);
                         $('#cuest-fechana').html(edad);
                         $('#cuest-genero').html(data.Genero);
@@ -903,47 +923,47 @@
 
                 let datos = $('#frm-patient').serialize();
                 $.ajax({
-                    type:"post",
-                    url:"<?php echo FOLDER_PATH ?>/consultation/updatePatient",
-                    data:datos
-                })
-                .done(function(response){
-                    Swal.fire({
-                        icon: 'success',
-                        title: response,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    let genero = $('#genero').val();
-                    if(genero == 'F'){
+                        type: "post",
+                        url: "<?php echo FOLDER_PATH ?>/consultation/updatePatient",
+                        data: datos
+                    })
+                    .done(function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        let genero = $('#genero').val();
+                        if (genero == 'F') {
                             genero = 'FEMENINO';
-                        }else{
+                        } else {
                             genero = 'MASCULINO';
-                    }
-                    let fechana = $('#fechana').val();
-                    let edad = calcularEdad(fechana);
-                    $('#cuest-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
-                    $('#cuest-dni').html($('#dni').val());
-                    $('#cuest-genero').html(genero);
-                    $('#cuest-fechana').html(edad);
-                    $('#pru-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
-                    $('#pru-dni').html($('#dni').val());
-                    $('#pru-genero').html(genero);
-                    $('#pru-fechana').html(edad);
-                    $('#cita-nombre').html($('#nombre').val() +" "+ $('#apellidopa').val() +" " + $('#apellidoma').val());
-                    $('#cita-dni').html($('#dni').val());
-                    $('#cita-genero').html(genero);
-                    $('#cita-fechana').html(edad);
+                        }
+                        let fechana = $('#fechana').val();
+                        let edad = calcularEdad(fechana);
+                        $('#cuest-nombre').html($('#nombre').val() + " " + $('#apellidopa').val() + " " + $('#apellidoma').val());
+                        $('#cuest-dni').html($('#dni').val());
+                        $('#cuest-genero').html(genero);
+                        $('#cuest-fechana').html(edad);
+                        $('#pru-nombre').html($('#nombre').val() + " " + $('#apellidopa').val() + " " + $('#apellidoma').val());
+                        $('#pru-dni').html($('#dni').val());
+                        $('#pru-genero').html(genero);
+                        $('#pru-fechana').html(edad);
+                        $('#cita-nombre').html($('#nombre').val() + " " + $('#apellidopa').val() + " " + $('#apellidoma').val());
+                        $('#cita-dni').html($('#dni').val());
+                        $('#cita-genero').html(genero);
+                        $('#cita-fechana').html(edad);
 
-                })
-                .fail(function(){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                })
+                    })
+                    .fail(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hubo un error',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
             }
         });
 
@@ -1002,7 +1022,7 @@
                             data.Genero = 'MASCULINO';
                         }
                         let edad = calcularEdad(data.Fecha_Nacimiento);
-                        $('#cuest-nombre').html(data.Nombre +" "+data.Apellido_Paterno +" "+ data.Apellido_Materno);
+                        $('#cuest-nombre').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
                         $('#cuest-dni').html(data.Documento);
                         // console.log(calcularEdad(data.Fecha_Nacimiento));
                         $('#cuest-fechana').html(edad);
@@ -1323,6 +1343,111 @@
             let result = $(attr).css(css) === value ? true : false;
             return result;
         }
+    </script>
+    <script>
+        $("#filter-cita").on("change", function() {
+            var data = document.getElementById("filter-cita").value;
+            if (data == '1') {
+                $("#busqueda").css("display", "block");
+                $("#b-name").css("display", "flex");
+                $("#b-date").css("display", "none");
+                withsize = window.innerWidth;
+                if (withsize < 576) {
+                    $("#form-search").css("width", "auto");
+                } else {
+                    $("#form-search").css("width", "70%");
+                }
+
+            }
+            if (data == '2') {
+                $("#busqueda").css("display", "block");
+                $("#b-date").css("display", "flex");
+                $("#b-name").css("display", "none");
+                $("#form-search").css("width", "auto");
+
+            }
+            if (data == '3') {
+                $("#busqueda").css("display", "none");
+                search(3);
+            }
+        });
+
+        function search(codbtn) {
+            var numbtn = codbtn;
+            var filter = document.getElementById("filter-cita").value;
+            if (filter != 1 && filter != 2 && filter != 3) {
+                swal("Atención!", "Operación inválida", "warning");
+                return;
+            }
+            if (numbtn == 1 || numbtn == 2 || numbtn == 3) {
+                if (numbtn == 1) {
+                    var sendsearch = $("#user-search1").children("option:selected").val();
+                    var sendfilter = numbtn;
+                }
+                if (numbtn == 2) {
+                    var sendsearch = document.getElementById("date").value;
+                    var sendfilter = numbtn;
+                }
+                if (numbtn == 3) {
+                    var sendsearch = '';
+                    var sendfilter = '3';
+                }
+            } else {
+                swal("Atención!", "Operación inválida", "warning");
+            }
+
+            var data = new FormData();
+            data.append("search", sendsearch);
+            data.append("filter", sendfilter);
+
+            $.ajax({
+                beforeSend: function() {
+                    $("#spsearch").append('<span id="spinner-src-' + numbtn + '" class="fa fa-spinner fa-spin" style="width: 14px; height: 14px; margin: 12px 12px;"></span>');
+                    $("#btnsrc" + numbtn).attr("disabled", true);
+                },
+                url: "<?= FOLDER_PATH ?>/consultation/search",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    $("#spinner-src-" + numbtn).remove();
+                    $("#btnsrc" + numbtn).attr("disabled", false);
+                    $("#list_citas").html(resp);
+                }
+            })
+        }
+    </script>
+    <script>
+        $('#user-search1').selectize({
+            valueField: 'id',
+            labelField: 'name',
+            searchField: 'name',
+            options: [],
+            create: false,
+            render: {
+                option: function(item) {
+                    return '<div><span class="item_name">' + item.name + '</span></div>';
+                }
+            },
+            load: function(query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: "<?php echo FOLDER_PATH ?>/consultation/load_users",
+                    type: 'POST',
+                    data: {
+                        nom_user: query
+                    },
+                    error: function() {
+                        callback();
+                    },
+                    success: function(res) {
+                        var as = JSON.parse(res);
+                        callback(as.users);
+                    }
+                });
+            }
+        });
     </script>
 
 </body>
