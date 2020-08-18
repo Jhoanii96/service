@@ -47,9 +47,11 @@ class questionnaireModel extends Model{
     return $res;
   }
 
-  public function getAnswers($idPaciente){
-    
-      $query= "SELECT Respuesta FROM detalle_cuestionario_paciente WHERE Id_Paciente = $idPaciente AND Mostrar = 1";
+  public function getAnswers($idPaciente,$idQuestionnaire){
+
+      $query= "SELECT depa.Respuesta FROM detalle_cuestionario_paciente depa INNER JOIN detalle_cuestionario de
+      ON de.Id_Detalle_Cuestionario = depa.Id_Detalle_Cuestionario WHERE Id_Paciente = $idPaciente AND Mostrar = 1 
+      AND Id_Cuestionario = $idQuestionnaire";
     
     return $res = Model::query_execute($query);
   }

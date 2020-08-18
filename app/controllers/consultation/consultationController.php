@@ -155,7 +155,9 @@ class consultation extends Controller
         if ($result) {
             $this->session->add('idPaciente', $result['Id_Paciente']);
             $idPaciente = $this->session->get('idPaciente');
-            $answers = $this->questionModel->getAnswers($idPaciente);
+            $idUser = $this->session->get("idUser");
+            $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
+            $answers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
             $cantidad = $answers->rowCount();
             if ($cantidad > 0) {
                 $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
@@ -206,11 +208,11 @@ class consultation extends Controller
         }
     }
 
-    public function getAnswers($idPaciente)
-    {
-        $Answers = $this->questionModel->getAnswers($idPaciente);
-        return $Answers->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // public function getAnswers($idPaciente)
+    // {
+    //     $Answers = $this->questionModel->getAnswers($idPaciente);
+    //     return $Answers->fetchAll(PDO::FETCH_ASSOC);
+    // }
 
     public function updateAnswers()
     {
@@ -221,7 +223,8 @@ class consultation extends Controller
             $arrayRespuesta = $respuestas;
             $idUser = $this->session->get("idUser");
             $idPaciente = $this->session->get('idPaciente');
-            $getAnswers = $this->questionModel->getAnswers($idPaciente);
+            $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
+            $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
             $getAnswers = $getAnswers->rowCount();
             $resultInsertAnswer = 0;
             if($getAnswers < count($respuestas)){

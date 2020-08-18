@@ -155,6 +155,7 @@ class my extends Controller
         $idCuestionario = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
         if ($idCuestionario > 0) {
             $resQuestion = $this->questionnaireModel->insertQuestion($idCuestionario['Id_Cuestionario'], $question);
+            // $this->session->add('idCuestionario',$idCuestionario['Id_Cuestionario']);
             // $resQuestion->fetch();
         } else {
             $questionnaire = $this->questionnaireModel->createQuestionnaire($idUser);

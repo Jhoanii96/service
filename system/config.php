@@ -26,7 +26,7 @@ define('PASS', 'LPMcsM8TPeqnLim');
 define('ERROR_REPORTING_LEVEL', -1); */
 define('SGBD', 'mysql:host=localhost;dbname=bd_clinica;charset=utf8');
 define('USER', 'root');
-define('PASS', '123456');
+define('PASS', '');
 define('ERROR_REPORTING_LEVEL', -1);
 
 /* ICONS */
