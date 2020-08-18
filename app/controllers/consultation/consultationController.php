@@ -33,14 +33,14 @@ class consultation extends Controller
 
         if (isset($_GET['cod_name'])) {
             $nombre_usuario = utf8_decode(base64_decode($_GET['cod_name']));
-            $id_nombre = explode('|', $nombre_usuario);
+            $id_nombre = explode('|', $nombre_usuario); /* $id_nombre[2]: id cita */
         } else {
             $id_nombre = [];
             $id_nombre[0] = 'nothing';
         }
 
         $this->view('consultation/consultation', [
-            'nombre_usuario' => $id_nombre 
+            'nombre_usuario' => $id_nombre
         ]);
     }
 
@@ -115,7 +115,8 @@ class consultation extends Controller
         return $patient->fetch();
     }
 
-    public function updatePatient(){
+    public function updatePatient()
+    {
         $idPaciente = $this->session->get('idPaciente');
         $idUser = $this->session->get('idUser');
         $dni = $_POST['dni'];
@@ -129,37 +130,37 @@ class consultation extends Controller
         $ocupan = $_POST['ocupacionan'];
         $ocupaac = $_POST['ocupacionac'];
         $genero = $_POST['genero'];
-        $resultPatient = $this->patientModel->updatePatient($idUser,$idPaciente,$dni,$nombre,$apellidoPa,$apellidoMa,$genero,$fechana,$celular,$correo,$procedencia,$ocupan,$ocupaac);
+        $resultPatient = $this->patientModel->updatePatient($idUser, $idPaciente, $dni, $nombre, $apellidoPa, $apellidoMa, $genero, $fechana, $celular, $correo, $procedencia, $ocupan, $ocupaac);
         $contPatient = $resultPatient->rowCount();
-        if($contPatient > 0){
+        if ($contPatient > 0) {
             echo "Se actualizó el paciente";
-        }else{
+        } else {
             echo "No se actualizó el paciente";
         }
     }
 
     public function searchPatient()
-    {   
+    {
         $documento = $_POST['filter'];
         $namePaciente = $_POST['namePaciente'];
-        
-        if(is_string($namePaciente[0]) && strlen($namePaciente[0])>1){
-            $searchPatient = $this->patientModel->searchDocumentPatient($namePaciente,false);
+
+        if (is_string($namePaciente[0]) && strlen($namePaciente[0]) > 1) {
+            $searchPatient = $this->patientModel->searchDocumentPatient($namePaciente, false);
         }
-        if(strlen($documento)<= 8 && is_numeric($documento)){
-            $searchPatient = $this->patientModel->searchDocumentPatient($documento,true);
+        if (strlen($documento) <= 8 && is_numeric($documento)) {
+            $searchPatient = $this->patientModel->searchDocumentPatient($documento, true);
         }
 
         $result = $searchPatient->fetch(PDO::FETCH_ASSOC);
-        if($result){
+        if ($result) {
             $this->session->add('idPaciente', $result['Id_Paciente']);
             $idPaciente = $this->session->get('idPaciente');
             $answers = $this->questionModel->getAnswers($idPaciente);
             $cantidad = $answers->rowCount();
-            if($cantidad > 0){
+            if ($cantidad > 0) {
                 $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
-                array_push($result,$cantidad);
-                $result = array_merge($result ,$answers);
+                array_push($result, $cantidad);
+                $result = array_merge($result, $answers);
             }
             $arrayJSON =  json_encode($result);
         } else {
@@ -169,18 +170,19 @@ class consultation extends Controller
         print_r($arrayJSON);
     }
 
-    public function showPatients(){
+    public function showPatients()
+    {
         if (isset($_GET['q'])) {
             $busqueda = $_GET['q'];
-        }else {
+        } else {
             $busqueda = '';
         }
         $patient = $this->patientModel->getAllPatient($busqueda);
         $json = [];
-        while($result = $patient->fetch(PDO::FETCH_ASSOC)){
-            $json[] = ['id'=>$result['id'], 'text'=>$result['nombres']];
+        while ($result = $patient->fetch(PDO::FETCH_ASSOC)) {
+            $json[] = ['id' => $result['id'], 'text' => $result['nombres']];
         }
-        
+
         $arrayJSON = json_encode($json);
         echo $arrayJSON;
     }
@@ -204,12 +206,14 @@ class consultation extends Controller
         }
     }
 
-    public function getAnswers($idPaciente){
+    public function getAnswers($idPaciente)
+    {
         $Answers = $this->questionModel->getAnswers($idPaciente);
         return $Answers->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function updateAnswers(){
+    public function updateAnswers()
+    {
         if (isset($_POST['answers']) && $_POST['answers'] !== "") {
             $detalle = $_POST['detalle'];
             $respuestas = $_POST['answers']; 
@@ -239,13 +243,13 @@ class consultation extends Controller
         }
     }
 
-    public function getHistoryPred(){
+    public function getHistoryPred()
+    {
         $idUser = $this->session->get("idUser");
-    
+
         $resultHistory = $this->settingsModel->getHistoryPred($idUser);
         $result = $resultHistory->fetch(PDO::FETCH_ASSOC);
         return $result;
-        
     }
 
     public function insertClinicalTest(){
@@ -269,9 +273,22 @@ class consultation extends Controller
     public function citas()
     {
         $fecha = $_POST['fecha'];
-        
+
         $usu_cod = $this->session->get('admin');
         $ResultAnswers = $this->model->lista_citas_paciente($fecha, $usu_cod);
+        echo '
+            
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Edad</th>
+                <th>Hora atención</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        ';
         while ($datos_cita = $ResultAnswers->fetch()) {
 
             $birthDate = explode("-", $datos_cita['fecha_nac']);
@@ -287,7 +304,7 @@ class consultation extends Controller
                 $estado = "Atendido";
                 $css = "#008c44";
             }
-            
+
             echo '
             
                 <tr>
@@ -299,18 +316,32 @@ class consultation extends Controller
             
             ';
         }
+
+        echo '
+    
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Paciente</th>
+                <th>Edad</th>
+                <th>Hora atención</th>
+                <th>Estado</th>
+            </tr>
+        </tfoot>
+        
+        ';
     }
 
     public function redirect()
-	{
-		$this->session->close();
-		echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
-	}
+    {
+        $this->session->close();
+        echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
+    }
 
     public function consultas()
     {
         $paciente = $_POST['paciente'];
-        
+
         $usu_cod = $this->session->get('admin');
         $ResultAnswers = $this->model->lista_historia_clinica($paciente, $usu_cod);
         while ($datos_consulta = $ResultAnswers->fetch()) {
@@ -319,13 +350,13 @@ class consultation extends Controller
             $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
                 ? ((date("Y") - $birthDate[0]) - 1)
                 : (date("Y") - $birthDate[0]));
-            
+
             echo '
                 <tr>
                     <td>' . $datos_consulta['nombre_paciente'] . '</td>
                     <td>' . $age . '</td>
-                    <td>' . date("Y-m-d", strtotime($datos_consulta['fecha_consulta'])). '</td>
-                    <td>' . date("H:i", strtotime($datos_consulta['fecha_consulta'])). '</td>
+                    <td>' . date("Y-m-d", strtotime($datos_consulta['fecha_consulta'])) . '</td>
+                    <td>' . date("H:i", strtotime($datos_consulta['fecha_consulta'])) . '</td>
                     <td>2</td>
                     <td>2</td>
                     <td class="text-center">
@@ -336,6 +367,138 @@ class consultation extends Controller
                         </div>
                     </td>
                 </tr>
+            ';
+        }
+    }
+
+    public function load_users()
+    {
+        $this->mostrar_users = $this->model->mostrar_paciente($_POST["nom_user"], $this->session->get('admin'));
+
+        $datos = '';
+        $DatosDep_array = [];
+        while ($mostrar_users = $this->mostrar_users->fetch()) {
+            $DatosDep_array[] = array(
+                "id" => $mostrar_users[1],
+                "name" => $mostrar_users[1]
+            );
+        }
+        $DatosDep = array("users" => ($DatosDep_array));
+        $out = json_encode($DatosDep);
+        echo $out;
+    }
+
+
+    public function search()
+    {
+        $search = $_POST['search'];
+        $filter = $_POST['filter'];
+        $lista_citas = $this->model->buscar_citas($search, $filter, $this->session->get('admin'));
+
+        if ($filter == 1 || $filter == 3) {
+            echo '
+    
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Edad</th>
+                    <th>Fecha atención</th>
+                    <th>Hora atención</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            ';
+        }
+        if ($filter == 2) {
+            echo '
+            
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Edad</th>
+                    <th>Hora atención</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            ';
+        }
+
+        while ($datos_lista_cita = $lista_citas->fetch()) {
+
+            $birthDate = explode("-", $datos_lista_cita['fenac']);
+            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
+                ? ((date("Y") - $birthDate[0]) - 1)
+                : (date("Y") - $birthDate[0]));
+
+            if ($datos_lista_cita['estado'] == 0) {
+                $estado = "Por atender";
+                $css = "#000075";
+            }
+            if ($datos_lista_cita['estado'] == 1) {
+                $estado = "Atendido";
+                $css = "#008c44";
+                /* <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td> */
+            }
+
+            $nombre = $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '|' . $datos_lista_cita['id_paciente'];
+            $nombre = base64_encode(utf8_encode($nombre));
+
+            echo '
+      
+            <tr>
+                <td>' . $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '</td>
+                <td class="text-center">' . $age . ' años</td>
+                ';
+            if ($filter == 1 || $filter == 3) {
+                echo '<td class="text-center">' . date("d/m/Y", strtotime($datos_lista_cita['fechacita'])) . '</td>';
+            }
+            echo '
+                <td class="text-center">' . date("h:i A", strtotime($datos_lista_cita['fechacita'])) . '</td>
+                ';
+            if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") >= $datos_lista_cita['fechacita'])) {
+                echo '<td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>';
+            }
+            if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") < $datos_lista_cita['fechacita'])) {
+                echo '<td class="text-center" style="color: #000;">' . $estado . '</td>';
+            }
+            if ($datos_lista_cita['estado'] == 1) {
+                echo '<td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>';
+            }
+        }
+
+        if ($filter == 1 || $filter == 3) {
+            echo '
+            
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Edad</th>
+                    <th>Fecha atención</th>
+                    <th>Hora atención</th>
+                    <th>Estado</th>
+                </tr>
+            </tfoot>
+            
+            ';
+        }
+        if ($filter == 2) {
+            echo '
+    
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Edad</th>
+                    <th>Hora atención</th>
+                    <th>Estado</th>
+                </tr>
+            </tfoot>
+            
             ';
         }
     }

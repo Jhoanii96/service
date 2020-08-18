@@ -25,6 +25,10 @@
             margin-right: 5px;
         }
 
+        .selectize-dropdown {
+            top: 35px !important;
+        }
+
         .selectize-control.select_users::before {
             -moz-transition: opacity 0.2s;
             -webkit-transition: opacity 0.2s;
@@ -62,6 +66,11 @@
             #form-search {
                 width: auto;
             }
+        }
+
+        .form-control,
+        .custom-select {
+            border-radius: 0;
         }
     </style>
 </head>
@@ -135,6 +144,7 @@
                                     </div>
                                     <div class="input-group pb-4" style="margin-left: auto;">
                                         <div class="position-relative input-group">
+                                            <button id="op-paciente" class="btn-icon btn-pill btn btn-info mr-1" data-toggle="modal" data-target="#exampleModal1">Añadir paciente</button>
                                             <button class="btn-icon btn-pill btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
                                         </div>
                                     </div>
@@ -171,7 +181,7 @@
                                             ? ((date("Y") - $birthDate[0]) - 1)
                                             : (date("Y") - $birthDate[0]));
 
-                                        $nombre = $datos_cita['nombre'] . ' ' . $datos_cita['apepa'] . ' ' . $datos_cita['apema'] . '|' . $datos_cita['id_paciente'];
+                                        $nombre = $datos_cita['nombre'] . ' ' . $datos_cita['apepa'] . ' ' . $datos_cita['apema'] . '|' . $datos_cita['id_paciente'] . '|' . $datos_cita['id'];
                                         $nombre = base64_encode(utf8_encode($nombre));
 
                                     ?>
@@ -258,10 +268,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-0">Busque el usuario, la fecha y la hora en que realizará la cita</p>
+                    <p class="mb-0">Busque el usuario, la fecha y la hora en que realizará la cita, si el paciente no existe haga <span id="to-paciente" style="cursor: pointer;text-decoration: underline;color: #000eb9;">click</span> aquí para añadir un nuevo paciente.</p>
                     <br>
                     <label class="mr-2 mt-auto mb-auto">Buscar paciente</label>
-                    <select id="user-search2" class="select_users mr-0" placeholder="Escriba el paciente..."></select>
+                    <select id="user-search2" class="select_users mr-0" placeholder="Escriba el paciente...">
+                    </select>
                     <label class="mr-2 mt-auto mb-auto">Fecha</label>
                     <input type="date" name="date2" id="date2" class="mr-2 form-control" value="<?= date("Y-m-d"); ?>">
                     <label class="mr-2 mt-auto mb-auto">Hora</label>
@@ -270,6 +281,93 @@
                 <div class="modal-footer">
                     <button id="close-cita" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button id="save-cita" type="button" data-name-text="Agregando" class="btn btn-primary">Agregar cita</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar paciente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Agregue un nuevo paciente para luego agregar una cita</p>
+                    <br>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="dni">DNI</label>
+                                <input name="dni" id="dni" type="text" class="form-control" maxlength="8" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="nombre">Nombres</label>
+                                <input name="nombre" id="nombre" type="text" class="form-control" maxlength="50" style="text-transform: uppercase;" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="apellidopa">Apellido Paterno</label>
+                                <input name="apellidopa" id="apellidopa" type="text" class="form-control" maxlength="30" style="text-transform: uppercase;" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="apellidoma">Apellido Materno</label>
+                                <input name="apellidoma" id="apellidoma" type="text" class="form-control" maxlength="30" style="text-transform: uppercase;" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="position-relative form-group">
+                                <label for="genero">Género</label>
+                                <select type="select" id="genero" name="genero" class="custom-select" required>
+                                    <option value="-">Seleccionar</option>
+                                    <option value="F">Femenino</option>
+                                    <option value="M">Másculino</option>
+                                    <option value="3">Otros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="position-relative form-group">
+                                <label for="fechana">Fecha Nacimiento</label>
+                                <input name="fechana" id="fechana" type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="position-relative form-group">
+                                <label for="celular">Número Celular</label>
+                                <input name="celular" id="celular" type="text" maxlength="9" onkeypress="return validaNumericos(event)" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="correo">Correo Electrónico</label>
+                                <input name="correo" id="correo" type="email" class="form-control" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="procedencia">Procedencia</label>
+                                <input name="procedencia" id="procedencia" type="text" style="text-transform: uppercase;" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="close-paciente" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="save-paciente" type="button" data-name-text="Agregando" class="btn btn-primary">Agregar paciente</button>
                 </div>
             </div>
         </div>
@@ -317,17 +415,17 @@
                 withsize = window.innerWidth;
                 if (withsize < 576) {
                     $("#form-search").css("width", "auto");
-                }else{
+                } else {
                     $("#form-search").css("width", "70%");
                 }
-                
+
             }
             if (data == '2') {
                 $("#busqueda").css("display", "block");
                 $("#b-date").css("display", "flex");
                 $("#b-name").css("display", "none");
                 $("#form-search").css("width", "auto");
-                
+
             }
             if (data == '3') {
                 $("#busqueda").css("display", "none");
@@ -442,6 +540,14 @@
         });
     </script>
     <script>
+        function validaNumericos(event) {
+            if (event.charCode >= 48 && event.charCode <= 57) {
+                return true;
+            }
+            return false;
+        }
+    </script>
+    <script>
         $('#save-cita').click(function() {
             var usersearch = $("#user-search2").children("option:selected").val();
             var datecita = $("#date2").val();
@@ -461,33 +567,150 @@
 
             var data = new FormData();
             data.append("usersearch", usersearch);
-			data.append("datecita", datecita);
-			data.append("timecita", timecita);
+            data.append("datecita", datecita);
+            data.append("timecita", timecita);
 
             $.ajax({
-				beforeSend: function() {
-					var btnsav = document.getElementById('save-cita');
-					var text = btnsav.getAttribute('data-name-text');
-					$("#save-cita").html('');
-					$("#save-cita").append(text + '&ThinSpace;&ThinSpace;<span id="spinner-sv" class="fa fa-spinner fa-spin"></span>');
-					$("#save-cita").attr("disabled", true);
-				},
-				url: "<?= FOLDER_PATH ?>/appointment/save",
-				type: "POST",
-				data: data,
-				contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-				processData: false, // NEEDED, DON'T OMIT THIS
-				success: function(resp) {
-					$("#close-cita").trigger('click');
-					$("#spinner-sv").remove();
-					$("#save-cita").html('Agregar cita');
-					$("#save-cita").attr("disabled", false);
+                beforeSend: function() {
+                    var btnsav = document.getElementById('save-cita');
+                    var text = btnsav.getAttribute('data-name-text');
+                    $("#save-cita").html('');
+                    $("#save-cita").append(text + '&ThinSpace;&ThinSpace;<span id="spinner-sv" class="fa fa-spinner fa-spin"></span>');
+                    $("#save-cita").attr("disabled", true);
+                },
+                url: "<?= FOLDER_PATH ?>/appointment/save",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    $("#close-cita").trigger('click');
+                    $("#spinner-sv").remove();
+                    $("#save-cita").html('Agregar cita');
+                    $("#save-cita").attr("disabled", false);
 
-                    /* var filter = document.getElementById("filter").value; */
+                    $("#date2").val("");
+                    $("#endTime").val("");
+                    $("#user-search2")[0].selectize.clear();
+
                     search(3);
-				}
-			})
+                }
+            })
         });
+    </script>
+    <script>
+        $('#to-paciente').click(function() {
+            $("#close-cita").trigger('click');
+            $("#op-paciente").trigger('click');
+        });
+    </script>
+    <script>
+        $('#save-paciente').click(function() {
+
+            var dni = $("#dni").val();
+            var nombre = $("#nombre").val();
+            var apellidopa = $("#apellidopa").val();
+            var apellidoma = $("#apellidoma").val();
+            var genero = $("#genero").children("option:selected").val();
+            var celular = $("#celular").val();
+            var fechana = $("#fechana").val();
+            var correo = $("#correo").val();
+            var procedencia = $("#procedencia").val();
+
+            if (dni == "") {
+                swal("Atención!", "Debe seleccionar a un paciente.", "warning");
+                return;
+            }
+            if (isNaN(Number(dni))) {
+                swal("Atención!", "Debe ingresar el DNI del paciente válido.", "warning");
+                return;
+            }
+            if (dni.length != 8) {
+                swal("Atención!", "Debe ingresar los 8 dígitos de su DNI.", "warning");
+                return;
+            }
+
+            if (nombre == "" || nombre == null) {
+                swal("Atención!", "Debe ingresar el nombre del paciente.", "warning");
+                return;
+            }
+            if (apellidopa == "" || apellidopa == null) {
+                swal("Atención!", "Debe ingresar el apellido paterno del paciente.", "warning");
+                return;
+            }
+            if (apellidoma == "" || apellidoma == null) {
+                swal("Atención!", "Debe ingresar el apellido materno del paciente.", "warning");
+                return;
+            }
+            if (genero == "-" || genero == null) {
+                swal("Atención!", "Debe seleccionar su genero.", "warning");
+                return;
+            }
+            if (celular == "" || celular == null) {
+                swal("Atención!", "Debe ingresar el número de celular del paciente.", "warning");
+                return;
+            }
+            if (fechana == "" || fechana == null) {
+                swal("Atención!", "Debe ingresar la fecha de nacimiento del paciente.", "warning");
+                return;
+            }
+
+            if (correo != "") {
+                if (!validateEmail(correo)) {
+                    swal("Atención!", "Debe ingresar un correo electrónico válido", "warning");
+                    return;
+                }
+            }
+
+            var data = new FormData();
+            data.append("dni", dni);
+            data.append("nombre", nombre);
+            data.append("apellidopa", apellidopa);
+            data.append("apellidoma", apellidoma);
+            data.append("genero", genero);
+            data.append("celular", celular);
+            data.append("fechana", fechana);
+            data.append("correo", correo);
+            data.append("procedencia", procedencia);
+
+            $.ajax({
+                beforeSend: function() {
+                    var btnsav = document.getElementById('save-paciente');
+                    var text = btnsav.getAttribute('data-name-text');
+                    $("#save-paciente").html('');
+                    $("#save-paciente").append(text + '&ThinSpace;&ThinSpace;<span id="spinner-sv" class="fa fa-spinner fa-spin"></span>');
+                    $("#save-paciente").attr("disabled", true);
+                },
+                url: "<?= FOLDER_PATH ?>/appointment/save_paciente",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    $("#close-paciente").trigger('click');
+                    $("#spinner-sv").remove();
+                    $("#save-paciente").html('Agregar paciente');
+                    $("#save-paciente").attr("disabled", false);
+
+                    $("#dni").val("");
+                    $("#nombre").val("");
+                    $("#apellidopa").val("");
+                    $("#apellidoma").val("");
+                    $("#genero").val(0);
+                    $("#celular").val("");
+                    $("#fechana").val("");
+                    $("#correo").val("");
+                    $("#procedencia").val("");
+                    /* var filter = document.getElementById("filter").value; */
+                }
+            })
+        });
+    </script>
+    <script>
+        function validateEmail(e) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(e).toLowerCase());
+        }
     </script>
 </body>
 

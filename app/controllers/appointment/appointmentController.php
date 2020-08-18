@@ -123,7 +123,7 @@ class appointment extends Controller
         /* <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td> */
       }
 
-      $nombre = $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '|' . $datos_lista_cita['id_paciente'];
+      $nombre = $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '|' . $datos_lista_cita['id_paciente'] . '|' . $datos_lista_cita['id'];
       $nombre = base64_encode(utf8_encode($nombre));
 
       echo '
@@ -222,6 +222,34 @@ class appointment extends Controller
     $timecita = $timecita . ':00';
 
     $this->model->insertar_cita($usersearch, $datecita, $timecita, $this->session->get('admin'));
+
+  }
+
+  public function save_paciente()
+  {
+    $dni = $_POST['dni'];
+    $nombre = mb_strtoupper($_POST['nombre'], 'UTF-8');
+    $apellidopa = mb_strtoupper($_POST['apellidopa'], 'UTF-8');
+    $apellidoma = mb_strtoupper($_POST['apellidoma'], 'UTF-8');
+    $genero = $_POST['genero'];
+    $celular = $_POST['celular'];
+    $fechana = $_POST['fechana'];
+    $correo = $_POST['correo'];
+    $procedencia = mb_strtoupper($_POST['procedencia'], 'UTF-8');
+    $username = $this->session->get('admin');
+
+    $this->model->insertar_paciente_cita(
+      $dni, 
+      $nombre, 
+      $apellidopa, 
+      $apellidoma, 
+      $genero, 
+      $celular,
+      $fechana, 
+      $correo, 
+      $procedencia, 
+      $username 
+    );
 
   }
   

@@ -32,4 +32,12 @@ class appointmentModel extends Model
         Model::query_execute($query);
     }
 
+    public function insertar_paciente_cita($dni, $nombre, $apellidopa, $apellidoma, $genero, $celular, 
+        $fechana, $correo, $procedencia, $username )
+    {
+        $query = "CALL `insertar_paciente_cita`('$dni', '$nombre', '$apellidopa', '$apellidoma', '$genero', '$celular', 
+        '$fechana', '$correo', '$procedencia', '$username');";
+        Model::query_execute($query);
+    }
+
 }
