@@ -45,7 +45,7 @@
                     <?php
                     $state = $this->stateProfile();
                     if ($state[0] == 1) {
-                        $this->updateStateProfile();
+                        // $this->updateStateProfile();
                     ?>
                         <div class="app-page-title">
                             <div class="page-title-wrapper">
@@ -73,12 +73,12 @@
                                 <div id="smartwizard2" class="forms-wizard-alt sw-main sw-theme-default">
                                     <ul class="forms-wizard nav nav-tabs step-anchor">
                                         <li>
-                                            <a href="#step-1" class="nav-link">
+                                            <a href="#step-1" class="nav-link" id="btnDataProfile">
                                                 <em>1</em><span>Datos perfil</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#step-2" class="nav-link">
+                                            <a href="#step-2" class="nav-link" id="btnQuestionnaire">
                                                 <em>2</em><span>Cuestionario</span>
                                             </a>
                                         </li>
@@ -232,7 +232,7 @@
                                                                         <i class="fa fa-phone"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input name="telefono1" id="telefono1" value="<?php echo $profile['Telefono_Fijo01']; ?>" type="text" class="form-control" required>
+                                                                <input name="telefono1" id="telefono1" value="<?php echo $profile['Telefono_Fijo01']; ?>" type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -296,16 +296,16 @@
                                                 <div class="col-md-3">
                                                     <div class="position-relative form-group"><label>LinkedIn</label><input name="linkedin" id="linkedin" placeholder="" type="text" class="form-control"></div>
                                                 </div> -->
-                                                    <div class="col-md-3">
+                                                    <!-- <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Tiempo de Atencion Promedio</label>
-                                                            <input name="tiempoatencion" id="tiempoatencion" value="<?php echo $profile['Tiempo_Atencion_Promedio']; ?>" type="text" class="form-control" required>
+                                                            <input name="tiempoatencion" id="tiempoatencion" value="<!-?php echo $profile['Tiempo_Atencion_Promedio']; ?>" type="text" class="form-control" required>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-md-3">
                                                         <div class="position-relative form-group">
                                                             <label>Precio de Consulta Promedio</label>
-                                                            <input name="precioconsulta" id="precioconsulta" value="<?php echo $profile['Precio_Predeterminado']; ?>" type="text" class="form-control" required>
+                                                            <input name="precioconsulta" id="precioconsulta" value="<?php echo $profile['Monto_Pago']; ?>" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -450,6 +450,7 @@
                                 <div class="divider"></div>
                                 <div class="clearfix">
                                     <!-- <button type="button"  class="btn-shadow float-left btn btn-info">Guardar</button> -->
+                                    <button type="button" id="save-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-warning">Guardar y Continuar</button>
                                     <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
                                     <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Atras</button>
                                 </div>
@@ -604,11 +605,13 @@
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
         let close = document.getElementById("btn-adm_close");
+        // let save = document.getElementById("save-btn2");
         if (cons != null) {
             document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
 
@@ -616,6 +619,21 @@
                 location.href = "<?= FOLDER_PATH ?>/consultation"
             }
         }
+
+        // if(save != null){
+        //     document.getElementById("save-btn2").addEventListener("click",function(){
+
+        //         Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Guardando su consulta',
+        //                 showConfirmButton: false,
+        //                 timer: 850
+        //         }).then(function(){
+
+        //             location.href = "<!?= FOLDER_PATH ?>/my";
+        //         });
+        //     });
+        // }
         if (close != null) {
             document.getElementById("btn-adm_close").addEventListener("click", close_admin);
 
@@ -625,64 +643,96 @@
         }
     </script>
     <script>
-        /* $('#show1').click(function() {
-            var type = document.getElementById('contraseña').type;
-            if (type == "text") {
-                document.getElementById('contraseña').type = 'password';
-                document.getElementById("pass_show").className = "fa fa-eye";
 
-            } else {
-                document.getElementById('contraseña').type = 'text';
-                document.getElementById("pass_show").className = "fa fa-eye-slash";
-            }
+        $('#prev-btn2').css('display', 'none');
+        $('#save-btn2').css('display', 'none');
+        $('#next-btn2').css('display', 'block');
+        
+        $('#prev-btn2').on('click', function() {
+            $('#next-btn2').css('display', 'block');
+            $('#prev-btn2').css('display', 'none');
+            $('#save-btn2').css('display', 'none');
         });
-        $('#show2').click(function() {
-            var type = document.getElementById('contraseña_confirmada').type;
-            if (type == "text") {
-                document.getElementById('contraseña_confirmada').type = 'password';
-                document.getElementById("confirm_show").className = "fa fa-eye";
-            } else {
-                document.getElementById('contraseña_confirmada').type = 'text';
-                document.getElementById("confirm_show").className = "fa fa-eye-slash";
-            }
-        }); */
-    </script>
 
-    <script>
-        $(document).ready(function() {
-            $('#frm-profile').on('submit', function() {
-                // let datos = $('#frm-profile').serialize();
+        $('#next-btn2').on('click', function() {
+            $('#prev-btn2').css('display', 'block');
+            $('#next-btn2').css('display', 'none');
+            $('#save-btn2').css('display', 'block');
+        });
+
+        $("#btnDataProfile").click(function(){
+            $('#prev-btn2').css('display', 'none');
+            $('#next-btn2').css('display','block');
+            $('#save-btn2').css('display', 'none');
+        })
+        $("#btnQuestionnaire").click(function(){
+            $('#prev-btn2').css('display', 'block');
+            $('#next-btn2').css('display','none')
+            $('#save-btn2').css('display', 'block');
+        })
+        
+        function detectCSS(attr, css, value) {
+            let result = $(attr).css(css) === value ? true : false;
+            return result;
+        }
+
+        $('#frm-profile').on('submit', function() {
+            // let datos = $('#frm-profile').serialize();
+
+            $.ajax({
+                type: "post",
+                url: "<?php echo FOLDER_PATH ?>/my/updateProfile",
+                data: new FormData(this),
+                processData: false,
+                cache: false,
+                contentType: false,
+                success: function(response) {
+                    swal({
+                        title: '¡Actualizado con exito !',
+                        text: response,
+                        icon: 'success',
+                        timer: 10000,
+                        buttons: false
+                    });
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                    swal({
+                        text: resp,
+                        timer: 3000,
+                        icon: "success"
+                    })
+                }
+            });
+            return false;
+        });
+
+        $('#save-btn2').click(function() {
+                let dato = 0;
 
                 $.ajax({
                     type: "post",
-                    url: "<?php echo FOLDER_PATH ?>/my/updateProfile",
-                    data: new FormData(this),
-                    processData: false,
-                    cache: false,
-                    contentType: false,
-                    success: function(response) {
-                        swal({
-                            title: '¡Actualizado con exito !',
-                            text: response,
-                            icon: 'success',
-                            timer: 10000,
-                            buttons: false
-                        });
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
-                        swal({
-                            text: resp,
-                            timer: 3000,
-                            icon: "success"
-                        })
-                    }
-                });
-                return false;
-            });
-        });
+                    url: "<?php echo FOLDER_PATH ?>/my/updateStateProfile",
+                    data: dato    
+                })
+                .done(function(response){
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        showConfirmButton: false,
+                        timer: 850
+                    }).then(function(){
+                        location.href = "<?= FOLDER_PATH ?>/my";
+                    });
+                })
+                .fail(function(){
+                    alert('no se pudo')
+                })
 
+                return false;
+        });
+        
         let click = 0;
 
 

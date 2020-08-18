@@ -28,6 +28,12 @@ class settingsModel extends Model{
     return Model::query_execute($query);
   }
 
+  public function insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis,$exam_fisico,$examenes,$diagnostico){
+    $query = "INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico) VALUES 
+    ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico')";
+    return Model::query_execute($query);
+  }
+
   // public function getAllHistoryPred(){
   //   $query = "SELECT FROM ";
   // }

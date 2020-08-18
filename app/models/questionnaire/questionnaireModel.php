@@ -48,8 +48,14 @@ class questionnaireModel extends Model{
   }
 
   public function getAnswers($idPaciente){
-    $query= "SELECT Respuesta FROM detalle_cuestionario_paciente WHERE Id_Paciente = $idPaciente";
+    
+      $query= "SELECT Respuesta FROM detalle_cuestionario_paciente WHERE Id_Paciente = $idPaciente AND Mostrar = 1";
+    
     return $res = Model::query_execute($query);
+  }
+
+  public function compareAnswers(){
+    $query = "SELECT FROM detalle_cuestionario_paciente WHERE ";
   }
 
   public function updateAnswers($idDetalleCuest,$idPaciente,$respuestas){
@@ -62,5 +68,18 @@ class questionnaireModel extends Model{
     }
     return $cont;
   }
+
+  public function getStateNewAnswer($idUser){
+    
+    $query = "SELECT de.Id_Detalle_Cuestionario FROM cuestionario cu INNER JOIN detalle_cuestionario de ON de.Id_Cuestionario = cu.Id_Cuestionario WHERE cu.Id_Usuario = $idUser and de.Nuevo = 1";
+    return Model::query_execute($query);
+  }
+
+  public function getStateShowAnswer($idUser){
+    
+    $query = "SELECT de.Id_Detalle_Cuestionario FROM cuestionario cu INNER JOIN detalle_cuestionario de ON de.Id_Cuestionario = cu.Id_Cuestionario WHERE cu.Id_Usuario = $idUser and de.Mostrar = 1";
+    return Model::query_execute($query);
+  }
+
 }
 ?>

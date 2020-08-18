@@ -37,10 +37,16 @@ class my extends Controller
     }
 
 
-    protected function updateStateProfile()
+    public function updateStateProfile()
     {
+
         $res = $this->perfilModel->updateStateProfile($this->session->get('admin'));
-        $res->fetch();
+        $count = $res->rowCount();
+        if($count > 0){
+            echo "Se agrego con exito";
+        }else{
+            echo "No paso nada";
+        }
     }
 
 
@@ -81,7 +87,7 @@ class my extends Controller
         $celular1 = $_POST['celular1'];
         $celular2 = $_POST['celular2'];
         $precioconsulta = $_POST['precioconsulta'];
-        $tiempoatencion = $_POST['tiempoatencion'];
+        // $tiempoatencion = $_POST['tiempoatencion'];
         $diapago = $_POST['diapago'];
 
         if (!isset($_FILES["imagen"]["tmp_name"]) || $_FILES["imagen"]["tmp_name"] == "") {
@@ -119,7 +125,6 @@ class my extends Controller
             $celular1,
             $celular2,
             $precioconsulta,
-            $tiempoatencion,
             $diapago,
             $dont_edit_photo,
             $imagen_bd
@@ -150,13 +155,13 @@ class my extends Controller
         $idCuestionario = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
         if ($idCuestionario > 0) {
             $resQuestion = $this->questionnaireModel->insertQuestion($idCuestionario['Id_Cuestionario'], $question);
-            $resQuestion->fetch();
+            // $resQuestion->fetch();
         } else {
             $questionnaire = $this->questionnaireModel->createQuestionnaire($idUser);
-            $questionnaire->fetch();
+            // $questionnaire->fetch();
             $idLastInsert = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch();
             $questionResult =  $this->questionnaireModel->insertQuestion($idLastInsert['Id_Cuestionario'], $question);
-            $questionResult->fetch();
+            // $questionResult->fetch();
         }
     }
 }

@@ -143,22 +143,22 @@
                                     <div id="smartwizard2" class="forms-wizard-alt">
                                         <ul class="forms-wizard">
                                             <li>
-                                                <a href="#step-1">
+                                                <a href="#step-1" id="btnPatient">
                                                     <em>1</em><span>Datos paciente</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#step-2">
+                                                <a href="#step-2" id="btnQuestionnaire">
                                                     <em>2</em><span>Cuestionario</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#step-3">
+                                                <a href="#step-3" id="btnClinicalTest">
                                                     <em>3</em><span>Prueba clinica</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#step-4">
+                                                <a href="#step-4" id="btnAppointments">
                                                     <em>4</em><span>Citas</span>
                                                 </a>
                                             </li>
@@ -362,83 +362,92 @@
                                                 </div>
                                             </div>
                                             <div id="step-3">
-                                                <table class="table">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-                                                            <th scope="col">DNI</th>
-                                                            <th scope="col">Paciente</th>
-                                                            <th scope="col">Género</th>
-                                                            <th scope="col">Edad</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td id="pru-dni"></td>
-                                                            <td id="pru-nombre"></td>
-                                                            <td id="pru-genero"></td>
-                                                            <td id="pru-fechana"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div class="divider"></div>
-                                                <div class="position-relative form-group">
-                                                    <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
-                                                    <p class="form-control-plaintext">Control de preguntas</p>
-                                                </div>
-                                                <?php 
-                                                    $history = $this->getHistoryPred();
-    
-                                                ?>
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Anamnesis</label>
-                                                            <textarea rows="1" class="form-control autosize-input" " style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
+                                                <form id="frm-clinicalTest-patient">
+                                                    <table class="table">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th scope="col">DNI</th>
+                                                                <th scope="col">Paciente</th>
+                                                                <th scope="col">Género</th>
+                                                                <th scope="col">Edad</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td id="pru-dni"></td>
+                                                                <td id="pru-nombre"></td>
+                                                                <td id="pru-genero"></td>
+                                                                <td id="pru-fechana"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="divider"></div>
+                                                    <div class="position-relative form-group">
+                                                        <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
+                                                        <p class="form-control-plaintext">Control de preguntas</p>
+                                                    </div>
+                                                    <?php 
+                                                        $history = $this->getHistoryPred();
+        
+                                                    ?>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <label for="genero">Anamnesis</label>
+                                                                <textarea rows="1" class="form-control autosize-input" name="anamnesis-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Examen Físico</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Examen_Fisico_Pred']:""; ?></textarea>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <label for="genero">Examen Físico</label>
+                                                                <textarea rows="1" class="form-control autosize-input" name="examen-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Examen_Fisico_Pred']:""; ?></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Exámenes</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Examenes_Pred']:""; ?></textarea>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <label for="genero">Exámenes</label>
+                                                                <textarea rows="1" class="form-control autosize-input" name="examenes-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Examenes_Pred']:""; ?></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Diagnóstico</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Diagnostico_Pred']:""; ?></textarea>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <label for="genero">Diagnóstico</label>
+                                                                <textarea rows="1" class="form-control autosize-input" name="diagnostico-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Diagnostico_Pred']:""; ?></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Tratamiento</label>
-                                                            <textarea rows="1" class="form-control autosize-input" "style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Tratamiento_Pred']:""; ?></textarea>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <label for="genero">Tratamiento</label>
+                                                                <textarea rows="1" class="form-control autosize-input" name="tratamiento-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Tratamiento_Pred']:""; ?></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="position-relative form-group">
-                                                            <label for="genero">Subir archivos JPG/PNG</label>
-                                                            <div id="uploads"></div>
-                                                            <div class="dropzone" id="dropzone" style="display: block;">Arrastre archivos o de clic aquí para subirlos</div>
-                                                            <input id="filepdf" type="file" style="display: none;" accept="application/pdf" />
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <label for="genero">Subir archivos JPG/PNG</label>
+                                                                <div id="uploads"></div>
+                                                                <div class="dropzone" id="dropzone" style="display: block;">Arrastre archivos o de clic aquí para subirlos</div>
+                                                                <input id="filepdf" type="file" style="display: none;" accept="application/pdf" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <button class="btn btn-warning submitPatient" id="btnSavePatient">Guardar prueba</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                             <div id="step-4">
                                                 <table class="table">
@@ -556,7 +565,7 @@
     </div>
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -824,6 +833,48 @@
             e.value = e.value.toUpperCase();
         }
 
+        // $(document).ready(function() {
+        //     if(detectCSS('#btnPatient','href','#step-1')){
+        //         $('#prev-btn2').css('display', 'none');
+        //         $('#next-btn2').css('display','block');
+        //         $('#save-btn2').css('display', 'none');
+        //     }else if(detectCSS('#btnQuestionnaire','href','#step-2')){
+        //         $('#prev-btn2').css('display', 'block');
+        //         $('#next-btn2').css('display','block')
+        //         $('#save-btn2').css('display', 'none');
+        //     }else if(detectCSS('#btnClinicalTest','href','#step-3')){
+        //         $('#prev-btn2').css('display', 'block');
+        //         $('#next-btn2').css('display','block')
+        //         $('#save-btn2').css('display', 'none');
+        //     }else if(detectCSS('#btnAppointments','href','#step-4')){
+        //         $('#prev-btn2').css('display', 'block');
+        //         $('#next-btn2').css('display','block')
+        //         $('#save-btn2').css('display', 'none');
+        //     }
+        // });
+
+
+        $("#btnPatient").click(function(){
+            $('#prev-btn2').css('display', 'none');
+            $('#next-btn2').css('display','block');
+            $('#save-btn2').css('display', 'none');
+        })
+        $("#btnQuestionnaire").click(function(){
+            $('#prev-btn2').css('display', 'block');
+            $('#next-btn2').css('display','block')
+            $('#save-btn2').css('display', 'none');
+        })
+        $("#btnClinicalTest").click(function(){
+            $('#prev-btn2').css('display', 'block');
+            $('#next-btn2').css('display','block');
+            $('#save-btn2').css('display', 'none');
+        })
+        $("#btnAppointments").click(function(){
+            $('#prev-btn2').css('display', 'block');
+            $('#next-btn2').css('display','none')
+            $('#save-btn2').css('display', 'block');
+        })
+
 
         $('.submitPatient').click(function() {
             buttonPressed = $(this).attr('id');
@@ -982,7 +1033,7 @@
                     url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient"
                 });
                 request.done(function(data) {
-                    // console.log(Object.keys(data).length);
+                    
                     if (Object.keys(data).length > 1) {
                         $('#nombre').val(data.Nombre);
                         $('#apellidopa').val(data.Apellido_Paterno);
@@ -1021,10 +1072,13 @@
                         $('#btnSavePatient').css('display', 'none');
                         $('#btnUpdatePatient').css('display', 'block');
                         // let cantQuestion = $('.input-answers').toArray().length;
+                    
                         $('.input-answers').each(function(index) {
                             if (index < data[0]) {
                                 $(this).val(data[index + 1].Respuesta);
                                 // console.log(data[index+1].Respuesta);
+                            }else{
+                                $(this).val("");
                             }
                         });
 
@@ -1153,6 +1207,30 @@
         // function formatRepoSelection (patient) {
         //     return patient.text;
         // }
+        
+        $('#frm-clinicalTest-patient').submit(function(){
+
+            let datos = $('#frm-clinicalTest-patient').serialize();
+
+            $.ajax({
+                type: "post",
+                url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
+                data: datos
+            })
+            .done(function(response){
+                Swal.fire({
+                    icon: 'success',
+                    title: response,
+                    showConfirmButton: false,
+                    timer: 8500
+                })
+            })
+            .fail(function(){
+
+            })
+            return false;
+        });
+
 
         function generar_citas_paciente(fecha) {
             var data = new FormData();
@@ -1249,6 +1327,7 @@
 
                     let answersArray = new Array();
                     let detalleArray = new Array();
+                    let newInsertArray = new Array();
 
                     $('.input-detalle').each(function() {
                         detalleArray.push($(this).val());
@@ -1274,7 +1353,6 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-
                         })
                         .fail(function() {
                             Swal.fire({
@@ -1299,14 +1377,15 @@
         $('#prev-btn2').css('display', 'none');
         $('#save-btn2').css('display', 'none');
 
+
+        
+
         $('#prev-btn2').on('click', function() {
             $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
             if (detectCSS('#step-2', 'display', 'block')) {
                 $('#prev-btn2').css('display', 'none');
                 // console.log('true');
-            } else {
-
             }
         });
 

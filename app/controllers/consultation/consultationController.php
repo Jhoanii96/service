@@ -213,14 +213,27 @@ class consultation extends Controller
         if (isset($_POST['answers']) && $_POST['answers'] !== "") {
             $detalle = $_POST['detalle'];
             $respuestas = $_POST['answers']; 
-
+            $arrayDetalle = $detalle;
+            $arrayRespuesta = $respuestas;
+            $idUser = $this->session->get("idUser");
             $idPaciente = $this->session->get('idPaciente');
-            $ResultAnswers = $this->questionModel->updateAnswers($detalle, $idPaciente, $respuestas);
-            if ($ResultAnswers > 0) {
-                echo "Sus respuestas fueron actualizadas";
-            } else {
-                echo "No se actualizaron las respuestas";
+            $getAnswers = $this->questionModel->getAnswers($idPaciente);
+            $getAnswers = $getAnswers->rowCount();
+            $resultInsertAnswer = 0;
+            if($getAnswers < count($respuestas)){
+                $count = count($respuestas) - $getAnswers;
+                $cant = count($respuestas) - $count;
+                $insertDetalle = array_splice($arrayDetalle,$cant,$count);
+                $insertAnswer = array_splice($arrayRespuesta,$cant,$count);              
+                $resultInsertAnswer = $this->questionModel->insertAnswers($insertDetalle,$idPaciente,$insertAnswer);
+                $resultInsertAnswer = $resultInsertAnswer->rowCount();
             }
+            $updateAnswers = $this->questionModel->updateAnswers($detalle, $idPaciente, $respuestas);
+                if ($updateAnswers > 0 || $resultInsertAnswer > 0) {
+                    echo "Sus respuestas fueron actualizadas";
+                } else {
+                    echo "No se actualizaron las respuestas";
+                }
         } else {
             echo "Llene los campos";
         }
@@ -233,6 +246,24 @@ class consultation extends Controller
         $result = $resultHistory->fetch(PDO::FETCH_ASSOC);
         return $result;
         
+    }
+
+    public function insertClinicalTest(){
+        $idUser = $this->session->get("idUser");
+        $idPaciente = $this->session->get('idPaciente');
+        $anamnesis_clinical = $_POST['anamnesis-clinical'];
+        $examen_clinical = $_POST['examen-clinical'];
+        $examenes_clinical = $_POST['examenes-clinical'];
+        $diagnostico_clinical = $_POST['diagnostico-clinical'];
+        $tratamiento_clinical = $_POST['tratamiento-clinical'];
+        
+        $result = $this->settingsModel->insertClinicalTest($idUser,$idPaciente,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical);
+        $count = $result->rowCount();
+        if($count > 0){
+            echo "Agregado exitosamente";
+        }else{
+            echo "No se pudo agregar la prueba clinica";
+        }
     }
 
     public function citas()

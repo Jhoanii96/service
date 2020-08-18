@@ -36,12 +36,12 @@ class perfilModel extends Model
 
     public function updateProfile($idUser,$idDoctor,$nombre,$apellidopa,$apellidoma,$especialidad,
         $dni,$cmp,$pais,$departamento,$provincia,$distrito,$telefono1,$telefono2,$celular1,
-        $celular2,$precioconsulta,$tiempoatencion,$diapago,$dont_edit_photo,$image){
+        $celular2,$precioconsulta,$diapago,$dont_edit_photo,$image){
 
         $query = "CALL actualizar_perfil($idUser,$idDoctor,'$nombre','$apellidopa',
             '$apellidoma',$especialidad,'$dni','$cmp',$pais,$departamento,$provincia,
             $distrito,'$telefono1','$telefono2','$celular1','$celular2','$precioconsulta',
-            $tiempoatencion,'$diapago','$dont_edit_photo','$image')";
+            '$diapago','$dont_edit_photo','$image')";
         Model::query_execute($query);
         
     }

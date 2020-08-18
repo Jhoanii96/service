@@ -423,6 +423,16 @@ class register extends Controller
 		$in_code = $_POST['in_code'];
 		$code = explode('|', $in_code);
 		$usersearch = $_POST['usersearch'];
+		$getday = getdate();
+		$payyear = $payday['year'];
+		$paymonth = $payday['month'];
+		
+		if($paymonth == 12){
+			$paymonth = 1;
+		}else{
+			$paymonth += 1;
+		}
+		$payday = 
 
 		$this->model->insertar_registro(
 			$especialidad, 
