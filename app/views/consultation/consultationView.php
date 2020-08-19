@@ -841,6 +841,14 @@
     </script>
 
     <script>
+        
+        let buttonSearchPressed = false;
+        let buttonInsertPressed = false;
+        let buttonCreateAnswerPressed = false;
+
+
+
+
         function calcularEdad(fechana) {
             console.log(fechana);
             let dateParts = fechana.split("-");
@@ -866,27 +874,6 @@
         function mayus(e) {
             e.value = e.value.toUpperCase();
         }
-
-        // $(document).ready(function() {
-        //     if(detectCSS('#btnPatient','href','#step-1')){
-        //         $('#prev-btn2').css('display', 'none');
-        //         $('#next-btn2').css('display','block');
-        //         $('#save-btn2').css('display', 'none');
-        //     }else if(detectCSS('#btnQuestionnaire','href','#step-2')){
-        //         $('#prev-btn2').css('display', 'block');
-        //         $('#next-btn2').css('display','block')
-        //         $('#save-btn2').css('display', 'none');
-        //     }else if(detectCSS('#btnClinicalTest','href','#step-3')){
-        //         $('#prev-btn2').css('display', 'block');
-        //         $('#next-btn2').css('display','block')
-        //         $('#save-btn2').css('display', 'none');
-        //     }else if(detectCSS('#btnAppointments','href','#step-4')){
-        //         $('#prev-btn2').css('display', 'block');
-        //         $('#next-btn2').css('display','block')
-        //         $('#save-btn2').css('display', 'none');
-        //     }
-        // });
-
 
         $("#btnPatient").click(function(){
             $('#prev-btn2').css('display', 'none');
@@ -922,7 +909,7 @@
             if (buttonPressed === 'btnSavePatient') {
                 // console.log('savePatient');
                 let datos = $('#frm-patient').serialize();
-
+                
                 let request = $.ajax({
                     type: "post",
                     dataType: 'JSON',
@@ -1036,6 +1023,7 @@
             let select = $('select[name="single"] option:selected').text();
             let documento = $('#filter').val();
             let search = $('#filter-search').val();
+            buttonSearchPressed = true;
             let valuePaciente = $('select[name="single"] option:selected').val();
             let arrayPaciente = new Array();
             if (documento === "" && (search === '1' || search === '0')) {
@@ -1413,9 +1401,6 @@
         $('#prev-btn2').css('display', 'none');
         $('#save-btn2').css('display', 'none');
 
-
-        
-
         $('#prev-btn2').on('click', function() {
             $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
@@ -1425,14 +1410,16 @@
             }
         });
 
-        $('#next-btn2').on('click', function() {
-            $('#prev-btn2').css('display', 'block');
-            if (detectCSS('#step-3', 'display', 'block')) {
-                $('#next-btn2').css('display', 'none');
-                $('#save-btn2').css('display', 'block');
-                console.log('true');
-            }
-        });
+        // if($buttonSearchPressed){
+            $('#next-btn2').on('click', function() {
+                    $('#prev-btn2').css('display', 'block');
+                    if (detectCSS('#step-3', 'display', 'block')) {
+                        $('#next-btn2').css('display', 'none');
+                        $('#save-btn2').css('display', 'block');
+                        console.log('true');
+                    }
+            });
+        // }
 
         function detectCSS(attr, css, value) {
             let result = $(attr).css(css) === value ? true : false;
@@ -1543,6 +1530,8 @@
                 });
             }
         });
+       
+
     </script>
     <script>
         $("#add-apptmt").click(function() {
