@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-08-2020 a las 05:41:02
+-- Tiempo de generación: 19-08-2020 a las 17:56:07
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -2276,6 +2276,32 @@ INSERT INTO `historia_clinica` (`Id_historia_clinica`, `Id_Paciente`, `Id_Usuari
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `historia_clinica_predeterminado`
+--
+
+CREATE TABLE `historia_clinica_predeterminado` (
+  `Id_Historia_Clinica_Predeterminado` int(11) NOT NULL,
+  `Id_Usuario` int(11) NOT NULL,
+  `Fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `Anamnesis_Pred` varchar(50) DEFAULT NULL,
+  `Examenes_Pred` varchar(50) DEFAULT NULL,
+  `Examen_Fisico_Pred` varchar(50) DEFAULT NULL,
+  `Diagnostico_Pred` varchar(50) DEFAULT NULL,
+  `Tratamiento_Pred` varchar(50) NOT NULL,
+  `creado` bit(1) NOT NULL DEFAULT b'0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `historia_clinica_predeterminado`
+--
+
+INSERT INTO `historia_clinica_predeterminado` (`Id_Historia_Clinica_Predeterminado`, `Id_Usuario`, `Fecha`, `Anamnesis_Pred`, `Examenes_Pred`, `Examen_Fisico_Pred`, `Diagnostico_Pred`, `Tratamiento_Pred`, `creado`) VALUES
+(34, 2, '2020-08-10 22:05:21', 'kasdhkjah\r\nalsjdalk', 'saluuute', 'alsjdlkasjdlk\r\nslkjdlaksdj', '', '654654654', b'1'),
+(35, 1, '2020-08-15 19:48:30', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', '', b'1');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `paciente`
 --
 
@@ -2593,7 +2619,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`Id_Usuario`, `Id_Doctor`, `Nombre`, `Password`, `Direccion`, `Direccion_IP`, `Ubicacion_GPS`, `Activo`, `Fecha_Activacion`, `Monto_Pago`, `Fecha_Habilitado`, `Fecha_Registro`, `Dia_Pago`, `Codigo_Web_Registro`, `Visualizo_Indicaciones`, `Tiempo_Atencion_Promedio`, `Precio_Predeterminado`, `Hora_Inicio_Atencion`, `Hora_Fin_Atencion`, `estado_perfil`, `imagen`) VALUES
 (1, 1, 'alberth', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', '4500.00', NULL, NULL, '2020-08-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
-(2, 2, 'jhon', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', '4000.00', NULL, NULL, '2020-04-15', NULL, NULL, 80, '4500.00', NULL, NULL, 1, 'src/assets/media/images/profile/0724200634261595565266.8879.jpeg'),
+(2, 2, 'jhon', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', '4000.00', NULL, NULL, '2020-04-15', NULL, NULL, 80, '4500.00', NULL, NULL, 0, 'src/assets/media/images/profile/0724200634261595565266.8879.jpeg'),
 (3, 9, 'jhonxdas123', '4eM9Jqb3yBVXD7D', 'Centro de tacna', NULL, NULL, 1, '2020-07-05 00:00:00.000', '150.60', '2020-07-05', '2020-07-05 19:12:17.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
 (4, 10, 'ericksolitario', 'B4NHL32da7v8zSa', 'Fuera de la catedral', NULL, NULL, 1, '2020-07-05 00:00:00.000', '50.00', '2020-07-05', '2020-07-05 19:18:14.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
 (5, 11, 'ruthlapanda', 'g78WWQhKrihsPjJ', 'en la plaza zela', NULL, NULL, 1, '2020-07-05 00:00:00.000', '150.00', '2020-07-05', '2020-07-05 19:32:23.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png');
