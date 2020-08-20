@@ -402,7 +402,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Anamnesis</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="anamnesis-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="anamnesis-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -410,7 +410,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Examen Físico</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="examen-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history) ? $history['Examen_Fisico_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="examen-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examen_Fisico_Pred']:""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -418,7 +418,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Exámenes</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="examenes-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Examenes_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="examenes-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history)? $history['Examenes_Pred']:""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -426,7 +426,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Diagnóstico</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="diagnostico-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Diagnostico_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="diagnostico-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history)? $history['Diagnostico_Pred']:""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -434,7 +434,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Tratamiento</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="tratamiento-clinical" style="max-height: 200px; height: 35px;"><?php echo ($history)? $history['Tratamiento_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="tratamiento-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history)? $history['Tratamiento_Pred']:""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -443,7 +443,7 @@
                                                             <div class="position-relative form-group">
                                                                 <label>Subir archivos JPG/PNG</label>
                                                                 <div id="uploads"></div>
-                                                                <div class="dropzone" id="dropzone" style="display: block;">Arrastre archivos o de clic aquí para subirlos</div> 
+                                                                <div class="dropzone" id="dropzone" style="display:flex;align-items:center;justify-content:center">Arrastre archivos o de clic aquí para subirlos</div> 
                                                                 <input id="filepdf" type="file" style="display: none;" name="file[]" accept="image/png,image/jpeg,image/jpg,application/pdf" multiple="true"/>
                                                                 <!-- <input type="file" name="file[]" multiple="true"> -->
                                                             </div>
@@ -615,7 +615,7 @@
         (function() {
             var dropzone = document.getElementById('dropzone');
             var fileupload = $("#filepdf");
-
+            let listado = '';
             var upload = function(files) {
                 for (let index = 0; index < files.length; index++) {
                     pdf_file = files[index];
@@ -623,9 +623,13 @@
                     document.getElementById("dropzone").style.lineHeight = "normal";
                     document.getElementById("dropzone").style.color = "rgb(253, 0, 0)";
                     document.getElementById("dropzone").style.border = "2px inset rgb(255, 77, 0)";
-                    document.getElementById("dropzone").style.display = "inline-block";
-                    $("#dropzone").html('<i class="fa fa-file-pdf" style="font-size: 60px; display: inline-block; height: 125px;width:50px; padding-top: 55px;margin-left:10px; color: rgb(255, 38, 38);"></i><span class="title_pdf" style="display: block; height: 75px; color: rgb(255, 38, 38);">' + files[index].name + '</span>');
+                    listado += '<div>';
+                    listado +=  '<i class="fa fa-file-pdf" style="font-size: 60px;display:block; color: rgb(255, 38, 38);"></i>';
+                    listado +=  '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + files[index].name + '</span>';
+                    listado += '</div>';
+                    
                 }
+                dropzone.innerHTML = listado;
             }
 
             dropzone.ondrop = function(e) {
@@ -656,19 +660,19 @@
                 fileupload.click();
             }
 
-            // fileupload.change(function() {
-            //     // if (this.files.length >= 2) {
-            //     //     Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
-            //     //     return;
-            //     // }
+            fileupload.change(function() {
+                // if (this.files.length >= 2) {
+                //     Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
+                //     return;
+                // }
          
-            //     if (this.files[0].type != 'image/jpeg' ) {
-            //         Swal.fire("Atención!", "Debe se ingresado imagenes o documentos word o pdf", "warning");
-            //         console.log(this.files[0].type);
-            //         return;
-            //     }
-            //     upload(this.files);
-            // });
+                if (this.files[0].type != 'image/jpeg' ) {
+                    Swal.fire("Atención!", "Debe se ingresado imagenes o documentos word o pdf", "warning");
+                    console.log(this.files[0].type);
+                    return;
+                }
+                upload(this.files);
+            });
 
             dropzone.ondragover = function() {
                 this.className = 'dropzone dragover';
@@ -1150,7 +1154,6 @@
         $('#frm-clinicalTest-patient').submit(function(e){
             e.preventDefault();
             if ($('#pru-nombre').html() !== "") {
-                // let datos = $('#frm-clinicalTest-patient').serialize();
 
                 $.ajax({
                     type: "post",
@@ -1168,6 +1171,7 @@
                         timer: 10500
                     })
                     $('#next-btn2').attr('disabled',false);
+                    
                 })
                 .fail(function(){
                     Swal.fire({
