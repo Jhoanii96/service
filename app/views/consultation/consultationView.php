@@ -370,7 +370,7 @@
                                                 </div>
                                             </div>
                                             <div id="step-3">
-                                                <form id="frm-clinicalTest-patient">
+                                                <form id="frm-clinicalTest-patient" method="post" enctype="multipart/form-data">
                                                     <table class="table">
                                                         <thead class="thead-dark">
                                                             <tr>
@@ -441,10 +441,11 @@
                                                     <div class="form-row">
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
-                                                                <label for="genero">Subir archivos JPG/PNG</label>
+                                                                <label>Subir archivos JPG/PNG</label>
                                                                 <div id="uploads"></div>
-                                                                <div class="dropzone" id="dropzone" style="display: block;">Arrastre archivos o de clic aquí para subirlos</div>
-                                                                <input id="filepdf" type="file" style="display: none;" accept="application/pdf" />
+                                                                <div class="dropzone" id="dropzone" style="display: block;">Arrastre archivos o de clic aquí para subirlos</div> 
+                                                                <input id="filepdf" type="file" style="display: none;" name="file[]" accept="image/png,image/jpeg,image/jpg,application/pdf" multiple="true"/>
+                                                                <!-- <input type="file" name="file[]" multiple="true"> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -547,7 +548,7 @@
                                     <div class="clearfix">
                                         <!-- <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Resetear</button> -->
                                         <button type="button" id="save-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-warning">Guardar y Continuar</button>
-                                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
+                                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary" disabled>Siguiente</button>
                                         <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Anterior</button>
                                     </div>
                                 </div>
@@ -616,24 +617,24 @@
             var fileupload = $("#filepdf");
 
             var upload = function(files) {
-                pdf_file = files[0];
-                document.getElementById("dropzone").style.lineHeight = "normal";
-                document.getElementById("dropzone").style.color = "rgb(253, 0, 0)";
-                document.getElementById("dropzone").style.border = "2px inset rgb(255, 77, 0)";
-                $("#dropzone").html('<i class="fa fa-file-pdf" style="font-size: 60px; display: block; height: 125px; padding-top: 55px; color: rgb(255, 38, 38);"></i><span id="title_pdf" style="display: block; height: 75px; color: rgb(255, 38, 38);">' + pdf_file.name + '</span>');
+                for (let index = 0; index < files.length; index++) {
+                    pdf_file = files[index];
+                    console.log(files[index]);
+                    document.getElementById("dropzone").style.lineHeight = "normal";
+                    document.getElementById("dropzone").style.color = "rgb(253, 0, 0)";
+                    document.getElementById("dropzone").style.border = "2px inset rgb(255, 77, 0)";
+                    document.getElementById("dropzone").style.display = "inline-block";
+                    $("#dropzone").html('<i class="fa fa-file-pdf" style="font-size: 60px; display: inline-block; height: 125px;width:50px; padding-top: 55px;margin-left:10px; color: rgb(255, 38, 38);"></i><span class="title_pdf" style="display: block; height: 75px; color: rgb(255, 38, 38);">' + files[index].name + '</span>');
+                }
             }
 
             dropzone.ondrop = function(e) {
                 e.preventDefault();
                 this.className = 'dropzone';
-                if (e.dataTransfer.files.length >= 2) {
-                    Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
-                    return;
-                }
-                if (e.dataTransfer.files[0].type != 'application/pdf') {
-                    Swal.fire("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
-                    return;
-                }
+                // if (e.dataTransfer.files[0].type != 'application/pdf') {
+                //     Swal.fire("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
+                //     return;
+                // }
                 upload(e.dataTransfer.files);
             }
 
@@ -655,17 +656,19 @@
                 fileupload.click();
             }
 
-            fileupload.change(function() {
-                if (this.files.length >= 2) {
-                    Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
-                    return;
-                }
-                if (this.files[0].type != 'application/pdf') {
-                    Swal.fire("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
-                    return;
-                }
-                upload(this.files);
-            });
+            // fileupload.change(function() {
+            //     // if (this.files.length >= 2) {
+            //     //     Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
+            //     //     return;
+            //     // }
+         
+            //     if (this.files[0].type != 'image/jpeg' ) {
+            //         Swal.fire("Atención!", "Debe se ingresado imagenes o documentos word o pdf", "warning");
+            //         console.log(this.files[0].type);
+            //         return;
+            //     }
+            //     upload(this.files);
+            // });
 
             dropzone.ondragover = function() {
                 this.className = 'dropzone dragover';
@@ -687,95 +690,6 @@
             }
         }
 
-        /* $('#add_user').on('click', function() {
-        	var fname = $('#fname').val();
-        	var lname = $('#lname').val();
-        	var correo = $('#correo').val();
-        	var status = $("#status").children("option:selected").val();
-        	var gender = $("#gender").children("option:selected").val();
-        	var date = $('#date').val();
-        	var rol_user = $("#rol_user").children("option:selected").val();
-        	var supr = $("#supr").children("option:selected").val();
-        	var code = $('#code').val();
-        	var password = $('#password').val();
-
-        	if (pdf_file == null) {
-        		Swal.fire("Atención!", "Debe ingresar el CV del usuario", "warning");
-        		return;
-        	}
-        	if (fname == "") {
-        		Swal.fire("Atención!", "Debe ingresar el nombre del usuario", "warning");
-        		return;
-        	}
-        	if (lname == "") {
-        		Swal.fire("Atención!", "Debe ingresar el apellido del usuario", "warning");
-        		return;
-        	}
-        	if (correo == "") {
-        		Swal.fire("Atención!", "Debe ingresar el correo del usuario", "warning");
-        		return;
-        	}
-        	if (date == "") {
-        		Swal.fire("Atención!", "Debe ingresar la fecha de nacimiento del usuario", "warning");
-        		return;
-        	}
-        	if (code.length != 0) {
-        		if (code.length < 4) {
-        			Swal.fire("Atención!", "El nombre de acceso del usuario debe contener más de 4 caracteres", "warning");
-        			return;
-        		}
-        	} else {
-        		Swal.fire("Atención!", "Debe ingresar el nombre de acceso del usuario", "warning");
-        		return;
-        	}
-        	if (password.length != 0) {
-        		if (password.length < 6) {
-        			Swal.fire("Atención!", "Debe ingresar la contraseña mayor de 6 caracteres", "warning");
-        			return;
-        		}
-        	}
-        	
-
-
-        	var data = new FormData();
-
-        	data.append("fname", fname);
-        	data.append("lname", lname);
-        	data.append("correo", correo);
-        	data.append("status", status);
-        	data.append("gender", gender);
-        	data.append("date", date);
-        	data.append("rol_user", rol_user);
-        	data.append("supr", supr);
-        	data.append("image", $('input[type=file]')[0].files[0]);
-        	data.append("file_pdf", pdf_file);
-        	data.append("code", code);
-        	data.append("password", password);
-
-        	$.ajax({
-        		beforeSend: function() {
-        			Pace.restart();
-        			var btnadd = document.getElementById('add_user');
-        			var text = btnadd.getAttribute('data-name-text');
-        			$("#add_user").html('');
-        			$("#add_user").append("" + text + "&ThinSpace;&ThinSpace;<span id='spinner-us' class='fa fa-spinner fa-spin'></span>");
-        			$("#add_user").attr("disabled", true);
-        		},
-        		url: "<?= FOLDER_PATH ?>/admin/user/save",
-        		type: "POST",
-        		data: data,
-        		contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-        		processData: false, // NEEDED, DON'T OMIT THIS
-        		success: function() {
-        			$("#spinner-us").remove();
-        			$("#add_user").html('Agregado');
-        			$("#add_user").attr("disabled", false);
-        			setTimeout(function() {
-        				location.href = "<?= FOLDER_PATH ?>/admin/user";
-        			}, 500);
-        		}
-        	})
-        }); */
     </script>
     <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <script>
@@ -950,7 +864,7 @@
                         $('#btnUpdatePatient').css('display', 'block');
                         $('#btnSavePatient').css('display', 'none');
                         $('.input-answers').val('');
-
+                        $('#next-btn2').attr('disabled',false);
                     } else {
                         // alert(data);
                         Swal.fire({
@@ -1093,6 +1007,7 @@
                         $('#filter').val("");
                         $('#btnSavePatient').css('display', 'none');
                         $('#btnUpdatePatient').css('display', 'block');
+                        $('#next-btn2').attr('disabled',false);
                         // let cantQuestion = $('.input-answers').toArray().length;
                     
                         $('.input-answers').each(function(index) {
@@ -1232,27 +1147,44 @@
         //     return patient.text;
         // }
         
-        $('#frm-clinicalTest-patient').submit(function(){
+        $('#frm-clinicalTest-patient').submit(function(e){
+            e.preventDefault();
+            if ($('#pru-nombre').html() !== "") {
+                // let datos = $('#frm-clinicalTest-patient').serialize();
 
-            let datos = $('#frm-clinicalTest-patient').serialize();
-
-            $.ajax({
-                type: "post",
-                url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
-                data: datos
-            })
-            .done(function(response){
-                Swal.fire({
-                    icon: 'success',
-                    title: response,
-                    showConfirmButton: false,
-                    timer: 8500
+                $.ajax({
+                    type: "post",
+                    url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
+                    data: new FormData(this),
+                    processData: false,
+                    cache: false,
+                    contentType: false
                 })
-            })
-            .fail(function(){
-
-            })
-            return false;
+                .done(function(response){
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        showConfirmButton: false,
+                        timer: 10500
+                    })
+                    $('#next-btn2').attr('disabled',false);
+                })
+                .fail(function(){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hubo un error',
+                        showConfirmButton: false,
+                        timer: 10500
+                    })
+                })
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Por favor busque o agregue un paciente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         });
 
 
@@ -1338,6 +1270,7 @@
                             })
                             $('#btnUpdateAnswers').css('display', 'block');
                             $('#btnSaveAnswers').css('display', 'none');
+                            $('#next-btn2').attr('disabled',false);
                         })
                         .fail(function() {
                             Swal.fire({
@@ -1377,6 +1310,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            $('#next-btn2').attr('disabled',false);
                         })
                         .fail(function() {
                             Swal.fire({
@@ -1402,22 +1336,28 @@
         $('#save-btn2').css('display', 'none');
 
         $('#prev-btn2').on('click', function() {
+
             $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
             if (detectCSS('#step-2', 'display', 'block')) {
                 $('#prev-btn2').css('display', 'none');
+                // $('#next-btn2').attr('disabled',true);
                 // console.log('true');
             }
         });
 
         // if($buttonSearchPressed){
             $('#next-btn2').on('click', function() {
-                    $('#prev-btn2').css('display', 'block');
-                    if (detectCSS('#step-3', 'display', 'block')) {
-                        $('#next-btn2').css('display', 'none');
-                        $('#save-btn2').css('display', 'block');
-                        console.log('true');
-                    }
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').attr('disabled',true);
+                if($('#answer-0').val() !== ''){
+                    $('#next-btn2').attr('disabled',false);
+                }
+                if (detectCSS('#step-3', 'display', 'block')) {
+                    $('#next-btn2').css('display', 'none');
+                    $('#save-btn2').css('display', 'block');
+                    console.log('true');
+                }
             });
         // }
 

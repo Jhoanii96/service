@@ -28,14 +28,28 @@ class settingsModel extends Model{
     return Model::query_execute($query);
   }
 
-  public function insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis,$exam_fisico,$examenes,$diagnostico){
-    $query = "INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico) VALUES 
-    ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico')";
-    return Model::query_execute($query);
+  public function insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis,$exam_fisico,$examenes,$diagnostico,$nameImage,$imagen_size){
+    
+    try {
+      $db = Model::conectar();
+      $db->beginTransaction();
+      $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico) VALUES 
+      ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico')");
+      $db->query("SET @ID_HISTORIA = LAST_INSERT_ID()");
+      for ($i=0; $i < count($nameImage) ; $i++) { 
+        $db->query("INSERT INTO imagen(Nombre,tamaño,Id_Historia_Clinica) VALUES('$nameImage[$i]',$imagen_size[$i],@ID_HISTORIA)"); 
+      }
+      $db->commit();
+      echo "Agregado exitosamente";
+    } catch (Exception $e){
+      echo "No se pudo agregar la prueba clinica";
+      $db->rollback();
+    }
   }
 
-  // public function getAllHistoryPred(){
-  //   $query = "SELECT FROM ";
-  // }
+  public function getIDClinicalTest($idPaciente){
+    $query = "SELECT Id_historia_clinica FROM historia_clinica WHERE Id_Paciente = $idPaciente";
+    return Model::query_execute($query);
+  }
 
 }

@@ -208,12 +208,6 @@ class consultation extends Controller
         }
     }
 
-    // public function getAnswers($idPaciente)
-    // {
-    //     $Answers = $this->questionModel->getAnswers($idPaciente);
-    //     return $Answers->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
     public function updateAnswers()
     {
         if (isset($_POST['answers']) && $_POST['answers'] !== "") {
@@ -264,13 +258,33 @@ class consultation extends Controller
         $diagnostico_clinical = $_POST['diagnostico-clinical'];
         $tratamiento_clinical = $_POST['tratamiento-clinical'];
         
-        $result = $this->settingsModel->insertClinicalTest($idUser,$idPaciente,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical);
-        $count = $result->rowCount();
-        if($count > 0){
-            echo "Agregado exitosamente";
-        }else{
-            echo "No se pudo agregar la prueba clinica";
+        if (!isset($_FILES["file"]["tmp_name"][0]) || $_FILES["file"]["tmp_name"][0] == "") {
+            $file_tmp = '';
+
+        } else {
+            for ($i=0; $i < count($_FILES["file"]["tmp_name"]); $i++) { 
+               
+                $file_tmp[$i] = $_FILES["file"]["tmp_name"][$i];
+            }
+ 
         }
+        if (!isset($_FILES["file"]["name"][0]) || $_FILES["file"]["name"][0] == "") {
+            $nameImage = 'default.png';
+        } else {
+            for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
+                $nameImage[$i] = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['file']['type'][$i]);
+            }
+        }
+
+        $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/media/images/historia_clinica/';
+        for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
+            move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
+            $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
+            $imagen_size[$i] = $_FILES["file"]["size"][$i];
+        }
+
+        $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$imagen_size);
+        return $result;
     }
 
     public function citas()
