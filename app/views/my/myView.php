@@ -17,6 +17,7 @@
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
 
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
+    
 
 </head>
 
@@ -39,7 +40,7 @@
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
-
+            
             <div class="app-main__outer">
                 <div class="app-main__inner">
                     <?php
@@ -613,11 +614,9 @@
         let close = document.getElementById("btn-adm_close");
         // let save = document.getElementById("save-btn2");
         if (cons != null) {
-            document.getElementById("btn-adm_consulta").addEventListener("click", consulta_admin);
-
-            function consulta_admin() {
-                location.href = "<?= FOLDER_PATH ?>/consultation"
-            }
+            document.getElementById("btn-adm_consulta").addEventListener("click",function(){
+                    location.href = "<?= FOLDER_PATH ?>/consultation";     
+            });
         }
 
         // if(save != null){

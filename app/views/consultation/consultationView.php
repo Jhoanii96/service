@@ -12,17 +12,46 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/select2.css"> -->
     <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/js/select2-bootstrap4.css">
-    <!-- <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/js/select2.js"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/selectize.css">
 
     <style>
+  
+        .loader{
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            font-size: 30px;
+            display: flex;
+            align-items:center;
+            justify-content:center;
+            opacity : 0.9;
+            /* animation: 300ms ; */
+            background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 
+              50% 50% no-repeat rgb(249,249,249);
+        }
+        .loader p{
+            margin-top:80px;
+        }
+        /* .loader::after{
+            content: "cargando";
+            background-color: red;
+        } */
+
+        /* .loader::before{
+            content: "cargando ....";
+            background-color: green;
+        } */
+        
+
         #example1_wrapper>div:nth-child(2) {
             overflow-x: auto;
             border-right: none;
@@ -123,7 +152,13 @@
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
-
+            
+            <div class="loader">
+                <p>Generando la consulta</p> 
+            </div>
+            <!-- <div id="loading"> 
+                <img id="loading-image" src='//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif' alt="Loading..." /> 
+            </div>  -->
             <div class="app-main__outer">
                 <div class="app-main__inner">
                     <div class="app-page-title">
@@ -141,8 +176,7 @@
                         </div>
                     </div>
 
-
-
+                    
                     <div class="row">
 
                         <div class="col-md-12 col-lg-12">
@@ -351,7 +385,7 @@
                                                                             echo    "<div class='position-relative form-group'>";
                                                                             echo        "<label for='question'>P $key: ¿" . $row['Pregunta'] . "?</label>";
                                                                             echo        "<input type='hidden' name='detalle[]' value='" . $row['Id_Detalle'] . "' class='input-detalle'>";
-                                                                            echo        "<input name='answers[]' type='text' id='answwer-$key' class='form-control input-answers' required>";
+                                                                            echo        "<input name='answers[]' type='text' id='answer-$key' class='form-control input-answers' required>";
                                                                             echo    "</div>";
                                                                             echo "</div>";
                                                                         }
@@ -402,7 +436,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Anamnesis</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="anamnesis-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" id="anamnesis-clinical" name="anamnesis-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -548,7 +582,7 @@
                                     <div class="clearfix">
                                         <!-- <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Resetear</button> -->
                                         <button type="button" id="save-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-warning">Guardar y Continuar</button>
-                                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary" disabled>Siguiente</button>
+                                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Siguiente</button>
                                         <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Anterior</button>
                                     </div>
                                 </div>
@@ -606,9 +640,13 @@
         var g_paciente = "", g_edad = "", count_insert_cita = 0;
     </script>
     <script>
-        /* document.getElementById("photoInputFilePhoto").onchange = function() {
-            document.getElementById("uploadFile").value = this.files[0].name;
-        }; */
+        
+
+        window.addEventListener('load',()=>{
+            setTimeout(() => {
+                $(".loader").hide();
+            }, 3000);
+        })
 
         var pdf_file;
 
@@ -619,15 +657,21 @@
             var upload = function(files) {
                 for (let index = 0; index < files.length; index++) {
                     pdf_file = files[index];
-                    console.log(files[index]);
+                    
                     document.getElementById("dropzone").style.lineHeight = "normal";
                     document.getElementById("dropzone").style.color = "rgb(253, 0, 0)";
                     document.getElementById("dropzone").style.border = "2px inset rgb(255, 77, 0)";
                     listado += '<div>';
-                    listado +=  '<i class="fa fa-file-pdf" style="font-size: 60px;display:block; color: rgb(255, 38, 38);"></i>';
+                    if(files[index].type == 'application/pdf'){
+                        listado +=  '<i class="fa fa-file-pdf" style="font-size: 60px;display:block; color: rgb(255, 38, 38);"></i>';
+                    }else if(files[index].type == 'image/jpeg' || files[index].type == 'image/png' || files[index].type == 'image/jpg'){
+                        listado +=  '<i class="fas fa-file-image" style="font-size: 60px;display:block; color: DarkCyan;"></i>';
+                    }else if(files[index].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+                        listado +=  '<i class="far fa-file-word" style="font-size: 60px;display:block; color: #777777;"></i>';
+                    }
+                    console.log(files[index].type);
                     listado +=  '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + files[index].name + '</span>';
                     listado += '</div>';
-                    
                 }
                 dropzone.innerHTML = listado;
             }
@@ -666,11 +710,11 @@
                 //     return;
                 // }
          
-                if (this.files[0].type != 'image/jpeg' ) {
-                    Swal.fire("Atención!", "Debe se ingresado imagenes o documentos word o pdf", "warning");
-                    console.log(this.files[0].type);
-                    return;
-                }
+                // if (this.files[0].type != 'image/jpeg' ) {
+                //     Swal.fire("Atención!", "Debe se ingresado imagenes o documentos word o pdf", "warning");
+                //     console.log(this.files[0].type);
+                //     return;
+                // }
                 upload(this.files);
             });
 
@@ -1017,7 +1061,7 @@
                         $('.input-answers').each(function(index) {
                             if (index < data[0]) {
                                 $(this).val(data[index + 1].Respuesta);
-                                // console.log(data[index+1].Respuesta);
+                                console.log(data[index+1].Respuesta);
                             }else{
                                 $(this).val("");
                             }
@@ -1338,32 +1382,34 @@
     <script>
         $('#prev-btn2').css('display', 'none');
         $('#save-btn2').css('display', 'none');
-
+        $('#next-btn2').attr("disabled",true);
+      
         $('#prev-btn2').on('click', function() {
-
+            $('#next-btn2').attr('disabled',false);
             $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
+
             if (detectCSS('#step-2', 'display', 'block')) {
+                
                 $('#prev-btn2').css('display', 'none');
-                // $('#next-btn2').attr('disabled',true);
                 // console.log('true');
             }
         });
 
-        // if($buttonSearchPressed){
             $('#next-btn2').on('click', function() {
                 $('#prev-btn2').css('display', 'block');
-                $('#next-btn2').attr('disabled',true);
-                if($('#answer-0').val() !== ''){
-                    $('#next-btn2').attr('disabled',false);
-                }
+
                 if (detectCSS('#step-3', 'display', 'block')) {
                     $('#next-btn2').css('display', 'none');
                     $('#save-btn2').css('display', 'block');
-                    console.log('true');
+                }
+                if($('#answer-0').val() == ""){
+                    $('#next-btn2').attr('disabled',true);
+                }
+                if($('#answer-0').val() !== ""){
+                    $('#next-btn2').attr('disabled',false);
                 }
             });
-        // }
 
         function detectCSS(attr, css, value) {
             let result = $(attr).css(css) === value ? true : false;
