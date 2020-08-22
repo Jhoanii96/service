@@ -32,10 +32,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.9;
+            opacity: 1;
             /* animation: 300ms ; */
             background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 50% 50% no-repeat rgb(249, 249, 249);
-            filter: blur(1px);
+            filter: blur(1.5px);
         }
 
         .loader p {
@@ -132,7 +132,7 @@
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="overflow: hidden;">
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
 
         <!-- HEADER -->
@@ -636,6 +636,7 @@
         $(window).on("load",function(){
             window.scrollTo(0, 0);
             $(".loader").fadeOut("slow");
+            $("body").css("overflow","auto");
             /* $(".loader").hide(); */
         });
 
