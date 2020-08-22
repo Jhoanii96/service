@@ -259,9 +259,12 @@ class appointment extends Controller
 
   public function show_details()
   {
-    $appointment = $_POST['meta_data'];
+    /* $appointment = $_POST['meta_data']; */
+    $appointment = "{WzFdfDAtZGF0YS1oaXN0b3J5LWRldGFpbHM=}";
     $appointment = str_replace('{', '', $appointment);
     $appointment = str_replace('}', '', $appointment);
+
+    /* $appointment = "{WzFdfDAtZGF0YS1oaXN0b3J5LWRldGFpbHM=}"; */
 
     $appointment = utf8_decode(base64_decode($appointment));
     $appointment = str_replace('-data-appointment-details', '', $appointment);

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 21-08-2020 a las 22:10:08
--- Versión del servidor: 10.3.23-MariaDB-cll-lve
--- Versión de PHP: 7.3.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-08-2020 a las 01:06:55
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,61 +18,268 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `fcepcvdv_clinica_app`
+-- Base de datos: `bd_clinica`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-$$
+CREATE  PROCEDURE `actualizar_perfil` (IN `idUser` INT, IN `idDoctor` INT, IN `nombre` VARCHAR(80), IN `apellidopa` VARCHAR(50), IN `apellidoma` VARCHAR(50), IN `especialidad` INT, IN `dni` VARCHAR(8), IN `cmp` VARCHAR(6), IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `telefono1` VARCHAR(20), IN `telefono2` VARCHAR(20), IN `celular1` VARCHAR(20), IN `celular2` VARCHAR(20), IN `precioconsulta` FLOAT, IN `diapago` DATE, IN `dont_edit_photo` VARCHAR(1), IN `image` VARCHAR(250))  BEGIN
 
-$$
+	if (dont_edit_photo = '1')
+    then 
+    
+		UPDATE usuario 
+		SET
+		Dia_Pago = diapago,
+		Monto_Pago = precioconsulta 
+		WHERE Id_Usuario = idUser;
 
-$$
+		UPDATE doctor
+		SET
+		Id_Especialidad = especialidad,
+		Id_Pais = pais,
+		Id_Departamento = departamento,
+		Id_Provincia = provincia,
+		Id_Distrito = distrito,
+		Documento = dni,
+		CMP = cmp,
+		Nombres = nombre,
+		Apellido_Paterno = apellidopa,
+		Apellido_Materno = apellidoma,
+		Telefono_Fijo01 = telefono1,
+		Telefono_Fijo02 = telefono2,
+		Celular01 = celular1,
+		Celular02 = celular2  
+		WHERE Id_Doctor = idDoctor;
+        
+    else
+		
+		UPDATE usuario 
+		SET
+		Dia_Pago = diapago,
+		Monto_Pago = precioconsulta,
+		imagen = image
+		WHERE Id_Usuario = idUser;
 
-$$
+		UPDATE doctor
+		SET
+		Id_Especialidad = especialidad,
+		Id_Pais = pais,
+		Id_Departamento = departamento,
+		Id_Provincia = provincia,
+		Id_Distrito = distrito,
+		Documento = dni,
+		CMP = cmp,
+		Nombres = nombre,
+		Apellido_Paterno = apellidopa,
+		Apellido_Materno = apellidoma,
+		Telefono_Fijo01 = telefono1,
+		Telefono_Fijo02 = telefono2,
+		Celular01 = celular1,
+		Celular02 = celular2  
+		WHERE Id_Doctor = idDoctor;
+    
+    end if;
+END$$
 
-$$
+CREATE  PROCEDURE `getQuestionnaire` (IN `idUser` INT)  SELECT de.Id_Detalle_Cuestionario AS Id_Detalle,de.Pregunta FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
+de.Id_Cuestionario = cu.Id_Cuestionario WHERE 
+cu.Id_Usuario = idUser$$
 
-$$
-
-$$
-
-CREATE PROCEDURE `mostrar_detalle_cita` (IN `codcita` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
-
+CREATE  PROCEDURE `insertar_cita` (IN `usersearch` INT, IN `datecita` DATE, IN `timecita` VARCHAR(10), IN `username` VARCHAR(60))  BEGIN
 	
-	select 
-		vd.id, 
-        vd.nombre, 
-        vd.ape_pa, 
-        vd.ape_ma, 
-        vd.dni, 
-        vd.celular, 
-        vd.fntoage, 
-        vd.genero, 
-        vd.fecha_cita, 
-        vd.precio, 
-        vd.estado, 
-        vd.email, 
-        vd.fn 
-	from v_detalle_cita vd 
-    where vd.id = codcita and vd.username = user_name; 
+    SELECT @idusuario := Id_Usuario FROM usuario WHERE Nombre = username; 
+    SELECT @fecha_cita := concat(datecita, ' ', timecita);
 
+	INSERT INTO `citas`
+	(`Id_Usuario`,
+	`Id_Paciente`,
+	`Fecha_Creacion`,
+	`Fecha_Cita`,
+	`Precio`,
+	`Estado`,
+	`Recordatorio_SMS`,
+	`Recordatorio_CORREO`,
+	`Atencion`)
+	VALUES
+	(@idusuario,
+	usersearch,
+	NOW(),
+	@fecha_cita,
+	50, /* En observación */
+	0,
+	0,
+	0,
+	0);
 
 END$$
 
-CREATE PROCEDURE `mostrar_detalle_historial` (IN `codhistorial` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
+CREATE  PROCEDURE `insertar_codigo` (IN `codigo` VARCHAR(6))  BEGIN
 
-	select * from v_detalle_historia vd where vd.id = codhistorial and vd.username = user_name; 
+	INSERT INTO `codigo_registro`
+	(`nombre_codigo`, 
+    `codigo_usado`, 
+	`fecha_codigo`)
+	VALUES
+	(codigo,
+    '0', 
+	NOW());
 
 END$$
 
-$$
+CREATE  PROCEDURE `insertar_paciente_cita` (IN `dni` VARCHAR(30), IN `nombre` VARCHAR(60), IN `apellidopa` VARCHAR(60), IN `apellidoma` VARCHAR(60), IN `genero` VARCHAR(30), IN `celular` VARCHAR(30), IN `fechana` DATE, IN `correo` VARCHAR(120), IN `procedencia` VARCHAR(200), IN `username` VARCHAR(60))  BEGIN
 
-$$
+	SELECT @idusuario := us.Id_Usuario FROM usuario us WHERE us.Nombre = username; 
 
-$$
+	INSERT INTO `paciente`
+	(`Documento`,
+	`Nombre`,
+	`Apellido_Paterno`,
+	`Apellido_Materno`,
+	`Genero`,
+	`Fecha_Nacimiento`,
+	`Celular`,
+	`Email`,
+	`Procedencia`,
+	`Id_Usuario`)
+	VALUES
+	(dni,
+	nombre,
+	apellidopa,
+	apellidoma,
+	genero,
+	fechana,
+	celular,
+	correo,
+	procedencia,
+	@idusuario);
+
+END$$
+
+CREATE  PROCEDURE `insertar_registro` (IN `especialidad` INT, IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `cmp` VARCHAR(10), IN `dni` VARCHAR(10), IN `nombre` VARCHAR(80), IN `apellidop` VARCHAR(50), IN `apellidom` VARCHAR(50), IN `address1` VARCHAR(200), IN `gen` VARCHAR(1), IN `cellphone` VARCHAR(20), IN `fn` DATE, IN `price` DECIMAL(18,2), IN `username` VARCHAR(300), IN `new_password` VARCHAR(50), IN `dconsulta` VARCHAR(200), IN `email` VARCHAR(200), IN `isactive` TINYINT, IN `fecha_activacion` DATE, IN `usersearch` INT)  BEGIN
+	
+	INSERT INTO `doctor`
+	(`Id_Especialidad`, `Id_Pais`, `Id_Departamento`, `Id_Provincia`, `Id_Distrito`,
+	`Documento`, `CMP`, `Nombres`, `Apellido_Paterno`, `Apellido_Materno`, `Direccion`,
+	`Sexo`, `Celular01`, `email01`, `Fecha_Nacimiento`)
+	VALUES
+	(especialidad, pais, departamento, provincia, distrito, 
+	dni, cmp, nombre, apellidop, apellidom, address1, 
+	gen, cellphone, email, fn);
+    
+    SELECT @iddoctor := Id_Doctor FROM doctor WHERE Documento = dni; 
+    
+    INSERT INTO `usuario`
+	(`Id_Doctor`, `Nombre`, `Password`, `Direccion`, `Activo`, `Fecha_Activacion`, `Fecha_Habilitado`,
+	`Monto_Pago`, `Fecha_Registro`)
+	VALUES
+	(@iddoctor, username, new_password, dconsulta, isactive, fecha_activacion, fecha_activacion, 
+	price, NOW());
+    
+    
+    if(usersearch != -1)
+    then 
+		INSERT INTO `referencia_usuario`
+		(`Id_Usuario`,
+		`Id_Usuario_Referencia`,
+		`Fecha_Registro`)
+		VALUES
+		(@iddoctor,
+		usersearch,
+		NOW());
+        
+	end if;
+    
+END$$
+
+CREATE  PROCEDURE `mostrar_citas_consulta` (IN `fecha` VARCHAR(20), IN `user_name` VARCHAR(60))  BEGIN
+
+	if (fecha = '')
+    then
+		select * from v_citas_consulta vcc where DATE_FORMAT(vcc.fecha_atencion, "%Y-%m-%d") = DATE_FORMAT(NOW(), "%Y-%m-%d") and vcc.user_name = user_name order by vcc.fecha_atencion desc; 
+	else
+		select * from v_citas_consulta vcc where vcc.fecha_atencion like concat('%', fecha, '%') and vcc.user_name = user_name order by vcc.fecha_atencion desc; 
+    end if;
+	
+END$$
+
+CREATE  PROCEDURE `mostrar_lista_citas` (IN `nombresearch` VARCHAR(60), IN `filter` VARCHAR(1), IN `user_name` VARCHAR(60))  BEGIN
+
+	if(filter = '0')
+    then
+		select * from v_lista_citas vlc where vlc.username = user_name 
+        and DATE_FORMAT(vlc.fechacita, "%Y-%m-%d") = DATE_FORMAT(NOW(), "%Y-%m-%d") order by vlc.fechacita desc;
+    end if;
+
+	if(filter = '1')
+    then
+		select * from v_lista_citas vlc 
+		where 
+        vlc.username = user_name and 
+        concat(vlc.nombre, ' ', vlc.apepa, ' ', vlc.apema, ' ', vlc.dni) like concat('%', nombresearch, '%') 
+		order by vlc.fechacita desc;
+    end if;
+    
+    if(filter = '2')
+    then
+		select * from v_lista_citas vlc 
+		where 
+        vlc.username = user_name and 
+        DATE_FORMAT(vlc.fechacita, "%Y-%m-%d") = nombresearch 
+		order by vlc.fechacita desc;
+    end if;
+    
+    if(filter = '3')
+    then
+		select * from v_lista_citas vlc where vlc.username = user_name order by vlc.fechacita desc;
+    end if;
+
+END$$
+
+CREATE  PROCEDURE `mostrar_perfil` (IN `user_name` VARCHAR(60))  BEGIN
+
+	select * from v_perfil vp where vp.username = user_name; 
+
+END$$
+
+CREATE  PROCEDURE `showProfile` (IN `name` VARCHAR(30) CHARSET utf8)  SELECT 
+	us.Id_Usuario, 
+    doc.Id_Doctor, 
+    doc.Nombres, 
+    doc.Apellido_Paterno, 
+    doc.Apellido_Materno, 
+    es.Descripcion as especialidad, 
+    Documento,CMP, 
+    pa.Descripcion as pais, 
+    dep.Descripcion as departamento, 
+    pro.Descripcion as provincia, 
+    dis.Descripcion as distrito,  
+    doc.Telefono_Fijo01,  
+    doc.Telefono_Fijo02, 
+    doc.Celular01,  
+    doc.Celular02,  
+    email01,  
+    us.Tiempo_Atencion_Promedio,  
+    us.Dia_Pago,  
+    us.Monto_Pago,  
+    us.Password,  
+    us.imagen  
+FROM doctor doc  
+INNER JOIN pais pa ON
+doc.Id_Pais = pa.Id_Pais 
+INNER JOIN provincia pro ON
+pro.Id_Provincia = doc.Id_Provincia 
+INNER JOIN departamento dep ON
+dep.Id_Departamento = doc.Id_Departamento 
+INNER JOIN usuario us ON
+us.Id_Doctor = doc.Id_Doctor 
+INNER JOIN especialidad es ON
+es.Id_Especialidad = doc.Id_Especialidad 
+INNER JOIN distrito dis ON
+dis.ID_Distrito = doc.ID_Distrito 
+WHERE us.Nombre = name$$
 
 DELIMITER ;
 
@@ -115,11 +321,7 @@ INSERT INTO `citas` (`Id_Citas`, `Id_Usuario`, `Id_Paciente`, `Fecha_Creacion`, 
 (12, 2, 15, '2020-08-17 02:11:36', '2020-08-18 01:20:00', 50, 0, 0, 0, 0),
 (13, 2, 15, '2020-08-17 02:11:57', '2020-08-17 08:03:00', 50, 0, 0, 0, 0),
 (14, 2, 1, '2020-08-17 02:14:41', '2020-08-18 02:21:00', 50, 0, 0, 0, 0),
-(15, 2, 1, '2020-08-17 02:15:05', '2020-08-18 03:22:00', 50, 0, 0, 0, 0),
-(16, 6, 16, '2020-08-19 01:51:22', '2020-08-20 19:30:00', 50, 0, 0, 0, 0),
-(17, 6, 1, '2020-08-19 01:52:34', '2020-08-19 02:00:00', 50, 0, 0, 0, 0),
-(18, 6, 18, '2020-08-19 02:37:49', '2020-08-19 03:00:00', 50, 0, 0, 0, 0),
-(19, 6, 17, '2020-08-21 23:54:12', '2020-08-21 23:00:00', 50, 0, 0, 0, 0);
+(15, 2, 1, '2020-08-17 02:15:05', '2020-08-18 03:22:00', 50, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -171,9 +373,7 @@ INSERT INTO `codigo_registro` (`id_codigo`, `nombre_codigo`, `codigo_usado`, `fe
 (30, 'O9NX5R', '1', '2020-07-05 19:04:18'),
 (31, 'YKZI7K', '1', '2020-07-05 19:11:28'),
 (32, '7OCKG8', '1', '2020-07-05 19:17:16'),
-(33, '2RTPGQ', '1', '2020-07-05 19:31:53'),
-(34, 'TRLDMZ', '1', '2020-08-18 21:41:23'),
-(35, '7X9GN1', '1', '2020-08-19 23:14:43');
+(33, '2RTPGQ', '1', '2020-07-05 19:31:53');
 
 -- --------------------------------------------------------
 
@@ -195,9 +395,7 @@ CREATE TABLE `cuestionario` (
 
 INSERT INTO `cuestionario` (`Id_Cuestionario`, `Id_Usuario`, `Fecha_creacion`, `cant_preguntas`, `estado_crear_mas`) VALUES
 (24, 1, '2020-07-17 01:18:08', 7, 0),
-(26, 2, '2020-07-17 02:36:07', 1, 0),
-(27, 6, '2020-08-19 01:42:21', 4, 0),
-(28, 7, '2020-08-20 03:16:04', 3, 0);
+(26, 2, '2020-07-17 02:36:07', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -267,14 +465,7 @@ INSERT INTO `detalle_cuestionario` (`Id_Detalle_Cuestionario`, `Id_Cuestionario`
 (116, 26, 'SIDA'),
 (117, 24, 'TIENE TETANO'),
 (118, 24, 'FUMA'),
-(119, 24, 'PREGUNTA 3'),
-(120, 27, 'PREGUNTA 1'),
-(121, 27, 'PREGUNTA 2'),
-(122, 27, 'PREGUNTA 3'),
-(123, 27, 'PREGUNTA 4'),
-(124, 28, 'Pregunta1'),
-(125, 28, 'Pregunta 2'),
-(126, 28, 'Pregunta 3');
+(119, 24, 'PREGUNTA 3');
 
 --
 -- Disparadores `detalle_cuestionario`
@@ -311,7 +502,7 @@ CREATE TABLE `detalle_cuestionario_paciente` (
 --
 
 INSERT INTO `detalle_cuestionario_paciente` (`Id_Cuestionario_Paciente`, `Id_Detalle_Cuestionario`, `Respuesta`, `Id_Paciente`, `Mostrar`) VALUES
-(1, 22, '1', 1, 1),
+(1, 22, '1asdasdasd', 1, 1),
 (2, 95, '2', 1, 1),
 (3, 96, '4', 1, 1),
 (4, 97, '4', 1, 1),
@@ -323,51 +514,69 @@ INSERT INTO `detalle_cuestionario_paciente` (`Id_Cuestionario_Paciente`, `Id_Det
 (15, 117, 'SIASDASDASD', 1, 1),
 (16, 118, '5464684', 1, 1),
 (17, 119, 'ASDASDASD', 1, 1),
-(18, 120, 'no', 16, 1),
-(19, 121, 'no', 16, 1),
-(20, 122, 'no', 16, 1),
-(21, 123, 'no', 16, 1),
-(22, 120, 'si', 17, 1),
-(23, 121, 'si', 17, 1),
-(24, 122, 'si', 17, 1),
-(25, 123, 'si', 17, 1),
-(26, 120, 'no', 18, 1),
-(27, 121, 'no', 18, 1),
-(28, 122, 'no', 18, 1),
-(29, 123, 'no', 18, 1),
-(30, 116, 'no', 16, 1),
-(31, 120, 'no', 19, 1),
-(32, 121, 'no', 19, 1),
-(33, 122, 'no', 19, 1),
-(34, 123, 'no', 19, 1),
-(35, 120, 'si', 20, 1),
-(36, 121, 'si', 20, 1),
-(37, 122, 'si', 20, 1),
-(38, 123, 'si', 20, 1),
-(39, 120, 'no', 21, 1),
-(40, 121, 'no', 21, 1),
-(41, 122, 'no', 21, 1),
-(42, 123, 'no', 21, 1),
-(81, 120, 'no', 22, 1),
-(82, 121, 'no', 22, 1),
-(83, 122, 'no', 22, 1),
-(84, 123, 'no', 22, 1),
-(85, 120, 'no', 23, 1),
-(86, 121, 'no', 23, 1),
-(87, 122, 'no', 23, 1),
-(88, 123, 'no', 23, 1),
-(89, 120, 'no', 24, 1),
-(90, 121, 'no', 24, 1),
-(91, 122, 'no', 24, 1),
-(92, 123, 'no', 24, 1),
-(93, 22, '1', 5, 1),
-(94, 95, '2', 5, 1),
-(95, 96, '3', 5, 1),
-(96, 97, '5', 5, 1),
-(97, 117, '8', 5, 1),
-(98, 118, '5', 5, 1),
-(99, 119, '8', 5, 1),
-(100, 116, 'no', 20, 1);
+(18, 22, 'asd', 14, 1),
+(19, 95, 'asd', 14, 1),
+(20, 96, 'asd', 14, 1),
+(21, 97, 'asd', 14, 1),
+(22, 117, 'asd', 14, 1),
+(23, 118, 'asd', 14, 1),
+(24, 119, 'asddddddd', 14, 1),
+(25, 22, '1', 13, 1),
+(26, 95, '2', 13, 1),
+(27, 96, '3', 13, 1),
+(28, 97, '7', 13, 1),
+(29, 117, '5', 13, 1),
+(30, 118, '6', 13, 1),
+(31, 119, '8', 13, 1),
+(32, 22, 'asd', 11, 1),
+(33, 95, 'sdasd', 11, 1),
+(34, 96, 'asdasd', 11, 1),
+(35, 97, 'asdsad', 11, 1),
+(36, 117, 'sdsdsd', 11, 1),
+(37, 118, 'sddsd', 11, 1),
+(38, 119, 'sdsdsd', 11, 1),
+(39, 22, '1', 5, 1),
+(40, 95, '2', 5, 1),
+(41, 96, '3', 5, 1),
+(42, 97, '4', 5, 1),
+(43, 117, '5', 5, 1),
+(44, 118, '8', 5, 1),
+(45, 119, '5', 5, 1),
+(46, 22, '1', 4, 1),
+(47, 95, '2', 4, 1),
+(48, 96, '3', 4, 1),
+(49, 97, '5', 4, 1),
+(50, 117, '8', 4, 1),
+(51, 118, '5', 4, 1),
+(52, 119, '8', 4, 1),
+(53, 22, '1', 6, 1),
+(54, 95, '2', 6, 1),
+(55, 96, '3', 6, 1),
+(56, 97, '5', 6, 1),
+(57, 117, '8', 6, 1),
+(58, 118, '5', 6, 1),
+(59, 119, '8', 6, 1),
+(60, 22, '1', 12, 1),
+(61, 95, '2', 12, 1),
+(62, 96, '3', 12, 1),
+(63, 97, '5', 12, 1),
+(64, 117, '8', 12, 1),
+(65, 118, '8', 12, 1),
+(66, 119, '8', 12, 1),
+(67, 22, '1', 16, 1),
+(68, 95, '2', 16, 1),
+(69, 96, '3', 16, 1),
+(70, 97, '5', 16, 1),
+(71, 117, '8', 16, 1),
+(72, 118, '8', 16, 1),
+(73, 119, '8', 16, 1),
+(74, 22, 'SI', 17, 1),
+(75, 95, 'NO', 17, 1),
+(76, 96, 'TAL VEZ', 17, 1),
+(77, 97, '546846', 17, 1),
+(78, 117, 'ASÑDKSÑALDK', 17, 1),
+(79, 118, 'ÑASDÑLK', 17, 1),
+(80, 119, 'ASÑLDKAD', 17, 1);
 
 -- --------------------------------------------------------
 
@@ -2064,9 +2273,7 @@ INSERT INTO `doctor` (`Id_Doctor`, `Id_Especialidad`, `Id_Pais`, `Id_Departament
 (2, 3, 1, 22, 157, 1426, '75744654', '198745', 'JHON', 'ALVARADO', 'ACHATA', NULL, 'M', '123546', '65465465', '654654', '65465', NULL, 'jhon_123_jw@outlook.com', NULL, NULL, NULL, '1996-01-27'),
 (9, 2, 1, 22, 156, 1415, '00465365', '084684', 'JHON', 'ALVARADO', 'ACHATA', 'Calle Violetas Mz. C Lote. 6', 'M', NULL, NULL, '+51910181425', NULL, NULL, 'jhon_123_jw@hotmail.com', NULL, NULL, NULL, '2020-07-01'),
 (10, 3, 1, 22, 156, 1415, '04848648', '979977', 'ERICK', 'AYCAYA', 'ALANIA', 'La Catedral', 'M', NULL, NULL, '+51910181425', NULL, NULL, 'jhon_123_jw@hotmail.com', NULL, NULL, NULL, '1700-06-05'),
-(11, 3, 1, 22, 156, 1415, '65598486', '646846', 'RUTH', 'RAMIREZ', 'REJAS', 'Abajo de la plaza zela', 'F', NULL, NULL, '+51914684233', NULL, NULL, 'jhon_123_jw@hotmail.com', NULL, NULL, NULL, '2020-06-04'),
-(12, 2, 1, 3, 11, 94, '98798798', '879879', 'RONALDO', 'FRISANCHO', 'PONCE', 'av ', 'M', NULL, NULL, '959854747', NULL, NULL, 'albeerthronaldo@hotmail.com', NULL, NULL, NULL, '1998-07-27'),
-(13, 1, 1, 2, 5, 44, '70143455', '456465', 'JOSE', 'LEONARDO', 'PEREZ', 'AV', 'M', '', '', '9598746218', '', NULL, 'albeerthronaldo@hotmail.com', NULL, NULL, NULL, '1994-05-21');
+(11, 3, 1, 22, 156, 1415, '65598486', '646846', 'RUTH', 'RAMIREZ', 'REJAS', 'Abajo de la plaza zela', 'F', NULL, NULL, '+51914684233', NULL, NULL, 'jhon_123_jw@hotmail.com', NULL, NULL, NULL, '2020-06-04');
 
 -- --------------------------------------------------------
 
@@ -2102,8 +2309,7 @@ CREATE TABLE `especialidad` (
 INSERT INTO `especialidad` (`Id_Especialidad`, `Descripcion`, `Abreviatura`) VALUES
 (1, 'Odontología', NULL),
 (2, 'Oftamología', NULL),
-(3, 'Psicologo', NULL),
-(99, 'Otros', 'Otros');
+(3, 'Psicologo', NULL);
 
 -- --------------------------------------------------------
 
@@ -2138,13 +2344,7 @@ INSERT INTO `historia_clinica` (`Id_historia_clinica`, `Id_Paciente`, `Id_Usuari
 (70, 11, 1, NULL, '2020-08-21 18:00:43', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'asdasdadad'),
 (71, 11, 1, NULL, '2020-08-21 18:00:51', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'asdasdadad'),
 (72, 12, 1, NULL, '2020-08-21 18:01:50', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'awdawdawdawdawd'),
-(73, 12, 1, NULL, '2020-08-21 18:03:28', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'awdawdawdawdawd'),
-(0, 24, 6, NULL, '2020-08-21 19:52:00', '1:1\r\n2:\r\n3:\r\n4:\r\n5:', '12', '12', '12'),
-(0, 20, 6, NULL, '2020-08-21 20:13:07', '1:\r\n2:\r\n3:\r\n4:\r\n5:', '12', '12', '12'),
-(0, 1, 1, NULL, '2020-08-21 21:18:52', '1\r\n2\r\n3\r\n', 'diag', 'resultado', '123456789'),
-(0, 5, 1, NULL, '2020-08-21 21:21:38', '1 asda\r\n2 asdasd\r\n3 asdasd\r\n', 'diag asdasd', 'resultado asdasd', '12345484684'),
-(0, 20, 2, NULL, '2020-08-21 21:46:48', 'alsjdlkasjdlk\r\nslkjdlaksdj', 'sd', 'saluuute', '654654654'),
-(0, 20, 2, NULL, '2020-08-21 21:50:52', 'alsjdlkasjdlk\r\nslkjdlaksdj', 'sd', 'saluuute', '654654654');
+(73, 12, 1, NULL, '2020-08-21 18:03:28', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'awdawdawdawdawd');
 
 -- --------------------------------------------------------
 
@@ -2170,8 +2370,7 @@ CREATE TABLE `historia_clinica_predeterminado` (
 
 INSERT INTO `historia_clinica_predeterminado` (`Id_Historia_Clinica_Predeterminado`, `Id_Usuario`, `Fecha`, `Anamnesis_Pred`, `Examenes_Pred`, `Examen_Fisico_Pred`, `Diagnostico_Pred`, `Tratamiento_Pred`, `creado`) VALUES
 (34, 2, '2020-08-10 22:05:21', 'kasdhkjah\r\nalsjdalk', 'saluuute', 'alsjdlkasjdlk\r\nslkjdlaksdj', '', '654654654', b'1'),
-(35, 1, '2020-08-15 19:48:30', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', '', b'1'),
-(0, 6, '2020-08-19 19:52:58', 'TE:\r\nDE:', '', '1:\r\n2:\r\n3:\r\n4:\r\n5:', '', '', b'1');
+(35, 1, '2020-08-15 19:48:30', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', '', b'1');
 
 -- --------------------------------------------------------
 
@@ -2199,12 +2398,7 @@ INSERT INTO `imagen` (`Id_Imagen`, `Nombre`, `tamaño`, `Id_Historia_Clinica`) V
 (107, 'src/assets/media/images/historia_clinica/0822200103281598051008.1886.jpeg', 979433, 73),
 (108, 'src/assets/media/images/historia_clinica/0822200103281598051008.1886.jpeg', 145534, 73),
 (109, '/src/Documentos/0822200103281598051008.1887.vnd.openxmlformats-officedocument.wordprocessingml.document', 242291, 73),
-(110, '/src/Documentos/0822200103281598051008.1887.pdf', 87176, 73),
-(111, 'src/assets/media/images/historia_clinica/0821200745161598053516.0809.jpeg', 57702, 75),
-(112, '/src/Documentos/0821200918521598059132.9379.pdf', 1677250, 0),
-(113, 'src/assets/media/images/historia_clinica/0821200918521598059132.9379.jpeg', 127271, 0),
-(114, '/src/Documentos/0821200918521598059132.9379.pdf', 2845200, 0),
-(115, '/src/Documentos/0821200921381598059298.543.pdf', 448792, 0);
+(110, '/src/Documentos/0822200103281598051008.1887.pdf', 87176, 73);
 
 -- --------------------------------------------------------
 
@@ -2233,26 +2427,19 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`Id_Paciente`, `Documento`, `Nombre`, `Apellido_Paterno`, `Apellido_Materno`, `Genero`, `Fecha_Nacimiento`, `Celular`, `Email`, `Procedencia`, `Ocupacion_Anterior`, `Ocupacion_Actual`, `Id_Usuario`) VALUES
-(1, '75745454', 'Jhon ', 'Olvia', 'Perez', 'M', '1997-08-18', '925754844', 'salute@gmail.com', 'Chile', 'Obrero', 'Arquitecto', 2),
+(1, '75745454', 'Jhon ', 'Olvia', 'Perez', 'F', '1997-08-18', '925754844', 'salute@gmail.com', 'Chile', 'OBREROASD', 'ARQUITECTOASDAS', 1),
 (2, '4654654', 'asdasd', 'asdasdasd', 'asdqwdwqd', '', '2020-07-03', '6464545', 'asda@gmail.com', 'asdasdasd', '', '', 2),
 (4, '4454845454', 'asdasdasd', 'asdasdasd', 'asdasdasd', 'F', '2020-07-15', '464545454', 'asdsdasd@gmail.com', 'argentina', 'asdasd', 'asdsasd', 2),
 (5, '7878454', 'walter', 'aguilar', 'perez', 'M', '2020-07-07', '92854845', 'ol@gmail.com', 'peruana', 'odd', 'aksdjlaskjd', 2),
 (6, '76507579', 'akldjlakjdlkaj', 'aguilar', 'asdasdasd', 'F', '2020-07-07', '454684654', 'dyangel@gmail.com', 'argentina', 'opcion 11555', 'ocupacion 154545', 2),
 (10, '32145678', 'ALBERTH RONALDO', 'ALVARADO', 'ACHATadasd', 'F', '2020-07-09', '928575911', '', 'peruana', 'obrero', 'arquitecto', 2),
 (11, '12345678', 'LIZETH ZULEMA', 'WASHUALDO', 'VENGEGAZ', 'M', '1996-01-27', '928575911', '', 'peruana', 'obrero', 'arquitecto', 2),
-(12, '65478899', 'ALBERTH RONALDO', 'ALVARADO', 'ACHATadasd', 'F', '2020-07-02', '928575911', '', 'peruana', 'obrero', 'arquitecto', 2),
+(12, '65478899', 'ALBERTH RONALDO', 'ALVARADO', 'ACHATadasd', 'F', '2020-07-02', '928575911', '', 'peruana', 'obrero', 'arquitecto', 1),
 (13, '32164557', 'ALBERTH RONALDO', 'ALVARADO', 'PONCE', 'F', '2020-07-21', '928575911', '', 'peruana', 'obrero', 'arquitecto', 2),
 (14, '00486486', 'ERICK JOEL', 'AYCAYA', 'ALANIA', 'M', '1050-02-01', '456486486', '', '', NULL, NULL, 2),
 (15, '68486486', 'DALTHON', 'WALPA', 'MAMANI', 'M', '0001-01-01', '648486486', 'dalthon@gmail.com', '00000', NULL, NULL, 2),
-(16, '99999999', 'RONALD', 'REYES', 'ROSALES', 'M', '1998-07-27', '959856137', 'ronaldo@hotmail.com', 'PERU-TACNA', '', 'ESTUDIANTE', 6),
-(17, '77777777', 'JORGE', 'GUSTAVO', 'ALAYA', 'M', '1997-08-27', '959856137', '', 'LIMA', '', '', 6),
-(18, '33333333', 'RUTH', 'RAMIRES', 'REJAS', 'F', '1997-07-21', '959856137', 'ruth@gmail.com', 'PERU-TACNA', '', '', 6),
-(19, '22222222', 'JOAQUIN', 'PEREZ', 'PEREZ', 'M', '1992-05-25', '959856137', '', 'TACMA', '', '', 6),
-(20, '70143455', 'JOSUE', 'ALDAIR', 'MAMANI', 'Seleccionar', '1997-08-27', '', 'jsue@hotmail.com', 'PERU', '', 'ESTUDIANTE', 6),
-(21, '55555555', 'ROSA', 'LAURA', 'PAXI', 'M', '1997-08-27', '454564884', '', 'PERU-TACNA', '', '', 6),
-(22, '66666666', 'JEAN', 'FRANCO ', 'MALAGA', 'M', '1997-06-24', '959856137', 'ronaldo@hotmail.com', 'PERU-TACNA', '', 'DOCENTE', 6),
-(23, '12121212', 'YIMI', 'MUÑOZ', 'MAMANI', 'M', '1997-02-21', '959856137', '', 'PERU-TACNA', '', '', 6),
-(24, '36363636', 'YONI', 'LLANOS ', 'TICONA', 'M', '1997-05-21', '959856137', '', 'PERU', '', '', 6);
+(16, '46846846', 'MARCO ANTONIO', 'MANDAMIENTO', 'ASDASD', 'F', '2020-08-04', '654684654', 'dyangeltk@gmail.com', 'PERUANA', 'ESTUDIANTE', 'ASDASDASD', 1),
+(17, '46546854', 'HILARIO', 'FLORES', 'CANA', 'M', '2000-08-15', '654846548', '', 'PERUANA', 'ASDAS', 'ASDASD', 1);
 
 -- --------------------------------------------------------
 
@@ -2534,13 +2721,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id_Usuario`, `Id_Doctor`, `Nombre`, `Password`, `Direccion`, `Direccion_IP`, `Ubicacion_GPS`, `Activo`, `Fecha_Activacion`, `Monto_Pago`, `Fecha_Habilitado`, `Fecha_Registro`, `Dia_Pago`, `Codigo_Web_Registro`, `Visualizo_Indicaciones`, `Tiempo_Atencion_Promedio`, `Precio_Predeterminado`, `Hora_Inicio_Atencion`, `Hora_Fin_Atencion`, `estado_perfil`, `imagen`) VALUES
-(1, 1, 'alberth', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', 4500.00, NULL, NULL, '2020-08-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
-(2, 2, 'jhon', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', 4000.00, NULL, NULL, '2020-04-15', NULL, NULL, 80, 4500.00, NULL, NULL, 0, 'src/assets/media/images/profile/0724200634261595565266.8879.jpeg'),
-(3, 9, 'jhonxdas123', '4eM9Jqb3yBVXD7D', 'Centro de tacna', NULL, NULL, 1, '2020-07-05 00:00:00.000', 150.60, '2020-07-05', '2020-07-05 19:12:17.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
-(4, 10, 'ericksolitario', 'B4NHL32da7v8zSa', 'Fuera de la catedral', NULL, NULL, 1, '2020-07-05 00:00:00.000', 50.00, '2020-07-05', '2020-07-05 19:18:14.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
-(5, 11, 'ruthlapanda', 'g78WWQhKrihsPjJ', 'en la plaza zela', NULL, NULL, 1, '2020-07-05 00:00:00.000', 150.00, '2020-07-05', '2020-07-05 19:32:23.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
-(6, 12, 'ronaldo456', 'MFzc6Km7c5sC6y4', 'av', NULL, NULL, 1, '2020-08-18 00:00:00.000', 80.00, '2020-08-18', '2020-08-18 21:42:00.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
-(7, 13, 'RONALDIÑO123', 'wU5Zpgv9QSRzpAE', 'AV', NULL, NULL, 1, '2020-08-19 00:00:00.000', 100.00, '2020-08-19', '2020-08-19 23:15:07.000', '1998-01-15', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/0819201115531597893353.4744.png');
+(1, 1, 'alberth', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', '4500.00', NULL, NULL, '2020-08-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
+(2, 2, 'jhon', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', '4000.00', NULL, NULL, '2020-04-15', NULL, NULL, 80, '4500.00', NULL, NULL, 0, 'src/assets/media/images/profile/0724200634261595565266.8879.jpeg'),
+(3, 9, 'jhonxdas123', '4eM9Jqb3yBVXD7D', 'Centro de tacna', NULL, NULL, 1, '2020-07-05 00:00:00.000', '150.60', '2020-07-05', '2020-07-05 19:12:17.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
+(4, 10, 'ericksolitario', 'B4NHL32da7v8zSa', 'Fuera de la catedral', NULL, NULL, 1, '2020-07-05 00:00:00.000', '50.00', '2020-07-05', '2020-07-05 19:18:14.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
+(5, 11, 'ruthlapanda', 'g78WWQhKrihsPjJ', 'en la plaza zela', NULL, NULL, 1, '2020-07-05 00:00:00.000', '150.00', '2020-07-05', '2020-07-05 19:32:23.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png');
 
 -- --------------------------------------------------------
 
@@ -2794,7 +2979,7 @@ CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_lista_doctor`  AS  sele
 --
 DROP TABLE IF EXISTS `v_lista_historia_clinica`;
 
-CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_lista_historia_clinica`  AS  select `hc`.`Id_historia_clinica` AS `id_historia`,`pa`.`Id_Paciente` AS `id_paciente`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombre_paciente`,`pa`.`Fecha_Nacimiento` AS `fecha_nacimiento`,`hc`.`Fecha` AS `fecha_consulta`,`us`.`Nombre` AS `username` from ((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_lista_historia_clinica`  AS  select `hc`.`Id_historia_clinica` AS `id_historia`,`pa`.`Id_Paciente` AS `id_paciente`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombre_paciente`,`pa`.`Fecha_Nacimiento` AS `fecha_nacimiento`,`hc`.`Fecha` AS `fecha_consulta`,`us`.`Nombre` AS `username` from ((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_historia_clinica`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -2888,6 +3073,12 @@ ALTER TABLE `especialidad`
   ADD PRIMARY KEY (`Id_Especialidad`);
 
 --
+-- Indices de la tabla `historia_clinica`
+--
+ALTER TABLE `historia_clinica`
+  ADD PRIMARY KEY (`Id_historia_clinica`);
+
+--
 -- Indices de la tabla `imagen`
 --
 ALTER TABLE `imagen`
@@ -2944,19 +3135,19 @@ ALTER TABLE `usuario_sistema`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `Id_Citas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Id_Citas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `codigo_registro`
 --
 ALTER TABLE `codigo_registro`
-  MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  MODIFY `Id_Cuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `Id_Cuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -2968,13 +3159,13 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `detalle_cuestionario`
 --
 ALTER TABLE `detalle_cuestionario`
-  MODIFY `Id_Detalle_Cuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `Id_Detalle_Cuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_cuestionario_paciente`
 --
 ALTER TABLE `detalle_cuestionario_paciente`
-  MODIFY `Id_Cuestionario_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `Id_Cuestionario_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -2986,7 +3177,7 @@ ALTER TABLE `distrito`
 -- AUTO_INCREMENT de la tabla `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `Id_Doctor` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Id_Doctor` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `espacio_usuario`
@@ -2998,19 +3189,25 @@ ALTER TABLE `espacio_usuario`
 -- AUTO_INCREMENT de la tabla `especialidad`
 --
 ALTER TABLE `especialidad`
-  MODIFY `Id_Especialidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `Id_Especialidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `historia_clinica`
+--
+ALTER TABLE `historia_clinica`
+  MODIFY `Id_historia_clinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `Id_Imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `Id_Imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `Id_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Id_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `pais`
@@ -3040,7 +3237,7 @@ ALTER TABLE `tipo_informacion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id_Usuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_Usuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

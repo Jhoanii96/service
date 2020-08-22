@@ -17,7 +17,7 @@
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
 
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
-    
+
 
 </head>
 
@@ -40,7 +40,7 @@
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
-            
+
             <div class="app-main__outer">
                 <div class="app-main__inner">
                     <?php
@@ -733,8 +733,8 @@
         let close = document.getElementById("btn-adm_close");
         // let save = document.getElementById("save-btn2");
         if (cons != null) {
-            document.getElementById("btn-adm_consulta").addEventListener("click",function(){
-                    location.href = "<?= FOLDER_PATH ?>/consultation";     
+            document.getElementById("btn-adm_consulta").addEventListener("click", function() {
+                location.href = "<?= FOLDER_PATH ?>/consultation";
             });
         }
 
@@ -761,11 +761,10 @@
         }
     </script>
     <script>
-
         $('#prev-btn2').css('display', 'none');
         $('#save-btn2').css('display', 'none');
         $('#next-btn2').css('display', 'block');
-        
+
         $('#prev-btn2').on('click', function() {
             $('#next-btn2').css('display', 'block');
             $('#prev-btn2').css('display', 'none');
@@ -778,17 +777,17 @@
             $('#save-btn2').css('display', 'block');
         });
 
-        $("#btnDataProfile").click(function(){
+        $("#btnDataProfile").click(function() {
             $('#prev-btn2').css('display', 'none');
-            $('#next-btn2').css('display','block');
+            $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
         })
-        $("#btnQuestionnaire").click(function(){
+        $("#btnQuestionnaire").click(function() {
             $('#prev-btn2').css('display', 'block');
-            $('#next-btn2').css('display','none')
+            $('#next-btn2').css('display', 'none')
             $('#save-btn2').css('display', 'block');
         })
-        
+
         function detectCSS(attr, css, value) {
             let result = $(attr).css(css) === value ? true : false;
             return result;
@@ -827,30 +826,30 @@
         });
 
         $('#save-btn2').click(function() {
-                let dato = 0;
+            let dato = 0;
 
-                $.ajax({
+            $.ajax({
                     type: "post",
                     url: "<?php echo FOLDER_PATH ?>/my/updateStateProfile",
-                    data: dato    
+                    data: dato
                 })
-                .done(function(response){
+                .done(function(response) {
                     Swal.fire({
                         icon: 'success',
                         title: response,
                         showConfirmButton: false,
                         timer: 850
-                    }).then(function(){
+                    }).then(function() {
                         location.href = "<?= FOLDER_PATH ?>/my";
                     });
                 })
-                .fail(function(){
+                .fail(function() {
                     alert('no se pudo')
                 })
 
-                return false;
+            return false;
         });
-        
+
         let click = 0;
 
 
@@ -906,6 +905,7 @@
             });
         }
     </script>
+    
     <script>
         function GetDetailsCon(e) {
             var data_app = document.getElementById('details_' + e);
@@ -959,20 +959,20 @@
                     $("#det_email").html(isNullorEmpty(obj_details[6]));
 
                     $("#det_fcon").html(obj_details[9]);
-                    
+
                     $("#det_fc").html(isNullorEmpty(obj_details[15]));
                     if (isNullorEmpty(obj_details[16]) != "No definido") {
                         $("#det_est").html(estado);
                     } else {
                         $("#det_est").html("No definido");
                     }
-                    
+
                     if (isNullorEmpty(obj_details[18]) != "No definido") {
                         $("#det_cost").html("S/. " + isNullorEmpty(obj_details[18]));
                     } else {
                         $("#det_cost").html("No definido");
                     }
-                    
+
 
                     $("#data-loading").css("display", "none");
                     $("#data-details").css("display", "block");
@@ -1005,6 +1005,9 @@
             }
         }
     </script>
+
+
+
 </body>
 
 </html>

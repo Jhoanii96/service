@@ -35,22 +35,12 @@
             opacity: 0.9;
             /* animation: 300ms ; */
             background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 50% 50% no-repeat rgb(249, 249, 249);
+            filter: blur(1px);
         }
 
         .loader p {
             margin-top: 80px;
         }
-
-        /* .loader::after{
-            content: "cargando";
-            background-color: red;
-        } */
-
-        /* .loader::before{
-            content: "cargando ....";
-            background-color: green;
-        } */
-
 
         #example1_wrapper>div:nth-child(2) {
             overflow-x: auto;
@@ -156,9 +146,7 @@
             <div class="loader">
                 <p>Generando la consulta</p>
             </div>
-            <!-- <div id="loading"> 
-                <img id="loading-image" src='//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif' alt="Loading..." /> 
-            </div>  -->
+            
             <div class="app-main__outer">
                 <div class="app-main__inner">
                     <div class="app-page-title">
@@ -178,7 +166,6 @@
 
 
                     <div class="row">
-
                         <div class="col-md-12 col-lg-12">
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
@@ -216,7 +203,7 @@
                                                     <div class="form-row">
                                                         <div class="col-md-2">
                                                             <div class="position-relative input-group">
-                                                                <select type="select" id="filter-search" name="filter-search" class="custom-select">
+                                                                <select type="select" id="filter-search" name="filter-search" class="custom-select" autofocus>
                                                                     <option value="0">Seleccionar</option>
                                                                     <option value="1">DNI</option>
                                                                     <?php
@@ -591,6 +578,8 @@
 
                     </div>
 
+
+
                     <div class="main-card mb-3 card">
                         <div class="card-body">
                             <h5 class="card-title">Historial clínico</h5>
@@ -637,14 +626,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
-        var g_paciente = "", g_edad = "", count_insert_cita = 0, doclick = 0;
+        var g_paciente = "",
+            g_edad = "",
+            count_insert_cita = 0,
+            doclick = 0;
     </script>
     <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                $(".loader").hide();
-            }, 3000);
-        })
+        
+        $(window).on("load",function(){
+            window.scrollTo(0, 0);
+            $(".loader").fadeOut("slow");
+            /* $(".loader").hide(); */
+        });
+
 
         var pdf_file;
 
