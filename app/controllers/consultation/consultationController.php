@@ -281,9 +281,9 @@ class consultation extends Controller
                     $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
                 }
             }
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$imagen_size);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$imagen_size,$imagen_type);
         }else{
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd = null,$imagen_size = null);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd = null,$imagen_size = null,$imagen_type = null);
         }
 
         return $result;

@@ -28,7 +28,7 @@ class settingsModel extends Model{
     return Model::query_execute($query);
   }
 
-  public function insertClinicalTest($idPaciente,$idUser,$anamnesis,$exam_fisico,$examenes,$diagnostico,$tratamiento,$nameImage,$imagen_size){
+  public function insertClinicalTest($idPaciente,$idUser,$anamnesis,$exam_fisico,$examenes,$diagnostico,$tratamiento,$nameImage,$imagen_size,$imagen_type){
     
     try {
       $db = Model::conectar();
@@ -39,7 +39,7 @@ class settingsModel extends Model{
         if( count($nameImage) > 0 ){
           $db->query("SET @ID_HISTORIA = LAST_INSERT_ID()");
           for ($i=0; $i < count($nameImage) ; $i++) { 
-            $db->query("INSERT INTO imagen(Nombre,tamaño,Id_Historia_Clinica) VALUES('$nameImage[$i]',$imagen_size[$i],@ID_HISTORIA)"); 
+            $db->query("INSERT INTO archivo(Nombre,tamaño,tipo,Id_Historia_Clinica) VALUES('$nameImage[$i]',$imagen_size[$i],'$imagen_type[$i]',@ID_HISTORIA)"); 
           }
         }
       }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-08-2020 a las 00:05:06
+-- Tiempo de generación: 23-08-2020 a las 00:52:07
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.6
 
@@ -282,6 +282,38 @@ dis.ID_Distrito = doc.ID_Distrito
 WHERE us.Nombre = name$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivo`
+--
+
+CREATE TABLE `archivo` (
+  `Id_Archivo` int(11) NOT NULL,
+  `Nombre` varchar(250) NOT NULL,
+  `tamaño` float DEFAULT NULL,
+  `tipo` text DEFAULT NULL,
+  `Id_Historia_Clinica` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `archivo`
+--
+
+INSERT INTO `archivo` (`Id_Archivo`, `Nombre`, `tamaño`, `tipo`, `Id_Historia_Clinica`) VALUES
+(102, 'src/assets/media/images/historia_clinica/0822201252311598050351.0263.jpeg', 979433, NULL, 68),
+(103, '/src/Documentos/0822201252311598050351.0263.pdf', 87176, NULL, 68),
+(104, 'src/assets/media/images/historia_clinica/0822201252311598050351.0263.jpeg', 106965, NULL, 68),
+(105, 'src/assets/media/images/historia_clinica/0822200100511598050851.7249.jpeg', 478301, NULL, 71),
+(106, 'src/assets/media/images/historia_clinica/0822200100511598050851.725.jpeg', 145534, NULL, 71),
+(107, 'src/assets/media/images/historia_clinica/0822200103281598051008.1886.jpeg', 979433, NULL, 73),
+(108, 'src/assets/media/images/historia_clinica/0822200103281598051008.1886.jpeg', 145534, NULL, 73),
+(109, '/src/Documentos/0822200103281598051008.1887.vnd.openxmlformats-officedocument.wordprocessingml.document', 242291, NULL, 73),
+(110, '/src/Documentos/0822200103281598051008.1887.pdf', 87176, NULL, 73),
+(111, 'src/assets/media/images/historia_clinica/0822201024481598127888.6536.jpeg', 979433, NULL, 74),
+(112, 'src/assets/media/images/historia_clinica/0823201246411598136401.0091.jpeg', 160090, NULL, 79),
+(113, 'src/assets/media/images/historia_clinica/0823201250351598136635.0404.jpeg', 160090, 'image/jpeg', 80);
 
 -- --------------------------------------------------------
 
@@ -2356,7 +2388,10 @@ INSERT INTO `historia_clinica` (`Id_historia_clinica`, `Id_Paciente`, `Id_Usuari
 (74, 4, 1, NULL, '2020-08-22 15:24:48', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'adwdawdawd', NULL),
 (75, 13, 1, NULL, '2020-08-22 15:51:20', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'asdawdawd', NULL),
 (76, 10, 1, NULL, '2020-08-22 16:47:12', 'te: sadas ', 'resultado asdasd', '1\r\n2 asdas\r\n3\r\n', 'diag asd', 'dasdwdaawd'),
-(77, 12, 1, NULL, '2020-08-22 17:03:15', 'te: asdas ', 'resultado 1351351', '1 1 \r\n2\r\n3\r\n', 'diag 54654654', 'putitodddd');
+(77, 12, 1, NULL, '2020-08-22 17:03:15', 'te: asdas ', 'resultado 1351351', '1 1 \r\n2\r\n3\r\n', 'diag 54654654', 'putitodddd'),
+(78, 12, 1, NULL, '2020-08-22 17:11:22', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'asd'),
+(79, 12, 1, NULL, '2020-08-22 17:46:41', 'te:', 'resultado', '1\r\n2\r\n3 \r\n', 'diag', 'asdasd'),
+(80, 12, 1, NULL, '2020-08-22 17:50:35', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'asdad');
 
 -- --------------------------------------------------------
 
@@ -2383,35 +2418,6 @@ CREATE TABLE `historia_clinica_predeterminado` (
 INSERT INTO `historia_clinica_predeterminado` (`Id_Historia_Clinica_Predeterminado`, `Id_Usuario`, `Fecha`, `Anamnesis_Pred`, `Examenes_Pred`, `Examen_Fisico_Pred`, `Diagnostico_Pred`, `Tratamiento_Pred`, `creado`) VALUES
 (34, 2, '2020-08-10 22:05:21', 'kasdhkjah\r\nalsjdalk', 'saluuute', 'alsjdlkasjdlk\r\nslkjdlaksdj', '', '654654654', b'1'),
 (35, 1, '2020-08-15 19:48:30', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', '', b'1');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `imagen`
---
-
-CREATE TABLE `imagen` (
-  `Id_Imagen` int(11) NOT NULL,
-  `Nombre` varchar(250) NOT NULL,
-  `tamaño` float DEFAULT NULL,
-  `Id_Historia_Clinica` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `imagen`
---
-
-INSERT INTO `imagen` (`Id_Imagen`, `Nombre`, `tamaño`, `Id_Historia_Clinica`) VALUES
-(102, 'src/assets/media/images/historia_clinica/0822201252311598050351.0263.jpeg', 979433, 68),
-(103, '/src/Documentos/0822201252311598050351.0263.pdf', 87176, 68),
-(104, 'src/assets/media/images/historia_clinica/0822201252311598050351.0263.jpeg', 106965, 68),
-(105, 'src/assets/media/images/historia_clinica/0822200100511598050851.7249.jpeg', 478301, 71),
-(106, 'src/assets/media/images/historia_clinica/0822200100511598050851.725.jpeg', 145534, 71),
-(107, 'src/assets/media/images/historia_clinica/0822200103281598051008.1886.jpeg', 979433, 73),
-(108, 'src/assets/media/images/historia_clinica/0822200103281598051008.1886.jpeg', 145534, 73),
-(109, '/src/Documentos/0822200103281598051008.1887.vnd.openxmlformats-officedocument.wordprocessingml.document', 242291, 73),
-(110, '/src/Documentos/0822200103281598051008.1887.pdf', 87176, 73),
-(111, 'src/assets/media/images/historia_clinica/0822201024481598127888.6536.jpeg', 979433, 74);
 
 -- --------------------------------------------------------
 
@@ -3026,6 +3032,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
+-- Indices de la tabla `archivo`
+--
+ALTER TABLE `archivo`
+  ADD PRIMARY KEY (`Id_Archivo`);
+
+--
 -- Indices de la tabla `citas`
 --
 ALTER TABLE `citas`
@@ -3092,12 +3104,6 @@ ALTER TABLE `historia_clinica`
   ADD PRIMARY KEY (`Id_historia_clinica`);
 
 --
--- Indices de la tabla `imagen`
---
-ALTER TABLE `imagen`
-  ADD PRIMARY KEY (`Id_Imagen`);
-
---
 -- Indices de la tabla `paciente`
 --
 ALTER TABLE `paciente`
@@ -3143,6 +3149,12 @@ ALTER TABLE `usuario_sistema`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `archivo`
+--
+ALTER TABLE `archivo`
+  MODIFY `Id_Archivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT de la tabla `citas`
@@ -3208,13 +3220,7 @@ ALTER TABLE `especialidad`
 -- AUTO_INCREMENT de la tabla `historia_clinica`
 --
 ALTER TABLE `historia_clinica`
-  MODIFY `Id_historia_clinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
-
---
--- AUTO_INCREMENT de la tabla `imagen`
---
-ALTER TABLE `imagen`
-  MODIFY `Id_Imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `Id_historia_clinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
