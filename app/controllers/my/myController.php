@@ -165,4 +165,27 @@ class my extends Controller
             // $questionResult->fetch();
         }
     }
+
+
+    public function show_details()
+    {
+      $history = $_POST['meta_data'];
+      $history = str_replace('{', '', $history);
+      $history = str_replace('}', '', $history);
+  
+      $history = utf8_decode(base64_decode($history));
+      $history = str_replace('-data-history-details', '', $history);
+  
+      $cod_history = explode("|", $history);
+  
+      $json = array();
+      $lista_historys = $this->model->obtener_details($cod_history[1], $this->session->get('admin'));
+      
+      while ($details = $lista_historys->fetch()) {
+        $json[] = $details;
+      }
+  
+      echo(json_encode($json));
+    }
+
 }

@@ -13,7 +13,7 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
     <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/js/select2-bootstrap4.css">
-    
+
     <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -21,8 +21,7 @@
     <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/selectize.css">
 
     <style>
-  
-        .loader{
+        .loader {
             position: fixed;
             left: 0px;
             top: 0px;
@@ -31,16 +30,17 @@
             z-index: 9999;
             font-size: 30px;
             display: flex;
-            align-items:center;
-            justify-content:center;
-            opacity : 0.9;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
             /* animation: 300ms ; */
-            background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 
-              50% 50% no-repeat rgb(249,249,249);
+            background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 50% 50% no-repeat rgb(249, 249, 249);
         }
-        .loader p{
-            margin-top:80px;
+
+        .loader p {
+            margin-top: 80px;
         }
+
         /* .loader::after{
             content: "cargando";
             background-color: red;
@@ -50,7 +50,7 @@
             content: "cargando ....";
             background-color: green;
         } */
-        
+
 
         #example1_wrapper>div:nth-child(2) {
             overflow-x: auto;
@@ -152,9 +152,9 @@
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
-            
+
             <div class="loader">
-                <p>Generando la consulta</p> 
+                <p>Generando la consulta</p>
             </div>
             <!-- <div id="loading"> 
                 <img id="loading-image" src='//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif' alt="Loading..." /> 
@@ -176,7 +176,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="row">
 
                         <div class="col-md-12 col-lg-12">
@@ -428,15 +428,15 @@
                                                         <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
                                                         <p class="form-control-plaintext">Control de preguntas</p>
                                                     </div>
-                                                    <?php 
-                                                        $history = $this->getHistoryPred();
-        
+                                                    <?php
+                                                    $history = $this->getHistoryPred();
+
                                                     ?>
                                                     <div class="form-row">
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Anamnesis</label>
-                                                                <textarea rows="1" class="form-control autosize-input" id="anamnesis-clinical" name="anamnesis-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Anamnesis_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" id="anamnesis-clinical" name="anamnesis-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Anamnesis_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -444,7 +444,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Examen Físico</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="examen-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examen_Fisico_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="examen-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examen_Fisico_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -452,7 +452,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Exámenes</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="examenes-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history)? $history['Examenes_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="examenes-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examenes_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -460,7 +460,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Diagnóstico</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="diagnostico-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history)? $history['Diagnostico_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="diagnostico-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Diagnostico_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -468,7 +468,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Tratamiento</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="tratamiento-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history)? $history['Tratamiento_Pred']:""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" name="tratamiento-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Tratamiento_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -477,8 +477,8 @@
                                                             <div class="position-relative form-group">
                                                                 <label>Subir archivos JPG/PNG</label>
                                                                 <div id="uploads"></div>
-                                                                <div class="dropzone" id="dropzone" style="display:flex;align-items:center;justify-content:center">Arrastre archivos o de clic aquí para subirlos</div> 
-                                                                <input id="filepdf" type="file" style="display: none;" name="file[]" accept="image/png,image/jpeg,image/jpg,application/pdf" multiple="true"/>
+                                                                <div class="dropzone" id="dropzone" style="display:flex;align-items:center;justify-content:center">Arrastre archivos o de clic aquí para subirlos</div>
+                                                                <input id="filepdf" type="file" style="display: none;" name="file[]" accept="image/png,image/jpeg,image/jpg,application/pdf" multiple="true" />
                                                                 <!-- <input type="file" name="file[]" multiple="true"> -->
                                                             </div>
                                                         </div>
@@ -631,18 +631,16 @@
     </div>
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
-        var g_paciente = "", g_edad = "", count_insert_cita = 0;
+        var g_paciente = "", g_edad = "", count_insert_cita = 0, doclick = 0;
     </script>
     <script>
-        
-
-        window.addEventListener('load',()=>{
+        window.addEventListener('load', () => {
             setTimeout(() => {
                 $(".loader").hide();
             }, 3000);
@@ -657,20 +655,20 @@
             var upload = function(files) {
                 for (let index = 0; index < files.length; index++) {
                     pdf_file = files[index];
-                    
+
                     document.getElementById("dropzone").style.lineHeight = "normal";
                     document.getElementById("dropzone").style.color = "rgb(253, 0, 0)";
                     document.getElementById("dropzone").style.border = "2px inset rgb(255, 77, 0)";
                     listado += '<div>';
-                    if(files[index].type == 'application/pdf'){
-                        listado +=  '<i class="fa fa-file-pdf" style="font-size: 60px;display:block; color: rgb(255, 38, 38);"></i>';
-                    }else if(files[index].type == 'image/jpeg' || files[index].type == 'image/png' || files[index].type == 'image/jpg'){
-                        listado +=  '<i class="fas fa-file-image" style="font-size: 60px;display:block; color: DarkCyan;"></i>';
-                    }else if(files[index].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
-                        listado +=  '<i class="far fa-file-word" style="font-size: 60px;display:block; color: #777777;"></i>';
+                    if (files[index].type == 'application/pdf') {
+                        listado += '<i class="fa fa-file-pdf" style="font-size: 60px;display:block; color: rgb(255, 38, 38);"></i>';
+                    } else if (files[index].type == 'image/jpeg' || files[index].type == 'image/png' || files[index].type == 'image/jpg') {
+                        listado += '<i class="fas fa-file-image" style="font-size: 60px;display:block; color: DarkCyan;"></i>';
+                    } else if (files[index].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                        listado += '<i class="far fa-file-word" style="font-size: 60px;display:block; color: #777777;"></i>';
                     }
                     console.log(files[index].type);
-                    listado +=  '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + files[index].name + '</span>';
+                    listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + files[index].name + '</span>';
                     listado += '</div>';
                 }
                 dropzone.innerHTML = listado;
@@ -709,7 +707,7 @@
                 //     Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
                 //     return;
                 // }
-         
+
                 // if (this.files[0].type != 'image/jpeg' ) {
                 //     Swal.fire("Atención!", "Debe se ingresado imagenes o documentos word o pdf", "warning");
                 //     console.log(this.files[0].type);
@@ -737,7 +735,6 @@
                 document.getElementById("select_supr").style.display = "none";
             }
         }
-
     </script>
     <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <script>
@@ -803,7 +800,6 @@
     </script>
 
     <script>
-        
         let buttonSearchPressed = false;
         let buttonInsertPressed = false;
         let buttonCreateAnswerPressed = false;
@@ -837,24 +833,24 @@
             e.value = e.value.toUpperCase();
         }
 
-        $("#btnPatient").click(function(){
+        $("#btnPatient").click(function() {
             $('#prev-btn2').css('display', 'none');
-            $('#next-btn2').css('display','block');
+            $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
         })
-        $("#btnQuestionnaire").click(function(){
+        $("#btnQuestionnaire").click(function() {
             $('#prev-btn2').css('display', 'block');
-            $('#next-btn2').css('display','block')
+            $('#next-btn2').css('display', 'block')
             $('#save-btn2').css('display', 'none');
         })
-        $("#btnClinicalTest").click(function(){
+        $("#btnClinicalTest").click(function() {
             $('#prev-btn2').css('display', 'block');
-            $('#next-btn2').css('display','block');
+            $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
         })
-        $("#btnAppointments").click(function(){
+        $("#btnAppointments").click(function() {
             $('#prev-btn2').css('display', 'block');
-            $('#next-btn2').css('display','none')
+            $('#next-btn2').css('display', 'none')
             $('#save-btn2').css('display', 'block');
         })
 
@@ -871,7 +867,7 @@
             if (buttonPressed === 'btnSavePatient') {
                 // console.log('savePatient');
                 let datos = $('#frm-patient').serialize();
-                
+
                 let request = $.ajax({
                     type: "post",
                     dataType: 'JSON',
@@ -912,7 +908,7 @@
                         $('#btnUpdatePatient').css('display', 'block');
                         $('#btnSavePatient').css('display', 'none');
                         $('.input-answers').val('');
-                        $('#next-btn2').attr('disabled',false);
+                        $('#next-btn2').attr('disabled', false);
                     } else {
                         // alert(data);
                         Swal.fire({
@@ -1017,7 +1013,7 @@
                     url: "<?php echo FOLDER_PATH ?>/consultation/searchPatient"
                 });
                 request.done(function(data) {
-                    
+
                     if (Object.keys(data).length > 1) {
                         $('#nombre').val(data.Nombre);
                         $('#apellidopa').val(data.Apellido_Paterno);
@@ -1055,14 +1051,14 @@
                         $('#filter').val("");
                         $('#btnSavePatient').css('display', 'none');
                         $('#btnUpdatePatient').css('display', 'block');
-                        $('#next-btn2').attr('disabled',false);
+                        $('#next-btn2').attr('disabled', false);
                         // let cantQuestion = $('.input-answers').toArray().length;
-                    
+
                         $('.input-answers').each(function(index) {
                             if (index < data[0]) {
                                 $(this).val(data[index + 1].Respuesta);
-                                console.log(data[index+1].Respuesta);
-                            }else{
+                                console.log(data[index + 1].Respuesta);
+                            } else {
                                 $(this).val("");
                             }
                         });
@@ -1194,38 +1190,38 @@
         // function formatRepoSelection (patient) {
         //     return patient.text;
         // }
-        
-        $('#frm-clinicalTest-patient').submit(function(e){
+
+        $('#frm-clinicalTest-patient').submit(function(e) {
             e.preventDefault();
             if ($('#pru-nombre').html() !== "") {
 
                 $.ajax({
-                    type: "post",
-                    url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
-                    data: new FormData(this),
-                    processData: false,
-                    cache: false,
-                    contentType: false
-                })
-                .done(function(response){
-                    Swal.fire({
-                        icon: 'success',
-                        title: response,
-                        showConfirmButton: false,
-                        timer: 10500
+                        type: "post",
+                        url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
+                        data: new FormData(this),
+                        processData: false,
+                        cache: false,
+                        contentType: false
                     })
-                    $('#next-btn2').attr('disabled',false);
-                    
-                })
-                .fail(function(){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hubo un error',
-                        showConfirmButton: false,
-                        timer: 10500
+                    .done(function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response,
+                            showConfirmButton: false,
+                            timer: 10500
+                        })
+                        $('#next-btn2').attr('disabled', false);
+
                     })
-                })
-            }else {
+                    .fail(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hubo un error',
+                            showConfirmButton: false,
+                            timer: 10500
+                        })
+                    })
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Por favor busque o agregue un paciente',
@@ -1318,7 +1314,7 @@
                             })
                             $('#btnUpdateAnswers').css('display', 'block');
                             $('#btnSaveAnswers').css('display', 'none');
-                            $('#next-btn2').attr('disabled',false);
+                            $('#next-btn2').attr('disabled', false);
                         })
                         .fail(function() {
                             Swal.fire({
@@ -1358,7 +1354,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            $('#next-btn2').attr('disabled',false);
+                            $('#next-btn2').attr('disabled', false);
                         })
                         .fail(function() {
                             Swal.fire({
@@ -1382,34 +1378,34 @@
     <script>
         $('#prev-btn2').css('display', 'none');
         $('#save-btn2').css('display', 'none');
-        $('#next-btn2').attr("disabled",true);
-      
+        $('#next-btn2').attr("disabled", true);
+
         $('#prev-btn2').on('click', function() {
-            $('#next-btn2').attr('disabled',false);
+            $('#next-btn2').attr('disabled', false);
             $('#next-btn2').css('display', 'block');
             $('#save-btn2').css('display', 'none');
 
             if (detectCSS('#step-2', 'display', 'block')) {
-                
+
                 $('#prev-btn2').css('display', 'none');
                 // console.log('true');
             }
         });
 
-            $('#next-btn2').on('click', function() {
-                $('#prev-btn2').css('display', 'block');
+        $('#next-btn2').on('click', function() {
+            $('#prev-btn2').css('display', 'block');
 
-                if (detectCSS('#step-3', 'display', 'block')) {
-                    $('#next-btn2').css('display', 'none');
-                    $('#save-btn2').css('display', 'block');
-                }
-                if($('#answer-0').val() == ""){
-                    $('#next-btn2').attr('disabled',true);
-                }
-                if($('#answer-0').val() !== ""){
-                    $('#next-btn2').attr('disabled',false);
-                }
-            });
+            if (detectCSS('#step-3', 'display', 'block')) {
+                $('#next-btn2').css('display', 'none');
+                $('#save-btn2').css('display', 'block');
+            }
+            if ($('#answer-0').val() == "") {
+                $('#next-btn2').attr('disabled', true);
+            }
+            if ($('#answer-0').val() !== "") {
+                $('#next-btn2').attr('disabled', false);
+            }
+        });
 
         function detectCSS(attr, css, value) {
             let result = $(attr).css(css) === value ? true : false;
@@ -1520,14 +1516,15 @@
                 });
             }
         });
-       
-
     </script>
     <script>
         $("#add-apptmt").click(function() {
 
             var row = "";
             var filter = document.getElementById("filter-cita").value;
+
+            g_paciente = $("#nombre").val().toUpperCase() + ' ' + $("#apellidopa").val().toUpperCase() + ' ' + $("#apellidoma").val().toUpperCase();
+            g_edad = calcularEdad($("#fechana").val());
 
             var hora = $("#endTime").val();
 
@@ -1538,7 +1535,7 @@
 
             Swal.fire({
                 title: "Agregar cita",
-                html: "<span>¿Desea agregar la cita de las " + getTimeAMPMFormat(hora) + "?<br>Al agregar ya no podrá volver a agregar otra cita.</span>" ,
+                html: "<span>¿Desea agregar la cita de las " + getTimeAMPMFormat(hora) + "?<br>Al agregar ya no podrá volver a agregar otra cita.</span>",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

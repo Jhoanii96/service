@@ -31,13 +31,20 @@ class appointmentModel extends Model
         $query = "CALL `insertar_cita`(" . $usersearch . ", '" . $datecita . "', '" . $timecita . "', '" . $admin . "');";
         Model::query_execute($query);
     }
-
+    
     public function insertar_paciente_cita($dni, $nombre, $apellidopa, $apellidoma, $genero, $celular, 
         $fechana, $correo, $procedencia, $username )
     {
         $query = "CALL `insertar_paciente_cita`('$dni', '$nombre', '$apellidopa', '$apellidoma', '$genero', '$celular', 
         '$fechana', '$correo', '$procedencia', '$username');";
         Model::query_execute($query);
+    }
+
+    public function obtener_details($cita, $admin)
+    {
+        $query = "CALL `mostrar_detalle_cita`(" . $cita . ", '" . $admin . "');";
+        $res = Model::query_execute($query);
+        return $res;
     }
 
 }

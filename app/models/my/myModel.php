@@ -8,5 +8,12 @@ class myModel extends Model
         $res = Model::query_execute($query);
         return $res;
     }
+
+    public function obtener_details($historial, $admin)
+    {
+        $query = "CALL `mostrar_detalle_historial`(" . $historial . ", '" . $admin . "');";
+        $res = Model::query_execute($query);
+        return $res;
+    }
 }
 

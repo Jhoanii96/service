@@ -68,6 +68,8 @@ class appointment extends Controller
     $filter = $_POST['filter'];
     $lista_citas = $this->model->buscar_citas($search, $filter, $this->session->get('admin'));
 
+    $count = 0;
+
     if ($filter == 1 || $filter == 3) {
       echo '
     
@@ -126,6 +128,8 @@ class appointment extends Controller
       $nombre = $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '|' . $datos_lista_cita['id_paciente'] . '|' . $datos_lista_cita['id'];
       $nombre = base64_encode(utf8_encode($nombre));
 
+      $count += 1;
+
       echo '
       
       <tr>
@@ -154,7 +158,7 @@ class appointment extends Controller
           echo'
           <td class="text-center">
               <div role="group" class="btn-group-sm btn-group">
-                  <button class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
+                  <button id="details_' . $count . '" onclick="GetDetails(' . $count . ')" meta-data="{' . base64_encode(utf8_encode("[" . $count . "]|" . $datos_lista_cita['id'] . "-data-appointment-details")) . '}" data-toggle="modal" data-target="#AppDetails"  class="btn btn-primary text-white">Detalles <i class="fa fa-eye"></i></button>
               </div>
           </td>
           <td class="text-center">
@@ -251,6 +255,27 @@ class appointment extends Controller
       $username 
     );
 
+  }
+
+  public function show_details()
+  {
+    $appointment = $_POST['meta_data'];
+    $appointment = str_replace('{', '', $appointment);
+    $appointment = str_replace('}', '', $appointment);
+
+    $appointment = utf8_decode(base64_decode($appointment));
+    $appointment = str_replace('-data-appointment-details', '', $appointment);
+
+    $cod_cita = explode("|", $appointment);
+
+    $json = array();
+    $lista_citas = $this->model->obtener_details($cod_cita[1], $this->session->get('admin'));
+    
+    while ($details = $lista_citas->fetch()) {
+      $json[] = $details;
+    }
+
+    echo(json_encode($json));
   }
   
 }

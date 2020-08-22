@@ -549,6 +549,7 @@
                                     <tbody>
                                         <?php
 
+                                        $count = 0;
                                         while ($datos_historial = $data['Result']->fetch()) {
 
                                             $birthDate = explode("-", $datos_historial['fecha_nacimiento']);
@@ -556,6 +557,8 @@
                                                 ? ((date("Y") - $birthDate[0]) - 1)
                                                 : (date("Y") - $birthDate[0]));
 
+
+                                            $count += 1;
                                         ?>
                                             <tr>
                                                 <td><?= $datos_historial['nombre_paciente'] ?></td>
@@ -566,7 +569,7 @@
                                                 <td>2</td>
                                                 <td class="text-center">
                                                     <div role="group" class="btn-group-sm btn-group">
-                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
+                                                        <button id="details_<?= $count ?>" onclick="GetDetailsCon(<?= $count ?>)" meta-data="{<?php echo (base64_encode(utf8_encode("[" . $count . "]|" . $datos_historial[0] . "-data-history-details"))); ?>}" data-toggle="modal" data-target="#AppDetails" class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
                                                         <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
                                                         <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
                                                     </div>
@@ -601,6 +604,122 @@
         </div>
     </div>
     <!-- MODAL USER CONFIGURATIONS  -->
+
+    <div class="modal fade" id="AppDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles de la consulta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="data-loading" style="display: block; margin: auto;">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(241, 242, 243, 0); display: block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <rect x="40" y="40" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="47" y="40" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.1388888888888889s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="54" y="40" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.2777777777777778s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="40" y="47" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.9722222222222222s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="54" y="47" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.41666666666666663s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="40" y="54" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.8333333333333333s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="47" y="54" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.6944444444444444s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="54" y="54" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.5555555555555556s" calcMode="discrete"></animate>
+                        </rect>
+                    </svg>
+                </div>
+                <div id="data-details" style="display: none;">
+                    <div class="modal-body">
+                        <p class="mb-0 title-details">Datos de la consulta</p>
+                        <div class="form-row mt-3">
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 10px;">Nombre: </label>
+                                    <span id="det_nom" style="padding: 7px 0; left: 5px; white-space: nowrap;"></span>
+                                </div>
+
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">DNI: </label>
+                                    <span id="det_dni" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Genero: </label>
+                                    <span id="det_gen" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Edad: </label>
+                                    <span id="det_edad" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha de nacimiento: </label>
+                                    <span id="det_fn" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Celular: </label>
+                                    <span id="det_cel" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Email: </label>
+                                    <span id="det_email" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <p class="mb-0 title-details">Datos consulta</p>
+                        <div class="form-row mt-3">
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha consulta: </label>
+                                    <span id="det_fcon" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <!-- <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Diagnostico: </label>
+                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
+                                </div> -->
+                            </div>
+                            <div class="col-md-5 ml-4 mr-4">
+                                <!-- <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Precio: </label>
+                                    <span id="det_cost" style="padding: 7px 0; left: 5px;"></span>
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <p class="mb-0 title-details">Datos de la cita</p>
+                        <div class="form-row mt-3">
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha cita: </label>
+                                    <span id="det_fc" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Estado: </label>
+                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Precio: </label>
+                                    <span id="det_cost" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
@@ -785,6 +904,105 @@
                     alert('Error' + thrownError);
                 }
             });
+        }
+    </script>
+    <script>
+        function GetDetailsCon(e) {
+            var data_app = document.getElementById('details_' + e);
+            var meta_data = data_app.getAttribute('meta-data');
+
+            var data = new FormData();
+            data.append("meta_data", meta_data);
+            $.ajax({
+                beforeSend: function() {
+                    $("#data-details").css("display", "none");
+                    $("#data-loading").css("display", "block");
+                    /* $("#data-details").html(''); */
+                },
+                url: "<?= FOLDER_PATH ?>/my/show_details",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    var obj_details = JSON.parse(resp);
+                    var genero = '';
+                    var estado = '';
+                    obj_details = obj_details[0];
+
+
+                    if (obj_details[3] == 'M') {
+                        genero = 'Masculino';
+                    }
+                    if (obj_details[3] == 'F') {
+                        genero = 'Femenino';
+                    }
+                    if (obj_details[3] == 'O') {
+                        genero = 'Otros';
+                    }
+                    if (obj_details[16] == '0') {
+                        estado = 'Pendiente';
+                    }
+                    if (obj_details[16] == '1') {
+                        estado = 'Atendido';
+                    }
+                    if (obj_details[16] == '2') {
+                        estado = 'Anulado';
+                    }
+
+                    $("#det_nom").html(obj_details[1]);
+                    $("#det_dni").html(obj_details[2]);
+                    $("#det_gen").html(genero);
+                    $("#det_cel").html(obj_details[4]);
+                    $("#det_edad").html(calcularEdad(obj_details[8]));
+                    $("#det_fn").html(obj_details[5]);
+                    $("#det_email").html(isNullorEmpty(obj_details[6]));
+
+                    $("#det_fcon").html(obj_details[9]);
+                    
+                    $("#det_fc").html(isNullorEmpty(obj_details[15]));
+                    if (isNullorEmpty(obj_details[16]) != "No definido") {
+                        $("#det_est").html(estado);
+                    } else {
+                        $("#det_est").html("No definido");
+                    }
+                    
+                    if (isNullorEmpty(obj_details[18]) != "No definido") {
+                        $("#det_cost").html("S/. " + isNullorEmpty(obj_details[18]));
+                    } else {
+                        $("#det_cost").html("No definido");
+                    }
+                    
+
+                    $("#data-loading").css("display", "none");
+                    $("#data-details").css("display", "block");
+
+                    /* $("#data-details").html(resp); */
+                }
+            })
+        }
+
+        function calcularEdad(fechana) {
+            console.log(fechana);
+            let dateParts = fechana.split("-");
+            let hoy = new Date();
+            let cumpleanos = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0, 2));
+            let edad = hoy.getFullYear() - cumpleanos.getFullYear();
+            let m = hoy.getMonth() - cumpleanos.getMonth();
+
+            if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                edad--;
+            }
+            edad = edad.toString() + " años";
+            return edad;
+        }
+
+        function isNullorEmpty(e) {
+            if (e == '' || e == null) {
+                return "No definido";
+            } else {
+                return e;
+            }
         }
     </script>
 </body>
