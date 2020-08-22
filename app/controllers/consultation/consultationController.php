@@ -289,6 +289,24 @@ class consultation extends Controller
         return $result;
     }
 
+    public function updateClinicalTest(){
+        $idUser = $this->session->get("idUser");
+        $idPaciente = $this->session->get('idPaciente');
+        $anamnesis_clinical = $_POST['anamnesis-clinical'];
+        $examen_clinical = $_POST['examen-clinical'];
+        $examenes_clinical = $_POST['examenes-clinical'];
+        $diagnostico_clinical = $_POST['diagnostico-clinical'];
+        $tratamiento_clinical = $_POST['tratamiento-clinical'];
+        $lastIDClinicalTest = $this->settingsModel->getIDClinicalTest($idPaciente)->fetch(PDO::FETCH_ASSOC);
+        $resultUpdateClinicalTest = $this->settingsModel->updateClinicalTest($lastIDClinicalTest['Id_historia_clinica'],$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical);
+        $resultUpdateClinicalTest = $resultUpdateClinicalTest->rowCount();
+        if($resultUpdateClinicalTest > 0){
+            echo "Se actualizó la prueba clinica";
+        }else{
+            echo "No se pudo actualizar la prueba clinica";
+        }
+    }
+
     public function citas()
     {
         $fecha = $_POST['fecha'];

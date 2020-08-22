@@ -455,7 +455,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Tratamiento</label>
-                                                                <textarea rows="1" class="form-control autosize-input" name="tratamiento-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Tratamiento_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize-input" id="tratamiento-clinical" name="tratamiento-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Tratamiento_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -473,7 +473,8 @@
                                                     <div class="form-row">
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
-                                                                <button class="btn btn-warning submitPatient" id="btnSavePatient">Guardar prueba</button>
+                                                                <button class="btn btn-primary submitClinicalTest" id="btnSaveClinicalTest">Guardar prueba</button>
+                                                                <button class="btn btn-warning submitClinicalTest" id="btnUpdateClinicalTest" style="display:none">Actualizar prueba</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1162,60 +1163,75 @@
                 },
                 cache: true
             }
-            // templateResult:formatRepo
-            // templateSelection: formatRepoSelection
+          
         });
 
-        // function formatRepo(patient){
-        //     if(patient.loading){
-        //         return patient.text;
-        //     }
+        $('.submitClinicalTest').click(function(){
+            buttonPressed = $(this).attr('id');
+            console.log(buttonPressed);
+        })
 
-        //     let $container = $(
-        //         "<div class='select2-result-patient clearfix'>"+
-        //             "<div class='select2-result-name'"+
-        //             "</div>"+
-        //         "</div>"
-        //     );
-
-        //     $container.find('.select2-result-name').text(patient.text);
-        //     return $container;
-        // }
-
-        // function formatRepoSelection (patient) {
-        //     return patient.text;
-        // }
 
         $('#frm-clinicalTest-patient').submit(function(e) {
+
             e.preventDefault();
+    
             if ($('#pru-nombre').html() !== "") {
-
-                $.ajax({
-                        type: "post",
-                        url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
-                        data: new FormData(this),
-                        processData: false,
-                        cache: false,
-                        contentType: false
-                    })
-                    .done(function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: response,
-                            showConfirmButton: false,
-                            timer: 10500
+                if (buttonPressed === 'btnSaveClinicalTest') {
+                    $.ajax({
+                            type: "post",
+                            url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
+                            data: new FormData(this),
+                            processData: false,
+                            cache: false,
+                            contentType: false
                         })
-                        $('#next-btn2').attr('disabled', false);
-
-                    })
-                    .fail(function() {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hubo un error',
-                            showConfirmButton: false,
-                            timer: 10500
+                        .done(function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response,
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            $('#next-btn2').attr('disabled', false);
+                            $('#btnUpdateClinicalTest').css('display', 'block');
+                            $('#btnSaveClinicalTest').css('display', 'none');
                         })
-                    })
+                        .fail(function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Hubo un error',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        })
+
+                }else if(buttonPressed === 'btnUpdateClinicalTest'){
+                    let datos = $(this).serialize();
+                    $.ajax({
+                            type: "post",
+                            url: "<?= FOLDER_PATH ?>/consultation/updateClinicalTest",
+                            data: datos
+                        })
+                        .done(function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response,
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            $('#next-btn2').attr('disabled', false);
+    
+                        })
+                        .fail(function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Hubo un error',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        })
+                }
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -1394,11 +1410,18 @@
                 $('#next-btn2').css('display', 'none');
                 $('#save-btn2').css('display', 'block');
             }
-            if ($('#answer-0').val() == "") {
+            console.log(detectCSS('#step-1', 'display', 'block'));
+            if ($('#answer-0').val() == "" && detectCSS('#step-1', 'display', 'block')) {
                 $('#next-btn2').attr('disabled', true);
+                console.log('step-2');
             }
-            if ($('#answer-0').val() !== "") {
+            if ($('#answer-0').val() !== "" && detectCSS('#step-1', 'display', 'block')) {
                 $('#next-btn2').attr('disabled', false);
+                console.log('step-2');
+            }
+            if ($('#tratamiento-clinical').val() == "" && detectCSS('#step-2', 'display', 'block')) {
+                $('#next-btn2').attr('disabled', true);
+                console.log('step-3')
             }
         });
 

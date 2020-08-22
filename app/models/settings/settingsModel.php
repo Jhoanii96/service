@@ -28,13 +28,13 @@ class settingsModel extends Model{
     return Model::query_execute($query);
   }
 
-  public function insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis,$exam_fisico,$examenes,$diagnostico,$nameImage,$imagen_size){
+  public function insertClinicalTest($idPaciente,$idUser,$anamnesis,$exam_fisico,$examenes,$diagnostico,$tratamiento,$nameImage,$imagen_size){
     
     try {
       $db = Model::conectar();
       $db->beginTransaction();
-      $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico) VALUES 
-      ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico')");
+      $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
+      ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
       if( $nameImage !== null ){
         if( count($nameImage) > 0 ){
           $db->query("SET @ID_HISTORIA = LAST_INSERT_ID()");
@@ -51,8 +51,14 @@ class settingsModel extends Model{
     }
   }
 
+  public function updateClinicalTest($idClinicalTest,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical){
+
+    $query = "UPDATE historia_clinica SET Anamnesis = '$anamnesis_clinical',Examenes = '$examenes_clinical' ,Examen_Fisico = '$examen_clinical',Diagnostico = '$diagnostico_clinical',Tratamiento = '$tratamiento_clinical' WHERE Id_historia_clinica = $idClinicalTest";
+    return Model::query_execute($query);
+  }
+
   public function getIDClinicalTest($idPaciente){
-    $query = "SELECT Id_historia_clinica FROM historia_clinica WHERE Id_Paciente = $idPaciente";
+    $query = "SELECT Id_historia_clinica FROM historia_clinica WHERE Id_Paciente = $idPaciente ORDER BY Id_historia_clinica DESC LIMIT 1 ";
     return Model::query_execute($query);
   }
 
