@@ -34,7 +34,7 @@ CREATE TABLE `archivo` (
   `CreadoPor` int(11) DEFAULT NULL,
   `ModificadoPor` int(11) DEFAULT NULL,
   `Id_Historia_Clinica` int(11) NOT NULL,
-  `id_tipo_archivo` varchar(45) NOT NULL,
+  `Id_Tipo_Archivo` varchar(45) NOT NULL,
   PRIMARY KEY (`Id_Imagen`)
 ) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -169,8 +169,7 @@ DROP TABLE IF EXISTS `detalle_cuestionario`;
 CREATE TABLE `detalle_cuestionario` (
   `Id_Detalle_Cuestionario` int(11) NOT NULL AUTO_INCREMENT,
   `Id_Cuestionario` int(11) NOT NULL,
-  `Pregunta` varchar(40) DEFAULT NULL,
-  `respuesta` text,
+  `Pregunta` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`Id_Detalle_Cuestionario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -181,7 +180,7 @@ CREATE TABLE `detalle_cuestionario` (
 
 LOCK TABLES `detalle_cuestionario` WRITE;
 /*!40000 ALTER TABLE `detalle_cuestionario` DISABLE KEYS */;
-INSERT INTO `detalle_cuestionario` VALUES (22,24,'tabaco',NULL),(95,24,'123456',NULL),(96,24,'4548484',NULL),(97,24,'pregunta 1',NULL),(116,26,'SIDA',NULL);
+INSERT INTO `detalle_cuestionario` VALUES (22,24,'tabaco'),(95,24,'123456'),(96,24,'4548484'),(97,24,'pregunta 1'),(116,26,'SIDA');
 /*!40000 ALTER TABLE `detalle_cuestionario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -193,7 +192,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `sumaPreguntas` AFTER INSERT ON `detalle_cuestionario` FOR EACH ROW UPDATE cuestionario 
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `sumaPreguntas` AFTER INSERT ON `detalle_cuestionario` FOR EACH ROW UPDATE cuestionario 
             SET cant_preguntas = cant_preguntas+1 
         WHERE  Id_Cuestionario = NEW.Id_Cuestionario */;;
 DELIMITER ;
@@ -210,7 +209,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `restaPreguntas` AFTER DELETE ON `detalle_cuestionario` FOR EACH ROW UPDATE cuestionario 
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `restaPreguntas` AFTER DELETE ON `detalle_cuestionario` FOR EACH ROW UPDATE cuestionario 
        SET cant_preguntas = cant_preguntas-1
     	WHERE  Id_Cuestionario = old.Id_Cuestionario */;;
 DELIMITER ;
@@ -229,8 +228,9 @@ DROP TABLE IF EXISTS `detalle_cuestionario_paciente`;
 CREATE TABLE `detalle_cuestionario_paciente` (
   `Id_Cuestionario_Paciente` int(11) NOT NULL AUTO_INCREMENT,
   `Id_Detalle_Cuestionario` int(11) NOT NULL,
-  `Respuesta` varchar(20) NOT NULL,
+  `Respuesta` text NOT NULL,
   `Id_Paciente` int(11) NOT NULL,
+  `Mostrar` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Id_Cuestionario_Paciente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -241,7 +241,7 @@ CREATE TABLE `detalle_cuestionario_paciente` (
 
 LOCK TABLES `detalle_cuestionario_paciente` WRITE;
 /*!40000 ALTER TABLE `detalle_cuestionario_paciente` DISABLE KEYS */;
-INSERT INTO `detalle_cuestionario_paciente` VALUES (1,22,'1',1),(2,95,'2',1),(3,96,'3',1),(4,97,'4',1),(5,116,'si',1),(6,116,'no',1),(7,116,'no',10),(8,116,'si',11),(9,116,'no',12),(10,116,'no',13),(11,116,'si',18);
+INSERT INTO `detalle_cuestionario_paciente` VALUES (1,22,'1',1,NULL),(2,95,'2',1,NULL),(3,96,'3',1,NULL),(4,97,'4',1,NULL),(5,116,'si',1,NULL),(6,116,'no',1,NULL),(7,116,'no',10,NULL),(8,116,'si',11,NULL),(9,116,'no',12,NULL),(10,116,'no',13,NULL),(11,116,'si',18,NULL);
 /*!40000 ALTER TABLE `detalle_cuestionario_paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,6 +401,35 @@ INSERT INTO `historia_clinica` VALUES (1,1,2,NULL,'2020-08-09 11:50:10','a','a',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `historia_clinica_predeterminado`
+--
+
+DROP TABLE IF EXISTS `historia_clinica_predeterminado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `historia_clinica_predeterminado` (
+  `Id_Historia_Clinica_Predeterminado` int(11) NOT NULL,
+  `Id_Usuario` int(11) NOT NULL,
+  `Fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Anamnesis_Pred` varchar(50) DEFAULT NULL,
+  `Examenes_Pred` varchar(50) DEFAULT NULL,
+  `Examen_Fisico_Pred` varchar(50) DEFAULT NULL,
+  `Diagnostico_Pred` varchar(50) DEFAULT NULL,
+  `Tratamiento_Pred` varchar(50) NOT NULL,
+  `creado` bit(1) NOT NULL DEFAULT b'0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historia_clinica_predeterminado`
+--
+
+LOCK TABLES `historia_clinica_predeterminado` WRITE;
+/*!40000 ALTER TABLE `historia_clinica_predeterminado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historia_clinica_predeterminado` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `paciente`
 --
 
@@ -522,12 +551,12 @@ DROP TABLE IF EXISTS `tipo_archivo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tipo_archivo` (
-  `id_tipo_archivo` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_Tipo_Archivo` int(11) NOT NULL,
   `Nombre` varchar(200) NOT NULL,
   `Value` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_tipo_archivo`),
+  PRIMARY KEY (`Id_Tipo_Archivo`),
   UNIQUE KEY `Value_UNIQUE` (`Value`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -903,7 +932,7 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_perfil`(IN `idUser` INT, IN `idDoctor` INT, IN `nombre` VARCHAR(80), IN `apellidopa` VARCHAR(50), IN `apellidoma` VARCHAR(50), IN `especialidad` INT, IN `dni` VARCHAR(8), IN `cmp` VARCHAR(6), IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `telefono1` VARCHAR(20), IN `telefono2` VARCHAR(20), IN `celular1` VARCHAR(20), IN `celular2` VARCHAR(20), IN `precioconsulta` FLOAT, IN `diapago` DATE, IN `dont_edit_photo` VARCHAR(1), IN `image` VARCHAR(250))
+CREATE  PROCEDURE `actualizar_perfil`(IN `idUser` INT, IN `idDoctor` INT, IN `nombre` VARCHAR(80), IN `apellidopa` VARCHAR(50), IN `apellidoma` VARCHAR(50), IN `especialidad` INT, IN `dni` VARCHAR(8), IN `cmp` VARCHAR(6), IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `telefono1` VARCHAR(20), IN `telefono2` VARCHAR(20), IN `celular1` VARCHAR(20), IN `celular2` VARCHAR(20), IN `precioconsulta` FLOAT, IN `diapago` DATE, IN `dont_edit_photo` VARCHAR(1), IN `image` VARCHAR(250))
 BEGIN
 
 	if (dont_edit_photo = '1')
@@ -977,7 +1006,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getQuestionnaire`(IN `idUser` INT)
+CREATE  PROCEDURE `getQuestionnaire`(IN `idUser` INT)
 SELECT de.Id_Detalle_Cuestionario AS Id_Detalle,de.Pregunta FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
 de.Id_Cuestionario = cu.Id_Cuestionario WHERE 
 cu.Id_Usuario = idUser ;;
@@ -996,7 +1025,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_cita`(IN `usersearch` INT, IN `datecita` DATE, IN `timecita` VARCHAR(10), IN `username` VARCHAR(60))
+CREATE  PROCEDURE `insertar_cita`(IN `usersearch` INT, IN `datecita` DATE, IN `timecita` VARCHAR(10), IN `username` VARCHAR(60))
 BEGIN
 	
     SELECT @idusuario := Id_Usuario FROM usuario WHERE Nombre = username; 
@@ -1039,7 +1068,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_codigo`(IN `codigo` VARCHAR(6))
+CREATE  PROCEDURE `insertar_codigo`(IN `codigo` VARCHAR(6))
 BEGIN
 
 	INSERT INTO `codigo_registro`
@@ -1067,7 +1096,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_paciente_cita`(IN `dni` VARCHAR(30), IN `nombre` VARCHAR(60), IN `apellidopa` VARCHAR(60), IN `apellidoma` VARCHAR(60), IN `genero` VARCHAR(30), IN `celular` VARCHAR(30), IN `fechana` DATE, IN `correo` VARCHAR(120), IN `procedencia` VARCHAR(200), IN `username` VARCHAR(60))
+CREATE  PROCEDURE `insertar_paciente_cita`(IN `dni` VARCHAR(30), IN `nombre` VARCHAR(60), IN `apellidopa` VARCHAR(60), IN `apellidoma` VARCHAR(60), IN `genero` VARCHAR(30), IN `celular` VARCHAR(30), IN `fechana` DATE, IN `correo` VARCHAR(120), IN `procedencia` VARCHAR(200), IN `username` VARCHAR(60))
 BEGIN
 
 	SELECT @idusuario := us.Id_Usuario FROM usuario us WHERE us.Nombre = username; 
@@ -1111,7 +1140,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_registro`(IN `especialidad` INT, IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `cmp` VARCHAR(10), IN `dni` VARCHAR(10), IN `nombre` VARCHAR(80), IN `apellidop` VARCHAR(50), IN `apellidom` VARCHAR(50), IN `address1` VARCHAR(200), IN `gen` VARCHAR(1), IN `cellphone` VARCHAR(20), IN `fn` DATE, IN `price` DECIMAL(18,2), IN `username` VARCHAR(300), IN `new_password` VARCHAR(50), IN `dconsulta` VARCHAR(200), IN `email` VARCHAR(200), IN `isactive` TINYINT, IN `fecha_activacion` DATE, IN `usersearch` INT)
+CREATE  PROCEDURE `insertar_registro`(IN `especialidad` INT, IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `cmp` VARCHAR(10), IN `dni` VARCHAR(10), IN `nombre` VARCHAR(80), IN `apellidop` VARCHAR(50), IN `apellidom` VARCHAR(50), IN `address1` VARCHAR(200), IN `gen` VARCHAR(1), IN `cellphone` VARCHAR(20), IN `fn` DATE, IN `price` DECIMAL(18,2), IN `username` VARCHAR(300), IN `new_password` VARCHAR(50), IN `dconsulta` VARCHAR(200), IN `email` VARCHAR(200), IN `isactive` TINYINT, IN `fecha_activacion` DATE, IN `usersearch` INT)
 BEGIN
 	
 	INSERT INTO `doctor`
@@ -1162,7 +1191,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_citas_consulta`(IN `fecha` VARCHAR(20), IN `user_name` VARCHAR(60))
+CREATE  PROCEDURE `mostrar_citas_consulta`(IN `fecha` VARCHAR(20), IN `user_name` VARCHAR(60))
 BEGIN
 
 	if (fecha = '')
@@ -1188,7 +1217,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_detalle_cita`(IN `codcita` INT, IN `user_name` VARCHAR(60) CHARSET utf8)
+CREATE  PROCEDURE `mostrar_detalle_cita`(IN `codcita` INT, IN `user_name` VARCHAR(60) CHARSET utf8)
 BEGIN
 
 	
@@ -1226,7 +1255,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_detalle_historial`(IN `codhistorial` INT, IN `user_name` VARCHAR(60) CHARSET utf8)
+CREATE  PROCEDURE `mostrar_detalle_historial`(IN `codhistorial` INT, IN `user_name` VARCHAR(60) CHARSET utf8)
 BEGIN
 
 	select * from v_detalle_historia vd where vd.id = codhistorial and vd.username = user_name; 
@@ -1247,7 +1276,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_lista_citas`(IN `nombresearch` VARCHAR(60), IN `filter` VARCHAR(1), IN `user_name` VARCHAR(60))
+CREATE  PROCEDURE `mostrar_lista_citas`(IN `nombresearch` VARCHAR(60), IN `filter` VARCHAR(1), IN `user_name` VARCHAR(60))
 BEGIN
 
 	if(filter = '0')
@@ -1295,7 +1324,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_perfil`(IN `user_name` VARCHAR(60))
+CREATE  PROCEDURE `mostrar_perfil`(IN `user_name` VARCHAR(60))
 BEGIN
 
 	select * from v_perfil vp where vp.username = user_name; 
@@ -1316,7 +1345,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `showProfile`(IN `name` VARCHAR(30) CHARSET utf8)
+CREATE  PROCEDURE `showProfile`(IN `name` VARCHAR(30) CHARSET utf8)
 SELECT 
 	us.Id_Usuario, 
     doc.Id_Doctor, 
@@ -1371,7 +1400,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_citas_consulta` AS select `ci`.`Id_Citas` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`ci`.`Fecha_Cita` AS `fecha_atencion`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `user_name` from ((`citas` `ci` join `paciente` `pa` on((`ci`.`Id_Paciente` = `pa`.`Id_Paciente`))) join `usuario` `us` on((`us`.`Id_Usuario` = `ci`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1389,7 +1418,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_departamento` AS select `de`.`Id_Pais` AS `idPais`,`de`.`Id_Departamento` AS `idDepartamento`,`de`.`Descripcion` AS `nombre_departamento` from `departamento` `de` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1407,7 +1436,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_detalle_cita` AS select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `ape_pa`,`pa`.`Apellido_Materno` AS `ape_ma`,`pa`.`Documento` AS `dni`,`pa`.`Celular` AS `celular`,`pa`.`Fecha_Nacimiento` AS `fntoage`,`pa`.`Genero` AS `genero`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fecha_cita`,`ci`.`Precio` AS `precio`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `username`,`pa`.`Email` AS `email`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn` from ((`citas` `ci` join `paciente` `pa` on((`pa`.`Id_Paciente` = `ci`.`Id_Paciente`))) join `usuario` `us` on((`us`.`Id_Usuario` = `ci`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1425,7 +1454,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_detalle_historia` AS select `hc`.`Id_historia_clinica` AS `id`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombres`,`pa`.`Documento` AS `dni`,`pa`.`Genero` AS `genero`,`pa`.`Celular` AS `celular`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `procedencia`,`pa`.`Fecha_Nacimiento` AS `edad`,date_format(`hc`.`Fecha`,'%d/%m/%Y %h:%i:%s') AS `fecha_historia`,`hc`.`Diagnostico` AS `diag`,`hc`.`Examen_Fisico` AS `ex_fi`,`hc`.`Anamnesis` AS `anam`,`hc`.`Examenes` AS `exam`,date_format(`ci`.`Fecha_Creacion`,'%d/%m/%Y %h:%i:%s') AS `fcreacion`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fcita`,`ci`.`Estado` AS `estado`,`ci`.`Atencion` AS `atencion`,`ci`.`Precio` AS `precio`,`us`.`Nombre` AS `username` from (((`historia_clinica` `hc` join `paciente` `pa` on((`pa`.`Id_Paciente` = `hc`.`Id_Paciente`))) left join `citas` `ci` on((`ci`.`Id_Citas` = `hc`.`Id_Cita`))) join `usuario` `us` on((`us`.`Id_Usuario` = `hc`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1443,7 +1472,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_detalle_paciente` AS select `pa`.`Id_Paciente` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Apellido_Paterno` AS `ape_paterno`,`pa`.`Apellido_Materno` AS `ape_materno`,`pa`.`Genero` AS `genero`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`pa`.`Celular` AS `celular`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `direccion`,`pa`.`Ocupacion_Anterior` AS `ocupa_ant`,`pa`.`Ocupacion_Actual` AS `ocupa_act`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on((`us`.`Id_Usuario` = `pa`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1461,7 +1490,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_distrito` AS select `di`.`Id_Provincia` AS `idProvincia`,`di`.`Id_Distrito` AS `idDistrito`,`di`.`Descripcion` AS `nombre_distrito` from `distrito` `di` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1479,7 +1508,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_lista_citas` AS select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `apepa`,`pa`.`Apellido_Materno` AS `apema`,`pa`.`Documento` AS `dni`,`pa`.`Fecha_Nacimiento` AS `fenac`,`ci`.`Fecha_Creacion` AS `fecre`,`ci`.`Estado` AS `estado`,`ci`.`Fecha_Cita` AS `fechacita`,`us`.`Nombre` AS `username`,`pa`.`Id_Paciente` AS `id_paciente` from ((`citas` `ci` join `paciente` `pa` on((`pa`.`Id_Paciente` = `ci`.`Id_Paciente`))) join `usuario` `us` on((`us`.`Id_Usuario` = `ci`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1497,7 +1526,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_lista_doctor` AS select `doc`.`Id_Doctor` AS `id`,concat(`doc`.`Nombres`,' ',`doc`.`Apellido_Paterno`,' ',`doc`.`Apellido_Materno`) AS `nombre` from (`doctor` `doc` join `usuario` `usu` on((`usu`.`Id_Doctor` = `doc`.`Id_Doctor`))) where (`usu`.`Activo` = 1) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1515,7 +1544,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_lista_historia_clinica` AS select `hc`.`Id_historia_clinica` AS `id_historia`,`pa`.`Id_Paciente` AS `id_paciente`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombre_paciente`,`pa`.`Fecha_Nacimiento` AS `fecha_nacimiento`,`hc`.`Fecha` AS `fecha_consulta`,`us`.`Nombre` AS `username` from ((`historia_clinica` `hc` join `paciente` `pa` on((`pa`.`Id_Paciente` = `hc`.`Id_Paciente`))) join `usuario` `us` on((`us`.`Id_Usuario` = `hc`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1533,7 +1562,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_paciente` AS select `pa`.`Id_Paciente` AS `id`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on((`us`.`Id_Usuario` = `pa`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1551,7 +1580,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_perfil` AS select `dc`.`Id_Doctor` AS `id`,`dc`.`Nombres` AS `nombre`,`dc`.`Apellido_Paterno` AS `ape_paterno`,`dc`.`Apellido_Materno` AS `ape_materno`,`dc`.`Documento` AS `dni`,`es`.`Descripcion` AS `especialidad`,`dc`.`CMP` AS `cmp`,if((`dc`.`Sexo` = 'M'),'Masculino',if((`dc`.`Sexo` = 'F'),'Femenino','Otros')) AS `genero`,`dc`.`Celular01` AS `celular1`,`dc`.`Celular02` AS `celular2`,`dc`.`Telefono_Fijo01` AS `telefono1`,`dc`.`Telefono_Fijo02` AS `telefono2`,`dc`.`Direccion` AS `domicilio`,`dc`.`Fecha_Nacimiento` AS `fecha`,`us`.`Nombre` AS `username`,`us`.`Password` AS `pass`,`dc`.`email01` AS `correo`,`us`.`Fecha_Registro` AS `fecharegistro`,`us`.`Dia_Pago` AS `fechapago`,`us`.`imagen` AS `foto`,`pa`.`Descripcion` AS `pais`,`de`.`Descripcion` AS `departamento`,`pr`.`Descripcion` AS `provincia`,`di`.`Descripcion` AS `distrito`,`us`.`Direccion` AS `diratencion`,`us`.`Direccion_IP` AS `dirip`,`us`.`Ubicacion_GPS` AS `gpsmaps`,`us`.`Tiempo_Atencion_Promedio` AS `tiempoatencion`,`us`.`Precio_Predeterminado` AS `precioconsulta`,`us`.`Dia_Pago` AS `diapago`,`dc`.`Facebook` AS `facebook`,`dc`.`Twitter` AS `twitter`,`dc`.`Linkedin` AS `linkedin` from ((((((`doctor` `dc` join `especialidad` `es` on((`es`.`Id_Especialidad` = `dc`.`Id_Especialidad`))) join `usuario` `us` on((`us`.`Id_Doctor` = `dc`.`Id_Doctor`))) join `pais` `pa` on((`pa`.`Id_Pais` = `dc`.`Id_Pais`))) join `departamento` `de` on((`de`.`Id_Departamento` = `dc`.`Id_Departamento`))) join `provincia` `pr` on((`pr`.`Id_Provincia` = `dc`.`Id_Provincia`))) join `distrito` `di` on((`di`.`Id_Distrito` = `dc`.`Id_Distrito`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1569,7 +1598,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `v_provincia` AS select `pr`.`Id_Departamento` AS `idDepartamento`,`pr`.`Id_Provincia` AS `idProvincia`,`pr`.`Descripcion` AS `nombre_pro` from `provincia` `pr` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1584,4 +1613,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-23  1:16:08
+-- Dump completed on 2020-08-25 21:09:52
