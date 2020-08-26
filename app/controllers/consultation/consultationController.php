@@ -273,10 +273,21 @@ class consultation extends Controller
             for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
                 $imagen_size[$i] = $_FILES["file"]["size"][$i];
                 $imagen_type[$i] = $_FILES["file"]["type"][$i];
-                if($imagen_type[$i] == 'application/pdf' || $imagen_type[$i] =='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+
+                if($imagen_type[$i] == 'application/pdf'){
+                    $imagen_type[$i] = 3;
                     move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
                     $imagen_bd[$i] = '/src/Documentos/' . $nameImage[$i];    
-                }else if($imagen_type[$i] == 'image/jpeg' || $imagen_type[$i] == 'image/png' || $imagen_type[$i] == 'image/jpg'){
+                }else if($imagen_type[$i] =='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+                    $imagen_type[$i] = 4;
+                    move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
+                    $imagen_bd[$i] = '/src/Documentos/' . $nameImage[$i];  
+                }else if($imagen_type[$i] == 'image/jpeg'){
+                    $image_type[$i] = 1;
+                    move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
+                    $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
+                }else if($imagen_type[$i] == 'image/png'){
+                    $image_type[$i] = 2;
                     move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
                     $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
                 }

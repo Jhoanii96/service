@@ -39,7 +39,7 @@ class settingsModel extends Model{
         if( count($nameImage) > 0 ){
           $db->query("SET @ID_HISTORIA = LAST_INSERT_ID()");
           for ($i=0; $i < count($nameImage) ; $i++) { 
-            $db->query("INSERT INTO archivo(Nombre,tamaño,tipo,Id_Historia_Clinica) VALUES('$nameImage[$i]',$imagen_size[$i],'$imagen_type[$i]',@ID_HISTORIA)"); 
+            $db->query("INSERT INTO archivo(Nombre,Tamaño,Id_tipo_archivo,Id_Historia_Clinica) VALUES('$nameImage[$i]',$imagen_size[$i],$imagen_type[$i],@ID_HISTORIA)"); 
           }
         }
       }

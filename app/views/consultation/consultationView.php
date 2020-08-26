@@ -33,7 +33,6 @@
             align-items: center;
             justify-content: center;
             opacity: 1;
-            /* animation: 300ms ; */
             background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 50% 50% no-repeat rgb(249, 249, 249);
             filter: blur(1.5px);
         }
@@ -638,7 +637,7 @@
             window.scrollTo(0, 0);
             $(".loader").fadeOut("slow");
             $("body").css("overflow","auto");
-            /* $(".loader").hide(); */
+            // $(".loader").hide(); 
         });
 
 
@@ -775,12 +774,15 @@
             document.getElementById("save-btn2").addEventListener("click", function() {
 
                 Swal.fire({
-                    icon: 'success',
+                    icon: 'warning',
                     title: 'Guardando su consulta',
-                    showConfirmButton: false,
-                    timer: 850
+                    text: "Desea imprimir su prueba clinica ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si'
                 }).then(function() {
-
                     location.href = "<?= FOLDER_PATH ?>/my";
                 });
             });
@@ -830,24 +832,36 @@
         }
 
         $("#btnPatient").click(function() {
-            $('#prev-btn2').css('display', 'none');
-            $('#next-btn2').css('display', 'block');
-            $('#save-btn2').css('display', 'none');
+
+            if(detectCSS('#step-1','display','block')){
+                $('#prev-btn2').css('display', 'none');
+                $('#next-btn2').css('display', 'block');
+                $('#save-btn2').css('display', 'none');
+            }
         })
         $("#btnQuestionnaire").click(function() {
-            $('#prev-btn2').css('display', 'block');
-            $('#next-btn2').css('display', 'block')
-            $('#save-btn2').css('display', 'none');
+
+            if(detectCSS('#step-2','display','block')){
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').css('display', 'block')
+                $('#save-btn2').css('display', 'none');
+            }
         })
         $("#btnClinicalTest").click(function() {
-            $('#prev-btn2').css('display', 'block');
-            $('#next-btn2').css('display', 'block');
-            $('#save-btn2').css('display', 'none');
+
+            if(detectCSS('#step-3','display','block')){
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').css('display', 'block');
+                $('#save-btn2').css('display', 'none');
+            }
         })
         $("#btnAppointments").click(function() {
-            $('#prev-btn2').css('display', 'block');
-            $('#next-btn2').css('display', 'none')
-            $('#save-btn2').css('display', 'block');
+            
+            if(detectCSS('#step-4','display','block')){
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').css('display', 'none')
+                $('#save-btn2').css('display', 'block');
+            }
         })
 
 
