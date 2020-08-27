@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 25-08-2020 a las 23:47:59
--- Versión del servidor: 10.3.23-MariaDB-cll-lve
--- Versión de PHP: 7.3.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-08-2020 a las 04:15:45
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,38 +18,330 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `fcepcvdv_clinica_app`
+-- Base de datos: `bd_clinica`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_perfil` (IN `idUser` INT, IN `idDoctor` INT, IN `nombre` VARCHAR(80), IN `apellidopa` VARCHAR(50), IN `apellidoma` VARCHAR(50), IN `especialidad` INT, IN `dni` VARCHAR(8), IN `cmp` VARCHAR(6), IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `telefono1` VARCHAR(20), IN `telefono2` VARCHAR(20), IN `celular1` VARCHAR(20), IN `celular2` VARCHAR(20), IN `precioconsulta` FLOAT, IN `diapago` DATE, IN `dont_edit_photo` VARCHAR(1), IN `image` VARCHAR(250))  BEGIN
 
-$$
+	if (dont_edit_photo = '1')
+    then 
+    
+		UPDATE usuario 
+		SET
+		Dia_Pago = diapago,
+		Monto_Pago = precioconsulta 
+		WHERE Id_Usuario = idUser;
 
-$$
+		UPDATE doctor
+		SET
+		Id_Especialidad = especialidad,
+		Id_Pais = pais,
+		Id_Departamento = departamento,
+		Id_Provincia = provincia,
+		Id_Distrito = distrito,
+		Documento = dni,
+		CMP = cmp,
+		Nombres = nombre,
+		Apellido_Paterno = apellidopa,
+		Apellido_Materno = apellidoma,
+		Telefono_Fijo01 = telefono1,
+		Telefono_Fijo02 = telefono2,
+		Celular01 = celular1,
+		Celular02 = celular2  
+		WHERE Id_Doctor = idDoctor;
+        
+    else
+		
+		UPDATE usuario 
+		SET
+		Dia_Pago = diapago,
+		Monto_Pago = precioconsulta,
+		imagen = image
+		WHERE Id_Usuario = idUser;
 
-$$
+		UPDATE doctor
+		SET
+		Id_Especialidad = especialidad,
+		Id_Pais = pais,
+		Id_Departamento = departamento,
+		Id_Provincia = provincia,
+		Id_Distrito = distrito,
+		Documento = dni,
+		CMP = cmp,
+		Nombres = nombre,
+		Apellido_Paterno = apellidopa,
+		Apellido_Materno = apellidoma,
+		Telefono_Fijo01 = telefono1,
+		Telefono_Fijo02 = telefono2,
+		Celular01 = celular1,
+		Celular02 = celular2  
+		WHERE Id_Doctor = idDoctor;
+    
+    end if;
+END$$
 
-$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getQuestionnaire` (IN `idUser` INT)  SELECT de.Id_Detalle_Cuestionario AS Id_Detalle,de.Pregunta FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
+de.Id_Cuestionario = cu.Id_Cuestionario WHERE 
+cu.Id_Usuario = idUser$$
 
-$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_cita` (IN `usersearch` INT, IN `datecita` DATE, IN `timecita` VARCHAR(10), IN `username` VARCHAR(60))  BEGIN
+	
+    SELECT @idusuario := Id_Usuario FROM usuario WHERE Nombre = username; 
+    SELECT @fecha_cita := concat(datecita, ' ', timecita);
 
-$$
+	INSERT INTO `citas`
+	(`Id_Usuario`,
+	`Id_Paciente`,
+	`Fecha_Creacion`,
+	`Fecha_Cita`,
+	`Precio`,
+	`Estado`,
+	`Recordatorio_SMS`,
+	`Recordatorio_CORREO`,
+	`Atencion`)
+	VALUES
+	(@idusuario,
+	usersearch,
+	NOW(),
+	@fecha_cita,
+	50, /* En observación */
+	0,
+	0,
+	0,
+	0);
 
-$$
+END$$
 
-$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_codigo` (IN `codigo` VARCHAR(6))  BEGIN
 
-$$
+	INSERT INTO `codigo_registro`
+	(`nombre_codigo`, 
+    `codigo_usado`, 
+	`fecha_codigo`)
+	VALUES
+	(codigo,
+    '0', 
+	NOW());
 
-$$
+END$$
 
-$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_paciente_cita` (IN `dni` VARCHAR(30), IN `nombre` VARCHAR(60), IN `apellidopa` VARCHAR(60), IN `apellidoma` VARCHAR(60), IN `genero` VARCHAR(30), IN `celular` VARCHAR(30), IN `fechana` DATE, IN `correo` VARCHAR(120), IN `procedencia` VARCHAR(200), IN `username` VARCHAR(60))  BEGIN
+
+	SELECT @idusuario := us.Id_Usuario FROM usuario us WHERE us.Nombre = username; 
+
+	INSERT INTO `paciente`
+	(`Documento`,
+	`Nombre`,
+	`Apellido_Paterno`,
+	`Apellido_Materno`,
+	`Genero`,
+	`Fecha_Nacimiento`,
+	`Celular`,
+	`Email`,
+	`Procedencia`,
+	`Id_Usuario`)
+	VALUES
+	(dni,
+	nombre,
+	apellidopa,
+	apellidoma,
+	genero,
+	fechana,
+	celular,
+	correo,
+	procedencia,
+	@idusuario);
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_registro` (IN `especialidad` INT, IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `cmp` VARCHAR(10), IN `dni` VARCHAR(10), IN `nombre` VARCHAR(80), IN `apellidop` VARCHAR(50), IN `apellidom` VARCHAR(50), IN `address1` VARCHAR(200), IN `gen` VARCHAR(1), IN `cellphone` VARCHAR(20), IN `fn` DATE, IN `price` DECIMAL(18,2), IN `username` VARCHAR(300), IN `new_password` VARCHAR(50), IN `dconsulta` VARCHAR(200), IN `email` VARCHAR(200), IN `isactive` TINYINT, IN `fecha_activacion` DATE, IN `usersearch` INT)  BEGIN
+	
+	INSERT INTO `doctor`
+	(`Id_Especialidad`, `Id_Pais`, `Id_Departamento`, `Id_Provincia`, `Id_Distrito`,
+	`Documento`, `CMP`, `Nombres`, `Apellido_Paterno`, `Apellido_Materno`, `Direccion`,
+	`Sexo`, `Celular01`, `email01`, `Fecha_Nacimiento`)
+	VALUES
+	(especialidad, pais, departamento, provincia, distrito, 
+	dni, cmp, nombre, apellidop, apellidom, address1, 
+	gen, cellphone, email, fn);
+    
+    SELECT @iddoctor := Id_Doctor FROM doctor WHERE Documento = dni; 
+    
+    INSERT INTO `usuario`
+	(`Id_Doctor`, `Nombre`, `Password`, `Direccion`, `Activo`, `Fecha_Activacion`, `Fecha_Habilitado`,
+	`Monto_Pago`, `Fecha_Registro`)
+	VALUES
+	(@iddoctor, username, new_password, dconsulta, isactive, fecha_activacion, fecha_activacion, 
+	price, NOW());
+    
+    
+    if(usersearch != -1)
+    then 
+		INSERT INTO `referencia_usuario`
+		(`Id_Usuario`,
+		`Id_Usuario_Referencia`,
+		`Fecha_Registro`)
+		VALUES
+		(@iddoctor,
+		usersearch,
+		NOW());
+        
+	end if;
+    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_citas_consulta` (IN `fecha` VARCHAR(20), IN `user_name` VARCHAR(60))  BEGIN
+
+	if (fecha = '')
+    then
+		select * from v_citas_consulta vcc where DATE_FORMAT(vcc.fecha_atencion, "%Y-%m-%d") = DATE_FORMAT(NOW(), "%Y-%m-%d") and vcc.user_name = user_name order by vcc.fecha_atencion desc; 
+	else
+		select * from v_citas_consulta vcc where vcc.fecha_atencion like concat('%', fecha, '%') and vcc.user_name = user_name order by vcc.fecha_atencion desc; 
+    end if;
+	
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_detalle_cita` (IN `codcita` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
+
+	
+	select 
+		vd.id, 
+        vd.nombre, 
+        vd.ape_pa, 
+        vd.ape_ma, 
+        vd.dni, 
+        vd.celular, 
+        vd.fntoage, 
+        vd.genero, 
+        vd.fecha_cita, 
+        vd.precio, 
+        vd.estado, 
+        vd.email, 
+        vd.fn 
+	from v_detalle_cita vd 
+    where vd.id = codcita and vd.username = user_name; 
+
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_detalle_historial` (IN `codhistorial` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
+
+	select * from v_detalle_historia vd where vd.id = codhistorial and vd.username = user_name; 
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_lista_citas` (IN `nombresearch` VARCHAR(60), IN `filter` VARCHAR(1), IN `user_name` VARCHAR(60))  BEGIN
+
+	if(filter = '0')
+    then
+		select * from v_lista_citas vlc where vlc.username = user_name 
+        and DATE_FORMAT(vlc.fechacita, "%Y-%m-%d") = DATE_FORMAT(NOW(), "%Y-%m-%d") order by vlc.fechacita desc;
+    end if;
+
+	if(filter = '1')
+    then
+		select * from v_lista_citas vlc 
+		where 
+        vlc.username = user_name and 
+        concat(vlc.nombre, ' ', vlc.apepa, ' ', vlc.apema, ' ', vlc.dni) like concat('%', nombresearch, '%') 
+		order by vlc.fechacita desc;
+    end if;
+    
+    if(filter = '2')
+    then
+		select * from v_lista_citas vlc 
+		where 
+        vlc.username = user_name and 
+        DATE_FORMAT(vlc.fechacita, "%Y-%m-%d") = nombresearch 
+		order by vlc.fechacita desc;
+    end if;
+    
+    if(filter = '3')
+    then
+		select * from v_lista_citas vlc where vlc.username = user_name order by vlc.fechacita desc;
+    end if;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_perfil` (IN `user_name` VARCHAR(60))  BEGIN
+
+	select * from v_perfil vp where vp.username = user_name; 
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `showProfile` (IN `name` VARCHAR(30) CHARSET utf8)  SELECT 
+	us.Id_Usuario, 
+    doc.Id_Doctor, 
+    doc.Nombres, 
+    doc.Apellido_Paterno, 
+    doc.Apellido_Materno, 
+    es.Descripcion as especialidad, 
+    Documento,CMP, 
+    pa.Descripcion as pais, 
+    dep.Descripcion as departamento, 
+    pro.Descripcion as provincia, 
+    dis.Descripcion as distrito,  
+    doc.Telefono_Fijo01,  
+    doc.Telefono_Fijo02, 
+    doc.Celular01,  
+    doc.Celular02,  
+    email01,  
+    us.Tiempo_Atencion_Promedio,  
+    us.Dia_Pago,  
+    us.Monto_Pago,  
+    us.Password,  
+    us.imagen  
+FROM doctor doc  
+INNER JOIN pais pa ON
+doc.Id_Pais = pa.Id_Pais 
+INNER JOIN provincia pro ON
+pro.Id_Provincia = doc.Id_Provincia 
+INNER JOIN departamento dep ON
+dep.Id_Departamento = doc.Id_Departamento 
+INNER JOIN usuario us ON
+us.Id_Doctor = doc.Id_Doctor 
+INNER JOIN especialidad es ON
+es.Id_Especialidad = doc.Id_Especialidad 
+INNER JOIN distrito dis ON
+dis.ID_Distrito = doc.ID_Distrito 
+WHERE us.Nombre = name$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivo`
+--
+
+CREATE TABLE `archivo` (
+  `Id_Imagen` int(11) NOT NULL,
+  `Nombre` varchar(250) NOT NULL,
+  `Subnombre` varchar(250) DEFAULT NULL,
+  `Enlace` varchar(500) DEFAULT NULL,
+  `Tamaño` float DEFAULT NULL,
+  `FechaCreado` datetime DEFAULT current_timestamp(),
+  `FechaModificado` datetime DEFAULT current_timestamp(),
+  `Borrado` varchar(1) DEFAULT NULL,
+  `CreadoPor` int(11) DEFAULT NULL,
+  `ModificadoPor` int(11) DEFAULT NULL,
+  `Id_Historia_Clinica` int(11) NOT NULL,
+  `Id_Tipo_Archivo` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `archivo`
+--
+
+INSERT INTO `archivo` (`Id_Imagen`, `Nombre`, `Subnombre`, `Enlace`, `Tamaño`, `FechaCreado`, `FechaModificado`, `Borrado`, `CreadoPor`, `ModificadoPor`, `Id_Historia_Clinica`, `Id_Tipo_Archivo`) VALUES
+(111, 'src/assets/media/images/historia_clinica/0826200612181598458338.5551.jpeg', NULL, NULL, 85167, '2020-08-26 11:12:18', '2020-08-26 11:12:18', NULL, NULL, NULL, 84, '1'),
+(112, 'src/assets/media/images/historia_clinica/0826200618051598458685.9533.jpeg', NULL, NULL, 979433, '2020-08-26 11:18:05', '2020-08-26 11:18:05', NULL, NULL, NULL, 85, '1'),
+(113, 'src/Documentos/0826200618051598458685.9533.vnd.openxmlformats-officedocument.wordprocessingml.document', NULL, NULL, 657806, '2020-08-26 11:18:05', '2020-08-26 11:18:05', NULL, NULL, NULL, 85, '4'),
+(114, 'src/Documentos/0826200618051598458685.9534.pdf', NULL, NULL, 87176, '2020-08-26 11:18:05', '2020-08-26 11:18:05', NULL, NULL, NULL, 85, '3');
 
 -- --------------------------------------------------------
 
@@ -369,7 +660,8 @@ INSERT INTO `detalle_cuestionario_paciente` (`Id_Cuestionario_Paciente`, `Id_Det
 (121, 121, 'SIS', 1, 1),
 (122, 122, 'SI', 1, 1),
 (123, 123, 'SI', 1, 1),
-(124, 116, 'si', 15, 1);
+(124, 116, 'si', 15, 1),
+(125, 116, 'no', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -2122,31 +2414,26 @@ CREATE TABLE `historia_clinica` (
   `Anamnesis` text NOT NULL,
   `Examenes` text NOT NULL,
   `Examen_Fisico` text NOT NULL,
-  `Diagnostico` text NOT NULL
+  `Diagnostico` text NOT NULL,
+  `Tratamiento` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `historia_clinica`
 --
 
-INSERT INTO `historia_clinica` (`Id_historia_clinica`, `Id_Paciente`, `Id_Usuario`, `Id_Cita`, `Fecha`, `Anamnesis`, `Examenes`, `Examen_Fisico`, `Diagnostico`) VALUES
-(62, 14, 1, NULL, '2020-08-21 17:22:52', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'dasdawdawdawd'),
-(63, 14, 1, NULL, '2020-08-21 17:23:31', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'dasdawdawdawd'),
-(64, 6, 1, NULL, '2020-08-21 17:26:55', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'asdasdasdasd'),
-(65, 5, 1, NULL, '2020-08-21 17:31:23', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'adawdawd'),
-(66, 13, 1, NULL, '2020-08-21 17:32:05', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'da45w4d6a4wd'),
-(67, 13, 1, NULL, '2020-08-21 17:33:57', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'adsadwadwad'),
-(68, 4, 1, NULL, '2020-08-21 17:52:31', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'asdasda'),
-(70, 11, 1, NULL, '2020-08-21 18:00:43', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'asdasdadad'),
-(71, 11, 1, NULL, '2020-08-21 18:00:51', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'asdasdadad'),
-(72, 12, 1, NULL, '2020-08-21 18:01:50', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'awdawdawdawdawd'),
-(73, 12, 1, NULL, '2020-08-21 18:03:28', '1\r\n2\r\n3\r\n', 'diag', 'resultado', 'awdawdawdawdawd'),
-(74, 20, 6, NULL, '2020-08-22 16:30:49', 'si', 'si', 'si', 'si'),
-(75, 25, 6, NULL, '2020-08-22 18:16:21', '15', '13', '16', 'SI'),
-(76, 20, 6, NULL, '2020-08-22 21:15:48', 'si', 'si', 'si', 'si'),
-(77, 26, 6, NULL, '2020-08-22 21:18:09', 'si', 'si', 'si', 'si'),
-(78, 27, 6, NULL, '2020-08-22 21:30:53', '12', '12', '12', '12'),
-(79, 15, 2, NULL, '2020-08-24 20:58:42', 'alsjdlkasjdlk\r\nslkjdlaksdj', 'dsa', 'saluuutedsa', '65465465dsa4');
+INSERT INTO `historia_clinica` (`Id_historia_clinica`, `Id_Paciente`, `Id_Usuario`, `Id_Cita`, `Fecha`, `Anamnesis`, `Examenes`, `Examen_Fisico`, `Diagnostico`, `Tratamiento`) VALUES
+(80, 1, 1, NULL, '2020-08-26 10:51:35', 'te: asda', 'resultado asd', '1\r\n2 asd\r\n3\r\n', 'diag asd', ' sad'),
+(81, 1, 1, NULL, '2020-08-26 10:57:12', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'DASDASD'),
+(82, 1, 1, NULL, '2020-08-26 11:00:21', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'DASDADW'),
+(83, 1, 1, NULL, '2020-08-26 11:08:32', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'FDSFSDF'),
+(84, 1, 1, NULL, '2020-08-26 11:12:18', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'asdasdasd'),
+(85, 1, 1, NULL, '2020-08-26 11:18:05', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'asdasdsad'),
+(86, 10, 2, NULL, '2020-08-26 13:21:59', 'kasdhkjahasd\r\nalsjdalk', 'saluuuted', 'alsjdlkasjdlkd\r\nslkjdlaksdj', 'd', '654654654asdasd'),
+(87, 10, 2, NULL, '2020-08-26 13:23:45', 'kasdhkjah\r\nalsjdalk', 'saluuute', 'alsjdlkasjdlk\r\nslkjdlaksdj', 'das', 'asd'),
+(88, 1, 2, NULL, '2020-08-26 13:35:25', 'kasdhkjah\r\nalsjdalk', 'saluuute', 'alsjdlkasjdlk\r\nslkjdlaksdj', 'asdasd', '654654654'),
+(89, 1, 2, NULL, '2020-08-26 13:39:59', 'kasdhkjah\r\nalsjdalk', 'saluuute', 'alsjdlkasjdlk\r\nslkjdlaksdj', 'asd', '654654654asdasd'),
+(90, 1, 1, NULL, '2020-08-26 19:09:44', 'te:', 'resultado', '1\r\n2\r\n3\r\n', 'diag', 'awdawdawd');
 
 -- --------------------------------------------------------
 
@@ -2491,6 +2778,28 @@ INSERT INTO `referencia_usuario` (`Id_Referencia_Usuario`, `Id_Usuario`, `Id_Usu
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_archivo`
+--
+
+CREATE TABLE `tipo_archivo` (
+  `Id_Tipo_Archivo` int(11) NOT NULL,
+  `Nombre` varchar(200) NOT NULL,
+  `Value` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tipo_archivo`
+--
+
+INSERT INTO `tipo_archivo` (`Id_Tipo_Archivo`, `Nombre`, `Value`) VALUES
+(1, 'Imagen', 'image/jpeg'),
+(2, 'Imagen', 'image/png'),
+(3, 'Adobe PDF', 'pdf'),
+(4, 'Word', 'docx');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tipo_informacion`
 --
 
@@ -2535,13 +2844,13 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id_Usuario`, `Id_Doctor`, `Nombre`, `Password`, `Direccion`, `Direccion_IP`, `Ubicacion_GPS`, `Activo`, `Fecha_Activacion`, `Monto_Pago`, `Fecha_Habilitado`, `Fecha_Registro`, `Dia_Pago`, `Codigo_Web_Registro`, `Visualizo_Indicaciones`, `Tiempo_Atencion_Promedio`, `Precio_Predeterminado`, `Hora_Inicio_Atencion`, `Hora_Fin_Atencion`, `estado_perfil`, `imagen`) VALUES
-(1, 1, 'alberth', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', 4500.00, NULL, NULL, '2020-08-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
-(2, 2, 'jhon', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', 4000.00, NULL, NULL, '2020-04-15', NULL, NULL, 80, 4500.00, NULL, NULL, 0, 'src/assets/media/images/profile/0724200634261595565266.8879.jpeg'),
-(3, 9, 'jhonxdas123', '4eM9Jqb3yBVXD7D', 'Centro de tacna', NULL, NULL, 1, '2020-07-05 00:00:00.000', 150.60, '2020-07-05', '2020-07-05 19:12:17.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
-(4, 10, 'ericksolitario', 'B4NHL32da7v8zSa', 'Fuera de la catedral', NULL, NULL, 1, '2020-07-05 00:00:00.000', 50.00, '2020-07-05', '2020-07-05 19:18:14.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
-(5, 11, 'ruthlapanda', 'g78WWQhKrihsPjJ', 'en la plaza zela', NULL, NULL, 1, '2020-07-05 00:00:00.000', 150.00, '2020-07-05', '2020-07-05 19:32:23.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
-(6, 12, 'ronaldo456', 'MFzc6Km7c5sC6y4', 'av', NULL, NULL, 1, '2020-08-18 00:00:00.000', 80.00, '2020-08-18', '2020-08-18 21:42:00.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
-(7, 13, 'RONALDIÑO123', 'wU5Zpgv9QSRzpAE', 'AV', NULL, NULL, 1, '2020-08-19 00:00:00.000', 100.00, '2020-08-19', '2020-08-19 23:15:07.000', '1998-01-15', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/0819201115531597893353.4744.png');
+(1, 1, 'alberth', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', '4500.00', NULL, NULL, '2020-08-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
+(2, 2, 'jhon', '123456', NULL, NULL, NULL, 1, '2020-06-28 00:00:00.000', '4000.00', NULL, NULL, '2020-04-15', NULL, NULL, 80, '4500.00', NULL, NULL, 0, 'src/assets/media/images/profile/0724200634261595565266.8879.jpeg'),
+(3, 9, 'jhonxdas123', '4eM9Jqb3yBVXD7D', 'Centro de tacna', NULL, NULL, 1, '2020-07-05 00:00:00.000', '150.60', '2020-07-05', '2020-07-05 19:12:17.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
+(4, 10, 'ericksolitario', 'B4NHL32da7v8zSa', 'Fuera de la catedral', NULL, NULL, 1, '2020-07-05 00:00:00.000', '50.00', '2020-07-05', '2020-07-05 19:18:14.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
+(5, 11, 'ruthlapanda', 'g78WWQhKrihsPjJ', 'en la plaza zela', NULL, NULL, 1, '2020-07-05 00:00:00.000', '150.00', '2020-07-05', '2020-07-05 19:32:23.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'src/assets/media/images/profile/avatar1.png'),
+(6, 12, 'ronaldo456', 'MFzc6Km7c5sC6y4', 'av', NULL, NULL, 1, '2020-08-18 00:00:00.000', '80.00', '2020-08-18', '2020-08-18 21:42:00.000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/avatar1.png'),
+(7, 13, 'RONALDIÑO123', 'wU5Zpgv9QSRzpAE', 'AV', NULL, NULL, 1, '2020-08-19 00:00:00.000', '100.00', '2020-08-19', '2020-08-19 23:15:07.000', '1998-01-15', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'src/assets/media/images/profile/0819201115531597893353.4744.png');
 
 -- --------------------------------------------------------
 
@@ -2793,7 +3102,7 @@ CREATE TABLE `v_provincia` (
 --
 DROP TABLE IF EXISTS `v_citas_consulta`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_citas_consulta`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`ci`.`Fecha_Cita` AS `fecha_atencion`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `user_name` from ((`citas` `ci` join `paciente` `pa` on(`ci`.`Id_Paciente` = `pa`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_citas_consulta`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`ci`.`Fecha_Cita` AS `fecha_atencion`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `user_name` from ((`citas` `ci` join `paciente` `pa` on(`ci`.`Id_Paciente` = `pa`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -2802,7 +3111,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_departamento`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_departamento`  AS  select `de`.`Id_Pais` AS `idPais`,`de`.`Id_Departamento` AS `idDepartamento`,`de`.`Descripcion` AS `nombre_departamento` from `departamento` `de` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_departamento`  AS  select `de`.`Id_Pais` AS `idPais`,`de`.`Id_Departamento` AS `idDepartamento`,`de`.`Descripcion` AS `nombre_departamento` from `departamento` `de` ;
 
 -- --------------------------------------------------------
 
@@ -2811,7 +3120,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_detalle_cita`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_cita`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `ape_pa`,`pa`.`Apellido_Materno` AS `ape_ma`,`pa`.`Documento` AS `dni`,`pa`.`Celular` AS `celular`,`pa`.`Fecha_Nacimiento` AS `fntoage`,`pa`.`Genero` AS `genero`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fecha_cita`,`ci`.`Precio` AS `precio`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `username`,`pa`.`Email` AS `email`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_cita`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `ape_pa`,`pa`.`Apellido_Materno` AS `ape_ma`,`pa`.`Documento` AS `dni`,`pa`.`Celular` AS `celular`,`pa`.`Fecha_Nacimiento` AS `fntoage`,`pa`.`Genero` AS `genero`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fecha_cita`,`ci`.`Precio` AS `precio`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `username`,`pa`.`Email` AS `email`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -2820,7 +3129,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_detalle_historia`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_historia`  AS  select `hc`.`Id_historia_clinica` AS `id`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombres`,`pa`.`Documento` AS `dni`,`pa`.`Genero` AS `genero`,`pa`.`Celular` AS `celular`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `procedencia`,`pa`.`Fecha_Nacimiento` AS `edad`,date_format(`hc`.`Fecha`,'%d/%m/%Y %h:%i:%s') AS `fecha_historia`,`hc`.`Diagnostico` AS `diag`,`hc`.`Examen_Fisico` AS `ex_fi`,`hc`.`Anamnesis` AS `anam`,`hc`.`Examenes` AS `exam`,date_format(`ci`.`Fecha_Creacion`,'%d/%m/%Y %h:%i:%s') AS `fcreacion`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fcita`,`ci`.`Estado` AS `estado`,`ci`.`Atencion` AS `atencion`,`ci`.`Precio` AS `precio`,`us`.`Nombre` AS `username` from (((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_Paciente`)) left join `citas` `ci` on(`ci`.`Id_Citas` = `hc`.`Id_Cita`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_historia`  AS  select `hc`.`Id_historia_clinica` AS `id`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombres`,`pa`.`Documento` AS `dni`,`pa`.`Genero` AS `genero`,`pa`.`Celular` AS `celular`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `procedencia`,`pa`.`Fecha_Nacimiento` AS `edad`,date_format(`hc`.`Fecha`,'%d/%m/%Y %h:%i:%s') AS `fecha_historia`,`hc`.`Diagnostico` AS `diag`,`hc`.`Examen_Fisico` AS `ex_fi`,`hc`.`Anamnesis` AS `anam`,`hc`.`Examenes` AS `exam`,date_format(`ci`.`Fecha_Creacion`,'%d/%m/%Y %h:%i:%s') AS `fcreacion`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fcita`,`ci`.`Estado` AS `estado`,`ci`.`Atencion` AS `atencion`,`ci`.`Precio` AS `precio`,`us`.`Nombre` AS `username` from (((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_Paciente`)) left join `citas` `ci` on(`ci`.`Id_Citas` = `hc`.`Id_Cita`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -2829,7 +3138,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_detalle_paciente`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Apellido_Paterno` AS `ape_paterno`,`pa`.`Apellido_Materno` AS `ape_materno`,`pa`.`Genero` AS `genero`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`pa`.`Celular` AS `celular`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `direccion`,`pa`.`Ocupacion_Anterior` AS `ocupa_ant`,`pa`.`Ocupacion_Actual` AS `ocupa_act`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Apellido_Paterno` AS `ape_paterno`,`pa`.`Apellido_Materno` AS `ape_materno`,`pa`.`Genero` AS `genero`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`pa`.`Celular` AS `celular`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `direccion`,`pa`.`Ocupacion_Anterior` AS `ocupa_ant`,`pa`.`Ocupacion_Actual` AS `ocupa_act`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -2838,7 +3147,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_distrito`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_distrito`  AS  select `di`.`Id_Provincia` AS `idProvincia`,`di`.`Id_Distrito` AS `idDistrito`,`di`.`Descripcion` AS `nombre_distrito` from `distrito` `di` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_distrito`  AS  select `di`.`Id_Provincia` AS `idProvincia`,`di`.`Id_Distrito` AS `idDistrito`,`di`.`Descripcion` AS `nombre_distrito` from `distrito` `di` ;
 
 -- --------------------------------------------------------
 
@@ -2847,7 +3156,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_lista_citas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_lista_citas`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `apepa`,`pa`.`Apellido_Materno` AS `apema`,`pa`.`Documento` AS `dni`,`pa`.`Fecha_Nacimiento` AS `fenac`,`ci`.`Fecha_Creacion` AS `fecre`,`ci`.`Estado` AS `estado`,`ci`.`Fecha_Cita` AS `fechacita`,`us`.`Nombre` AS `username`,`pa`.`Id_Paciente` AS `id_paciente` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lista_citas`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `apepa`,`pa`.`Apellido_Materno` AS `apema`,`pa`.`Documento` AS `dni`,`pa`.`Fecha_Nacimiento` AS `fenac`,`ci`.`Fecha_Creacion` AS `fecre`,`ci`.`Estado` AS `estado`,`ci`.`Fecha_Cita` AS `fechacita`,`us`.`Nombre` AS `username`,`pa`.`Id_Paciente` AS `id_paciente` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -2856,7 +3165,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_lista_doctor`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_lista_doctor`  AS  select `doc`.`Id_Doctor` AS `id`,concat(`doc`.`Nombres`,' ',`doc`.`Apellido_Paterno`,' ',`doc`.`Apellido_Materno`) AS `nombre` from (`doctor` `doc` join `usuario` `usu` on(`usu`.`Id_Doctor` = `doc`.`Id_Doctor`)) where `usu`.`Activo` = 1 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lista_doctor`  AS  select `doc`.`Id_Doctor` AS `id`,concat(`doc`.`Nombres`,' ',`doc`.`Apellido_Paterno`,' ',`doc`.`Apellido_Materno`) AS `nombre` from (`doctor` `doc` join `usuario` `usu` on(`usu`.`Id_Doctor` = `doc`.`Id_Doctor`)) where `usu`.`Activo` = 1 ;
 
 -- --------------------------------------------------------
 
@@ -2874,7 +3183,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_paciente`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -2883,7 +3192,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_perfil`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_perfil`  AS  select `dc`.`Id_Doctor` AS `id`,`dc`.`Nombres` AS `nombre`,`dc`.`Apellido_Paterno` AS `ape_paterno`,`dc`.`Apellido_Materno` AS `ape_materno`,`dc`.`Documento` AS `dni`,`es`.`Descripcion` AS `especialidad`,`dc`.`CMP` AS `cmp`,if(`dc`.`Sexo` = 'M','Masculino',if(`dc`.`Sexo` = 'F','Femenino','Otros')) AS `genero`,`dc`.`Celular01` AS `celular1`,`dc`.`Celular02` AS `celular2`,`dc`.`Telefono_Fijo01` AS `telefono1`,`dc`.`Telefono_Fijo02` AS `telefono2`,`dc`.`Direccion` AS `domicilio`,`dc`.`Fecha_Nacimiento` AS `fecha`,`us`.`Nombre` AS `username`,`us`.`Password` AS `pass`,`dc`.`email01` AS `correo`,`us`.`Fecha_Registro` AS `fecharegistro`,`us`.`Dia_Pago` AS `fechapago`,`us`.`imagen` AS `foto`,`pa`.`Descripcion` AS `pais`,`de`.`Descripcion` AS `departamento`,`pr`.`Descripcion` AS `provincia`,`di`.`Descripcion` AS `distrito`,`us`.`Direccion` AS `diratencion`,`us`.`Direccion_IP` AS `dirip`,`us`.`Ubicacion_GPS` AS `gpsmaps`,`us`.`Tiempo_Atencion_Promedio` AS `tiempoatencion`,`us`.`Precio_Predeterminado` AS `precioconsulta`,`us`.`Dia_Pago` AS `diapago`,`dc`.`Facebook` AS `facebook`,`dc`.`Twitter` AS `twitter`,`dc`.`Linkedin` AS `linkedin` from ((((((`doctor` `dc` join `especialidad` `es` on(`es`.`Id_Especialidad` = `dc`.`Id_Especialidad`)) join `usuario` `us` on(`us`.`Id_Doctor` = `dc`.`Id_Doctor`)) join `pais` `pa` on(`pa`.`Id_Pais` = `dc`.`Id_Pais`)) join `departamento` `de` on(`de`.`Id_Departamento` = `dc`.`Id_Departamento`)) join `provincia` `pr` on(`pr`.`Id_Provincia` = `dc`.`Id_Provincia`)) join `distrito` `di` on(`di`.`Id_Distrito` = `dc`.`Id_Distrito`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_perfil`  AS  select `dc`.`Id_Doctor` AS `id`,`dc`.`Nombres` AS `nombre`,`dc`.`Apellido_Paterno` AS `ape_paterno`,`dc`.`Apellido_Materno` AS `ape_materno`,`dc`.`Documento` AS `dni`,`es`.`Descripcion` AS `especialidad`,`dc`.`CMP` AS `cmp`,if(`dc`.`Sexo` = 'M','Masculino',if(`dc`.`Sexo` = 'F','Femenino','Otros')) AS `genero`,`dc`.`Celular01` AS `celular1`,`dc`.`Celular02` AS `celular2`,`dc`.`Telefono_Fijo01` AS `telefono1`,`dc`.`Telefono_Fijo02` AS `telefono2`,`dc`.`Direccion` AS `domicilio`,`dc`.`Fecha_Nacimiento` AS `fecha`,`us`.`Nombre` AS `username`,`us`.`Password` AS `pass`,`dc`.`email01` AS `correo`,`us`.`Fecha_Registro` AS `fecharegistro`,`us`.`Dia_Pago` AS `fechapago`,`us`.`imagen` AS `foto`,`pa`.`Descripcion` AS `pais`,`de`.`Descripcion` AS `departamento`,`pr`.`Descripcion` AS `provincia`,`di`.`Descripcion` AS `distrito`,`us`.`Direccion` AS `diratencion`,`us`.`Direccion_IP` AS `dirip`,`us`.`Ubicacion_GPS` AS `gpsmaps`,`us`.`Tiempo_Atencion_Promedio` AS `tiempoatencion`,`us`.`Precio_Predeterminado` AS `precioconsulta`,`us`.`Dia_Pago` AS `diapago`,`dc`.`Facebook` AS `facebook`,`dc`.`Twitter` AS `twitter`,`dc`.`Linkedin` AS `linkedin` from ((((((`doctor` `dc` join `especialidad` `es` on(`es`.`Id_Especialidad` = `dc`.`Id_Especialidad`)) join `usuario` `us` on(`us`.`Id_Doctor` = `dc`.`Id_Doctor`)) join `pais` `pa` on(`pa`.`Id_Pais` = `dc`.`Id_Pais`)) join `departamento` `de` on(`de`.`Id_Departamento` = `dc`.`Id_Departamento`)) join `provincia` `pr` on(`pr`.`Id_Provincia` = `dc`.`Id_Provincia`)) join `distrito` `di` on(`di`.`Id_Distrito` = `dc`.`Id_Distrito`)) ;
 
 -- --------------------------------------------------------
 
@@ -2892,11 +3201,17 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_provincia`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fcepcvdv`@`localhost` SQL SECURITY DEFINER VIEW `v_provincia`  AS  select `pr`.`Id_Departamento` AS `idDepartamento`,`pr`.`Id_Provincia` AS `idProvincia`,`pr`.`Descripcion` AS `nombre_pro` from `provincia` `pr` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_provincia`  AS  select `pr`.`Id_Departamento` AS `idDepartamento`,`pr`.`Id_Provincia` AS `idProvincia`,`pr`.`Descripcion` AS `nombre_pro` from `provincia` `pr` ;
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `archivo`
+--
+ALTER TABLE `archivo`
+  ADD PRIMARY KEY (`Id_Imagen`);
 
 --
 -- Indices de la tabla `citas`
@@ -3002,6 +3317,13 @@ ALTER TABLE `referencia_usuario`
   ADD PRIMARY KEY (`Id_Referencia_Usuario`);
 
 --
+-- Indices de la tabla `tipo_archivo`
+--
+ALTER TABLE `tipo_archivo`
+  ADD PRIMARY KEY (`Id_Tipo_Archivo`),
+  ADD UNIQUE KEY `Value_UNIQUE` (`Value`);
+
+--
 -- Indices de la tabla `tipo_informacion`
 --
 ALTER TABLE `tipo_informacion`
@@ -3022,6 +3344,12 @@ ALTER TABLE `usuario_sistema`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `archivo`
+--
+ALTER TABLE `archivo`
+  MODIFY `Id_Imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de la tabla `citas`
@@ -3057,7 +3385,7 @@ ALTER TABLE `detalle_cuestionario`
 -- AUTO_INCREMENT de la tabla `detalle_cuestionario_paciente`
 --
 ALTER TABLE `detalle_cuestionario_paciente`
-  MODIFY `Id_Cuestionario_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `Id_Cuestionario_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -3087,7 +3415,7 @@ ALTER TABLE `especialidad`
 -- AUTO_INCREMENT de la tabla `historia_clinica`
 --
 ALTER TABLE `historia_clinica`
-  MODIFY `Id_historia_clinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `Id_historia_clinica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT de la tabla `historia_clinica_predeterminado`

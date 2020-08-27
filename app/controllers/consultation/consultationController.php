@@ -33,14 +33,18 @@ class consultation extends Controller
 
         if (isset($_GET['cod_name'])) {
             $nombre_usuario = utf8_decode(base64_decode($_GET['cod_name']));
+           
             $id_nombre = explode('|', $nombre_usuario); /* $id_nombre[2]: id cita */
+            $id_cita = $id_nombre[2]; 
         } else {
             $id_nombre = [];
             $id_nombre[0] = 'nothing';
+            $id_cita = null;
         }
 
         $this->view('consultation/consultation', [
-            'nombre_usuario' => $id_nombre
+            'nombre_usuario' => $id_nombre,
+            'id_cita' => $id_cita
         ]);
     }
 
@@ -250,6 +254,12 @@ class consultation extends Controller
     }
 
     public function insertClinicalTest(){
+        
+        if(isset($_POST['id_clinicalTest']) && !empty($_POST['id_clinicalTest'])){
+            $idCita = $_POST['id_clinicalTest'];
+        }else{
+            $idCita = null;
+        }
         $idUser = $this->session->get("idUser");
         $idPaciente = $this->session->get('idPaciente');
         $anamnesis_clinical = $_POST['anamnesis-clinical'];
@@ -277,24 +287,24 @@ class consultation extends Controller
                 if($imagen_type[$i] == 'application/pdf'){
                     $imagen_type[$i] = 3;
                     move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
-                    $imagen_bd[$i] = '/src/Documentos/' . $nameImage[$i];    
+                    $imagen_bd[$i] = 'src/Documentos/' . $nameImage[$i];    
                 }else if($imagen_type[$i] =='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
                     $imagen_type[$i] = 4;
                     move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
-                    $imagen_bd[$i] = '/src/Documentos/' . $nameImage[$i];  
+                    $imagen_bd[$i] = 'src/Documentos/' . $nameImage[$i];  
                 }else if($imagen_type[$i] == 'image/jpeg'){
-                    $image_type[$i] = 1;
+                    $imagen_type[$i] = 1;
                     move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
                     $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
                 }else if($imagen_type[$i] == 'image/png'){
-                    $image_type[$i] = 2;
+                    $imagen_type[$i] = 2;
                     move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
                     $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
                 }
             }
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$imagen_size,$imagen_type);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$imagen_size,$imagen_type);
         }else{
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd = null,$imagen_size = null,$imagen_type = null);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd = null,$imagen_size = null,$imagen_type = null);
         }
 
         return $result;
@@ -316,6 +326,14 @@ class consultation extends Controller
         }else{
             echo "No se pudo actualizar la prueba clinica";
         }
+    }
+
+    public function createPrintHistoryMedical(){
+        $idUser = $this->session->get("idUser");
+        $idPaciente = $this->session->get('idPaciente');
+        $resultPrint = $this->settingsModel->getIDClinicalTest($idPaciente)->fetch(PDO::FETCH_ASSOC);
+        $array_json = json_encode($resultPrint);
+        print_r($array_json);
     }
 
     public function citas()

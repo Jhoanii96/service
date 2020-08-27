@@ -39,6 +39,7 @@
         <?php
         $profile = $this->showProfile();
         $this->session->add('Nombres', $profile['Nombres']);
+        $this->session->add('Apellidos', $profile['Apellido_Paterno'].' '.$profile['Apellido_Materno']);
         $this->session->add('especialidad', $profile['especialidad']);
         $this->session->add('idUser', $profile['Id_Usuario']);
         $this->session->add('idDoctor', $profile['Id_Doctor']);

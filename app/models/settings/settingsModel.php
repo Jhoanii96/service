@@ -28,18 +28,23 @@ class settingsModel extends Model{
     return Model::query_execute($query);
   }
 
-  public function insertClinicalTest($idPaciente,$idUser,$anamnesis,$exam_fisico,$examenes,$diagnostico,$tratamiento,$nameImage,$imagen_size,$imagen_type){
+  public function insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis,$exam_fisico,$examenes,$diagnostico,$tratamiento,$nameImage,$imagen_size,$imagen_type){
     
     try {
       $db = Model::conectar();
       $db->beginTransaction();
-      $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
-      ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
+      if($idCita !== null){
+        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Id_Cita,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
+        ($idPaciente,$idUser,$idCita,'$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
+      }else{
+        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
+        ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
+      }
       if( $nameImage !== null ){
         if( count($nameImage) > 0 ){
           $db->query("SET @ID_HISTORIA = LAST_INSERT_ID()");
           for ($i=0; $i < count($nameImage) ; $i++) { 
-            $db->query("INSERT INTO archivo(Nombre,Tamaño,Id_tipo_archivo,Id_Historia_Clinica) VALUES('$nameImage[$i]',$imagen_size[$i],$imagen_type[$i],@ID_HISTORIA)"); 
+            $db->query("INSERT INTO archivo(Nombre,Tamaño,Id_Historia_Clinica,Id_Tipo_Archivo) VALUES('$nameImage[$i]',$imagen_size[$i],@ID_HISTORIA,$imagen_type[$i])"); 
           }
         }
       }
@@ -58,7 +63,7 @@ class settingsModel extends Model{
   }
 
   public function getIDClinicalTest($idPaciente){
-    $query = "SELECT Id_historia_clinica FROM historia_clinica WHERE Id_Paciente = $idPaciente ORDER BY Id_historia_clinica DESC LIMIT 1 ";
+    $query = "SELECT Id_historia_clinica,Fecha,Tratamiento FROM historia_clinica WHERE Id_Paciente = $idPaciente ORDER BY Id_historia_clinica DESC LIMIT 1 ";
     return Model::query_execute($query);
   }
 
