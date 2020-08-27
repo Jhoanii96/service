@@ -37,6 +37,11 @@
             filter: blur(1.5px);
         }
 
+        .autosize{ 
+            overflow:hidden;
+            display:block;
+        }
+
         .loader p {
             margin-top: 80px;
         }
@@ -429,7 +434,7 @@
                                                                         echo "<input type='hidden' name='id_clinicalTest' value='".$data['id_cita']."'>";
                                                                     }
                                                                 ?>
-                                                                <textarea row="1" class="form-control" id="anamnesis-clinical" name="anamnesis-clinical" style="max-height: 200px; height: 35px" required><?php echo ($history) ? $history['Anamnesis_Pred'] : ""; ?></textarea>
+                                                                <textarea row="1" class="form-control autosize" id="anamnesis-clinical" name="anamnesis-clinical" style="max-height: 200px; height: 35px" required><?php echo ($history) ? $history['Anamnesis_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -437,7 +442,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Examen Físico</label>
-                                                                <textarea rows="1" class="form-control " name="examen-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examen_Fisico_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize" name="examen-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examen_Fisico_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -445,7 +450,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Exámenes</label>
-                                                                <textarea rows="1" class="form-control " name="examenes-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examenes_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize" name="examenes-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examenes_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -453,7 +458,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Diagnóstico</label>
-                                                                <textarea rows="1" class="form-control " name="diagnostico-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Diagnostico_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize" name="diagnostico-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Diagnostico_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -461,7 +466,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Tratamiento</label>
-                                                                <textarea rows="1" class="form-control " id="tratamiento-clinical" name="tratamiento-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Tratamiento_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize" id="tratamiento-clinical" name="tratamiento-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Tratamiento_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -654,6 +659,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="<?= FOLDER_PATH ?>/src/js/jspdf.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
         var g_paciente = "",
@@ -816,28 +822,42 @@
 
                     if (result.value) {
                         
+                        var doc = new jsPDF();
+
                         $.ajax({
                             type: "post",
-                            dataType: 'JSON',
-                            url: "<?php echo FOLDER_PATH ?>/consultation/createPrintHistoryMedical",
+                            // dataType: 'JSON',
+                            url: "<?php echo FOLDER_PATH ?>/consultation/createPDFPrinter",
                             data: {datos:1}
                         })
                         .done(function(data) {
-                            if (Object.keys(data).length > 1) {
-                                $("#fechaClinicalTest").html(data.Fecha);
-                                $("#treatmentClinicalTest").html(data.Tratamiento);
-                                let printme = document.getElementById('print-clinicalTest');
-                                let wopen = window.open("","","width=900,height=700");
-                                wopen.document.write(printme.outerHTML);
-                                wopen.document.close();
-                                wopen.focus();
-                                wopen.print();
-                                wopen.close();
-                                location.href = "<?= FOLDER_PATH ?>/my";
-                            }
+                            // if (Object.keys(data).length > 1) {
+                            //     $("#fechaClinicalTest").html(data.Fecha);
+                            //     $("#treatmentClinicalTest").html(data.Tratamiento);
+                            //     let printme = document.getElementById('print-clinicalTest');
+                            //     let wopen = window.open("","","width=900,height=700");
+                            //     wopen.document.write(printme.outerHTML);
+                            //     wopen.document.close();
+                            //     wopen.focus();
+                            //     wopen.print();
+                            //     wopen.close();
+                            //     location.href = "<?= FOLDER_PATH ?>/my";
+                            // }
+                            // alert('mostrando');
+
+                            doc.text(20, 20, 'Informacion medica/Formato');
+                            doc.text(20, 30, 'Vamos a generar un pdf desde el lado del cliente');
+
+                            // Add new page
+                            doc.addPage();
+                            doc.text(20, 20, 'Visita programacion.net');
+
+                            // Save the PDF
+                            doc.save('documento.pdf');
+                            location.href = "<?= FOLDER_PATH ?>/my";
                         })
                         .fail(function(){
-                            
+
                         });
                     } else {
                         location.href = "<?= FOLDER_PATH ?>/my";
@@ -859,9 +879,6 @@
         let buttonSearchPressed = false;
         let buttonInsertPressed = false;
         let buttonCreateAnswerPressed = false;
-
-
-
 
         function calcularEdad(fechana) {
             console.log(fechana);
@@ -889,54 +906,56 @@
             e.value = e.value.toUpperCase();
         }
 
-        $("#btnPatient").click(function(e) {
+        /** Funcion para que el textarea se ajuste al tamaño del contenido del texto */
+        $('.autosize').keydown(function(e){
             // e.preventDefault();
-            //     console.log('step-1');
-            //     console.log(detectCSS('#step-1','display','block'));
-                
-            // if(detectCSS('#step-1','display','block')){
-            //     $('#prev-btn2').css('display', 'none');
-            //     $('#next-btn2').css('display', 'block');
-            //     $('#save-btn2').css('display', 'none');
-            // }
-            
-            // if($('.btnPatient').hasClass('active')){
-          
+                var el = this;
+                setTimeout(function(){
+                    el.style.cssText = 'height:auto; padding:0';
+                    el.style.cssText = 'height:' + el.scrollHeight + 'px';
+                },0);
+        })
+    
+        
+             
+
+
+        if(window.location.hash === '#step-1'){
+
+            $("#btnPatient").click(function(e) {
                 
                 $('#prev-btn2').css('display', 'none');
                 $('#next-btn2').css('display', 'block');
                 $('#save-btn2').css('display', 'none');
             
-        })
-        $("#btnQuestionnaire").click(function() {
+            })
+        }
+        if(window.location.hash === '#step-2'){
+            $("#btnQuestionnaire").click(function() {
             
-                if(detectCSS('#step-2','display','block')){
-                
-                    $('#prev-btn2').css('display', 'block');
-                    $('#next-btn2').css('display', 'block')
-                    $('#save-btn2').css('display', 'none');
-                }
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').css('display', 'block')
+                $('#save-btn2').css('display', 'none');
+            })
+        }
            
-        })
-        $("#btnClinicalTest").click(function() {
+        if(window.location.hash === '#step-3'){
+            $("#btnClinicalTest").click(function() {
 
-            if(detectCSS('#step-3','display','block')){
-                let presionadoClinicalTest = true;
                 $('#prev-btn2').css('display', 'block');
                 $('#next-btn2').css('display', 'block');
                 $('#save-btn2').css('display', 'none');
-            }
-        })
-        $("#btnAppointments").click(function() {
+            })
+        }
+        if(window.location.hash === '#step-4'){
+            $("#btnAppointments").click(function() {
             
-                if(detectCSS('#step-4','display','block')){
-                    let presionadoAppointment = true;
                     $('#prev-btn2').css('display', 'block');
                     $('#next-btn2').css('display', 'none')
                     $('#save-btn2').css('display', 'block');
-                }
             
-        })
+            })
+        }
 
 
         $('.submitPatient').click(function() {

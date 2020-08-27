@@ -1,10 +1,12 @@
 <?php
 
+require_once ROOT . FOLDER_PATH . '/dompdf/autoload.inc.php';
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/patient/patientModel.php";
 require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
 require ROOT . FOLDER_PATH . "/app/models/consultation/consultationModel.php";
 require ROOT . FOLDER_PATH . "/app/models/settings/settingsModel.php";
+use Dompdf\Dompdf;
 
 
 class consultation extends Controller
@@ -13,7 +15,7 @@ class consultation extends Controller
     protected $patientModel;
     protected $questionModel;
     protected $settingsModel;
-
+    // public $dompdf;
     public function __construct()
     {
         $this->session = new Session;
@@ -26,6 +28,7 @@ class consultation extends Controller
         $this->questionModel = new questionnaireModel();
         $this->model = new consultationModel();
         $this->settingsModel = new settingsModel();
+        // $this->dompdf = new Dompdf();
     }
 
     public function index()
@@ -568,4 +571,13 @@ class consultation extends Controller
             ';
         }
     }
+
+    // public function createPDFPrinter(){
+    //     $this->dompdf->loadHTML('<h1>HOLA MUNDO</h1>');
+    //     $this->dompdf->setPaper('A4', 'landscape');
+    //     $this->dompdf->render();
+    //     // (Optional) Setup the paper size and orientation
+    //     // Output the generated PDF to Browser
+    //     $this->dompdf->stream();
+    // }
 }
