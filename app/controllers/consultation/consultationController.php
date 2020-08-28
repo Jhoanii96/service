@@ -1,12 +1,12 @@
 <?php
 
-require_once ROOT . FOLDER_PATH . '/dompdf/autoload.inc.php';
+// require_once ROOT . FOLDER_PATH . '/dompdf/autoload.inc.php';
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/patient/patientModel.php";
 require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
 require ROOT . FOLDER_PATH . "/app/models/consultation/consultationModel.php";
 require ROOT . FOLDER_PATH . "/app/models/settings/settingsModel.php";
-use Dompdf\Dompdf;
+// use Dompdf\Dompdf;
 
 
 class consultation extends Controller

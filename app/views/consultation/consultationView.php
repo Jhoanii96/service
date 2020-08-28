@@ -660,6 +660,9 @@
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script> 
+
     <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
         var g_paciente = "",
@@ -826,35 +829,62 @@
 
                         $.ajax({
                             type: "post",
-                            // dataType: 'JSON',
-                            url: "<?php echo FOLDER_PATH ?>/consultation/createPDFPrinter",
+                            dataType: 'JSON',
+                            url: "<?php echo FOLDER_PATH ?>/consultation/createPrintHistoryMedical",
                             data: {datos:1}
                         })
                         .done(function(data) {
-                            // if (Object.keys(data).length > 1) {
-                            //     $("#fechaClinicalTest").html(data.Fecha);
-                            //     $("#treatmentClinicalTest").html(data.Tratamiento);
-                            //     let printme = document.getElementById('print-clinicalTest');
-                            //     let wopen = window.open("","","width=900,height=700");
-                            //     wopen.document.write(printme.outerHTML);
-                            //     wopen.document.close();
-                            //     wopen.focus();
-                            //     wopen.print();
-                            //     wopen.close();
-                            //     location.href = "<?= FOLDER_PATH ?>/my";
-                            // }
-                            // alert('mostrando');
-
-                            doc.text(20, 20, 'Informacion medica/Formato');
-                            doc.text(20, 30, 'Vamos a generar un pdf desde el lado del cliente');
-
-                            // Add new page
-                            doc.addPage();
-                            doc.text(20, 20, 'Visita programacion.net');
-
-                            // Save the PDF
-                            doc.save('documento.pdf');
-                            location.href = "<?= FOLDER_PATH ?>/my";
+                            if (Object.keys(data).length > 1) {
+                                // $("#fechaClinicalTest").html(data.Fecha);
+                                // $("#treatmentClinicalTest").html(data.Tratamiento);
+                                // let printme = document.getElementById('print-clinicalTest');
+                                // let wopen = window.open("","","width=900,height=700");
+                                // wopen.document.write(printme.outerHTML);
+                                // wopen.document.close();
+                                // wopen.focus();
+                                // wopen.print();
+                                // wopen.close();
+                                // location.href = "<1?= FOLDER_PATH ?>/my";
+                            }
+                            let docDefinition = {
+                                content: [
+                                    // {
+                                    //     image: '<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg',
+                                    //     // image : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.frogx3.com%2F2013%2F10%2F03%2F21-disenos-de-logos-para-servicios-medicos-para-inspirarte%2F&psig=AOvVaw0plOKeUz3XxACGt6Vj99Ga&ust=1598670789413000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC47fj2vOsCFQAAAAAdAAAAABAI',
+                                    //     width: 80,
+                                    //     height: 80
+                                    // },
+                                    {
+                                        text: "EVALUACIÓN MEDICA\n\n\n\n",
+                                        color: '#4169E1',
+                                        style: 'header',
+                                        alignment: 'center' 
+                                    },{
+                                        style: 'tableExample',
+                                        color: '#00CED1',
+                                        table: {
+                                            widths: [160,160,160],
+                                            headerRows: 1,
+                                            // keepWithHeaderRows: 1,
+                                            body: [
+                                                [{text: 'Datos del Paciente', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
+                                                [{text: 'Apellidos y Nombres :   Alexandra Olivares Alvarez', alignment: 'left', colSpan: 3 },'',''],
+                                                [{text: 'Documento de identidad :\n\n 75744654',alignment: 'left'},{text: 'Fecha de Nacimiento :\n\n 2000/08/15'},'Sexo : \n\n Masculino'],
+                                                [{text: 'Datos del Doctor', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
+                                                [{text: 'Apellidos y Nombres : Jose Abelardo Quiñonez', colSpan: 3, alignment: 'left'}, {}, {}],
+                                                [{text: 'Especialidad :\n\n Psicologo', alignment: 'left'},'','']
+                                            ]
+                                        }
+                                    },{
+                                            text: '\n\n\n\nTratamiento :',
+                                            color: '#708090'
+                                    },{
+                                            text: '\n\nLorem ipsum dolor sit amet consectetur adipisicing elit. Magnam qui dolorem ipsum iure nemo nostrum quae. Excepturi, nulla placeat ratione dolore dicta minima inventore odio, omnis cumque sunt fuga harum!'
+                                    }
+                                ]
+                            }
+                            pdfMake.createPdf(docDefinition).print();
+                            // location.href = "<   ?= FOLDER_PATH ?>/my";
                         })
                         .fail(function(){
 
@@ -917,10 +947,7 @@
         })
     
         
-             
-
-
-        if(window.location.hash === '#step-1'){
+        // if(window.location.hash === '#step-1'){
 
             $("#btnPatient").click(function(e) {
                 
@@ -929,33 +956,35 @@
                 $('#save-btn2').css('display', 'none');
             
             })
-        }
-        if(window.location.hash === '#step-2'){
-            $("#btnQuestionnaire").click(function() {
+        // }
+            $(".btnQuestionnaire").click(function() {
+                if(window.location.hash === '#step-2'){
+                    console.log(window.location.hash);
             
-                $('#prev-btn2').css('display', 'block');
-                $('#next-btn2').css('display', 'block')
-                $('#save-btn2').css('display', 'none');
-            })
-        }
+                    $('#prev-btn2').css('display', 'block');
+                    $('#next-btn2').css('display', 'block')
+                    $('#save-btn2').css('display', 'none');
+                }
+                })
            
-        if(window.location.hash === '#step-3'){
-            $("#btnClinicalTest").click(function() {
+            $(".btnClinicalTest").click(function() {
+                if(window.location.hash === '#step-3'){
 
-                $('#prev-btn2').css('display', 'block');
-                $('#next-btn2').css('display', 'block');
-                $('#save-btn2').css('display', 'none');
+                console.log(window.location.hash);
+                    $('#prev-btn2').css('display', 'block');
+                    $('#next-btn2').css('display', 'block');
+                    $('#save-btn2').css('display', 'none');
+                }
             })
-        }
-        if(window.location.hash === '#step-4'){
-            $("#btnAppointments").click(function() {
+            $(".btnAppointments").click(function() {
+                if(window.location.hash === '#step-4'){
+                    console.log(window.location.hash);
             
                     $('#prev-btn2').css('display', 'block');
                     $('#next-btn2').css('display', 'none')
                     $('#save-btn2').css('display', 'block');
-            
+                }
             })
-        }
 
 
         $('.submitPatient').click(function() {
