@@ -63,7 +63,9 @@ class settingsModel extends Model{
   }
 
   public function getIDClinicalTest($idPaciente){
-    $query = "SELECT Id_historia_clinica,Fecha,Tratamiento FROM historia_clinica WHERE Id_Paciente = $idPaciente ORDER BY Id_historia_clinica DESC LIMIT 1 ";
+    // $query = "SELECT Id_historia_clinica,Fecha,Tratamiento FROM historia_clinica WHERE Id_Paciente = $idPaciente ORDER BY Id_historia_clinica DESC LIMIT 1 ";
+    $query = "SELECT hi.Id_historia_clinica,hi.Fecha,hi.Tratamiento,concat_ws(' ',pa.Nombre,pa.Apellido_Paterno,pa.Apellido_Materno) as Nombre,pa.Documento,pa.Genero,pa.Procedencia,pa.Fecha_Nacimiento FROM historia_clinica hi 
+    INNER JOIN paciente pa ON hi.Id_Paciente = pa.Id_Paciente WHERE hi.Id_Paciente = $idPaciente ORDER BY Id_historia_clinica DESC LIMIT 1 ";
     return Model::query_execute($query);
   }
 

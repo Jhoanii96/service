@@ -48,39 +48,62 @@
                     </div>    
                 </div>
               <!-- CONTENIDO AYUDA -->
-              <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card-shadow-info border mb-3 card card-body border-info">
-                            <div class="card-body">
-                                <h6 class="card-title">MENSAJE</h6>
-                                En caso de algun problema o inconveniente envie un mensaje indicando el asunto y el problema o inconveniente que tiene
-                            </div>
-                        </div>
-                        <div class="card-shadow-info border mb-3 card card-body border-info">
-                            <div class="card-body">
-                                <h6 class="card-title">MENSAJE 2 </h6>
-                                Puede contactarnos al numero 9598564871 o al correo edison@gmail.com
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">TENGO UNA CONSULTA</h5>
-                                <form class="">
-                                    <div class="position-relative form-group"><label for="exampleEmail" class="">Asunto</label><input name="asunto" id="asunto" placeholder="Ingrese el asunto del mensaje" type="text" class="form-control"></div>
-                                    <div class="position-relative form-group"><label for="exampleText" class="">Mensaje</label><textarea name="text" id="exampleText" class="form-control"></textarea></div>
-                                    <div class="position-relative form-group"><label for="exampleFile" class="">File</label><input name="file" id="exampleFile" type="file" class="form-control-file">
-                                        <small class="form-text text-muted">En caso de tener alguna captura o archivo puede adjuntarlo al mensaje.</small>
-                                    </div>
-                                    <button class="mt-1 btn btn-primary">Enviar consulta</button>
-                                </form>
-                            </div>
-                        </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Pregunta</th>    
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--?php
+
+                                $count = 0;
+                                while ($datos_historial = $data['Result']->fetch()) {
+
+                                    $birthDate = explode("-", $datos_historial['fecha_nacimiento']);
+                                    $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
+                                        ? ((date("Y") - $birthDate[0]) - 1)
+                                        : (date("Y") - $birthDate[0]));
+
+
+                                    $count += 1;
+                                ?-->
+                                    <!-- <tr>
+                                        <td><   ?= $datos_historial['nombre_paciente'] ?></td>
+                                        <td><   ?= $age ?></td>
+                                        <td><   ?= date("Y-m-d", strtotime($datos_historial['fecha_consulta'])) ?></td>
+                                        <td><   ?= date("H:i", strtotime($datos_historial['fecha_consulta'])) ?></td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                                <button id="details_<   ?= $count ?>" onclick="GetDetailsCon(<  ?= $count ?>)" meta-data="{<?php echo (base64_encode(utf8_encode("[" . $count . "]|" . $datos_historial[0] . "-data-history-details"))); ?>}" data-toggle="modal" data-target="#AppDetails" class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
+                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
+                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php
+
+                                // }
+
+                                ?> -->
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Pregunta</th>    
+                                    <th>Opciones</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
-              </div>
               <!-- END CONTENIDO AYUDA -->
             </div>
           </div>

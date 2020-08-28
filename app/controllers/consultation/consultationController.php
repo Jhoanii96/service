@@ -334,6 +334,9 @@ class consultation extends Controller
     public function createPrintHistoryMedical(){
         $idUser = $this->session->get("idUser");
         $idPaciente = $this->session->get('idPaciente');
+        // $NameDoctor = $this->session->get('Nombres');
+        // $NameDoctor = $this->session->get('Apellidos');
+        // $NameDoctor = $this->session->get('Especialidad');
         $resultPrint = $this->settingsModel->getIDClinicalTest($idPaciente)->fetch(PDO::FETCH_ASSOC);
         $array_json = json_encode($resultPrint);
         print_r($array_json);

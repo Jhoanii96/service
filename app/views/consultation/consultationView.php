@@ -489,28 +489,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="print-clinicalTest" >
-                                                        <table id="showPrintClinicalTest">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Nombre del Doctor</th>
-                                                                <th>Especialidad</th>
-                                                                <th>Paciente</th>
-                                                                <th>Fecha Consulta</th>
-                                                                <th>Tratamiento</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td id="nameDoctor"><?php echo $this->session->get('Nombres').' '.$this->session->get('Apellidos'); ?></td>
-                                                                    <td id="especialidad"><?php echo $this->session->get('especialidad'); ?></td>
-                                                                    <td id="namePatient"></td>
-                                                                    <td id="fechaClinicalTest"></td>
-                                                                    <td id="treatmentClinicalTest"></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
                                                 </form>
                                             </div>
                                             <div id="step-4">
@@ -835,56 +813,47 @@
                         })
                         .done(function(data) {
                             if (Object.keys(data).length > 1) {
-                                // $("#fechaClinicalTest").html(data.Fecha);
-                                // $("#treatmentClinicalTest").html(data.Tratamiento);
-                                // let printme = document.getElementById('print-clinicalTest');
-                                // let wopen = window.open("","","width=900,height=700");
-                                // wopen.document.write(printme.outerHTML);
-                                // wopen.document.close();
-                                // wopen.focus();
-                                // wopen.print();
-                                // wopen.close();
-                                // location.href = "<1?= FOLDER_PATH ?>/my";
+                                
+                                let docDefinition = {
+                                    content: [
+                                        // {
+                                        //     image: '<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg',
+                                        //     // image : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.frogx3.com%2F2013%2F10%2F03%2F21-disenos-de-logos-para-servicios-medicos-para-inspirarte%2F&psig=AOvVaw0plOKeUz3XxACGt6Vj99Ga&ust=1598670789413000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC47fj2vOsCFQAAAAAdAAAAABAI',
+                                        //     width: 80,
+                                        //     height: 80
+                                        // },
+                                        {
+                                            text: "EVALUACIÓN MEDICA\n\n\n\n",
+                                            color: '#4169E1',
+                                            style: 'header',
+                                            alignment: 'center' 
+                                        
+                                        },{
+                                            style: 'tableExample',
+                                            color: '#00CED1',
+                                            table: {
+                                                widths: [160,160,160],
+                                                headerRows: 1,
+                                                // keepWithHeaderRows: 1,
+                                                body: [
+                                                    [{text: 'Datos del Paciente', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
+                                                    [{text: 'Apellidos y Nombres : '+data.Nombre, alignment: 'left', colSpan: 3 },'',''],
+                                                    [{text: 'Documento de identidad :\n\n '+data.Documento,alignment: 'left'},{text: 'Fecha de Nacimiento :\n\n'+data.Fecha_Nacimiento},'Sexo : \n\n Masculino'],
+                                                    [{text: 'Datos del Doctor', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
+                                                    [{text: 'Apellidos y Nombres : <?php echo $this->session->get('Nombres').' '.$this->session->get('Apellidos'); ?>', colSpan: 3, alignment: 'left'}, {}, {}],
+                                                    [{text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad')?>', alignment: 'left'},'','']
+                                                ]
+                                            }
+                                        },
+                                        'Tratamiento :',
+                                        data.Tratamiento
+                                        
+                                    ]
+                                }
+                                pdfMake.createPdf(docDefinition).print();
+                                // location.href = "<?= FOLDER_PATH ?>/my";
                             }
-                            let docDefinition = {
-                                content: [
-                                    // {
-                                    //     image: '<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg',
-                                    //     // image : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.frogx3.com%2F2013%2F10%2F03%2F21-disenos-de-logos-para-servicios-medicos-para-inspirarte%2F&psig=AOvVaw0plOKeUz3XxACGt6Vj99Ga&ust=1598670789413000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC47fj2vOsCFQAAAAAdAAAAABAI',
-                                    //     width: 80,
-                                    //     height: 80
-                                    // },
-                                    {
-                                        text: "EVALUACIÓN MEDICA\n\n\n\n",
-                                        color: '#4169E1',
-                                        style: 'header',
-                                        alignment: 'center' 
-                                    },{
-                                        style: 'tableExample',
-                                        color: '#00CED1',
-                                        table: {
-                                            widths: [160,160,160],
-                                            headerRows: 1,
-                                            // keepWithHeaderRows: 1,
-                                            body: [
-                                                [{text: 'Datos del Paciente', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
-                                                [{text: 'Apellidos y Nombres :   Alexandra Olivares Alvarez', alignment: 'left', colSpan: 3 },'',''],
-                                                [{text: 'Documento de identidad :\n\n 75744654',alignment: 'left'},{text: 'Fecha de Nacimiento :\n\n 2000/08/15'},'Sexo : \n\n Masculino'],
-                                                [{text: 'Datos del Doctor', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
-                                                [{text: 'Apellidos y Nombres : Jose Abelardo Quiñonez', colSpan: 3, alignment: 'left'}, {}, {}],
-                                                [{text: 'Especialidad :\n\n Psicologo', alignment: 'left'},'','']
-                                            ]
-                                        }
-                                    },{
-                                            text: '\n\n\n\nTratamiento :',
-                                            color: '#708090'
-                                    },{
-                                            text: '\n\nLorem ipsum dolor sit amet consectetur adipisicing elit. Magnam qui dolorem ipsum iure nemo nostrum quae. Excepturi, nulla placeat ratione dolore dicta minima inventore odio, omnis cumque sunt fuga harum!'
-                                    }
-                                ]
-                            }
-                            pdfMake.createPdf(docDefinition).print();
-                            // location.href = "<   ?= FOLDER_PATH ?>/my";
+                            
                         })
                         .fail(function(){
 
