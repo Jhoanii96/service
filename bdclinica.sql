@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_perfil` (IN `idUser` INT, IN `idDoctor` INT, IN `nombre` VARCHAR(80), IN `apellidopa` VARCHAR(50), IN `apellidoma` VARCHAR(50), IN `especialidad` INT, IN `dni` VARCHAR(8), IN `cmp` VARCHAR(6), IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `telefono1` VARCHAR(20), IN `telefono2` VARCHAR(20), IN `celular1` VARCHAR(20), IN `celular2` VARCHAR(20), IN `precioconsulta` FLOAT, IN `diapago` DATE, IN `dont_edit_photo` VARCHAR(1), IN `image` VARCHAR(250))  BEGIN
+CREATE  PROCEDURE `actualizar_perfil` (IN `idUser` INT, IN `idDoctor` INT, IN `nombre` VARCHAR(80), IN `apellidopa` VARCHAR(50), IN `apellidoma` VARCHAR(50), IN `especialidad` INT, IN `dni` VARCHAR(8), IN `cmp` VARCHAR(6), IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `telefono1` VARCHAR(20), IN `telefono2` VARCHAR(20), IN `celular1` VARCHAR(20), IN `celular2` VARCHAR(20), IN `precioconsulta` FLOAT, IN `diapago` DATE, IN `dont_edit_photo` VARCHAR(1), IN `image` VARCHAR(250))  BEGIN
 
 	if (dont_edit_photo = '1')
     then 
@@ -84,11 +84,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_perfil` (IN `idUser` INT
     end if;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getQuestionnaire` (IN `idUser` INT)  SELECT de.Id_Detalle_Cuestionario AS Id_Detalle,de.Pregunta FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
+CREATE  PROCEDURE `getQuestionnaire` (IN `idUser` INT)  SELECT de.Id_Detalle_Cuestionario AS Id_Detalle,de.Pregunta FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
 de.Id_Cuestionario = cu.Id_Cuestionario WHERE 
 cu.Id_Usuario = idUser$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_cita` (IN `usersearch` INT, IN `datecita` DATE, IN `timecita` VARCHAR(10), IN `username` VARCHAR(60))  BEGIN
+CREATE  PROCEDURE `insertar_cita` (IN `usersearch` INT, IN `datecita` DATE, IN `timecita` VARCHAR(10), IN `username` VARCHAR(60))  BEGIN
 	
     SELECT @idusuario := Id_Usuario FROM usuario WHERE Nombre = username; 
     SELECT @fecha_cita := concat(datecita, ' ', timecita);
@@ -116,7 +116,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_cita` (IN `usersearch` INT
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_codigo` (IN `codigo` VARCHAR(6))  BEGIN
+CREATE  PROCEDURE `insertar_codigo` (IN `codigo` VARCHAR(6))  BEGIN
 
 	INSERT INTO `codigo_registro`
 	(`nombre_codigo`, 
@@ -129,7 +129,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_codigo` (IN `codigo` VARCH
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_paciente_cita` (IN `dni` VARCHAR(30), IN `nombre` VARCHAR(60), IN `apellidopa` VARCHAR(60), IN `apellidoma` VARCHAR(60), IN `genero` VARCHAR(30), IN `celular` VARCHAR(30), IN `fechana` DATE, IN `correo` VARCHAR(120), IN `procedencia` VARCHAR(200), IN `username` VARCHAR(60))  BEGIN
+CREATE  PROCEDURE `insertar_paciente_cita` (IN `dni` VARCHAR(30), IN `nombre` VARCHAR(60), IN `apellidopa` VARCHAR(60), IN `apellidoma` VARCHAR(60), IN `genero` VARCHAR(30), IN `celular` VARCHAR(30), IN `fechana` DATE, IN `correo` VARCHAR(120), IN `procedencia` VARCHAR(200), IN `username` VARCHAR(60))  BEGIN
 
 	SELECT @idusuario := us.Id_Usuario FROM usuario us WHERE us.Nombre = username; 
 
@@ -158,7 +158,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_paciente_cita` (IN `dni` V
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_registro` (IN `especialidad` INT, IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `cmp` VARCHAR(10), IN `dni` VARCHAR(10), IN `nombre` VARCHAR(80), IN `apellidop` VARCHAR(50), IN `apellidom` VARCHAR(50), IN `address1` VARCHAR(200), IN `gen` VARCHAR(1), IN `cellphone` VARCHAR(20), IN `fn` DATE, IN `price` DECIMAL(18,2), IN `username` VARCHAR(300), IN `new_password` VARCHAR(50), IN `dconsulta` VARCHAR(200), IN `email` VARCHAR(200), IN `isactive` TINYINT, IN `fecha_activacion` DATE, IN `usersearch` INT)  BEGIN
+CREATE  PROCEDURE `insertar_registro` (IN `especialidad` INT, IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `cmp` VARCHAR(10), IN `dni` VARCHAR(10), IN `nombre` VARCHAR(80), IN `apellidop` VARCHAR(50), IN `apellidom` VARCHAR(50), IN `address1` VARCHAR(200), IN `gen` VARCHAR(1), IN `cellphone` VARCHAR(20), IN `fn` DATE, IN `price` DECIMAL(18,2), IN `username` VARCHAR(300), IN `new_password` VARCHAR(50), IN `dconsulta` VARCHAR(200), IN `email` VARCHAR(200), IN `isactive` TINYINT, IN `fecha_activacion` DATE, IN `usersearch` INT)  BEGIN
 	
 	INSERT INTO `doctor`
 	(`Id_Especialidad`, `Id_Pais`, `Id_Departamento`, `Id_Provincia`, `Id_Distrito`,
@@ -194,7 +194,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_registro` (IN `especialida
     
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_citas_consulta` (IN `fecha` VARCHAR(20), IN `user_name` VARCHAR(60))  BEGIN
+CREATE  PROCEDURE `mostrar_citas_consulta` (IN `fecha` VARCHAR(20), IN `user_name` VARCHAR(60))  BEGIN
 
 	if (fecha = '')
     then
@@ -205,7 +205,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_citas_consulta` (IN `fecha`
 	
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_detalle_cita` (IN `codcita` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
+CREATE  PROCEDURE `mostrar_detalle_cita` (IN `codcita` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
 
 	
 	select 
@@ -228,13 +228,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_detalle_cita` (IN `codcita`
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_detalle_historial` (IN `codhistorial` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
+CREATE  PROCEDURE `mostrar_detalle_historial` (IN `codhistorial` INT, IN `user_name` VARCHAR(60) CHARSET utf8)  BEGIN
 
 	select * from v_detalle_historia vd where vd.id = codhistorial and vd.username = user_name; 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_lista_citas` (IN `nombresearch` VARCHAR(60), IN `filter` VARCHAR(1), IN `user_name` VARCHAR(60))  BEGIN
+CREATE  PROCEDURE `mostrar_lista_citas` (IN `nombresearch` VARCHAR(60), IN `filter` VARCHAR(1), IN `user_name` VARCHAR(60))  BEGIN
 
 	if(filter = '0')
     then
@@ -267,13 +267,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_lista_citas` (IN `nombresea
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_perfil` (IN `user_name` VARCHAR(60))  BEGIN
+CREATE  PROCEDURE `mostrar_perfil` (IN `user_name` VARCHAR(60))  BEGIN
 
 	select * from v_perfil vp where vp.username = user_name; 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `showProfile` (IN `name` VARCHAR(30) CHARSET utf8)  SELECT 
+CREATE  PROCEDURE `showProfile` (IN `name` VARCHAR(30) CHARSET utf8)  SELECT 
 	us.Id_Usuario, 
     doc.Id_Doctor, 
     doc.Nombres, 
@@ -3102,7 +3102,7 @@ CREATE TABLE `v_provincia` (
 --
 DROP TABLE IF EXISTS `v_citas_consulta`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_citas_consulta`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`ci`.`Fecha_Cita` AS `fecha_atencion`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `user_name` from ((`citas` `ci` join `paciente` `pa` on(`ci`.`Id_Paciente` = `pa`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_citas_consulta`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`ci`.`Fecha_Cita` AS `fecha_atencion`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `user_name` from ((`citas` `ci` join `paciente` `pa` on(`ci`.`Id_Paciente` = `pa`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -3111,7 +3111,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_departamento`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_departamento`  AS  select `de`.`Id_Pais` AS `idPais`,`de`.`Id_Departamento` AS `idDepartamento`,`de`.`Descripcion` AS `nombre_departamento` from `departamento` `de` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_departamento`  AS  select `de`.`Id_Pais` AS `idPais`,`de`.`Id_Departamento` AS `idDepartamento`,`de`.`Descripcion` AS `nombre_departamento` from `departamento` `de` ;
 
 -- --------------------------------------------------------
 
@@ -3120,7 +3120,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_detalle_cita`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_cita`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `ape_pa`,`pa`.`Apellido_Materno` AS `ape_ma`,`pa`.`Documento` AS `dni`,`pa`.`Celular` AS `celular`,`pa`.`Fecha_Nacimiento` AS `fntoage`,`pa`.`Genero` AS `genero`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fecha_cita`,`ci`.`Precio` AS `precio`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `username`,`pa`.`Email` AS `email`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_detalle_cita`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `ape_pa`,`pa`.`Apellido_Materno` AS `ape_ma`,`pa`.`Documento` AS `dni`,`pa`.`Celular` AS `celular`,`pa`.`Fecha_Nacimiento` AS `fntoage`,`pa`.`Genero` AS `genero`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fecha_cita`,`ci`.`Precio` AS `precio`,`ci`.`Estado` AS `estado`,`us`.`Nombre` AS `username`,`pa`.`Email` AS `email`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -3129,7 +3129,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_detalle_historia`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_historia`  AS  select `hc`.`Id_historia_clinica` AS `id`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombres`,`pa`.`Documento` AS `dni`,`pa`.`Genero` AS `genero`,`pa`.`Celular` AS `celular`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `procedencia`,`pa`.`Fecha_Nacimiento` AS `edad`,date_format(`hc`.`Fecha`,'%d/%m/%Y %h:%i:%s') AS `fecha_historia`,`hc`.`Diagnostico` AS `diag`,`hc`.`Examen_Fisico` AS `ex_fi`,`hc`.`Anamnesis` AS `anam`,`hc`.`Examenes` AS `exam`,date_format(`ci`.`Fecha_Creacion`,'%d/%m/%Y %h:%i:%s') AS `fcreacion`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fcita`,`ci`.`Estado` AS `estado`,`ci`.`Atencion` AS `atencion`,`ci`.`Precio` AS `precio`,`us`.`Nombre` AS `username` from (((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_Paciente`)) left join `citas` `ci` on(`ci`.`Id_Citas` = `hc`.`Id_Cita`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_detalle_historia`  AS  select `hc`.`Id_historia_clinica` AS `id`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombres`,`pa`.`Documento` AS `dni`,`pa`.`Genero` AS `genero`,`pa`.`Celular` AS `celular`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `procedencia`,`pa`.`Fecha_Nacimiento` AS `edad`,date_format(`hc`.`Fecha`,'%d/%m/%Y %h:%i:%s') AS `fecha_historia`,`hc`.`Diagnostico` AS `diag`,`hc`.`Examen_Fisico` AS `ex_fi`,`hc`.`Anamnesis` AS `anam`,`hc`.`Examenes` AS `exam`,date_format(`ci`.`Fecha_Creacion`,'%d/%m/%Y %h:%i:%s') AS `fcreacion`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fcita`,`ci`.`Estado` AS `estado`,`ci`.`Atencion` AS `atencion`,`ci`.`Precio` AS `precio`,`us`.`Nombre` AS `username` from (((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_Paciente`)) left join `citas` `ci` on(`ci`.`Id_Citas` = `hc`.`Id_Cita`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -3138,7 +3138,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_detalle_paciente`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detalle_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Apellido_Paterno` AS `ape_paterno`,`pa`.`Apellido_Materno` AS `ape_materno`,`pa`.`Genero` AS `genero`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`pa`.`Celular` AS `celular`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `direccion`,`pa`.`Ocupacion_Anterior` AS `ocupa_ant`,`pa`.`Ocupacion_Actual` AS `ocupa_act`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_detalle_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Documento` AS `dni`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Apellido_Paterno` AS `ape_paterno`,`pa`.`Apellido_Materno` AS `ape_materno`,`pa`.`Genero` AS `genero`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`pa`.`Celular` AS `celular`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `direccion`,`pa`.`Ocupacion_Anterior` AS `ocupa_ant`,`pa`.`Ocupacion_Actual` AS `ocupa_act`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -3147,7 +3147,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_distrito`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_distrito`  AS  select `di`.`Id_Provincia` AS `idProvincia`,`di`.`Id_Distrito` AS `idDistrito`,`di`.`Descripcion` AS `nombre_distrito` from `distrito` `di` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_distrito`  AS  select `di`.`Id_Provincia` AS `idProvincia`,`di`.`Id_Distrito` AS `idDistrito`,`di`.`Descripcion` AS `nombre_distrito` from `distrito` `di` ;
 
 -- --------------------------------------------------------
 
@@ -3156,7 +3156,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_lista_citas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lista_citas`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `apepa`,`pa`.`Apellido_Materno` AS `apema`,`pa`.`Documento` AS `dni`,`pa`.`Fecha_Nacimiento` AS `fenac`,`ci`.`Fecha_Creacion` AS `fecre`,`ci`.`Estado` AS `estado`,`ci`.`Fecha_Cita` AS `fechacita`,`us`.`Nombre` AS `username`,`pa`.`Id_Paciente` AS `id_paciente` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_lista_citas`  AS  select `ci`.`Id_Citas` AS `id`,`pa`.`Nombre` AS `nombre`,`pa`.`Apellido_Paterno` AS `apepa`,`pa`.`Apellido_Materno` AS `apema`,`pa`.`Documento` AS `dni`,`pa`.`Fecha_Nacimiento` AS `fenac`,`ci`.`Fecha_Creacion` AS `fecre`,`ci`.`Estado` AS `estado`,`ci`.`Fecha_Cita` AS `fechacita`,`us`.`Nombre` AS `username`,`pa`.`Id_Paciente` AS `id_paciente` from ((`citas` `ci` join `paciente` `pa` on(`pa`.`Id_Paciente` = `ci`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `ci`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -3165,7 +3165,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_lista_doctor`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lista_doctor`  AS  select `doc`.`Id_Doctor` AS `id`,concat(`doc`.`Nombres`,' ',`doc`.`Apellido_Paterno`,' ',`doc`.`Apellido_Materno`) AS `nombre` from (`doctor` `doc` join `usuario` `usu` on(`usu`.`Id_Doctor` = `doc`.`Id_Doctor`)) where `usu`.`Activo` = 1 ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_lista_doctor`  AS  select `doc`.`Id_Doctor` AS `id`,concat(`doc`.`Nombres`,' ',`doc`.`Apellido_Paterno`,' ',`doc`.`Apellido_Materno`) AS `nombre` from (`doctor` `doc` join `usuario` `usu` on(`usu`.`Id_Doctor` = `doc`.`Id_Doctor`)) where `usu`.`Activo` = 1 ;
 
 -- --------------------------------------------------------
 
@@ -3174,7 +3174,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_lista_historia_clinica`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_lista_historia_clinica`  AS  select `hc`.`Id_historia_clinica` AS `id_historia`,`pa`.`Id_Paciente` AS `id_paciente`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombre_paciente`,`pa`.`Fecha_Nacimiento` AS `fecha_nacimiento`,`hc`.`Fecha` AS `fecha_consulta`,`us`.`Nombre` AS `username` from ((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_lista_historia_clinica`  AS  select `hc`.`Id_historia_clinica` AS `id_historia`,`pa`.`Id_Paciente` AS `id_paciente`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombre_paciente`,`pa`.`Fecha_Nacimiento` AS `fecha_nacimiento`,`hc`.`Fecha` AS `fecha_consulta`,`us`.`Nombre` AS `username` from ((`historia_clinica` `hc` join `paciente` `pa` on(`pa`.`Id_Paciente` = `hc`.`Id_Paciente`)) join `usuario` `us` on(`us`.`Id_Usuario` = `hc`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -3183,7 +3183,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_paciente`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_paciente`  AS  select `pa`.`Id_Paciente` AS `id`,`pa`.`Nombre` AS `nombre`,concat(`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `apellidos`,`pa`.`Fecha_Nacimiento` AS `fecha_nac`,`us`.`Nombre` AS `user_name` from (`paciente` `pa` join `usuario` `us` on(`us`.`Id_Usuario` = `pa`.`Id_Usuario`)) ;
 
 -- --------------------------------------------------------
 
@@ -3192,7 +3192,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_perfil`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_perfil`  AS  select `dc`.`Id_Doctor` AS `id`,`dc`.`Nombres` AS `nombre`,`dc`.`Apellido_Paterno` AS `ape_paterno`,`dc`.`Apellido_Materno` AS `ape_materno`,`dc`.`Documento` AS `dni`,`es`.`Descripcion` AS `especialidad`,`dc`.`CMP` AS `cmp`,if(`dc`.`Sexo` = 'M','Masculino',if(`dc`.`Sexo` = 'F','Femenino','Otros')) AS `genero`,`dc`.`Celular01` AS `celular1`,`dc`.`Celular02` AS `celular2`,`dc`.`Telefono_Fijo01` AS `telefono1`,`dc`.`Telefono_Fijo02` AS `telefono2`,`dc`.`Direccion` AS `domicilio`,`dc`.`Fecha_Nacimiento` AS `fecha`,`us`.`Nombre` AS `username`,`us`.`Password` AS `pass`,`dc`.`email01` AS `correo`,`us`.`Fecha_Registro` AS `fecharegistro`,`us`.`Dia_Pago` AS `fechapago`,`us`.`imagen` AS `foto`,`pa`.`Descripcion` AS `pais`,`de`.`Descripcion` AS `departamento`,`pr`.`Descripcion` AS `provincia`,`di`.`Descripcion` AS `distrito`,`us`.`Direccion` AS `diratencion`,`us`.`Direccion_IP` AS `dirip`,`us`.`Ubicacion_GPS` AS `gpsmaps`,`us`.`Tiempo_Atencion_Promedio` AS `tiempoatencion`,`us`.`Precio_Predeterminado` AS `precioconsulta`,`us`.`Dia_Pago` AS `diapago`,`dc`.`Facebook` AS `facebook`,`dc`.`Twitter` AS `twitter`,`dc`.`Linkedin` AS `linkedin` from ((((((`doctor` `dc` join `especialidad` `es` on(`es`.`Id_Especialidad` = `dc`.`Id_Especialidad`)) join `usuario` `us` on(`us`.`Id_Doctor` = `dc`.`Id_Doctor`)) join `pais` `pa` on(`pa`.`Id_Pais` = `dc`.`Id_Pais`)) join `departamento` `de` on(`de`.`Id_Departamento` = `dc`.`Id_Departamento`)) join `provincia` `pr` on(`pr`.`Id_Provincia` = `dc`.`Id_Provincia`)) join `distrito` `di` on(`di`.`Id_Distrito` = `dc`.`Id_Distrito`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_perfil`  AS  select `dc`.`Id_Doctor` AS `id`,`dc`.`Nombres` AS `nombre`,`dc`.`Apellido_Paterno` AS `ape_paterno`,`dc`.`Apellido_Materno` AS `ape_materno`,`dc`.`Documento` AS `dni`,`es`.`Descripcion` AS `especialidad`,`dc`.`CMP` AS `cmp`,if(`dc`.`Sexo` = 'M','Masculino',if(`dc`.`Sexo` = 'F','Femenino','Otros')) AS `genero`,`dc`.`Celular01` AS `celular1`,`dc`.`Celular02` AS `celular2`,`dc`.`Telefono_Fijo01` AS `telefono1`,`dc`.`Telefono_Fijo02` AS `telefono2`,`dc`.`Direccion` AS `domicilio`,`dc`.`Fecha_Nacimiento` AS `fecha`,`us`.`Nombre` AS `username`,`us`.`Password` AS `pass`,`dc`.`email01` AS `correo`,`us`.`Fecha_Registro` AS `fecharegistro`,`us`.`Dia_Pago` AS `fechapago`,`us`.`imagen` AS `foto`,`pa`.`Descripcion` AS `pais`,`de`.`Descripcion` AS `departamento`,`pr`.`Descripcion` AS `provincia`,`di`.`Descripcion` AS `distrito`,`us`.`Direccion` AS `diratencion`,`us`.`Direccion_IP` AS `dirip`,`us`.`Ubicacion_GPS` AS `gpsmaps`,`us`.`Tiempo_Atencion_Promedio` AS `tiempoatencion`,`us`.`Precio_Predeterminado` AS `precioconsulta`,`us`.`Dia_Pago` AS `diapago`,`dc`.`Facebook` AS `facebook`,`dc`.`Twitter` AS `twitter`,`dc`.`Linkedin` AS `linkedin` from ((((((`doctor` `dc` join `especialidad` `es` on(`es`.`Id_Especialidad` = `dc`.`Id_Especialidad`)) join `usuario` `us` on(`us`.`Id_Doctor` = `dc`.`Id_Doctor`)) join `pais` `pa` on(`pa`.`Id_Pais` = `dc`.`Id_Pais`)) join `departamento` `de` on(`de`.`Id_Departamento` = `dc`.`Id_Departamento`)) join `provincia` `pr` on(`pr`.`Id_Provincia` = `dc`.`Id_Provincia`)) join `distrito` `di` on(`di`.`Id_Distrito` = `dc`.`Id_Distrito`)) ;
 
 -- --------------------------------------------------------
 
@@ -3201,7 +3201,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_provincia`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_provincia`  AS  select `pr`.`Id_Departamento` AS `idDepartamento`,`pr`.`Id_Provincia` AS `idProvincia`,`pr`.`Descripcion` AS `nombre_pro` from `provincia` `pr` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_provincia`  AS  select `pr`.`Id_Departamento` AS `idDepartamento`,`pr`.`Id_Provincia` AS `idProvincia`,`pr`.`Descripcion` AS `nombre_pro` from `provincia` `pr` ;
 
 --
 -- Índices para tablas volcadas

@@ -39,7 +39,7 @@
         <?php
         $profile = $this->showProfile();
         $this->session->add('Nombres', $profile['Nombres']);
-        $this->session->add('Apellidos', $profile['Apellido_Paterno'].' '.$profile['Apellido_Materno']);
+        $this->session->add('Apellidos', $profile['Apellido_Paterno'] . ' ' . $profile['Apellido_Materno']);
         $this->session->add('especialidad', $profile['especialidad']);
         $this->session->add('idUser', $profile['Id_Usuario']);
         $this->session->add('idDoctor', $profile['Id_Doctor']);
@@ -658,7 +658,7 @@
                 </div>
                 <div id="data-details" style="display: none;">
                     <div class="modal-body">
-                        <p class="mb-0 title-details">Datos de la consulta</p>
+                        <p class="mb-0 title-details">Datos del paciente</p>
                         <div class="form-row mt-3">
                             <div class="col-md-5 ml-4 mr-4">
                                 <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 10px;">Nombre: </label>
@@ -693,17 +693,27 @@
                         <p class="mb-0 title-details">Datos consulta</p>
                         <div class="form-row mt-3">
                             <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Diagnostico: </label>
+                                    <span id="det_diag" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Anamnesis: </label>
+                                    <span id="det_anam" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
                                 <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha consulta: </label>
                                     <span id="det_fcon" style="padding: 7px 0; left: 5px;"></span>
                                 </div>
-                                <!-- <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Diagnostico: </label>
-                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
-                                </div> -->
                             </div>
                             <div class="col-md-5 ml-4 mr-4">
-                                <!-- <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Precio: </label>
-                                    <span id="det_cost" style="padding: 7px 0; left: 5px;"></span>
-                                </div> -->
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Examen físico: </label>
+                                    <span id="det_exfi" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Examenes: </label>
+                                    <span id="det_exams" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
                             </div>
 
                         </div>
@@ -723,13 +733,12 @@
                                     <span id="det_cost" style="padding: 7px 0; left: 5px;"></span>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <div class="modal-footer" style="justify-content: normal;">
+                    <a id="lnk" href="#" style="text-align: left;" target="_blank">Mas detalles</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left: auto;">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -919,7 +928,7 @@
             });
         }
     </script>
-    
+
     <script>
         function GetDetailsCon(e) {
             var data_app = document.getElementById('details_' + e);
@@ -940,6 +949,7 @@
                 processData: false, // NEEDED, DON'T OMIT THIS
                 success: function(resp) {
                     var obj_details = JSON.parse(resp);
+                    var link = obj_details[1];
                     var genero = '';
                     var estado = '';
                     obj_details = obj_details[0];
@@ -973,6 +983,10 @@
                     $("#det_email").html(isNullorEmpty(obj_details[6]));
 
                     $("#det_fcon").html(obj_details[9]);
+                    $("#det_diag").html(obj_details[10]);
+                    $("#det_anam").html(obj_details[12]);
+                    $("#det_exfi").html(obj_details[11]);
+                    $("#det_exams").html(obj_details[13]);
 
                     $("#det_fc").html(isNullorEmpty(obj_details[15]));
                     if (isNullorEmpty(obj_details[16]) != "No definido") {
@@ -987,6 +1001,7 @@
                         $("#det_cost").html("No definido");
                     }
 
+                    $("#lnk").attr("href", link);
 
                     $("#data-loading").css("display", "none");
                     $("#data-details").css("display", "block");

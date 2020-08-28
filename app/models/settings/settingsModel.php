@@ -44,7 +44,7 @@ class settingsModel extends Model{
         if( count($nameImage) > 0 ){
           $db->query("SET @ID_HISTORIA = LAST_INSERT_ID()");
           for ($i=0; $i < count($nameImage) ; $i++) { 
-            $db->query("INSERT INTO archivo(Nombre,Tamaño,Id_Historia_Clinica,Id_Tipo_Archivo) VALUES('$nameImage[$i]',$imagen_size[$i],@ID_HISTORIA,$imagen_type[$i])"); 
+            $db->query("INSERT INTO archivo(Nombre,Subnombre,Size,Id_Historia_Clinica,Id_Tipo_Archivo,CreadoPor) VALUES('$nameImage[$i]','$nameImage[$i]',$imagen_size[$i],@ID_HISTORIA,$imagen_type[$i],'$idUser')"); 
           }
         }
       }

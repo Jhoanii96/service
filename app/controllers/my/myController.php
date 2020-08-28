@@ -184,7 +184,10 @@ class my extends Controller
       while ($details = $lista_historys->fetch()) {
         $json[] = $details;
       }
-  
+      $json[1] = FOLDER_PATH . "/details/" . base64_encode(utf8_encode("[" . $json[0][0] . "]|show-data-history-details"));
+      $json[0]["id"] = base64_encode(utf8_encode("[" . $json[0][0] . "]|show-data-history-details"));
+      $json[0][0] = base64_encode(utf8_encode("[" . $json[0][0] . "]|show-data-history-details"));
+      
       echo(json_encode($json));
     }
 

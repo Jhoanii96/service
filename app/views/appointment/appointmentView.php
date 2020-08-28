@@ -429,7 +429,7 @@
                 </div>
                 <div id="data-details" style="display: none;">
                     <div class="modal-body">
-                        <p class="mb-0 title-details">Datos del usuario</p>
+                        <p class="mb-0 title-details">Datos del paciente</p>
                         <div class="form-row mt-3">
                             <div class="col-md-5 ml-4 mr-4">
                                 <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 10px;">Nombre: </label>
