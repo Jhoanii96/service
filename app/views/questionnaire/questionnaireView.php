@@ -52,50 +52,39 @@
                     <div class="card-body">
                         <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
                             <thead>
-                                <tr>
+                                <tr>    
+                                    <!-- <th style='display:none;'>id</th> -->
                                     <th>Nro</th>
                                     <th>Pregunta</th>    
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--?php
-
-                                $count = 0;
-                                while ($datos_historial = $data['Result']->fetch()) {
-
-                                    $birthDate = explode("-", $datos_historial['fecha_nacimiento']);
-                                    $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birthDate[0]))) > date("md")
-                                        ? ((date("Y") - $birthDate[0]) - 1)
-                                        : (date("Y") - $birthDate[0]));
-
-
-                                    $count += 1;
-                                ?-->
-                                    <!-- <tr>
-                                        <td><   ?= $datos_historial['nombre_paciente'] ?></td>
-                                        <td><   ?= $age ?></td>
-                                        <td><   ?= date("Y-m-d", strtotime($datos_historial['fecha_consulta'])) ?></td>
-                                        <td><   ?= date("H:i", strtotime($datos_historial['fecha_consulta'])) ?></td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td class="text-center">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button id="details_<   ?= $count ?>" onclick="GetDetailsCon(<  ?= $count ?>)" meta-data="{<?php echo (base64_encode(utf8_encode("[" . $count . "]|" . $datos_historial[0] . "-data-history-details"))); ?>}" data-toggle="modal" data-target="#AppDetails" class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
-                                                <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php
-
-                                // }
-
-                                ?> -->
-
+                                <!-- <button class="btn btn-warning" id="btnAddQuestion">Agregar</button> -->
+                                    <?php
+                                    $questions = $this->showQuestion();
+                                    
+                                    for($i=0 ;$i < count($questions);$i++){
+                                        $idQuestion[$i] = $questions[$i]['Id_Detalle'];
+                                        $j = $i+1;
+                                        echo "<tr>";
+                                        // echo "<td style='display:none;'>$idQuestion[$i]</td>";
+                                        echo "<td>$j</td>";
+                                        echo "<td>". $questions[$i]['Pregunta']. "</td>";
+                                            // echo "<td> 1</td>";
+                                        echo "<td class='text-center'>
+                                                <div role='group' class='btn-group-sm btn-group'>
+                                                    <button class='btn-shadow btn btn-warning text-white'><i class='fa fa-edit' ></i> Editar</button>
+                                                    <button class='btn-shadow btn btn-danger btnDeleteQuestion' onclick='deleteQuestion(".$idQuestion[$i].")'><i class='fa fa-trash'></i></button>
+                                                </div>
+                                             </td>";
+                                        echo "</tr>";
+                                        }
+                                    ?>
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <!-- <th style='display:none;'>id</th> -->
                                     <th>Nro</th>
                                     <th>Pregunta</th>    
                                     <th>Opciones</th>
@@ -126,6 +115,27 @@
             function close_admin() {
                 location.href = "<?= FOLDER_PATH ?>/login/salir"
             }
+        }
+
+
+        $('.btnDeleteQuestion').click(function(){
+            let data = $(this).val();
+            console.log(data);
+        })
+
+        function deleteQuestion(idQuestion){
+            
+            $.ajax({
+                type: 'POST',
+                url: '<?= FOLDER_PATH ?>/questionnaire/deleteQuestion',
+                data: {id:idQuestion}
+            })
+            .done(function(data){
+                alert(data);
+            })
+            .fail(function(){
+                alert('error');
+            })
         }
     </script>
 </body>

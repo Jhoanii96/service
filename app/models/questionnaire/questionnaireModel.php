@@ -49,8 +49,8 @@ class questionnaireModel extends Model{
 
   public function getAnswers($idPaciente,$idQuestionnaire){
 
-      $query= "SELECT depa.Respuesta FROM detalle_cuestionario_paciente depa INNER JOIN detalle_cuestionario de
-      ON de.Id_Detalle_Cuestionario = depa.Id_Detalle_Cuestionario WHERE Id_Paciente = $idPaciente AND Mostrar = 1 
+      $query= "SELECT depa.Respuesta,depa.Id_Detalle_Cuestionario FROM detalle_cuestionario_paciente depa INNER JOIN detalle_cuestionario de
+      ON de.Id_Detalle_Cuestionario = depa.Id_Detalle_Cuestionario WHERE Id_Paciente = $idPaciente AND depa.Mostrar = 1 
       AND Id_Cuestionario = $idQuestionnaire";
     
     return $res = Model::query_execute($query);
@@ -77,11 +77,24 @@ class questionnaireModel extends Model{
     return Model::query_execute($query);
   }
 
+  // INSERT INTO ALUMNO(ALUMN_NOMBRES,ALUM_APELLPAT,ALUM_MAT,ALUM_GENERO,ALUM_DNI,ALUM_FECHA_NAC,ALUM_DIRECCION,ALUM_NUM_HERM,ALUM_LENGUA_MAT) 
+  // VALUES('walter daniel','huaynapata','aguilar','M','75488848','2010-05-04','ASOC-AISJDLASJD',2,'CASTELLANO');
+
   public function getStateShowAnswer($idUser){
     
     $query = "SELECT de.Id_Detalle_Cuestionario FROM cuestionario cu INNER JOIN detalle_cuestionario de ON de.Id_Cuestionario = cu.Id_Cuestionario WHERE cu.Id_Usuario = $idUser and de.Mostrar = 1";
     return Model::query_execute($query);
   }
 
+  public function deleteQuestion($id){
+    // $query = "UPDATE detalle_cuestionario SET Mostrar = 0 WHERE Id_Detalle_Cuestionario = $id";
+    $query = "
+            UPDATE Detalle_Cuestionario decu SET decu.Mostrar = 0 WHERE Id_Detalle_Cuestionario = $id;
+            UPDATE detalle_cuestionario_paciente depa SET depa.Mostrar=0 WHERE Id_Detalle_Cuestionario = $id;  
+    ";
+    return Model::query_execute($query);
+  }
+
+  
 }
 ?>

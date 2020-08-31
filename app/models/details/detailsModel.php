@@ -19,4 +19,9 @@ class detailsModel extends Model
         $res = Model::query_execute($query);
         return $res;
     }
+
+    public function getArchives($idHistory){
+        $query = "SELECT Enlace FROM archivo WHERE Id_Histori_Clinica = $idHistory";
+        return Model::query_execute();
+    }
 }

@@ -217,6 +217,36 @@ class consultation extends Controller
 
     public function updateAnswers()
     {
+        // if (isset($_POST['answers']) && $_POST['answers'] !== "") {
+        //     $detalle = $_POST['detalle'];
+        //     $respuestas = $_POST['answers']; 
+        //     $arrayDetalle = $detalle;
+        //     $arrayRespuesta = $respuestas;
+        //     $idUser = $this->session->get("idUser");
+        //     $idPaciente = $this->session->get('idPaciente');
+        //     $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
+        //     $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
+        //     $getAnswers = $getAnswers->rowCount();
+        //     $resultInsertAnswer = 0;
+        //     if($getAnswers < count($respuestas)){
+        //         $count = count($respuestas) - $getAnswers;
+        //         $cant = count($respuestas) - $count;
+        //         $insertDetalle = array_splice($arrayDetalle,$cant,$count);
+        //         $insertAnswer = array_splice($arrayRespuesta,$cant,$count);              
+        //         $resultInsertAnswer = $this->questionModel->insertAnswers($insertDetalle,$idPaciente,$insertAnswer);
+        //         $resultInsertAnswer = $resultInsertAnswer->rowCount();
+        //     }
+        //     $updateAnswers = $this->questionModel->updateAnswers($detalle, $idPaciente, $respuestas);
+        //         if ($updateAnswers > 0 || $resultInsertAnswer > 0) {
+        //             echo "Sus respuestas fueron actualizadas";
+        //         } else {
+        //             echo "No se actualizaron las respuestas";
+        //         }
+        // } else {
+        //     echo "Llene los campos";
+        // }
+
+        /** Test */
         if (isset($_POST['answers']) && $_POST['answers'] !== "") {
             $detalle = $_POST['detalle'];
             $respuestas = $_POST['answers']; 
@@ -225,14 +255,24 @@ class consultation extends Controller
             $idUser = $this->session->get("idUser");
             $idPaciente = $this->session->get('idPaciente');
             $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-            $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
-            $getAnswers = $getAnswers->rowCount();
+            $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario'])->fetchAll(PDO::FETCH_ASSOC);
+            // $getAnswers = $getAnswers->rowCount();
+            if($getAnswers){
+                for($i=0;$i< count($getAnswers);$i++){
+                    $arrayID[$i] = array_search($getAnswers[$i]['Id_Detalle_Cuestionario'],$arrayDetalle);
+                }
+            }
             $resultInsertAnswer = 0;
-            if($getAnswers < count($respuestas)){
-                $count = count($respuestas) - $getAnswers;
-                $cant = count($respuestas) - $count;
-                $insertDetalle = array_splice($arrayDetalle,$cant,$count);
-                $insertAnswer = array_splice($arrayRespuesta,$cant,$count);              
+            if(count($getAnswers) < count($respuestas)){
+                $j=0;
+                for($i=0;$i< count($arrayDetalle);$i++){
+                        if(!in_array($i,$arrayID)){
+                            $insertDetalle[$j] = $arrayDetalle[$i];
+                            $insertAnswer[$j] = $arrayRespuesta[$i];
+                            $j++;
+                        }
+                }
+                
                 $resultInsertAnswer = $this->questionModel->insertAnswers($insertDetalle,$idPaciente,$insertAnswer);
                 $resultInsertAnswer = $resultInsertAnswer->rowCount();
             }

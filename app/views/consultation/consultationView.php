@@ -1155,15 +1155,44 @@
                         $('#btnUpdatePatient').css('display', 'block');
                         $('#next-btn2').attr('disabled', false);
                         // let cantQuestion = $('.input-answers').toArray().length;
+                        let id_detalle = new Array(); 
+
+                        $('.input-detalle').each(function(index){
+                            id_detalle[index] = $(this).val();
+                        })
 
                         $('.input-answers').each(function(index) {
                             if (index < data[0]) {
-                                $(this).val(data[index + 1].Respuesta);
-                                console.log(data[index + 1].Respuesta);
+                    
+                                for(let i=0;i < id_detalle.length;i++){
+                                    if(data[index+1].Id_Detalle_Cuestionario === id_detalle[i]){
+                                        $('.input-answers').eq(i).val(data[index+1].Respuesta);
+                                        console.log(data[index + 1].Respuesta);
+                                        console.log(index);
+                                        break;
+                                    }
+                                }
                             } else {
-                                $(this).val("");
+                                // $(this).val("");
                             }
                         });
+
+                        
+                        // for(let i=0;i < id_detalle.length;i++){
+                        //     $('.input-answers').each(function(index) {
+                        //         if (index < data[0]) {
+                        //             if(data[index+1].Id_Detalle_Cuestionario === id_detalle[i]){
+                        //                 $(this).val(data[index + 1].Respuesta);
+                        //                 console.log(data[index + 1].Respuesta);
+                        //                 console.log(index);
+                        //                 break;
+                        //             }
+                        //         } else {
+                        //             $(this).val("");
+                        //         }
+                        //     });
+                        // }
+
 
                         // console.log(Object.keys(data.0).length);
                         generar_citas_paciente('');

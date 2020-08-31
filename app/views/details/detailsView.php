@@ -315,13 +315,22 @@ $atencion = $datos['atencion'];
                                     <h5 class="card-title">Archivos [Imagen, Word y PDF]</h5>
                                     <h5 class="card-subtitle">Imagenes</h5>
                                     <div class="row" style="margin-bottom: 20px;">
-
                                         <div id="gallery_viewer" class="demo-gallery" data-pswp-uid="1" style="margin-left: 15px;margin-right: 15px;">
 
                                             <div>
-                                                <a href="<?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" data-size="3000x1718" data-med="<?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" data-med-size="524x524" data-author="Folkert Gorter" class="demo-gallery__img--main">
-                                                    <img src="<?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" alt="" style="width: 100%;" />
-                                                </a>
+                                                <?php 
+                                                    $archives = $this->getArchives();
+                                                    
+                                                    foreach ($archives as $images) {
+                                                        echo "<a href=' FOLDER_PATH/$archives' data-size='3000x1718' data-med='<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png' data-med-size='524x524' data-author='Folkert Gorter' class='demo-gallery__img--main'>
+                                                        <img src=' FOLDER_PATH/$archives' alt='' style='width: 100%;' />
+                                                        </a>";
+                                                    }
+                                                ?>
+                                                <!-- <a href="<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" data-size="3000x1718" data-med="<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" data-med-size="524x524" data-author="Folkert Gorter" class="demo-gallery__img--main">
+                                                    <img src="<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" alt="" style="width: 100%;" />
+                                                </a> -->
+                                                
                                             </div>
 
                                         </div>
