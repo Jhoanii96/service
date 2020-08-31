@@ -21,7 +21,7 @@ class detailsModel extends Model
     }
 
     public function getArchives($idHistory){
-        $query = "SELECT Enlace FROM archivo WHERE Id_Histori_Clinica = $idHistory";
-        return Model::query_execute();
+        $query = "SELECT Enlace FROM archivo WHERE Id_Historia_Clinica = $idHistory";
+        return Model::query_execute($query);
     }
 }

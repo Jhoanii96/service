@@ -54,20 +54,18 @@ class details extends Controller
         
     }
 
-    public function getArchives(){
+    public function getArchives($id){
 
-        $history = $_POST['meta_data'];
-        $history = str_replace('{', '', $history);
-        $history = str_replace('}', '', $history);
+        // $history = $_POST['meta_data'];
+        // $history = str_replace('{', '', $history);
+        // $history = str_replace('}', '', $history);
     
-        $history = utf8_decode(base64_decode($history));
-        $history = str_replace('-data-history-details', '', $history);
+        // $history = utf8_decode(base64_decode($history));
+        // $history = str_replace('-data-history-details', '', $history);
     
-        $cod_history = explode("|", $history);
-    
-        
-
-        $resultArchives = $this->model->getArchives($cod_history[1])->fetchAll(PDO::FETCH_ASSOC);
+        // $cod_history = explode("|", $history);
+        $id = 85;  
+        $resultArchives = $this->model->getArchives($id)->fetchAll(PDO::FETCH_ASSOC);
         return $resultArchives;
         
     }

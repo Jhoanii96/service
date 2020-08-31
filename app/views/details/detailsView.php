@@ -319,11 +319,11 @@ $atencion = $datos['atencion'];
 
                                             <div>
                                                 <?php 
-                                                    $archives = $this->getArchives();
+                                                    $archives = $this->getArchives($id);
                                                     
                                                     foreach ($archives as $images) {
-                                                        echo "<a href=' FOLDER_PATH/$archives' data-size='3000x1718' data-med='<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png' data-med-size='524x524' data-author='Folkert Gorter' class='demo-gallery__img--main'>
-                                                        <img src=' FOLDER_PATH/$archives' alt='' style='width: 100%;' />
+                                                        echo "<a href='".FOLDER_PATH."/".$images['Enlace']."' data-size='3000x1718' data-med='".FOLDER_PATH."/".$images['Enlace']."' data-med-size='524x524' data-author='Folkert Gorter' class='demo-gallery__img--main'>
+                                                        <img src='".FOLDER_PATH."/".$images['Enlace']."' alt='' style='width: 100%;' />
                                                         </a>";
                                                     }
                                                 ?>

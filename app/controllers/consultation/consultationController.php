@@ -314,7 +314,8 @@ class consultation extends Controller
         if ($filter !== "") {
             
             for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
-                $nameImage[$i] = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['file']['type'][$i]);
+                // $nameImage[$i] = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['file']['type'][$i]);
+                $nameImage[$i] = $_FILES["file"]["name"][$i];
             }
 
             for ($i=0; $i < count($_FILES["file"]["tmp_name"]); $i++) { 
@@ -327,19 +328,19 @@ class consultation extends Controller
                 $imagen_size[$i] = $_FILES["file"]["size"][$i];
                 $imagen_type[$i] = $_FILES["file"]["type"][$i];
 
-                if($imagen_type[$i] == 'application/pdf'){
+                if($imagen_type[$i] === 'application/pdf'){
                     $imagen_type[$i] = 3;
                     move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
                     $imagen_bd[$i] = 'src/Documentos/' . $nameImage[$i];    
-                }else if($imagen_type[$i] =='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+                }else if($imagen_type[$i] === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
                     $imagen_type[$i] = 4;
                     move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
                     $imagen_bd[$i] = 'src/Documentos/' . $nameImage[$i];  
-                }else if($imagen_type[$i] == 'image/jpeg'){
+                }else if($imagen_type[$i] === 'image/jpeg' || $imagen_type[$i] === 'image/jpg'){
                     $imagen_type[$i] = 1;
                     move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
                     $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
-                }else if($imagen_type[$i] == 'image/png'){
+                }else if($imagen_type[$i] === 'image/png'){
                     $imagen_type[$i] = 2;
                     move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
                     $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
