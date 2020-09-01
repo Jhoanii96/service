@@ -85,7 +85,6 @@ $atencion = $datos['atencion'];
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-
     <!-- HEADER -->
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
 
@@ -96,6 +95,7 @@ $atencion = $datos['atencion'];
     <link href="<?= FOLDER_PATH ?>/src/css/default-skin.css" rel="stylesheet" />
 
 
+    <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/photoswipe.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/photoswipe-ui-default.min.js"></script>
 
@@ -307,33 +307,45 @@ $atencion = $datos['atencion'];
                                 </div>
                             </div>
 
-
-
-
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
                                     <h5 class="card-title">Archivos [Imagen, Word y PDF]</h5>
-                                    <h5 class="card-subtitle">Imagenes</h5>
-                                    <div class="row" style="margin-bottom: 20px;">
-                                        <div id="gallery_viewer" class="demo-gallery" data-pswp-uid="1" style="margin-left: 15px;margin-right: 15px;">
+                                    <?php 
+                                        $archives = $this->getArchives($id);
 
-                                            <div>
-                                                <?php 
-                                                    $archives = $this->getArchives($id);
-                                                    
-                                                    foreach ($archives as $images) {
-                                                        echo "<a href='".FOLDER_PATH."/".$images['Enlace']."' data-size='3000x1718' data-med='".FOLDER_PATH."/".$images['Enlace']."' data-med-size='524x524' data-author='Folkert Gorter' class='demo-gallery__img--main'>
-                                                        <img src='".FOLDER_PATH."/".$images['Enlace']."' alt='' style='width: 100%;' />
-                                                        </a>";
-                                                    }
-                                                ?>
-                                                <!-- <a href="<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" data-size="3000x1718" data-med="<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" data-med-size="524x524" data-author="Folkert Gorter" class="demo-gallery__img--main">
-                                                    <img src="<!?= FOLDER_PATH ?>/src/assets/files/images/illust_70133000_20180824_085626.png" alt="" style="width: 100%;" />
-                                                </a> -->
-                                                
-                                            </div>
-
-                                        </div>
+                                        echo "<h5 class='card-subtitle'>Imagenes</h5>";
+                                        echo "<div class='row' style='margin-bottom: 20px;'>";
+                                        echo        "<div id='gallery_viewer' class='demo-gallery' data-pswp-uid='1' style='margin-left: 15px;margin-right: 15px;'>";
+                                        foreach ($archives as $images) {
+                                            if($images['Id_Tipo_Archivo'] === '1' || $images['Id_Tipo_Archivo'] === '2'){
+                                                echo   "<a href='".FOLDER_PATH."/".$images['Enlace']."' data-size='3000x1718' data-med='".FOLDER_PATH."/".$images['Enlace']."' data-med-size='524x524' data-author='Folkert Gorter' class='demo-gallery__img--main' style='margin-right:10px'>";
+                                                echo       "<img src='".FOLDER_PATH."/".$images['Enlace']."' alt='' style='width: 300px; height:300px' />";
+                                                echo   "</a>";
+                                            }
+                                        }
+                                        echo        "</div>";
+                                        echo "</div>";
+                                        echo "<h5 class='card-subtitle'>Documentos PDF</h5>";
+                                        echo "<div class='form-row'>";
+                                        foreach ($archives as $images) {
+                                            if($images['Id_Tipo_Archivo'] === '3'){
+                                                echo    "<a href='".FOLDER_PATH."/".$images['Enlace']."' style='text-decoration: underline; color: #333333; font-weight: normal;'>Descargar plantilla de envío (Formato en pdf)."; 
+                                                echo        "<i class='fa fa-file-pdf' aria-hidden='true' style='margin-left:10px;font-size: 25px; color: rgb(255, 38, 38);'></i>";
+                                                echo    "</a>";
+                                            }
+                                        }
+                                        echo "</div>";      
+                                        echo "<h5 class='card-subtitle'>Documentos Word</h5>";
+                                        echo "<div class='form-row' style='margin-bottom: 20px;'>";
+                                        foreach ($archives as $images) {
+                                            if($images['Id_Tipo_Archivo'] === '4'){
+                                                echo    "<a href='".FOLDER_PATH."/".$images['Enlace']."' style='text-decoration: underline; color: #333333; font-weight: normal;'>Descargar plantilla de envío (Formato en word)."; 
+                                                echo        "<i class='far fa-file-word' aria-hidden='true' style='margin-left:10px;font-size: 25px; color: #777777;'></i>";
+                                                echo    "</a>";
+                                            }
+                                        }
+                                        echo "</div>";
+                                    ?>
                                         <!-- <div class="style-select">
                                             <p style="margin:24px 0 12px;color:#444;">Demo gallery style</p>
 
@@ -356,32 +368,8 @@ $atencion = $datos['atencion'];
                                             </div>
 
                                         </div> -->
-
-
-
-                                    </div>
-
-
-                                    <h5 class="card-subtitle">Documentos Word</h5>
-
-                                    <!-- <div class="form-row">
-                                        <a href="/2019/src/assets/media/cfp/Formato_ES_PrimerWIA_2019.docx" style="text-decoration: underline; color: #333333; font-weight: normal;">Descargar plantilla de envío (Formato en word). 
-                                            <i class="far fa-file-word-o" aria-hidden="true"></i>
-                                        </a>
-                                    </div> -->
-
-                                    <h5 class="card-subtitle">Documentos PDF</h5>
-
-                                    <!-- <div class="form-row">
-                                        <a href="/2019/src/assets/media/cfp/Formato_ES_PrimerWIA_2019.docx" style="text-decoration: underline; color: #333333; font-weight: normal;">Descargar plantilla de envío (Formato en word). 
-                                            <i class="far fa-file-word-o" aria-hidden="true"></i>
-                                        </a>
-                                    </div> -->
-
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>

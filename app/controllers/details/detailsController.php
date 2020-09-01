@@ -48,23 +48,11 @@ class details extends Controller
         $history = str_replace(']', '', $history); */
 
         /* $cod_history = explode("|", $history); */
-        
         $datos_details = $this->model->mostrar_archivo_historial($cod, $this->session->get('admin'));
-
-        
     }
 
     public function getArchives($id){
-
-        // $history = $_POST['meta_data'];
-        // $history = str_replace('{', '', $history);
-        // $history = str_replace('}', '', $history);
-    
-        // $history = utf8_decode(base64_decode($history));
-        // $history = str_replace('-data-history-details', '', $history);
-    
-        // $cod_history = explode("|", $history);
-        $id = 85;  
+        
         $resultArchives = $this->model->getArchives($id)->fetchAll(PDO::FETCH_ASSOC);
         return $resultArchives;
         

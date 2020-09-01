@@ -321,9 +321,16 @@ class consultation extends Controller
             for ($i=0; $i < count($_FILES["file"]["tmp_name"]); $i++) { 
                 $file_tmp[$i] = $_FILES["file"]["tmp_name"][$i];
             }
-
             $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/media/images/historia_clinica/';
             $imagen_destinoDocument = ROOT . FOLDER_PATH . '/src/Documentos/';
+            
+            if(!file_exists($imagen_destino)){
+                mkdir($imagen_destino);
+            }
+            if(!file_exists($imagen_destinoDocument)){
+                mkdir($imagen_destinoDocument);
+            }
+
             for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
                 $imagen_size[$i] = $_FILES["file"]["size"][$i];
                 $imagen_type[$i] = $_FILES["file"]["type"][$i];
@@ -346,9 +353,9 @@ class consultation extends Controller
                     $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
                 }
             }
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$imagen_size,$imagen_type);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$nameImage,$imagen_size,$imagen_type);
         }else{
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd = null,$imagen_size = null,$imagen_type = null);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd = null,$nameImage = null,$imagen_size = null,$imagen_type = null);
         }
 
         return $result;
