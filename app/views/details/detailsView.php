@@ -1,7 +1,5 @@
 <?php
 
-date_default_timezone_set('UTC');
-
 $datos = $data['datos_details']->fetch();
 
 /* Dato historia */

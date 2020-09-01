@@ -430,7 +430,7 @@ class consultation extends Controller
                 <tr>
                     <td>' . $datos_cita['nombre'] . ' ' . $datos_cita['apellidos'] . '</td>
                     <td class="text-center">' . $age . ' años</td>
-                    <td class="text-center">' . date("h:i:s A", strtotime($datos_cita['fecha_atencion'])) . '</td>
+                    <td class="text-center">' . date("h:i A", strtotime($datos_cita['fecha_atencion'])) . '</td>
                     <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>
                 </tr>
             
@@ -477,12 +477,11 @@ class consultation extends Controller
                     <td>' . $age . '</td>
                     <td>' . date("Y-m-d", strtotime($datos_consulta['fecha_consulta'])) . '</td>
                     <td>' . date("H:i", strtotime($datos_consulta['fecha_consulta'])) . '</td>
-                    <td>2</td>
-                    <td>2</td>
+                    <td>' . $datos_consulta['num_imagen'] . '</td>
+                    <td>' . $datos_consulta['num_archivo'] . '</td>
                     <td class="text-center">
                         <div role="group" class="btn-group-sm btn-group">
                             <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                            <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
                             <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
@@ -515,38 +514,20 @@ class consultation extends Controller
         $filter = $_POST['filter'];
         $lista_citas = $this->model->buscar_citas($search, $filter, $this->session->get('admin'));
 
-        if ($filter == 1 || $filter == 3) {
-            echo '
-    
-            <thead>
-                <tr>
-                    <th>Paciente</th>
-                    <th>Edad</th>
-                    <th>Fecha atención</th>
-                    <th>Hora atención</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
+        echo '
             
-            ';
-        }
-        if ($filter == 2) {
-            echo '
-            
-            <thead>
-                <tr>
-                    <th>Paciente</th>
-                    <th>Edad</th>
-                    <th>Hora atención</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-            
-            ';
-        }
-
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Edad</th>
+                <th>Hora atención</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        ';
+        
         while ($datos_lista_cita = $lista_citas->fetch()) {
 
             $birthDate = explode("-", $datos_lista_cita['fenac']);
@@ -556,7 +537,7 @@ class consultation extends Controller
 
             if ($datos_lista_cita['estado'] == 0) {
                 $estado = "Por atender";
-                $css = "#000075";
+                $css = "#b90000";
             }
             if ($datos_lista_cita['estado'] == 1) {
                 $estado = "Atendido";
@@ -564,63 +545,32 @@ class consultation extends Controller
                 /* <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td> */
             }
 
-            $nombre = $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '|' . $datos_lista_cita['id_paciente'];
-            $nombre = base64_encode(utf8_encode($nombre));
-
             echo '
       
             <tr>
                 <td>' . $datos_lista_cita['nombre'] . ' ' . $datos_lista_cita['apepa'] . ' ' . $datos_lista_cita['apema'] . '</td>
                 <td class="text-center">' . $age . ' años</td>
-                ';
-            if ($filter == 1 || $filter == 3) {
-                echo '<td class="text-center">' . date("d/m/Y", strtotime($datos_lista_cita['fechacita'])) . '</td>';
-            }
-            echo '
                 <td class="text-center">' . date("h:i A", strtotime($datos_lista_cita['fechacita'])) . '</td>
-                ';
-            if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") >= $datos_lista_cita['fechacita'])) {
-                echo '<td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>';
-            }
-            if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") < $datos_lista_cita['fechacita'])) {
-                echo '<td class="text-center" style="color: #000;">' . $estado . '</td>';
-            }
-            if ($datos_lista_cita['estado'] == 1) {
-                echo '<td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>';
-            }
+                <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>
+            </tr>
+            
+            ';
         }
 
-        if ($filter == 1 || $filter == 3) {
-            echo '
-            
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Paciente</th>
-                    <th>Edad</th>
-                    <th>Fecha atención</th>
-                    <th>Hora atención</th>
-                    <th>Estado</th>
-                </tr>
-            </tfoot>
-            
-            ';
-        }
-        if ($filter == 2) {
-            echo '
+        echo '
     
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Paciente</th>
-                    <th>Edad</th>
-                    <th>Hora atención</th>
-                    <th>Estado</th>
-                </tr>
-            </tfoot>
-            
-            ';
-        }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Paciente</th>
+                <th>Edad</th>
+                <th>Hora atención</th>
+                <th>Estado</th>
+            </tr>
+        </tfoot>
+        
+        ';
+
     }
 
     // public function createPDFPrinter(){
@@ -631,4 +581,17 @@ class consultation extends Controller
     //     // Output the generated PDF to Browser
     //     $this->dompdf->stream();
     // }
+
+
+    public function save_appointment(){
+    
+        $datecita = $_POST["datecita"];
+        $timecita = $_POST["timecita"];
+        $dnipaciente = $_POST["dnipaciente"];
+    
+        $timecita = $timecita . ':00';
+    
+        $this->model->insertar_cita($datecita, $timecita, $dnipaciente, $this->session->get('admin'));
+    
+      }
 }

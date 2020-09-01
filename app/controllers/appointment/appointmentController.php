@@ -142,15 +142,12 @@ class appointment extends Controller
           echo'
           <td class="text-center">' . date("h:i A", strtotime($datos_lista_cita['fechacita'])) . '</td>
           ';
-          if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") >= $datos_lista_cita['fechacita'])) {
+          if ($datos_lista_cita['estado'] == 0) {
             echo '<td class="text-center">
                 <a href="' . FOLDER_PATH . '/consultation?cod_name=' . $nombre . '" target="_blank" style="background-color: #00e6dc; color: ' . $css . '; white-space: nowrap; padding: 0px 4px;">
                   ' . $estado . '
                 </a>    
               </td>';
-          }
-          if ($datos_lista_cita['estado'] == 0 && (date("Y-m-d H:i:s") < $datos_lista_cita['fechacita'])) {
-            echo '<td class="text-center" style="color: #000;">' . $estado . '</td>';
           }
           if ($datos_lista_cita['estado'] == 1) {
             echo '<td class="text-center" style="color: ' . $css . ';">' . $estado . '</td>';
@@ -259,12 +256,9 @@ class appointment extends Controller
 
   public function show_details()
   {
-    /* $appointment = $_POST['meta_data']; */
-    $appointment = "{WzFdfDAtZGF0YS1oaXN0b3J5LWRldGFpbHM=}";
+    $appointment = $_POST['meta_data'];
     $appointment = str_replace('{', '', $appointment);
     $appointment = str_replace('}', '', $appointment);
-
-    /* $appointment = "{WzFdfDAtZGF0YS1oaXN0b3J5LWRldGFpbHM=}"; */
 
     $appointment = utf8_decode(base64_decode($appointment));
     $appointment = str_replace('-data-appointment-details', '', $appointment);

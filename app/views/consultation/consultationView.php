@@ -34,12 +34,12 @@
             justify-content: center;
             opacity: 1;
             background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 50% 50% no-repeat rgb(249, 249, 249);
-            filter: blur(1.5px);
+            filter: blur(1px);
         }
 
-        .autosize{ 
-            overflow:hidden;
-            display:block;
+        .autosize {
+            overflow: hidden;
+            display: block;
         }
 
         .loader p {
@@ -150,7 +150,7 @@
             <div class="loader">
                 <p>Generando la consulta</p>
             </div>
-            
+
             <div class="app-main__outer">
                 <div class="app-main__inner">
                     <div class="app-page-title">
@@ -388,7 +388,7 @@
                                                                             <button class="btn btn-warning submitAnswers" id="btnUpdateAnswers" style="display:none">Actualizar Respuestas</button>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -429,10 +429,10 @@
 
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Anamnesis</label>
-                                                                <?php  
-                                                                    if($data['id_cita'] !== null){
-                                                                        echo "<input type='hidden' name='id_clinicalTest' value='".$data['id_cita']."'>";
-                                                                    }
+                                                                <?php
+                                                                if ($data['id_cita'] !== null) {
+                                                                    echo "<input type='hidden' name='id_clinicalTest' value='" . $data['id_cita'] . "'>";
+                                                                }
                                                                 ?>
                                                                 <textarea row="1" class="form-control autosize" id="anamnesis-clinical" name="anamnesis-clinical" style="max-height: 200px; height: 35px" required><?php echo ($history) ? $history['Anamnesis_Pred'] : ""; ?></textarea>
                                                             </div>
@@ -518,17 +518,10 @@
                                                         <div class="position-relative input-group mb-4">
                                                             <label class="mr-2 mt-auto mb-auto">Filtro</label>
                                                             <select type="select" id="filter-cita" name="filter-cita" class="custom-select mr-2">
-                                                                <option value="1">Nombre paciente</option>
-                                                                <option value="2" selected>Fecha cita</option>
-                                                                <option value="3">Todas las fechas</option>
+                                                                <option value="2">Fecha cita</option>
                                                             </select>
                                                         </div>
                                                         <div id="busqueda" style="display: block;">
-                                                            <div class="position-relative input-group mb-4" id="b-name" style="display: none;">
-                                                                <label class="mr-2 mt-auto mb-auto">Nombre paciente</label>
-                                                                <select id="user-search1" class="select_users" placeholder="Escriba el usuario..."></select>
-                                                                <button id="btnsrc1" class="btn-icon btn-pill btn btn-primary ml-2" onclick="search(1)"><i class="mr-0 pe-7s-search btn-icon-wrapper"></i></button>
-                                                            </div>
                                                             <div class="position-relative input-group mb-4" id="b-date">
                                                                 <label class="mr-2 mt-auto mb-auto">Fecha Cita</label>
                                                                 <input type="date" name="date" id="date" class="mr-2 form-control" value="<?= date("Y-m-d"); ?>">
@@ -573,7 +566,7 @@
                                                             <th>Estado</th>
                                                         </tfoot>
                                                     </table>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -638,8 +631,8 @@
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/jspdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
 
     <script src="<?= FOLDER_PATH ?>/src/js/selectize.min.js"></script>
     <script>
@@ -649,11 +642,10 @@
             doclick = 0;
     </script>
     <script>
-        
-        $(window).on("load",function(){
+        $(window).on("load", function() {
             window.scrollTo(0, 0);
             $(".loader").fadeOut("slow");
-            $("body").css("overflow","auto");
+            $("body").css("overflow", "auto");
             // $(".loader").hide(); 
         });
 
@@ -799,65 +791,95 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Si'
-                }).then( (result) => {
+                }).then((result) => {
 
                     if (result.value) {
-                        
+
                         var doc = new jsPDF();
 
                         $.ajax({
-                            type: "post",
-                            dataType: 'JSON',
-                            url: "<?php echo FOLDER_PATH ?>/consultation/createPrintHistoryMedical",
-                            data: {datos:1}
-                        })
-                        .done(function(data) {
-                            if (Object.keys(data).length > 1) {
-                                
-                                let docDefinition = {
-                                    content: [
-                                        // {
-                                        //     image: '<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg',
-                                        //     // image : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.frogx3.com%2F2013%2F10%2F03%2F21-disenos-de-logos-para-servicios-medicos-para-inspirarte%2F&psig=AOvVaw0plOKeUz3XxACGt6Vj99Ga&ust=1598670789413000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC47fj2vOsCFQAAAAAdAAAAABAI',
-                                        //     width: 80,
-                                        //     height: 80
-                                        // },
-                                        {
-                                            text: "EVALUACIÓN MEDICA\n\n\n\n",
-                                            color: '#4169E1',
-                                            style: 'header',
-                                            alignment: 'center' 
-                                        
-                                        },{
-                                            style: 'tableExample',
-                                            color: '#00CED1',
-                                            table: {
-                                                widths: [160,160,160],
-                                                headerRows: 1,
-                                                // keepWithHeaderRows: 1,
-                                                body: [
-                                                    [{text: 'Datos del Paciente', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
-                                                    [{text: 'Apellidos y Nombres : '+data.Nombre, alignment: 'left', colSpan: 3 },'',''],
-                                                    [{text: 'Documento de identidad :\n\n '+data.Documento,alignment: 'left'},{text: 'Fecha de Nacimiento :\n\n'+data.Fecha_Nacimiento},'Sexo : \n\n Masculino'],
-                                                    [{text: 'Datos del Doctor', style: 'tableHeader', colSpan: 3, alignment: 'left',color: '#708090'}, {}, {}],
-                                                    [{text: 'Apellidos y Nombres : <?php echo $this->session->get('Nombres').' '.$this->session->get('Apellidos'); ?>', colSpan: 3, alignment: 'left'}, {}, {}],
-                                                    [{text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad')?>', alignment: 'left'},'','']
-                                                ]
-                                            }
-                                        },
-                                        'Tratamiento :',
-                                        data.Tratamiento
-                                        
-                                    ]
+                                type: "post",
+                                dataType: 'JSON',
+                                url: "<?php echo FOLDER_PATH ?>/consultation/createPrintHistoryMedical",
+                                data: {
+                                    datos: 1
                                 }
-                                pdfMake.createPdf(docDefinition).print();
-                                // location.href = "<?= FOLDER_PATH ?>/my";
-                            }
-                            
-                        })
-                        .fail(function(){
+                            })
+                            .done(function(data) {
+                                if (Object.keys(data).length > 1) {
 
-                        });
+                                    let docDefinition = {
+                                        content: [
+                                            // {
+                                            //     image: '<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg',
+                                            //     // image : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.frogx3.com%2F2013%2F10%2F03%2F21-disenos-de-logos-para-servicios-medicos-para-inspirarte%2F&psig=AOvVaw0plOKeUz3XxACGt6Vj99Ga&ust=1598670789413000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC47fj2vOsCFQAAAAAdAAAAABAI',
+                                            //     width: 80,
+                                            //     height: 80
+                                            // },
+                                            {
+                                                text: "EVALUACIÓN MEDICA\n\n\n\n",
+                                                color: '#4169E1',
+                                                style: 'header',
+                                                alignment: 'center'
+
+                                            }, {
+                                                style: 'tableExample',
+                                                color: '#00CED1',
+                                                table: {
+                                                    widths: [160, 160, 160],
+                                                    headerRows: 1,
+                                                    // keepWithHeaderRows: 1,
+                                                    body: [
+                                                        [{
+                                                            text: 'Datos del Paciente',
+                                                            style: 'tableHeader',
+                                                            colSpan: 3,
+                                                            alignment: 'left',
+                                                            color: '#708090'
+                                                        }, {}, {}],
+                                                        [{
+                                                            text: 'Apellidos y Nombres : ' + data.Nombre,
+                                                            alignment: 'left',
+                                                            colSpan: 3
+                                                        }, '', ''],
+                                                        [{
+                                                            text: 'Documento de identidad :\n\n ' + data.Documento,
+                                                            alignment: 'left'
+                                                        }, {
+                                                            text: 'Fecha de Nacimiento :\n\n' + data.Fecha_Nacimiento
+                                                        }, 'Sexo : \n\n Masculino'],
+                                                        [{
+                                                            text: 'Datos del Doctor',
+                                                            style: 'tableHeader',
+                                                            colSpan: 3,
+                                                            alignment: 'left',
+                                                            color: '#708090'
+                                                        }, {}, {}],
+                                                        [{
+                                                            text: 'Apellidos y Nombres : <?php echo $this->session->get('Nombres') . ' ' . $this->session->get('Apellidos'); ?>',
+                                                            colSpan: 3,
+                                                            alignment: 'left'
+                                                        }, {}, {}],
+                                                        [{
+                                                            text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad') ?>',
+                                                            alignment: 'left'
+                                                        }, '', '']
+                                                    ]
+                                                }
+                                            },
+                                            'Tratamiento :',
+                                            data.Tratamiento
+
+                                        ]
+                                    }
+                                    pdfMake.createPdf(docDefinition).print();
+                                    // location.href = "<?= FOLDER_PATH ?>/my";
+                                }
+
+                            })
+                            .fail(function() {
+
+                            });
                     } else {
                         location.href = "<?= FOLDER_PATH ?>/my";
                     }
@@ -906,54 +928,54 @@
         }
 
         /** Funcion para que el textarea se ajuste al tamaño del contenido del texto */
-        $('.autosize').keydown(function(e){
+        $('.autosize').keydown(function(e) {
             // e.preventDefault();
-                var el = this;
-                setTimeout(function(){
-                    el.style.cssText = 'height:auto; padding:0';
-                    el.style.cssText = 'height:' + el.scrollHeight + 'px';
-                },0);
+            var el = this;
+            setTimeout(function() {
+                el.style.cssText = 'height:auto; padding:0';
+                el.style.cssText = 'height:' + el.scrollHeight + 'px';
+            }, 0);
         })
-    
-        
+
+
         // if(window.location.hash === '#step-1'){
 
-            $("#btnPatient").click(function(e) {
-                
-                $('#prev-btn2').css('display', 'none');
-                $('#next-btn2').css('display', 'block');
-                $('#save-btn2').css('display', 'none');
-            
-            })
+        $("#btnPatient").click(function(e) {
+
+            $('#prev-btn2').css('display', 'none');
+            $('#next-btn2').css('display', 'block');
+            $('#save-btn2').css('display', 'none');
+
+        })
         // }
-            $(".btnQuestionnaire").click(function() {
-                if(window.location.hash === '#step-2'){
-                    console.log(window.location.hash);
-            
-                    $('#prev-btn2').css('display', 'block');
-                    $('#next-btn2').css('display', 'block')
-                    $('#save-btn2').css('display', 'none');
-                }
-                })
-           
-            $(".btnClinicalTest").click(function() {
-                if(window.location.hash === '#step-3'){
+        $(".btnQuestionnaire").click(function() {
+            if (window.location.hash === '#step-2') {
+                console.log(window.location.hash);
+
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').css('display', 'block')
+                $('#save-btn2').css('display', 'none');
+            }
+        })
+
+        $(".btnClinicalTest").click(function() {
+            if (window.location.hash === '#step-3') {
 
                 console.log(window.location.hash);
-                    $('#prev-btn2').css('display', 'block');
-                    $('#next-btn2').css('display', 'block');
-                    $('#save-btn2').css('display', 'none');
-                }
-            })
-            $(".btnAppointments").click(function() {
-                if(window.location.hash === '#step-4'){
-                    console.log(window.location.hash);
-            
-                    $('#prev-btn2').css('display', 'block');
-                    $('#next-btn2').css('display', 'none')
-                    $('#save-btn2').css('display', 'block');
-                }
-            })
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').css('display', 'block');
+                $('#save-btn2').css('display', 'none');
+            }
+        })
+        $(".btnAppointments").click(function() {
+            if (window.location.hash === '#step-4') {
+                console.log(window.location.hash);
+
+                $('#prev-btn2').css('display', 'block');
+                $('#next-btn2').css('display', 'none')
+                $('#save-btn2').css('display', 'block');
+            }
+        })
 
 
         $('.submitPatient').click(function() {
@@ -1296,10 +1318,10 @@
                 },
                 cache: true
             }
-          
+
         });
 
-        $('.submitClinicalTest').click(function(){
+        $('.submitClinicalTest').click(function() {
             buttonPressed = $(this).attr('id');
             console.log(buttonPressed);
         })
@@ -1308,7 +1330,7 @@
         $('#frm-clinicalTest-patient').submit(function(e) {
 
             e.preventDefault();
-    
+
             if ($('#pru-nombre').html() !== "") {
                 if (buttonPressed === 'btnSaveClinicalTest') {
                     $.ajax({
@@ -1339,7 +1361,7 @@
                             })
                         })
 
-                }else if(buttonPressed === 'btnUpdateClinicalTest'){
+                } else if (buttonPressed === 'btnUpdateClinicalTest') {
                     let datos = $(this).serialize();
                     $.ajax({
                             type: "post",
@@ -1354,7 +1376,7 @@
                                 timer: 1500
                             })
                             $('#next-btn2').attr('disabled', false);
-    
+
                         })
                         .fail(function() {
                             Swal.fire({
@@ -1674,8 +1696,7 @@
             var row = "";
             var filter = document.getElementById("filter-cita").value;
 
-            g_paciente = $("#nombre").val().toUpperCase() + ' ' + $("#apellidopa").val().toUpperCase() + ' ' + $("#apellidoma").val().toUpperCase();
-            g_edad = calcularEdad($("#fechana").val());
+            g_edad = $("#fechana").val();
 
             var hora = $("#endTime").val();
 
@@ -1700,7 +1721,7 @@
                         Swal.fire("Atención!", "Operación inválida", "warning");
                         return;
                     }
-                    if (g_paciente == "") {
+                    if ($("#nombre").val().toUpperCase() == "" || $("#apellidopa").val().toUpperCase() == "" || $("#apellidoma").val().toUpperCase() == "") {
                         Swal.fire("Atención!", "Operación inválida", "warning");
                         return;
                     }
@@ -1713,6 +1734,9 @@
                         Swal.fire("Atención!", "Operación inválida", "warning");
                         return;
                     }
+
+                    g_paciente = $("#nombre").val().toUpperCase() + ' ' + $("#apellidopa").val().toUpperCase() + ' ' + $("#apellidoma").val().toUpperCase();
+                    g_edad = calcularEdad($("#fechana").val());
 
                     var today = new Date();
                     var dd = String(today.getDate()).padStart(2, '0');
@@ -1727,14 +1751,14 @@
                             '<td class="text-center">' + g_edad + '</td>' +
                             '<td class="text-center">' + datenow + '</td>' +
                             '<td class="text-center">' + getTimeAMPMFormat(hora) + '</td>' +
-                            '<td class="text-center">Pendiente</td></tr>';
+                            '<td class="text-center" style="color: #B90000;">En espera</td></tr>';
                     }
                     if (filter == 2) {
                         row = '<tr>' +
                             '<td>' + g_paciente + '</td>' +
                             '<td class="text-center">' + g_edad + '</td>' +
                             '<td class="text-center">' + getTimeAMPMFormat(hora) + '</td>' +
-                            '<td class="text-center">Pendiente</td></tr>';
+                            '<td class="text-center" style="color: #B90000;">En espera</td></tr>';
                     }
 
                     var rowCount = $('#list_citas tbody tr').length;
@@ -1746,6 +1770,8 @@
                     }
 
                     count_insert_cita = 1;
+
+                    insertar_cita();
                 }
             });
         });
@@ -1758,6 +1784,48 @@
             hours = hours < 10 ? '0' + hours : hours; // appending zero in the start if hours less than 10
             minutes = time[1];
             return hours + ':' + minutes + ' ' + ampm;
+        };
+    </script>
+
+    <script>
+        function insertar_cita() {
+            var filter = $("#filter-cita").children("option:selected").val();
+            if (filter != "2") {
+                swal("Atención!", "Operaición inválida.", "warning");
+                return;
+            }
+            var datecita = $("#date").val();
+            var timecita = $("#endTime").val();
+            var dnipaciente = $("#dni").val();
+            if (dnipaciente == "" || dnipaciente == null) {
+                swal("Atención!", "Operación invalida.", "warning");
+                return;
+            }
+
+            var data = new FormData();
+            data.append("datecita", datecita);
+            data.append("timecita", timecita);
+            data.append("dnipaciente", dnipaciente);
+
+            $.ajax({
+                beforeSend: function() {
+                    $("#add-apptmt").html('');
+                    $("#add-apptmt").append('Agregando &ThinSpace;&ThinSpace;<span id="spinner-sa" class="fa fa-spinner fa-spin"></span>');
+                    $("#add-apptmt").attr("disabled", true);
+                },
+                url: "<?= FOLDER_PATH ?>/consultation/save_appointment",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    $("#close-cita").trigger('click');
+                    $("#add-apptmt").html('Agregar');
+                    $("#add-apptmt").attr("disabled", false);
+
+                    $("#endTime").val("");
+                }
+            })
         };
     </script>
 

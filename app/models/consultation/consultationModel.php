@@ -35,5 +35,13 @@ class consultationModel extends Model
     }
 
 
+    public function insertar_cita($datecita, $timecita, $dnipaciente, $admin)
+    {
+        $query = "CALL `insertar_cita_consulta`('" . $datecita . "', '" . $timecita . "', '" . $dnipaciente . "', '" . $admin . "');";
+        $res = Model::query_execute($query);
+        return $res;
+    }
+
+
 }
 

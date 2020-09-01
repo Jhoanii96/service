@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="es">
 
@@ -206,20 +208,13 @@
                                             <td class="text-center"><?= $age ?> años</td>
                                             <td class="text-center"><?= date("h:i A", strtotime($datos_cita['fechacita'])) ?></td>
                                             <?php
-                                            if ($datos_cita['estado'] == 0 && (date("Y-m-d H:i:s") >= $datos_cita['fechacita'])) {
+                                            if ($datos_cita['estado'] == 0) {
                                             ?>
                                                 <td class="text-center">
                                                     <a href="<?php echo (FOLDER_PATH . '/consultation?cod_name=' . $nombre); ?>" target="_blank" style="background-color: #00e6dc;color: <?= $css ?>;white-space: nowrap; padding: 0px 4px;">
                                                         <?= $estado ?>
                                                     </a>
                                                 </td>
-                                            <?php
-                                            }
-                                            ?>
-                                            <?php
-                                            if ($datos_cita['estado'] == 0 && (date("Y-m-d H:i:s") < $datos_cita['fechacita'])) {
-                                            ?>
-                                                <td class="text-center" style="color: #000;"><?= $estado ?></td>
                                             <?php
                                             }
                                             ?>

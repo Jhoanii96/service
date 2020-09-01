@@ -24,9 +24,9 @@ define('HELPER_PATH', 'system/helper/');
 define('USER', 'fcepcvdv_clinica');
 define('PASS', 'LPMcsM8TPeqnLim');
 define('ERROR_REPORTING_LEVEL', -1); */
-define('SGBD', 'mysql:host=localhost;dbname=bd_clinica2;charset=utf8');
+define('SGBD', 'mysql:host=localhost;dbname=bd_clinica;charset=utf8');
 define('USER', 'root');
-define('PASS', '');
+define('PASS', '123456');
 define('ERROR_REPORTING_LEVEL', -1);
 
 /* ICONS */

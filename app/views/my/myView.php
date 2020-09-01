@@ -579,12 +579,11 @@
                                                 <td><?= $age ?></td>
                                                 <td><?= date("Y-m-d", strtotime($datos_historial['fecha_consulta'])) ?></td>
                                                 <td><?= date("H:i", strtotime($datos_historial['fecha_consulta'])) ?></td>
-                                                <td>2</td>
-                                                <td>2</td>
+                                                <td><?= $datos_historial['num_imagen'] ?></td>
+                                                <td><?= $datos_historial['num_archivo'] ?></td>
                                                 <td class="text-center">
                                                     <div role="group" class="btn-group-sm btn-group">
                                                         <button id="details_<?= $count ?>" onclick="GetDetailsCon(<?= $count ?>)" meta-data="{<?php echo (base64_encode(utf8_encode("[" . $count . "]|" . $datos_historial[0] . "-data-history-details"))); ?>}" data-toggle="modal" data-target="#AppDetails" class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
-                                                        <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>
                                                         <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
                                                     </div>
                                                 </td>
