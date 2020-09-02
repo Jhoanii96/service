@@ -31,11 +31,15 @@ class perfil extends Controller
     public function update_p1()
     {
         $celphone1 = $_POST["celphone1"];
+        $celphone1 = str_replace(' ', '', $celphone1);
         $celphone2 = $_POST["celphone2"];
+        $celphone2 = str_replace(' ', '', $celphone2);
         $telefono1 = $_POST["telefono1"];
+        $telefono1 = str_replace(' ', '', $telefono1);
         $telefono2 = $_POST["telefono2"];
-        $domicilio = mb_strtoupper($_POST["domicilio"], 'UTF-8');
+        $telefono2 = str_replace(' ', '', $telefono2);
 
+        $domicilio = mb_strtoupper($_POST["domicilio"], 'UTF-8');
         $username = $this->session->get('admin');
 
         $this->model->ActualizarPerfil_1(
