@@ -74,12 +74,12 @@ class perfil extends Controller
 
         $this->model->ActualizarPerfil_2($email, $link_image, $username, $isnotimage); 
 
-        
+
     }
 
     public function update_p3()
     {
-        $address = $_POST['address'];
+        $address = mb_strtoupper($_POST['address'], 'UTF-8'); 
         $username = $this->session->get('admin');
         $this->model->ActualizarPerfil_3($address, $username); 
     }

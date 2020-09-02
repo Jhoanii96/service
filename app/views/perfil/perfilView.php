@@ -372,7 +372,7 @@ for ($i = $digits; $i >= 0; $i--) {
                               <div class="form-group row">
                                 <label for="direccion_ate" class="col-sm-2 col-form-label">Dirección de atención</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="direccion_ate" value="<?= $datos[24] ?>">
+                                  <input type="text" class="form-control" id="direccion_ate" style="text-transform: uppercase;" value="<?= $datos[24] ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -494,7 +494,7 @@ for ($i = $digits; $i >= 0; $i--) {
         return;
       }
       if (domicilio == "") {
-        swal("Atención!", "Debe ingresar el nombre del paciente.", "warning");
+        swal("Atención!", "Debe ingresar la dirección de su domicilio.", "warning");
         return;
       }
 
@@ -516,8 +516,10 @@ for ($i = $digits; $i >= 0; $i--) {
         contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
         processData: false, // NEEDED, DON'T OMIT THIS
         success: function(resp) {
-          $("#btn_personal").html('Actualizar');
-          $("#btn_personal").attr("disabled", false);
+          $("#btn_personal").html('Actualizado');
+          setTimeout(function() {
+            location.href = "<?= FOLDER_PATH ?>/perfil";
+          }, 500);
         }
       })
     });
@@ -561,7 +563,6 @@ for ($i = $digits; $i >= 0; $i--) {
         processData: false, // NEEDED, DON'T OMIT THIS
         success: function() {
           $("#btn_account").html('Actualizado');
-          $("#btn_account").attr("disabled", false);
           setTimeout(function() {
             location.href = "<?= FOLDER_PATH ?>/perfil";
           }, 500);
@@ -594,7 +595,6 @@ for ($i = $digits; $i >= 0; $i--) {
         processData: false, // NEEDED, DON'T OMIT THIS
         success: function() {
           $("#btn_address").html('Actualizado');
-          $("#btn_address").attr("disabled", false);
           setTimeout(function() {
             location.href = "<?= FOLDER_PATH ?>/perfil";
           }, 500);
