@@ -873,8 +873,8 @@
                                         ]
                                     }
                                     pdfMake.createPdf(docDefinition).print();
-                                    // location.href = "<?= FOLDER_PATH ?>/my";
                                 }
+                                    location.href = "<?= FOLDER_PATH ?>/my";
 
                             })
                             .fail(function() {

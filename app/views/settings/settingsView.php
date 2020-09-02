@@ -62,11 +62,11 @@
                        
                       ?>
                       <div class="col-md-12">
-                        <div class="card border-info" style="max-width:18rem;margin:auto;">
+                        <div class="card border-info" style="max-width:25rem;margin:auto;">
                             <!-- <div class="card-header ">Nota :</div> -->
                             <div class="card-body text-info">
                                 <h5 class="card-title">Nota :</h5>
-                                <p class="card-text">Solo puede crear un cuestionario</p>
+                                <p class="card-text">En esta sección podrá crear el formato de listado para la historia clínica .</p>
                             </div>
                         </div>
                       </div>

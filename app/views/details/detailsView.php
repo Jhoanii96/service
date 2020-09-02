@@ -124,12 +124,12 @@ $atencion = $datos['atencion'];
             margin: auto !important;
             transform: none !important;
         } */
-        #gallery_viewer {
+        /* #gallery_viewer {
             display: grid;
             height: calc(100vh - 450px);
             grid-template: repeat(2, 1fr) / repeat(4, 1fr);
             grid-gap: 0.5em;
-        }
+        } */
     </style>
 
 </head>
@@ -312,16 +312,18 @@ $atencion = $datos['atencion'];
                                         $archives = $this->getArchives($id);
 
                                         echo "<h5 class='card-subtitle'>Imagenes</h5>";
-                                        echo "<div class='row' style='margin-bottom: 20px;'>";
-                                        echo        "<div id='gallery_viewer' class='demo-gallery' data-pswp-uid='1' style='margin-left: 15px;margin-right: 15px;'>";
+                                        echo    "<div class='demo-gallery' data-pswp-uid='1' style='margin-left: 15px;margin-right: 15px;'>";
+                                        echo        "<div class='row' style='margin-bottom: 20px;'>";
                                         foreach ($archives as $images) {
                                             if($images['Id_Tipo_Archivo'] === '1' || $images['Id_Tipo_Archivo'] === '2'){
+                                                echo "<div class='col-lg-4 col-md-6 col-sm-12' style='margin-bottom:15px'>";
                                                 echo   "<a href='".FOLDER_PATH."/".$images['Enlace']."' data-size='3000x1718' data-med='".FOLDER_PATH."/".$images['Enlace']."' data-med-size='524x524' data-author='Folkert Gorter' class='demo-gallery__img--main' style='margin-right:10px'>";
-                                                echo       "<img src='".FOLDER_PATH."/".$images['Enlace']."' alt='' style='width: 300px; height:300px' />";
+                                                echo       "<img src='".FOLDER_PATH."/".$images['Enlace']."' alt='' style='width: 100%; height: 100%' />";
                                                 echo   "</a>";
+                                                echo "</div>";
                                             }
                                         }
-                                        echo        "</div>";
+                                        echo    "</div>";
                                         echo "</div>";
                                         echo "<h5 class='card-subtitle'>Documentos PDF</h5>";
                                         echo "<div class='form-row'>";

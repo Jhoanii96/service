@@ -255,15 +255,16 @@ class consultation extends Controller
             $idUser = $this->session->get("idUser");
             $idPaciente = $this->session->get('idPaciente');
             $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-            $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario'])->fetchAll(PDO::FETCH_ASSOC);
-            // $getAnswers = $getAnswers->rowCount();
-            if($getAnswers){
+            $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
+            $countAnswers = $getAnswers->rowCount();
+            if($countAnswers > 0){
+                $getAnswers = $getAnswers->fetchAll(PDO::FETCH_ASSOC);
                 for($i=0;$i< count($getAnswers);$i++){
                     $arrayID[$i] = array_search($getAnswers[$i]['Id_Detalle_Cuestionario'],$arrayDetalle);
                 }
             }
             $resultInsertAnswer = 0;
-            if(count($getAnswers) < count($respuestas)){
+            if($countAnswers < count($respuestas)){
                 $j=0;
                 for($i=0;$i< count($arrayDetalle);$i++){
                         if(!in_array($i,$arrayID)){
