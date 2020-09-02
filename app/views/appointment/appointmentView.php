@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="es">
 
@@ -462,13 +460,10 @@
                                 <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha cita: </label>
                                     <span id="det_fc" style="padding: 7px 0; left: 5px;"></span>
                                 </div>
-                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Estado: </label>
-                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
-                                </div>
                             </div>
                             <div class="col-md-5 ml-4 mr-4">
-                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Precio: </label>
-                                    <span id="det_cost" style="padding: 7px 0; left: 5px;"></span>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Estado: </label>
+                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
                                 </div>
                             </div>
 
@@ -874,18 +869,18 @@
                     $("#det_edad").html(calcularEdad(obj_details[6]));
                     $("#det_fn").html(obj_details[12]);
                     $("#det_cel").html(obj_details[5]);
-                    $("#det_email").html((obj_details[11]!='') ? obj_details[11] : "No definido");
+                    $("#det_email").html((obj_details[11] != '') ? obj_details[11] : "No definido");
                     $("#det_fc").html(obj_details[8]);
                     $("#det_est").html(estado);
-                    $("#det_cost").html("S/. " + obj_details[9]);
 
                     $("#data-loading").css("display", "none");
                     $("#data-details").css("display", "block");
-                    
+
                     /* $("#data-details").html(resp); */
                 }
             })
         }
+
         function calcularEdad(fechana) {
             console.log(fechana);
             let dateParts = fechana.split("-");

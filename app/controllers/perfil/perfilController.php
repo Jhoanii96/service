@@ -17,88 +17,71 @@ class perfil extends Controller
         }
 
         $this->model = new perfilModel();
-        
     }
 
     public function index()
     {
+        $datos_perfil = $this->model->mostrar_perfil($this->session->get('admin'));
 
-        /* $this->model = new perfilModel(); */
+        $this->AdminView('perfil/perfil', [
+            'datos_perfil' => $datos_perfil
+        ]);
+    }
 
-        if (isset($_POST['update']) && !empty($_POST['update'])) {
-            $update = $_POST['update'];
+    public function update_p1()
+    {
+        $celphone1 = $_POST["celphone1"];
+        $celphone2 = $_POST["celphone2"];
+        $telefono1 = $_POST["telefono1"];
+        $telefono2 = $_POST["telefono2"];
+        $domicilio = mb_strtoupper($_POST["domicilio"], 'UTF-8');
+
+        $username = $this->session->get('admin');
+
+        $this->model->ActualizarPerfil_1(
+             $celphone1
+            ,$celphone2
+            ,$telefono1
+            ,$telefono2
+            ,$domicilio
+            ,$username
+        );
+    }
+
+    public function update_p2()
+    {
+
+        $email = $_POST['email'];
+        $text_image = $_FILES['image']['name'];
+        $username = $this->session->get('admin');
+
+        $microseconds2 = microtime(true);
+        $microseconds2 = str_replace('.', '', $microseconds2);
+        $rand = rand(100000,999999);
+
+        $isnotimage = "0";
+
+        if($text_image == "" || $text_image == NULL) {
+            $isnotimage = "1";
         } else {
-            $update = "";
+            $file_name = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['image']['type']);
+            $file_tmp = $_FILES['image']['tmp_name'];
+
+            $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/media/images/profile/';
+            move_uploaded_file($file_tmp, $imagen_destino . $file_name);
+            $link_image = 'src/assets/media/images/profile/' . $file_name;
         }
 
-        # editamos organizador segun el dato que pase como parámetro
+        $this->model->ActualizarPerfil_2($email, $link_image, $username, $isnotimage); 
 
-        if ($update == "true") {
-            $firstName = $_POST['firstName'];
-            $lastName = $_POST['lastName'];
-            $dni = $_POST['dni'];
-            $contact_point = $_POST['contact_point'];
-            $correo = $_POST['correo'];
-            $nacimiento = $_POST['date'];
-            // comprobación de cambios en la imagen
-            @$textimage = $_POST['textImage'];
+        
+    }
 
-            $code = $this->session->get('usuarioUsi');
-            @$password = $_POST['password'];
-
-            if (@$password != '' || @$password != NULL) {
-                $password = base64_encode($password);
-            } else {
-                $password = "";
-            }
-
-            if ($textimage == NULL || $textimage == '') {
-
-                $encapsuPerfil = new perfill(
-                    $firstName,
-                    $lastName,
-                    $dni,
-                    $contact_point,
-                    $nacimiento,
-                    "",
-                    $password
-                );
-
-                $this->dataPerfil->actualizarPerfilWi($encapsuPerfil, $code);
-            } else {
-                $file_name = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['image']['type']);
-                $file_type = $_FILES['image']['type'];
-                $file_size = $_FILES['image']['size'];
-
-                $file_tmp = $_FILES['image']['tmp_name'];
-
-                $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/media/image/perfil/';
-                move_uploaded_file($file_tmp, $imagen_destino . $file_name);
-                $imagen_bd = '/src/assets/media/image/perfil/' . $file_name;
-
-                $encapsuPerfil = new perfill(
-                    $firstName,
-                    $lastName,
-                    $dni,
-                    $contact_point,
-                    $nacimiento,
-                    $imagen_bd,
-                    $password
-                );
-
-                $this->dataPerfil->actualizarPerfil($encapsuPerfil, $code);
-            }
-
-            sleep(1);
-            echo ("<script>location.href = '" . FOLDER_PATH . "/perfil';</script>");
-        } else {
-            
-            $datos_perfil = $this->model->mostrar_perfil($this->session->get('admin'));
-
-            $this->AdminView('perfil/perfil', [
-                    'datos_perfil' => $datos_perfil
-                ]);
-        }
+    public function update_p3()
+    {
+        $address = $_POST['address'];
+        $username = $this->session->get('admin');
+        $this->model->ActualizarPerfil_3($address, $username); 
     }
 
     protected function showProfile()

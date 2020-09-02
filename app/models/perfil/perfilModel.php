@@ -51,4 +51,20 @@ class perfilModel extends Model
         $res = Model::query_execute($query);
         return $res;
     }
+
+    public function ActualizarPerfil_1($celphone1, $celphone2, $telefono1, $telefono2, $domicilio, $username){
+        $query = "CALL actualizar_perfil_personal('$celphone1', '$celphone2', '$telefono1', '$telefono2', '$domicilio', '$username')";
+        Model::query_execute($query);
+    }
+
+    public function ActualizarPerfil_2($email, $link_image, $username, $isnotimage){
+        $query = "CALL actualizar_perfil_cuenta('$email', '$link_image', '$username', '$isnotimage')"; 
+        Model::query_execute($query);
+    }
+
+    public function ActualizarPerfil_3($address, $username){
+        $query = "CALL actualizar_perfil_ubicacion('$address', '$username')";
+        Model::query_execute($query);
+    }
+
 }

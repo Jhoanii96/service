@@ -432,50 +432,51 @@ if ($registro == 1)
                                                     </div>
 
                                                     <div class="ctHidden" style="clear: both;">
-                                                        <fieldset class="form-group"><label>Código Medico del Perú (CMP) <span class="req" aria-label="required">*</span></label><input id="cmp" name="cmp" data-valid="true" maxlength="6" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label>Código Medico del Perú (CMP) <span class="req">*</span></label><input id="cmp" name="cmp" maxlength="6" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
-                                                        <fieldset class="form-group"><label>DNI <span class="req" aria-label="required">*</span></label><input id="dni" name="dni" data-valid="true" maxlength="8" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label>DNI <span class="req">*</span></label><input id="dni" name="dni" maxlength="8" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                     </div>
                                                     <div class="ctHidden">
-                                                        <fieldset class="form-group"><label>Nombres <span class="req" aria-label="required">*</span></label><input id="nombre" name="nombre" data-valid="true" maxlength="80" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label>Nombres <span class="req">*</span></label><input id="nombre" name="nombre" style="text-transform: uppercase" maxlength="80" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                     </div>
                                                     <div class="ctHidden">
-                                                        <fieldset class="form-group"><label>Apellido Paterno <span class="req" aria-label="required">*</span></label><input id="apellidop" name="apellidop" data-valid="true" maxlength="50" aria-required="true" class="ctHidden form-control" value=""></fieldset>
-                                                        <fieldset class="form-group"><label>Apellido Materno <span class="req" aria-label="required">*</span></label><input id="apellidom" name="apellidom" data-valid="true" maxlength="50" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label>Apellido Paterno <span class="req">*</span></label><input id="apellidop" name="apellidop" style="text-transform: uppercase" maxlength="50" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label>Apellido Materno <span class="req">*</span></label><input id="apellidom" name="apellidom" style="text-transform: uppercase" maxlength="50" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                     </div>
                                                     <div class="undefined">
-                                                        <fieldset class="form-group"><label>Dirección de domicilio <span class="req" aria-label="required">*</span></label><input id="address1" name="address1" maxlength="150" autocomplete="on" data-valid="true" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label>Dirección de domicilio <span class="req">*</span></label><input id="address1" name="address1" style="text-transform: uppercase" maxlength="150" autocomplete="on" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         <fieldset class="form-group"><label>Género<span class="req">*</span></label>
                                                             <div class="form-group">
                                                                 <select class="form-control" name="gen" id="gen">
                                                                     <option value="0">Seleccione</option>
                                                                     <option value="M">Masculino</option>
                                                                     <option value="F">Femenino</option>
+                                                                    <option value="O">Otros</option>
                                                                 </select>
                                                             </div>
                                                         </fieldset>
 
                                                         <fieldset class="form-group">
                                                             <label>Celular
-                                                                <span class="req" aria-label="required">*</span>
+                                                                <span class="req">*</span>
                                                             </label>
-                                                            <input id="cellphone" type="text" name="cellphone" data-valid="true" aria-required="true" maxlength="20" class="ctHidden form-control" value="">
+                                                            <input id="cellphone" type="text" name="cellphone" aria-required="true" maxlength="20" class="ctHidden form-control" value="">
                                                         </fieldset>
 
                                                         <div class="ctHidden">
                                                             <fieldset class="form-group">
                                                                 <label>Fecha Nacimiento
-                                                                    <span class="req" aria-label="required">*</span>
+                                                                    <span class="req">*</span>
                                                                 </label>
-                                                                <input type="date" id="fn" name="fn" data-valid="true" aria-required="true" class="ctHidden form-control" value="">
+                                                                <input type="date" id="fn" name="fn" aria-required="true" class="ctHidden form-control" value="">
                                                             </fieldset>
                                                         </div>
                                                         <div class="ctHidden">
                                                             <fieldset class="form-group">
                                                                 <label id="price_half">Precio promedio
-                                                                    <span class="req" aria-label="required">*</span>
+                                                                    <span class="req">*</span>
                                                                     &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
                                                                     <div class="dropbox_dropcontent dropbox_arrow-top">
                                                                         <div class="compSelect_ul">
@@ -483,7 +484,7 @@ if ($registro == 1)
                                                                         </div>
                                                                     </div>
                                                                 </label>
-                                                                <!-- <input type="text" id="price" name="price" data-valid="true" aria-required="true" class="ctHidden form-control" value=""> -->
+                                                                <!-- <input type="text" id="price" name="price" aria-required="true" class="ctHidden form-control" value=""> -->
                                                                 <input type="text" id="price" name="price" class="ctHidden form-control" value="" data-inputmask="'alias': 'decimal', 'groupSeparator': '.', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'S/ ', 'placeholder': '0'">
                                                             </fieldset>
                                                         </div>
@@ -498,25 +499,25 @@ if ($registro == 1)
 
                                                 <div class="page page-two">
                                                     <div class="ctHidden">
-                                                        <fieldset class="form-group"><label>Nombre usuario<span class="req" aria-label="required">*</span></label><input id="username" name="username" maxlength="30" data-valid="true" aria-required="true" class="ctHidden form-control" value=""></fieldset>
+                                                        <fieldset class="form-group"><label>Nombre usuario<span class="req">*</span></label><input id="username" name="username" maxlength="30" aria-required="true" class="ctHidden form-control" value=""></fieldset>
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden">
                                                         <fieldset class="form-group">
-                                                            <label>Contraseña<span class="req" aria-label="required">*</span>
+                                                            <label>Contraseña<span class="req">*</span>
                                                             </label>
                                                             <div class="pull-right">
                                                                 <a class="btn btn-tertiary-inline btn-sm" aria-label="form_action_button">
                                                                     <div id="show_pass" class="text-primary-o" tabindex="0" style="outline: none;">Ver</div>
                                                                 </a>
                                                             </div>
-                                                            <input id="new_password" type="password" name="password" maxlength="30" autocomplete="new-password" data-valid="true" aria-required="true" class="ctHidden form-control" value="">
+                                                            <input id="new_password" type="password" name="password" maxlength="30" autocomplete="new-password" aria-required="true" class="ctHidden form-control" value="">
                                                         </fieldset>
                                                     </div>
                                                     <div class="ctHidden" style="clear: both;">
                                                         <fieldset class="form-group">
                                                             <label id="address_attention">Dirección de consultas
-                                                                <span class="req" aria-label="required">*</span>
+                                                                <span class="req">*</span>
                                                                 &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
                                                                 <div class="dropbox_dropcontent dropbox_arrow-top">
                                                                     <div class="compSelect_ul">
@@ -524,16 +525,16 @@ if ($registro == 1)
                                                                     </div>
                                                                 </div>
                                                             </label>
-                                                            <input id="dconsulta" name="dconsulta" maxlength="150" data-valid="true" aria-required="true" class="ctHidden form-control" value="">
+                                                            <input id="dconsulta" name="dconsulta" maxlength="150" aria-required="true" class="ctHidden form-control" value="">
                                                         </fieldset>
                                                     </div>
                                                     <div class="state-field ctHidden">
                                                         <fieldset class="form-group">
                                                             <label>Correo electrónico
-                                                                <span class="req" aria-label="required">*</span>
+                                                                <span class="req">*</span>
                                                             </label>
                                                             <div style="display: flex;">
-                                                                <input id="email" name="email" maxlength="150" data-valid="true" aria-required="true" class="form-control" value="">
+                                                                <input id="email" name="email" maxlength="150" aria-required="true" class="form-control" value="">
                                                                 <button type="button" id="send_code" data-name-text="Enviando..." class="r-button-style" style="width: 170px;">Enviar código</button>
                                                             </div>
                                                             <span style="color: blue; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px;">
@@ -544,7 +545,7 @@ if ($registro == 1)
                                                     <div class="ctHidden">
                                                         <fieldset class="form-group">
                                                             <label id="insert_code">Insertar código
-                                                                <span class="req" aria-label="required">*</span>
+                                                                <span class="req">*</span>
                                                                 &MediumSpace;<i class="fa fa-question-circle" aria-hidden="true" style="color: #001cb5;"></i>&ThinSpace;
                                                                 <div class="dropbox_dropcontent dropbox_arrow-top">
                                                                     <div class="compSelect_ul">
@@ -553,7 +554,7 @@ if ($registro == 1)
                                                                 </div>
                                                             </label>
                                                             <div style="display: flex;">
-                                                                <input id="in_code" name="in_code" style="width: 100px;text-transform: uppercase;" maxlength="6" data-valid="true" aria-required="true" class="ctHidden form-control" value="">
+                                                                <input id="in_code" name="in_code" style="width: 100px;text-transform: uppercase;" maxlength="6" aria-required="true" class="ctHidden form-control" value="">
                                                                 <button type="button" id="check_code" class="r-button-style" data-name-text="Verificando..." style="width: 80px;">Verificar</button>
                                                             </div>
                                                         </fieldset>

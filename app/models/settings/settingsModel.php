@@ -33,18 +33,19 @@ class settingsModel extends Model{
     try {
       $db = Model::conectar();
       $db->beginTransaction();
+      $datenow = date("Y-m-d H:i:s");
       if($idCita !== null){
-        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Id_Cita,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
-        ($idPaciente,$idUser,$idCita,'$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
+        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Id_Cita,Fecha,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
+        ($idPaciente,$idUser,$idCita,'$datenow','$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
       }else{
-        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
-        ($idPaciente,$idUser,'$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
+        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Fecha,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
+        ($idPaciente,$idUser,'$datenow','$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
       }
       if( $nameImage !== null ){
         if( count($nameImage) > 0 ){
           $db->query("SET @ID_HISTORIA = LAST_INSERT_ID()");
           for ($i=0; $i < count($nameImage) ; $i++) { 
-            $db->query("INSERT INTO archivo(Nombre,Subnombre,Enlace,Size,Id_Historia_Clinica,Id_Tipo_Archivo,CreadoPor) VALUES('$nameImage[$i]','$nameImage[$i]','$enlace[$i]',$imagen_size[$i],@ID_HISTORIA,$imagen_type[$i],'$idUser')"); 
+            $db->query("INSERT INTO archivo(Nombre,Subnombre,Enlace,Size,FechaCreado,Id_Historia_Clinica,Id_Tipo_Archivo,CreadoPor) VALUES('$nameImage[$i]','$nameImage[$i]','$enlace[$i]',$imagen_size[$i],'$datenow',@ID_HISTORIA,$imagen_type[$i],'$idUser')"); 
           }
         }
       }

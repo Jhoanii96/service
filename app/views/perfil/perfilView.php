@@ -1,6 +1,5 @@
 <?php
 
-date_default_timezone_set('UTC');
 
 $datos = $data['datos_perfil']->fetch();
 if ($datos[7] == 'Masculino') {
@@ -184,6 +183,12 @@ for ($i = $digits; $i >= 0; $i--) {
 
                         <p class="text-muted"><?= $datos[6] ?></p>
 
+                        <hr>
+
+                        <strong><i class="fas fa-money-bill mr-1"></i> Precio promedio por consulta</strong>
+
+                        <p class="text-muted">S/. <?= $datos[28] ?></p>
+
                       </div>
                       <!-- /.card-body -->
                     </div>
@@ -197,7 +202,6 @@ for ($i = $digits; $i >= 0; $i--) {
                           <li class="nav-item"><a class="nav-link active" href="#personal" data-toggle="tab">Personal</a></li>
                           <li class="nav-item"><a class="nav-link" href="#users" data-toggle="tab">Mi cuenta</a></li>
                           <li class="nav-item"><a class="nav-link" href="#ubicacion" data-toggle="tab">Ubicación</a></li>
-                          <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Configuración</a></li>
                           <!-- <li class="nav-item"><a class="nav-link" href="#linked" data-toggle="tab">Conexiones</a></li> -->
                         </ul>
                       </div><!-- /.card-header -->
@@ -250,7 +254,7 @@ for ($i = $digits; $i >= 0; $i--) {
                               <div class="form-group row">
                                 <label for="celphone1" class="col-sm-2 col-form-label">Número celular principal</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="celphone1" value="<?= $datos[8] ?>" readonly>
+                                  <input type="text" class="form-control" id="celphone1" value="<?= $datos[8] ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -274,7 +278,7 @@ for ($i = $digits; $i >= 0; $i--) {
                               <div class="form-group row">
                                 <label for="domicilio" class="col-sm-2 col-form-label">Domicilio</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="domicilio" value="<?= $datos[12] ?>" readonly>
+                                  <input type="text" class="form-control" style="text-transform: uppercase;" id="domicilio" value="<?= $datos[12] ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -285,7 +289,7 @@ for ($i = $digits; $i >= 0; $i--) {
                               </div>
                               <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                  <button type="button" class="btn btn-primary">Actualizar</button>
+                                  <button id="btn_personal" type="button" class="btn btn-primary">Actualizar</button>
                                 </div>
                               </div>
                             </form>
@@ -310,19 +314,13 @@ for ($i = $digits; $i >= 0; $i--) {
                               <div class="form-group row">
                                 <label for="e-mail" class="col-sm-2 col-form-label">Correo electrónico</label>
                                 <div class="col-sm-10">
-                                  <input type="email" class="form-control" id="e-mail" value="<?= $datos[16] ?>" readonly>
+                                  <input type="email" class="form-control" id="e-mail" value="<?= $datos[16] ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label for="date_active" class="col-sm-2 col-form-label">Fecha registro</label>
                                 <div class="col-sm-10">
                                   <input type="text" class="form-control" id="date_active" value="<?= $Fecharegistro ?>" readonly>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="fecha_pago" class="col-sm-2 col-form-label">Fecha pago</label>
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="fecha_pago" value="<?= $Fechapago ?>" readonly>
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -340,7 +338,7 @@ for ($i = $digits; $i >= 0; $i--) {
                               </div>
                               <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                  <button type="button" class="btn btn-primary">Actualizar</button>
+                                  <button id="btn_account" type="button" class="btn btn-primary">Actualizar</button>
                                 </div>
                               </div>
                             </form>
@@ -374,45 +372,12 @@ for ($i = $digits; $i >= 0; $i--) {
                               <div class="form-group row">
                                 <label for="direccion_ate" class="col-sm-2 col-form-label">Dirección de atención</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="direccion_ate" value="<?= $datos[24] ?>" readonly>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="dir_ip" class="col-sm-2 col-form-label">Dirección IP</label>
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="dir_ip" value="<?= $datos[25] ?>" readonly>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="ubicacion_gps" class="col-sm-2 col-form-label">Ubicación GPS Actual - Maps</label>
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="ubicacion_gps" value="<?= $datos[26] ?>">
+                                  <input type="text" class="form-control" id="direccion_ate" value="<?= $datos[24] ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                  <button type="button" class="btn btn-primary">Actualizar</button>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="tab-pane" id="settings">
-                            <form class="form-horizontal">
-                              <div class="form-group row">
-                                <label for="time_ate" class="col-sm-2 col-form-label">Tiempo de atención promedio</label>
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="time_ate" value="<?= $datos[27] ?>" readonly>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="precio" class="col-sm-2 col-form-label">Precio de Consulta Promedio</label>
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="precio" value="<?= $datos[28] ?>" readonly>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                  <button type="text" class="btn btn-primary">Actualizar</button>
+                                  <button id="btn_address" type="button" class="btn btn-primary">Actualizar</button>
                                 </div>
                               </div>
                             </form>
@@ -473,6 +438,11 @@ for ($i = $digits; $i >= 0; $i--) {
   <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
 
   <script>
+    $(':input[readonly]').css({
+      'background-color': '#f3f3f3'
+    });
+  </script>
+  <script>
     function readURL(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -508,6 +478,135 @@ for ($i = $digits; $i >= 0; $i--) {
         document.getElementById("pass_show").className = "fa fa-eye-slash";
       }
     });
+  </script>
+
+  <script>
+    $('#btn_personal').click(function() {
+
+      var celphone1 = $("#celphone1").val();
+      var celphone2 = $("#celphone2").val();
+      var telefono1 = $("#telefono1").val();
+      var telefono2 = $("#telefono2").val();
+      var domicilio = $("#domicilio").val();
+
+      if (celphone1 == "") {
+        swal("Atención!", "Debe ingresar el número de celular principal.", "warning");
+        return;
+      }
+      if (domicilio == "") {
+        swal("Atención!", "Debe ingresar el nombre del paciente.", "warning");
+        return;
+      }
+
+      var data = new FormData();
+      data.append("celphone1", celphone1);
+      data.append("celphone2", celphone2);
+      data.append("telefono1", telefono1);
+      data.append("telefono2", telefono2);
+      data.append("domicilio", domicilio);
+
+      $.ajax({
+        beforeSend: function() {
+          $("#btn_personal").html('Actualizando &ThinSpace;&ThinSpace;<span id="spinner-p1" class="fa fa-spinner fa-spin"></span>');
+          $("#btn_personal").attr("disabled", true);
+        },
+        url: "<?= FOLDER_PATH ?>/perfil/update_p1",
+        type: "POST",
+        data: data,
+        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+        processData: false, // NEEDED, DON'T OMIT THIS
+        success: function(resp) {
+          $("#btn_personal").html('Actualizar');
+          $("#btn_personal").attr("disabled", false);
+        }
+      })
+    });
+  </script>
+  <script>
+    $('#btn_account').on('click', function() {
+      var email = $('#e-mail').val();
+      var ufile = $('#uploadFile').val(); /* text image */
+
+      if (email != "") {
+        if (!validateEmail(email)) {
+          swal("Atención!", "Debe ingresar un correo electrónico válido", "warning");
+          return;
+        }
+      }
+
+      var imgpath = document.getElementById('photoInputFile'); /* foto */
+      if (!imgpath.value == "") {
+        var img = imgpath.files[0].size;
+        var imgsize = img / 1024;
+        if (imgsize > 1024) {
+          swal("Atención!", "Debe seleccionar una imagen menor de 1MB", "warning");
+          return;
+        }
+      }
+
+      var data = new FormData();
+
+      data.append("email", email);
+      data.append("image", $('input[type=file]')[0].files[0]);
+
+      $.ajax({
+        beforeSend: function() {
+          $("#btn_account").html('Actualizando &ThinSpace;&ThinSpace;<span id="spinner-pf" class="fa fa-spinner fa-spin"></span>');
+          $("#btn_account").attr("disabled", true);
+        },
+        url: "<?= FOLDER_PATH ?>/perfil/update_p2",
+        type: "POST",
+        data: data,
+        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+        processData: false, // NEEDED, DON'T OMIT THIS
+        success: function() {
+          $("#btn_account").html('Actualizado');
+          $("#btn_account").attr("disabled", false);
+          setTimeout(function() {
+            location.href = "<?= FOLDER_PATH ?>/perfil";
+          }, 500);
+        }
+      })
+    });
+  </script>
+  <script>
+    $('#btn_address').on('click', function() {
+      var direccion = $('#direccion_ate').val();
+
+      if (direccion == "" || direccion == null) {
+        swal("Atención!", "Debe ingresar una dirección", "warning");
+        return;
+      }
+
+      var data = new FormData();
+
+      data.append("address", direccion);
+
+      $.ajax({
+        beforeSend: function() {
+          $("#btn_address").html('Actualizando &ThinSpace;&ThinSpace;<span class="fa fa-spinner fa-spin"></span>');
+          $("#btn_address").attr("disabled", true);
+        },
+        url: "<?= FOLDER_PATH ?>/perfil/update_p3",
+        type: "POST",
+        data: data,
+        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+        processData: false, // NEEDED, DON'T OMIT THIS
+        success: function() {
+          $("#btn_address").html('Actualizado');
+          $("#btn_address").attr("disabled", false);
+          setTimeout(function() {
+            location.href = "<?= FOLDER_PATH ?>/perfil";
+          }, 500);
+        }
+      })
+    });
+  </script>
+  <script>
+    function validateEmail(e) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(e).toLowerCase());
+    }
   </script>
 
 </body>

@@ -553,8 +553,8 @@
                                         <tr>
                                             <th>Paciente</th>
                                             <th>Edad</th>
-                                            <th>Fecha Consulta</th>
-                                            <th>Hora Consulta</th>
+                                            <th>Fecha Consultado</th>
+                                            <th>Hora Consultado</th>
                                             <th>Archivos</th>
                                             <th>Imágenes</th>
                                             <th>Opciones</th>
@@ -576,11 +576,11 @@
                                         ?>
                                             <tr>
                                                 <td><?= $datos_historial['nombre_paciente'] ?></td>
-                                                <td><?= $age ?></td>
-                                                <td><?= date("Y-m-d", strtotime($datos_historial['fecha_consulta'])) ?></td>
-                                                <td><?= date("H:i", strtotime($datos_historial['fecha_consulta'])) ?></td>
-                                                <td><?= $datos_historial['num_imagen'] ?></td>
+                                                <td><?= $age ?> años</td>
+                                                <td><?= date("d/m/Y", strtotime($datos_historial['fecha_consulta'])) ?></td>
+                                                <td><?= date("H:i A", strtotime($datos_historial['fecha_consulta'])) ?></td>
                                                 <td><?= $datos_historial['num_archivo'] ?></td>
+                                                <td><?= $datos_historial['num_imagen'] ?></td>
                                                 <td class="text-center">
                                                     <div role="group" class="btn-group-sm btn-group">
                                                         <button id="details_<?= $count ?>" onclick="GetDetailsCon(<?= $count ?>)" meta-data="{<?php echo (base64_encode(utf8_encode("[" . $count . "]|" . $datos_historial[0] . "-data-history-details"))); ?>}" data-toggle="modal" data-target="#AppDetails" class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
@@ -599,8 +599,8 @@
                                         <tr>
                                             <th>Paciente</th>
                                             <th>Edad</th>
-                                            <th>Fecha Consulta</th>
-                                            <th>Hora Consulta</th>
+                                            <th>Fecha Consultado</th>
+                                            <th>Hora Consultado</th>
                                             <th>Archivos</th>
                                             <th>Imágenes</th>
                                             <th>Opciones</th>
@@ -689,7 +689,10 @@
                             </div>
                         </div>
 
-                        <p class="mb-0 title-details">Datos consulta</p>
+                        <p class="mb-0 title-details">
+                            <span style="padding-right: 120px;">Datos consulta</span>
+                            <span style="padding-right: 120px;display: inline-block;">Fecha consulta: <span id="det_fcon" style="padding: 7px 0; left: 5px;"></span></span>
+                            <span style="display: inline-block;">Precio: <span id="det_cost" style="padding: 7px 0; left: 5px;"></span></span></p>
                         <div class="form-row mt-3">
                             <div class="col-md-5 ml-4 mr-4">
                                 <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
@@ -699,9 +702,6 @@
                                 <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
                                     <label style="padding: 7px 12px; left: 5px;">Anamnesis: </label>
                                     <span id="det_anam" style="padding: 0 12px; left: 5px; display: block;"></span>
-                                </div>
-                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha consulta: </label>
-                                    <span id="det_fcon" style="padding: 7px 0; left: 5px;"></span>
                                 </div>
                             </div>
                             <div class="col-md-5 ml-4 mr-4">
@@ -723,13 +723,10 @@
                                 <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha cita: </label>
                                     <span id="det_fc" style="padding: 7px 0; left: 5px;"></span>
                                 </div>
-                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Estado: </label>
-                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
-                                </div>
                             </div>
                             <div class="col-md-5 ml-4 mr-4">
-                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Precio: </label>
-                                    <span id="det_cost" style="padding: 7px 0; left: 5px;"></span>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Estado: </label>
+                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
                                 </div>
                             </div>
                         </div>
@@ -749,7 +746,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
         let close = document.getElementById("btn-adm_close");

@@ -556,7 +556,6 @@ $atencion = $datos['atencion'];
 
         </div>
 
-
     </div>
 
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
