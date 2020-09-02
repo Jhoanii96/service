@@ -36,7 +36,7 @@ CREATE TABLE `archivo` (
   `Id_Historia_Clinica` int(11) NOT NULL,
   `Id_Tipo_Archivo` varchar(45) NOT NULL,
   PRIMARY KEY (`Id_Archivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `archivo` (
 
 LOCK TABLES `archivo` WRITE;
 /*!40000 ALTER TABLE `archivo` DISABLE KEYS */;
-INSERT INTO `archivo` VALUES (111,'Nombre 1','Nombre 1','src/assets/media/images/historia_clinica/0826200612181598458338.5551.jpeg',85167,'2020-08-26 11:12:18','0000-00-00 00:00:00',0,1,NULL,84,'1'),(112,'Nombre 2','Nombre 2','src/assets/media/images/historia_clinica/0826200618051598458685.9533.jpeg',979433,'2020-08-26 11:18:05','0000-00-00 00:00:00',0,1,NULL,85,'1'),(113,'Nombre 3','Nombre 3','src/Documentos/0826200618051598458685.9533.vnd.openxmlformats-officedocument.wordprocessingml.document',657806,'2020-08-26 11:18:05','0000-00-00 00:00:00',0,1,NULL,85,'4'),(114,'Nombre 4','Nombre 4','src/Documentos/0826200618051598458685.9534.pdf',87176,'2020-08-26 11:18:05','0000-00-00 00:00:00',0,1,NULL,85,'3'),(115,'dante-dmc.jpg','dante-dmc.jpg','src/assets/media/images/historia_clinica/dante-dmc.jpg',651429,'2020-08-31 18:24:02',NULL,0,1,NULL,86,'1'),(116,'DMC-Dante.jpg','DMC-Dante.jpg','src/assets/media/images/historia_clinica/DMC-Dante.jpg',14098,'2020-08-31 18:24:02',NULL,0,1,NULL,86,'1'),(117,'0901200336541598924214.6335.jpeg','0901200336541598924214.6335.jpeg','src/assets/media/images/historia_clinica/0901200336541598924214.6335.jpeg',59538,'2020-08-31 20:36:54',NULL,0,1,NULL,94,'1'),(118,'0901200336541598924214.6335.jpeg','0901200336541598924214.6335.jpeg','src/assets/media/images/historia_clinica/0901200336541598924214.6335.jpeg',134122,'2020-08-31 20:36:54',NULL,0,1,NULL,94,'1'),(119,'0901200336541598924214.6336.jpeg','0901200336541598924214.6336.jpeg','src/assets/media/images/historia_clinica/0901200336541598924214.6336.jpeg',14098,'2020-08-31 20:36:54',NULL,0,1,NULL,94,'1'),(120,'0901200338351598924315.7157.pdf','0901200338351598924315.7157.pdf','src/Documentos/0901200338351598924315.7157.pdf',2297010,'2020-08-31 20:38:35',NULL,0,1,NULL,86,'3'),(121,'0901200338351598924315.7158.pdf','0901200338351598924315.7158.pdf','src/Documentos/0901200338351598924315.7158.pdf',2179090,'2020-08-31 20:38:35',NULL,0,1,NULL,86,'3'),(122,'0901200346211598924781.1582.pdf','0901200346211598924781.1582.pdf','src/Documentos/0901200346211598924781.1582.pdf',2297010,'2020-08-31 20:46:21',NULL,0,1,NULL,96,'3'),(123,'0901200346211598924781.1583.pdf','0901200346211598924781.1583.pdf','src/Documentos/0901200346211598924781.1583.pdf',11661100,'2020-08-31 20:46:21',NULL,0,1,NULL,96,'3'),(124,'0901200346211598924781.1584.pdf','0901200346211598924781.1584.pdf','src/Documentos/0901200346211598924781.1584.pdf',2179090,'2020-08-31 20:46:21',NULL,0,1,NULL,96,'3'),(125,'0901200349061598924946.2905.pdf','0901200349061598924946.2905.pdf','src/Documentos/0901200349061598924946.2905.pdf',2297010,'2020-08-31 20:49:06',NULL,0,1,NULL,97,'3'),(126,'0901200349061598924946.2906.pdf','0901200349061598924946.2906.pdf','src/Documentos/0901200349061598924946.2906.pdf',11661100,'2020-08-31 20:49:06',NULL,0,1,NULL,97,'3'),(127,'0901200349061598924946.2906.pdf','0901200349061598924946.2906.pdf','src/Documentos/0901200349061598924946.2906.pdf',2179090,'2020-08-31 20:49:06',NULL,0,1,NULL,97,'3'),(128,'0901200358201598925500.5482.png','0901200358201598925500.5482.png','src/assets/media/images/historia_clinica/0901200358201598925500.5482.png',134620,'2020-08-31 20:58:20',NULL,0,1,NULL,98,'2'),(129,'0901200358201598925500.5482.png','0901200358201598925500.5482.png','src/assets/media/images/historia_clinica/0901200358201598925500.5482.png',110020,'2020-08-31 20:58:20',NULL,0,1,NULL,98,'2'),(130,'0901200358201598925500.5483.pdf','0901200358201598925500.5483.pdf','src/Documentos/0901200358201598925500.5483.pdf',2297010,'2020-08-31 20:58:20',NULL,0,1,NULL,98,'3'),(131,'Mayra.jpg','Mayra.jpg','src/assets/media/images/historia_clinica/Mayra.jpg',59538,'2020-08-31 21:05:56',NULL,0,1,NULL,99,'1'),(132,'dante-dmc.jpg','dante-dmc.jpg','src/assets/media/images/historia_clinica/dante-dmc.jpg',651429,'2020-08-31 21:05:56',NULL,0,1,NULL,99,'1'),(133,'DMC-Dante.jpg','DMC-Dante.jpg','src/assets/media/images/historia_clinica/DMC-Dante.jpg',14098,'2020-08-31 21:05:56',NULL,0,1,NULL,99,'1'),(134,'doom.jpg','doom.jpg','src/assets/media/images/historia_clinica/doom.jpg',134122,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(135,'dante-dmc.jpg','dante-dmc.jpg','src/assets/media/images/historia_clinica/dante-dmc.jpg',651429,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(136,'DMC-Dante.jpg','DMC-Dante.jpg','src/assets/media/images/historia_clinica/DMC-Dante.jpg',14098,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(137,'kaguya.jpg','kaguya.jpg','src/assets/media/images/historia_clinica/kaguya.jpg',78237,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(138,'Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','src/Documentos/Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf',11661100,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'3'),(139,'CodeIgniter_3_1_9_Manual_Esp.pdf','CodeIgniter_3_1_9_Manual_Esp.pdf','src/Documentos/CodeIgniter_3_1_9_Manual_Esp.pdf',2179090,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'3'),(140,'Mayra.jpg','Mayra.jpg','src/assets/media/images/historia_clinica/Mayra.jpg',59538,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'1'),(141,'doom.jpg','doom.jpg','src/assets/media/images/historia_clinica/doom.jpg',134122,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'1'),(142,'Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','src/Documentos/Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf',11661100,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'3'),(143,'CodeIgniter_3_1_9_Manual_Esp.pdf','CodeIgniter_3_1_9_Manual_Esp.pdf','src/Documentos/CodeIgniter_3_1_9_Manual_Esp.pdf',2179090,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'3');
+INSERT INTO `archivo` VALUES (111,'Nombre 1','Nombre 1','src/assets/media/images/historia_clinica/0826200612181598458338.5551.jpeg',85167,'2020-08-26 11:12:18','0000-00-00 00:00:00',0,1,NULL,84,'1'),(112,'Nombre 2','Nombre 2','src/assets/media/images/historia_clinica/0826200618051598458685.9533.jpeg',979433,'2020-08-26 11:18:05','0000-00-00 00:00:00',0,1,NULL,85,'1'),(113,'Nombre 3','Nombre 3','src/Documentos/0826200618051598458685.9533.vnd.openxmlformats-officedocument.wordprocessingml.document',657806,'2020-08-26 11:18:05','0000-00-00 00:00:00',0,1,NULL,85,'4'),(114,'Nombre 4','Nombre 4','src/Documentos/0826200618051598458685.9534.pdf',87176,'2020-08-26 11:18:05','0000-00-00 00:00:00',0,1,NULL,85,'3'),(115,'dante-dmc.jpg','dante-dmc.jpg','src/assets/media/images/historia_clinica/dante-dmc.jpg',651429,'2020-08-31 18:24:02',NULL,0,1,NULL,86,'1'),(116,'DMC-Dante.jpg','DMC-Dante.jpg','src/assets/media/images/historia_clinica/DMC-Dante.jpg',14098,'2020-08-31 18:24:02',NULL,0,1,NULL,86,'1'),(117,'0901200336541598924214.6335.jpeg','0901200336541598924214.6335.jpeg','src/assets/media/images/historia_clinica/0901200336541598924214.6335.jpeg',59538,'2020-08-31 20:36:54',NULL,0,1,NULL,94,'1'),(118,'0901200336541598924214.6335.jpeg','0901200336541598924214.6335.jpeg','src/assets/media/images/historia_clinica/0901200336541598924214.6335.jpeg',134122,'2020-08-31 20:36:54',NULL,0,1,NULL,94,'1'),(119,'0901200336541598924214.6336.jpeg','0901200336541598924214.6336.jpeg','src/assets/media/images/historia_clinica/0901200336541598924214.6336.jpeg',14098,'2020-08-31 20:36:54',NULL,0,1,NULL,94,'1'),(120,'0901200338351598924315.7157.pdf','0901200338351598924315.7157.pdf','src/Documentos/0901200338351598924315.7157.pdf',2297010,'2020-08-31 20:38:35',NULL,0,1,NULL,86,'3'),(121,'0901200338351598924315.7158.pdf','0901200338351598924315.7158.pdf','src/Documentos/0901200338351598924315.7158.pdf',2179090,'2020-08-31 20:38:35',NULL,0,1,NULL,86,'3'),(122,'0901200346211598924781.1582.pdf','0901200346211598924781.1582.pdf','src/Documentos/0901200346211598924781.1582.pdf',2297010,'2020-08-31 20:46:21',NULL,0,1,NULL,96,'3'),(123,'0901200346211598924781.1583.pdf','0901200346211598924781.1583.pdf','src/Documentos/0901200346211598924781.1583.pdf',11661100,'2020-08-31 20:46:21',NULL,0,1,NULL,96,'3'),(124,'0901200346211598924781.1584.pdf','0901200346211598924781.1584.pdf','src/Documentos/0901200346211598924781.1584.pdf',2179090,'2020-08-31 20:46:21',NULL,0,1,NULL,96,'3'),(125,'0901200349061598924946.2905.pdf','0901200349061598924946.2905.pdf','src/Documentos/0901200349061598924946.2905.pdf',2297010,'2020-08-31 20:49:06',NULL,0,1,NULL,97,'3'),(126,'0901200349061598924946.2906.pdf','0901200349061598924946.2906.pdf','src/Documentos/0901200349061598924946.2906.pdf',11661100,'2020-08-31 20:49:06',NULL,0,1,NULL,97,'3'),(127,'0901200349061598924946.2906.pdf','0901200349061598924946.2906.pdf','src/Documentos/0901200349061598924946.2906.pdf',2179090,'2020-08-31 20:49:06',NULL,0,1,NULL,97,'3'),(128,'0901200358201598925500.5482.png','0901200358201598925500.5482.png','src/assets/media/images/historia_clinica/0901200358201598925500.5482.png',134620,'2020-08-31 20:58:20',NULL,0,1,NULL,98,'2'),(129,'0901200358201598925500.5482.png','0901200358201598925500.5482.png','src/assets/media/images/historia_clinica/0901200358201598925500.5482.png',110020,'2020-08-31 20:58:20',NULL,0,1,NULL,98,'2'),(130,'0901200358201598925500.5483.pdf','0901200358201598925500.5483.pdf','src/Documentos/0901200358201598925500.5483.pdf',2297010,'2020-08-31 20:58:20',NULL,0,1,NULL,98,'3'),(131,'Mayra.jpg','Mayra.jpg','src/assets/media/images/historia_clinica/Mayra.jpg',59538,'2020-08-31 21:05:56',NULL,0,1,NULL,99,'1'),(132,'dante-dmc.jpg','dante-dmc.jpg','src/assets/media/images/historia_clinica/dante-dmc.jpg',651429,'2020-08-31 21:05:56',NULL,0,1,NULL,99,'1'),(133,'DMC-Dante.jpg','DMC-Dante.jpg','src/assets/media/images/historia_clinica/DMC-Dante.jpg',14098,'2020-08-31 21:05:56',NULL,0,1,NULL,99,'1'),(134,'doom.jpg','doom.jpg','src/assets/media/images/historia_clinica/doom.jpg',134122,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(135,'dante-dmc.jpg','dante-dmc.jpg','src/assets/media/images/historia_clinica/dante-dmc.jpg',651429,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(136,'DMC-Dante.jpg','DMC-Dante.jpg','src/assets/media/images/historia_clinica/DMC-Dante.jpg',14098,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(137,'kaguya.jpg','kaguya.jpg','src/assets/media/images/historia_clinica/kaguya.jpg',78237,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'1'),(138,'Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','src/Documentos/Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf',11661100,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'3'),(139,'CodeIgniter_3_1_9_Manual_Esp.pdf','CodeIgniter_3_1_9_Manual_Esp.pdf','src/Documentos/CodeIgniter_3_1_9_Manual_Esp.pdf',2179090,'2020-08-31 21:08:50',NULL,0,1,NULL,100,'3'),(140,'Mayra.jpg','Mayra.jpg','src/assets/media/images/historia_clinica/Mayra.jpg',59538,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'1'),(141,'doom.jpg','doom.jpg','src/assets/media/images/historia_clinica/doom.jpg',134122,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'1'),(142,'Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf','src/Documentos/Redes CISCO. Curso práctico de formación para la certificación CCNA_compressed.pdf',11661100,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'3'),(143,'CodeIgniter_3_1_9_Manual_Esp.pdf','CodeIgniter_3_1_9_Manual_Esp.pdf','src/Documentos/CodeIgniter_3_1_9_Manual_Esp.pdf',2179090,'2020-08-31 21:15:08',NULL,0,1,NULL,101,'3'),(144,'9SrOBnw.png','9SrOBnw.png','src/assets/media/images/historia_clinica/9SrOBnw.png',167721,'2020-09-02 00:42:36',NULL,0,2,NULL,105,'2'),(145,'9572c2d9c03451ba772cc89cd974baa8 (1).png','9572c2d9c03451ba772cc89cd974baa8 (1).png','src/assets/media/images/historia_clinica/9572c2d9c03451ba772cc89cd974baa8 (1).png',98510,'2020-09-02 00:42:36',NULL,0,2,NULL,105,'2'),(146,'9572c2d9c03451ba772cc89cd974baa8.png','9572c2d9c03451ba772cc89cd974baa8.png','src/assets/media/images/historia_clinica/9572c2d9c03451ba772cc89cd974baa8.png',98510,'2020-09-02 00:42:36',NULL,0,2,NULL,105,'2'),(147,'9572c2d9c03451ba772cc89cd974baa8.png','9572c2d9c03451ba772cc89cd974baa8.png','src/assets/media/images/historia_clinica/9572c2d9c03451ba772cc89cd974baa8.png',98510,'2020-09-02 00:46:07',NULL,0,2,NULL,106,'2'),(148,'nanachi_15450.jpg','nanachi_15450.jpg','src/assets/media/images/historia_clinica/nanachi_15450.jpg',56428,'2020-09-02 00:46:07',NULL,0,2,NULL,106,'1'),(149,'nanachi_bunny_rawr_by_kiieatspocky-dbodvtg.png','nanachi_bunny_rawr_by_kiieatspocky-dbodvtg.png','src/assets/media/images/historia_clinica/nanachi_bunny_rawr_by_kiieatspocky-dbodvtg.png',396054,'2020-09-02 00:46:07',NULL,0,2,NULL,106,'2'),(150,'thumb-111565.jpg','thumb-111565.jpg','src/assets/media/images/historia_clinica/thumb-111565.jpg',35526,'2020-09-02 00:46:07',NULL,0,2,NULL,106,'1');
 /*!40000 ALTER TABLE `archivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `citas` (
   `Recordatorio_CORREO` int(11) DEFAULT NULL,
   `Atencion` int(11) DEFAULT '0',
   PRIMARY KEY (`Id_Citas`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-INSERT INTO `citas` VALUES (1,2,1,'2020-07-16 00:00:00','2020-07-18 00:30:00',50,0,1,1,0),(2,2,1,'2020-07-19 00:00:00','2020-07-19 14:15:00',60,1,1,2,1),(3,2,1,'2020-07-23 00:00:00','2020-07-28 17:50:00',50,1,1,1,1),(4,2,11,'2020-08-05 05:16:34','2020-08-13 20:30:00',50,0,0,0,0),(5,2,5,'2020-08-08 03:45:50','2020-08-09 01:20:00',50,0,0,0,0),(6,2,2,'2020-08-08 03:46:21','2020-08-09 15:10:00',50,0,0,0,0),(7,2,2,'2020-08-08 03:46:44','2020-08-05 15:10:00',50,0,0,0,0),(8,2,1,'2020-08-09 01:18:06','2020-08-08 17:12:00',50,0,0,0,0),(9,2,5,'2020-08-09 01:18:24','2020-08-09 09:08:00',50,0,0,0,0),(10,2,10,'2020-08-09 02:46:33','2020-08-09 11:26:00',50,0,0,0,0),(11,2,14,'2020-08-17 01:51:22','2020-08-17 17:12:00',50,0,0,0,0),(12,2,15,'2020-08-17 02:11:36','2020-08-18 01:20:00',50,0,0,0,0),(13,2,15,'2020-08-17 02:11:57','2020-08-17 08:03:00',50,0,0,0,0),(14,2,1,'2020-08-17 02:14:41','2020-08-18 02:21:00',50,0,0,0,0),(15,2,1,'2020-08-17 02:15:05','2020-08-18 03:22:00',50,0,0,0,0),(16,6,16,'2020-08-19 01:51:22','2020-08-20 19:30:00',50,0,0,0,0),(17,6,1,'2020-08-19 01:52:34','2020-08-19 02:00:00',50,0,0,0,0),(18,6,18,'2020-08-19 02:37:49','2020-08-19 03:00:00',50,0,0,0,0),(19,6,17,'2020-08-21 23:54:12','2020-08-21 23:00:00',50,0,0,0,0),(20,6,25,'2020-08-22 22:22:52','2020-08-23 20:30:00',50,0,0,0,0),(21,6,13,'2020-08-23 01:44:04','2020-08-23 01:00:00',50,0,0,0,0),(22,2,10,'2020-08-25 00:57:33','2020-08-25 19:30:00',50,0,0,0,0),(23,1,1,'2020-09-01 09:01:05','2020-09-01 17:12:00',50,0,0,0,0);
+INSERT INTO `citas` VALUES (1,2,1,'2020-07-16 00:00:00','2020-07-18 00:30:00',50,0,1,1,0),(2,2,1,'2020-07-19 00:00:00','2020-07-19 14:15:00',60,1,1,2,1),(3,2,1,'2020-07-23 00:00:00','2020-07-28 17:50:00',50,1,1,1,1),(4,2,11,'2020-08-05 05:16:34','2020-08-13 20:30:00',50,0,0,0,0),(5,2,5,'2020-08-08 03:45:50','2020-08-09 01:20:00',50,0,0,0,0),(6,2,2,'2020-08-08 03:46:21','2020-08-09 15:10:00',50,0,0,0,0),(7,2,2,'2020-08-08 03:46:44','2020-08-05 15:10:00',50,0,0,0,0),(8,2,1,'2020-08-09 01:18:06','2020-08-08 17:12:00',50,0,0,0,0),(9,2,5,'2020-08-09 01:18:24','2020-08-09 09:08:00',50,0,0,0,0),(10,2,10,'2020-08-09 02:46:33','2020-08-09 11:26:00',50,0,0,0,0),(11,2,14,'2020-08-17 01:51:22','2020-08-17 17:12:00',50,0,0,0,0),(12,2,15,'2020-08-17 02:11:36','2020-08-18 01:20:00',50,0,0,0,0),(13,2,15,'2020-08-17 02:11:57','2020-08-17 08:03:00',50,0,0,0,0),(14,2,1,'2020-08-17 02:14:41','2020-08-18 02:21:00',50,0,0,0,0),(15,2,1,'2020-08-17 02:15:05','2020-08-18 03:22:00',50,0,0,0,0),(16,6,16,'2020-08-19 01:51:22','2020-08-20 19:30:00',50,0,0,0,0),(17,6,1,'2020-08-19 01:52:34','2020-08-19 02:00:00',50,0,0,0,0),(18,6,18,'2020-08-19 02:37:49','2020-08-19 03:00:00',50,0,0,0,0),(19,6,17,'2020-08-21 23:54:12','2020-08-21 23:00:00',50,0,0,0,0),(20,6,25,'2020-08-22 22:22:52','2020-08-23 20:30:00',50,0,0,0,0),(21,6,13,'2020-08-23 01:44:04','2020-08-23 01:00:00',50,0,0,0,0),(22,2,10,'2020-08-25 00:57:33','2020-08-25 19:30:00',50,0,0,0,0),(23,1,1,'2020-09-01 09:01:05','2020-09-01 17:12:00',50,0,0,0,0),(24,2,1,'2020-09-02 05:42:55','2020-09-16 03:00:00',4000,0,0,0,0),(25,2,1,'2020-09-02 05:46:23','2020-09-02 11:00:00',4000,0,0,0,0),(26,2,1,'2020-09-02 06:39:49','2020-09-24 20:06:00',4000,0,0,0,0);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +234,7 @@ CREATE TABLE `detalle_cuestionario_paciente` (
   `Id_Paciente` int(11) NOT NULL,
   `Mostrar` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Id_Cuestionario_Paciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +243,7 @@ CREATE TABLE `detalle_cuestionario_paciente` (
 
 LOCK TABLES `detalle_cuestionario_paciente` WRITE;
 /*!40000 ALTER TABLE `detalle_cuestionario_paciente` DISABLE KEYS */;
-INSERT INTO `detalle_cuestionario_paciente` VALUES (133,97,'CLARO PRRO',1,1),(134,117,'ALBERTH TIENE XD',1,1),(137,95,'12345',1,1),(138,95,'si',28,1),(139,97,'no',28,1),(140,117,'si',28,1),(141,95,'clarp',5,1),(142,97,'no',5,1),(143,117,'si',5,1),(144,95,'si',12,1),(145,97,'no',12,1),(146,117,'si',12,1),(147,95,'si',14,1),(148,97,'np',14,1),(149,117,'si',14,1),(150,95,'si',11,1),(151,97,'nos',11,1),(152,117,'saasad',11,1),(153,116,'si',10,1);
+INSERT INTO `detalle_cuestionario_paciente` VALUES (133,97,'CLARO PRRO',1,1),(134,117,'ALBERTH TIENE XD',1,1),(137,95,'12345',1,1),(138,95,'si',28,1),(139,97,'no',28,1),(140,117,'si',28,1),(141,95,'clarp',5,1),(142,97,'no',5,1),(143,117,'si',5,1),(144,95,'si',12,1),(145,97,'no',12,1),(146,117,'si',12,1),(147,95,'si',14,1),(148,97,'np',14,1),(149,117,'si',14,1),(150,95,'si',11,1),(151,97,'nos',11,1),(152,117,'saasad',11,1),(153,116,'si',10,1),(154,116,'sfeef555ss',1,1),(155,116,'ñooo',5,1),(156,116,'siiii',11,1);
 /*!40000 ALTER TABLE `detalle_cuestionario_paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,7 +315,7 @@ CREATE TABLE `doctor` (
 
 LOCK TABLES `doctor` WRITE;
 /*!40000 ALTER TABLE `doctor` DISABLE KEYS */;
-INSERT INTO `doctor` VALUES (1,1,1,22,156,1415,'70143435','897846','ALBERTH RONALDO','FRISANCHO','PONCE','','M','','','4684654','','','alberth@gmail.com','','','','1999-10-10'),(2,3,1,22,157,1426,'75744654','198745','JHON','ALVARADO','ACHATA',NULL,'M','123546','65465465','654654','65465',NULL,'jhon_123_jw@outlook.com',NULL,NULL,NULL,'1996-01-27'),(9,2,1,22,156,1415,'00465365','084684','JHON','ALVARADO','ACHATA','Calle Violetas Mz. C Lote. 6','M',NULL,NULL,'+51910181425',NULL,NULL,'jhon_123_jw@hotmail.com',NULL,NULL,NULL,'2020-07-01'),(10,3,1,22,156,1415,'04848648','979977','ERICK','AYCAYA','ALANIA','La Catedral','M',NULL,NULL,'+51910181425',NULL,NULL,'jhon_123_jw@hotmail.com',NULL,NULL,NULL,'1700-06-05'),(11,3,1,22,156,1415,'65598486','646846','RUTH','RAMIREZ','REJAS','Abajo de la plaza zela','F',NULL,NULL,'+51914684233',NULL,NULL,'jhon_123_jw@hotmail.com',NULL,NULL,NULL,'2020-06-04'),(12,2,1,3,11,94,'98798798','879879','RONALDO','FRISANCHO','PONCE','av ','M',NULL,NULL,'959854747',NULL,NULL,'albeerthronaldo@hotmail.com',NULL,NULL,NULL,'1998-07-27'),(13,1,1,2,5,44,'70143455','456465','JOSE','LEONARDO','PEREZ','AV','M','','','9598746218','',NULL,'albeerthronaldo@hotmail.com',NULL,NULL,NULL,'1994-05-21');
+INSERT INTO `doctor` VALUES (1,1,1,22,156,1415,'70143435','897846','ALBERTH RONALDO','FRISANCHO','PONCE','','M','','','4684654','','','alberth@gmail.com','','','','1999-10-10'),(2,3,1,22,157,1426,'75744654','198745','JHON','ALVARADO','ACHATA',NULL,'M','123546','65465465','654654','65465',NULL,'jhon_123_jw@outlook.es',NULL,NULL,NULL,'1996-01-27'),(9,2,1,22,156,1415,'00465365','084684','JHON','ALVARADO','ACHATA','Calle Violetas Mz. C Lote. 6','M',NULL,NULL,'+51910181425',NULL,NULL,'jhon_123_jw@hotmail.com',NULL,NULL,NULL,'2020-07-01'),(10,3,1,22,156,1415,'04848648','979977','ERICK','AYCAYA','ALANIA','La Catedral','M',NULL,NULL,'+51910181425',NULL,NULL,'jhon_123_jw@hotmail.com',NULL,NULL,NULL,'1700-06-05'),(11,3,1,22,156,1415,'65598486','646846','RUTH','RAMIREZ','REJAS','Abajo de la plaza zela','F',NULL,NULL,'+51914684233',NULL,NULL,'jhon_123_jw@hotmail.com',NULL,NULL,NULL,'2020-06-04'),(12,2,1,3,11,94,'98798798','879879','RONALDO','FRISANCHO','PONCE','av ','M',NULL,NULL,'959854747',NULL,NULL,'albeerthronaldo@hotmail.com',NULL,NULL,NULL,'1998-07-27'),(13,1,1,2,5,44,'70143455','456465','JOSE','LEONARDO','PEREZ','AV','M','','','9598746218','',NULL,'albeerthronaldo@hotmail.com',NULL,NULL,NULL,'1994-05-21');
 /*!40000 ALTER TABLE `doctor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -390,7 +390,7 @@ CREATE TABLE `historia_clinica` (
   `Diagnostico` text NOT NULL,
   `Tratamiento` text NOT NULL,
   PRIMARY KEY (`Id_historia_clinica`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -399,7 +399,7 @@ CREATE TABLE `historia_clinica` (
 
 LOCK TABLES `historia_clinica` WRITE;
 /*!40000 ALTER TABLE `historia_clinica` DISABLE KEYS */;
-INSERT INTO `historia_clinica` VALUES (80,1,1,NULL,'2020-08-26 10:51:35','te: asda','resultado asd','1\r\n2 asd\r\n3\r\n','diag asd',' sad'),(81,1,1,NULL,'2020-08-26 10:57:12','te:','resultado','1\r\n2\r\n3\r\n','diag','DASDASD'),(82,1,1,NULL,'2020-08-26 11:00:21','te:','resultado','1\r\n2\r\n3\r\n','diag','DASDADW'),(83,1,1,NULL,'2020-08-26 11:08:32','te:','resultado','1\r\n2\r\n3\r\n','diag','FDSFSDF'),(84,1,1,NULL,'2020-08-26 11:12:18','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasdasd'),(85,1,1,NULL,'2020-08-26 11:18:05','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasdsad'),(86,10,2,NULL,'2020-08-26 13:21:59','kasdhkjahasd\r\nalsjdalk','saluuuted','alsjdlkasjdlkd\r\nslkjdlaksdj','d','654654654asdasd'),(87,10,2,NULL,'2020-08-26 13:23:45','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','das','asd'),(88,1,2,NULL,'2020-08-26 13:35:25','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','asdasd','654654654'),(89,1,2,NULL,'2020-08-26 13:39:59','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','asd','654654654asdasd'),(90,1,1,NULL,'2020-08-26 19:09:44','te:','resultado','1\r\n2\r\n3\r\n','diag','awdawdawd'),(91,1,1,NULL,'2020-08-28 19:57:46','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasda'),(92,1,1,NULL,'2020-08-31 18:10:26','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasd'),(93,1,1,NULL,'2020-08-31 18:24:02','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasd'),(94,1,1,NULL,'2020-08-31 20:36:54','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasdasd'),(95,1,1,NULL,'2020-08-31 20:38:35','te:','resultado','1\r\n2\r\n3\r\n','diag','sadsad'),(96,1,1,NULL,'2020-08-31 20:46:21','te:','resultado','1\r\n2\r\n3\r\n','diag','alskdjla'),(97,28,1,NULL,'2020-08-31 20:49:06','te:','resultado','1\r\n2\r\n3\r\n','diag','asdkjalsjlkajdslk'),(98,14,1,NULL,'2020-08-31 20:58:20','te:','resultado','1\r\n2\r\n3\r\n','diag','alskdjlkj'),(99,12,1,NULL,'2020-08-31 21:05:56','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasd'),(100,14,1,NULL,'2020-08-31 21:08:50','te:','resultado','1\r\n2\r\n3\r\n','diag','iuhiuhiuh'),(101,11,1,NULL,'2020-08-31 21:15:08','te:','resultado','1\r\n2\r\n3\r\n','diag','lasjdlkasjdlkj'),(102,1,1,NULL,'2020-08-31 21:16:56','te:','resultado','1\r\n2\r\n3\r\n','diag','asjdkajsd'),(103,1,1,NULL,'2020-08-31 21:18:25','te:','resultado','1\r\n2\r\n3\r\n','diag','laksjdlkasd'),(104,10,2,22,'2020-08-31 21:23:31','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','asldajsldk','654654654');
+INSERT INTO `historia_clinica` VALUES (80,1,1,NULL,'2020-08-26 10:51:35','te: asda','resultado asd','1\r\n2 asd\r\n3\r\n','diag asd',' sad'),(81,1,1,NULL,'2020-08-26 10:57:12','te:','resultado','1\r\n2\r\n3\r\n','diag','DASDASD'),(82,1,1,NULL,'2020-08-26 11:00:21','te:','resultado','1\r\n2\r\n3\r\n','diag','DASDADW'),(83,1,1,NULL,'2020-08-26 11:08:32','te:','resultado','1\r\n2\r\n3\r\n','diag','FDSFSDF'),(84,1,1,NULL,'2020-08-26 11:12:18','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasdasd'),(85,1,1,NULL,'2020-08-26 11:18:05','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasdsad'),(86,10,2,NULL,'2020-08-26 13:21:59','kasdhkjahasd\r\nalsjdalk','saluuuted','alsjdlkasjdlkd\r\nslkjdlaksdj','d','654654654asdasd'),(87,10,2,NULL,'2020-08-26 13:23:45','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','das','asd'),(88,1,2,NULL,'2020-08-26 13:35:25','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','asdasd','654654654'),(89,1,2,NULL,'2020-08-26 13:39:59','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','asd','654654654asdasd'),(90,1,1,NULL,'2020-08-26 19:09:44','te:','resultado','1\r\n2\r\n3\r\n','diag','awdawdawd'),(91,1,1,NULL,'2020-08-28 19:57:46','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasda'),(92,1,1,NULL,'2020-08-31 18:10:26','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasd'),(93,1,1,NULL,'2020-08-31 18:24:02','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasd'),(94,1,1,NULL,'2020-08-31 20:36:54','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasdasd'),(95,1,1,NULL,'2020-08-31 20:38:35','te:','resultado','1\r\n2\r\n3\r\n','diag','sadsad'),(96,1,1,NULL,'2020-08-31 20:46:21','te:','resultado','1\r\n2\r\n3\r\n','diag','alskdjla'),(97,28,1,NULL,'2020-08-31 20:49:06','te:','resultado','1\r\n2\r\n3\r\n','diag','asdkjalsjlkajdslk'),(98,14,1,NULL,'2020-08-31 20:58:20','te:','resultado','1\r\n2\r\n3\r\n','diag','alskdjlkj'),(99,12,1,NULL,'2020-08-31 21:05:56','te:','resultado','1\r\n2\r\n3\r\n','diag','asdasd'),(100,14,1,NULL,'2020-08-31 21:08:50','te:','resultado','1\r\n2\r\n3\r\n','diag','iuhiuhiuh'),(101,11,1,NULL,'2020-08-31 21:15:08','te:','resultado','1\r\n2\r\n3\r\n','diag','lasjdlkasjdlkj'),(102,1,1,NULL,'2020-08-31 21:16:56','te:','resultado','1\r\n2\r\n3\r\n','diag','asjdkajsd'),(103,1,1,NULL,'2020-08-31 21:18:25','te:','resultado','1\r\n2\r\n3\r\n','diag','laksjdlkasd'),(104,10,2,22,'2020-08-31 21:23:31','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','asldajsldk','654654654'),(105,1,2,NULL,'2020-09-02 00:42:36','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','sdadsa','654654654'),(106,1,2,NULL,'2020-09-02 00:46:07','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','kpkpp','654654654'),(107,1,2,NULL,'2020-09-02 01:39:29','kasdhkjah\r\nalsjdalk','saluuute','alsjdlkasjdlk\r\nslkjdlaksdj','gtgtgt','654654654');
 /*!40000 ALTER TABLE `historia_clinica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -663,7 +663,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,1,'alberth','123456',NULL,NULL,NULL,1,'2020-06-28 00:00:00.000',4500.00,NULL,NULL,'2020-08-05',NULL,NULL,NULL,NULL,NULL,NULL,0,'src/assets/media/images/profile/avatar1.png'),(2,2,'jhon','123456',NULL,NULL,NULL,1,'2020-06-28 00:00:00.000',4000.00,NULL,NULL,'2020-04-15',NULL,NULL,80,4500.00,NULL,NULL,0,'src/assets/media/images/profile/0724200634261595565266.8879.jpeg'),(3,9,'jhonxdas123','4eM9Jqb3yBVXD7D','Centro de tacna',NULL,NULL,1,'2020-07-05 00:00:00.000',150.60,'2020-07-05','2020-07-05 19:12:17.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'src/assets/media/images/profile/avatar1.png'),(4,10,'ericksolitario','B4NHL32da7v8zSa','Fuera de la catedral',NULL,NULL,1,'2020-07-05 00:00:00.000',50.00,'2020-07-05','2020-07-05 19:18:14.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'src/assets/media/images/profile/avatar1.png'),(5,11,'ruthlapanda','g78WWQhKrihsPjJ','en la plaza zela',NULL,NULL,1,'2020-07-05 00:00:00.000',150.00,'2020-07-05','2020-07-05 19:32:23.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'src/assets/media/images/profile/avatar1.png'),(6,12,'ronaldo456','MFzc6Km7c5sC6y4','av',NULL,NULL,1,'2020-08-18 00:00:00.000',80.00,'2020-08-18','2020-08-18 21:42:00.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'src/assets/media/images/profile/avatar1.png'),(7,13,'RONALDIÑO123','wU5Zpgv9QSRzpAE','AV',NULL,NULL,1,'2020-08-19 00:00:00.000',100.00,'2020-08-19','2020-08-19 23:15:07.000','1998-01-15',NULL,NULL,NULL,NULL,NULL,NULL,0,'src/assets/media/images/profile/0819201115531597893353.4744.png');
+INSERT INTO `usuario` VALUES (1,1,'alberth','123456',NULL,NULL,NULL,1,'2020-06-28 00:00:00.000',4500.00,NULL,NULL,'2020-08-05',NULL,NULL,NULL,NULL,NULL,NULL,0,'src/assets/media/images/profile/avatar1.png'),(2,2,'jhon','123456','Violetas, Calle Violetas Mz. C',NULL,NULL,1,'2020-06-28 00:00:00.000',4000.00,NULL,NULL,'2020-04-15',NULL,NULL,80,4500.00,NULL,NULL,0,'src/assets/media/images/profile/20020905150546948615990417055139.png'),(3,9,'jhonxdas123','4eM9Jqb3yBVXD7D','Centro de tacna',NULL,NULL,1,'2020-07-05 00:00:00.000',150.60,'2020-07-05','2020-07-05 19:12:17.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'src/assets/media/images/profile/avatar1.png'),(4,10,'ericksolitario','B4NHL32da7v8zSa','Fuera de la catedral',NULL,NULL,1,'2020-07-05 00:00:00.000',50.00,'2020-07-05','2020-07-05 19:18:14.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'src/assets/media/images/profile/avatar1.png'),(5,11,'ruthlapanda','g78WWQhKrihsPjJ','en la plaza zela',NULL,NULL,1,'2020-07-05 00:00:00.000',150.00,'2020-07-05','2020-07-05 19:32:23.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'src/assets/media/images/profile/avatar1.png'),(6,12,'ronaldo456','MFzc6Km7c5sC6y4','av',NULL,NULL,1,'2020-08-18 00:00:00.000',80.00,'2020-08-18','2020-08-18 21:42:00.000',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'src/assets/media/images/profile/avatar1.png'),(7,13,'RONALDIÑO123','wU5Zpgv9QSRzpAE','AV',NULL,NULL,1,'2020-08-19 00:00:00.000',100.00,'2020-08-19','2020-08-19 23:15:07.000','1998-01-15',NULL,NULL,NULL,NULL,NULL,NULL,0,'src/assets/media/images/profile/0819201115531597893353.4744.png');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1049,6 +1049,127 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `actualizar_perfil_cuenta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_perfil_cuenta`(
+
+	IN email varchar(200),  
+    IN link_image varchar(250), 
+    IN username varchar(60), 
+	IN isnotimage varchar(1) 
+
+)
+BEGIN 
+	
+	select @iduser := Id_Usuario from usuario where Nombre = username; 
+    select @iddoctor := Id_Doctor from usuario where Nombre = username; 
+    
+	if(isnotimage = '1') 
+    then 
+    
+		UPDATE `doctor` 
+		SET 
+		`email01` = email 
+		WHERE `Id_Doctor` = @iddoctor; 
+        
+	else 
+    
+		UPDATE `usuario` 
+		SET 
+		`imagen` = link_image  
+		WHERE `Id_Usuario` = @iduser;  
+        
+        UPDATE `doctor` 
+		SET 
+		`email01` = email 
+		WHERE `Id_Doctor` = @iddoctor; 
+
+	end if; 
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `actualizar_perfil_personal` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_perfil_personal`(
+
+	IN celphone1 varchar(20),  
+    IN celphone2 varchar(20), 
+    IN telefono1 varchar(20), 
+    IN telefono2 varchar(20), 
+    IN domicilio varchar(200), 
+    IN username varchar(60)
+
+)
+BEGIN
+	
+	select @iddortor := Id_Doctor from usuario where Nombre = username;
+    
+    UPDATE `doctor` 
+	SET 
+	`Direccion` = domicilio, 
+	`Telefono_Fijo01` = telefono1, 
+	`Telefono_Fijo02` = telefono2, 
+	`Celular01` = celphone1, 
+	`Celular02` = celphone2 
+	WHERE `Id_Doctor` = @iddortor; 
+	
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `actualizar_perfil_ubicacion` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_perfil_ubicacion`(
+
+	IN address varchar(200),  
+    IN username varchar(60) 
+
+)
+BEGIN 
+	
+	select @iduser := Id_Usuario from usuario where Nombre = username; 
+    
+	UPDATE `usuario` 
+	SET 
+	`Direccion` = address  
+	WHERE `Id_Usuario` = @iduser;  
+	
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getQuestionnaire` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1072,17 +1193,20 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_cita`(IN `usersearch` INT, IN `datecita` DATE, IN `timecita` VARCHAR(10), IN `username` VARCHAR(60))
 BEGIN
 	
+	SET time_zone = 'America/Lima';
+    
     SELECT @idusuario := Id_Usuario FROM usuario WHERE Nombre = username; 
     SELECT @fecha_cita := concat(datecita, ' ', timecita);
+    select @precio := Monto_Pago from usuario where Nombre = username;
 
 	INSERT INTO `citas`
 	(`Id_Usuario`,
@@ -1099,7 +1223,7 @@ BEGIN
 	usersearch,
 	NOW(),
 	@fecha_cita,
-	50, /* En observación */
+	@precio, 
 	0,
 	0,
 	0,
@@ -1239,14 +1363,16 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_registro`(IN `especialidad` INT, IN `pais` INT, IN `departamento` INT, IN `provincia` INT, IN `distrito` INT, IN `cmp` VARCHAR(10), IN `dni` VARCHAR(10), IN `nombre` VARCHAR(80), IN `apellidop` VARCHAR(50), IN `apellidom` VARCHAR(50), IN `address1` VARCHAR(200), IN `gen` VARCHAR(1), IN `cellphone` VARCHAR(20), IN `fn` DATE, IN `price` DECIMAL(18,2), IN `username` VARCHAR(300), IN `new_password` VARCHAR(50), IN `dconsulta` VARCHAR(200), IN `email` VARCHAR(200), IN `isactive` TINYINT, IN `fecha_activacion` DATE, IN `usersearch` INT)
 BEGIN
+
+	SET time_zone = 'America/Lima';
 	
 	INSERT INTO `doctor`
 	(`Id_Especialidad`, `Id_Pais`, `Id_Departamento`, `Id_Provincia`, `Id_Distrito`,
@@ -1555,12 +1681,12 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_detalle_historia` AS select `hc`.`Id_historia_clinica` AS `id`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombres`,`pa`.`Documento` AS `dni`,`pa`.`Genero` AS `genero`,`pa`.`Celular` AS `celular`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `procedencia`,`pa`.`Fecha_Nacimiento` AS `edad`,date_format(`hc`.`Fecha`,'%d/%m/%Y %h:%i:%s') AS `fecha_historia`,`hc`.`Diagnostico` AS `diag`,`hc`.`Examen_Fisico` AS `ex_fi`,`hc`.`Anamnesis` AS `anam`,`hc`.`Examenes` AS `exam`,date_format(`ci`.`Fecha_Creacion`,'%d/%m/%Y %h:%i:%s') AS `fcreacion`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fcita`,`ci`.`Estado` AS `estado`,`ci`.`Atencion` AS `atencion`,`ci`.`Precio` AS `precio`,`us`.`Nombre` AS `username` from (((`historia_clinica` `hc` join `paciente` `pa` on((`pa`.`Id_Paciente` = `hc`.`Id_Paciente`))) left join `citas` `ci` on((`ci`.`Id_Citas` = `hc`.`Id_Cita`))) join `usuario` `us` on((`us`.`Id_Usuario` = `hc`.`Id_Usuario`))) */;
+/*!50001 VIEW `v_detalle_historia` AS select `hc`.`Id_historia_clinica` AS `id`,concat(`pa`.`Nombre`,' ',`pa`.`Apellido_Paterno`,' ',`pa`.`Apellido_Materno`) AS `nombres`,`pa`.`Documento` AS `dni`,`pa`.`Genero` AS `genero`,`pa`.`Celular` AS `celular`,date_format(`pa`.`Fecha_Nacimiento`,'%d/%m/%Y') AS `fn`,`pa`.`Email` AS `email`,`pa`.`Procedencia` AS `procedencia`,`pa`.`Fecha_Nacimiento` AS `edad`,date_format(`hc`.`Fecha`,'%d/%m/%Y %h:%i:%s') AS `fecha_historia`,`hc`.`Diagnostico` AS `diag`,`hc`.`Examen_Fisico` AS `ex_fi`,`hc`.`Anamnesis` AS `anam`,`hc`.`Examenes` AS `exam`,date_format(`ci`.`Fecha_Creacion`,'%d/%m/%Y %h:%i:%s') AS `fcreacion`,date_format(`ci`.`Fecha_Cita`,'%d/%m/%Y %h:%i %p') AS `fcita`,`ci`.`Estado` AS `estado`,`ci`.`Atencion` AS `atencion`,`us`.`Monto_Pago` AS `precio`,`us`.`Nombre` AS `username` from (((`historia_clinica` `hc` join `paciente` `pa` on((`pa`.`Id_Paciente` = `hc`.`Id_Paciente`))) left join `citas` `ci` on((`ci`.`Id_Citas` = `hc`.`Id_Cita`))) join `usuario` `us` on((`us`.`Id_Usuario` = `hc`.`Id_Usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1736,4 +1862,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-01  4:02:07
+-- Dump completed on 2020-09-02  5:52:48
