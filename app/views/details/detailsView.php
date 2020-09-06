@@ -455,9 +455,9 @@ $count_doc = $datos['count_doc'];
                                                         $list_images = $this->Get_Files($id, 1);
                                                         while($list=$list_images->fetch()){
                                                             list($width, $height) = getimagesize(ROOT . FOLDER_PATH . '/' . $list["link"]);
-                                                            if ($width > 2000000) {
-                                                                $newwidth = $width * 2;
-                                                                $newheight = $height * 2;
+                                                            if ($width > 2000) {
+                                                                $newwidth = $width * 1.5;
+                                                                $newheight = $height * 1.5;
                                                             } else {
                                                                 $newwidth = $width * 3;
                                                                 $newheight = $height * 3;
