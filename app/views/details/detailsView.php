@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('UTC');
+
 $datos = $data['datos_details']->fetch();
 
 /* Dato historia */
@@ -50,18 +52,22 @@ $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[2], $birthDate[1], $birt
 
 /* Datos Consulta */
 $fecha_historia = $datos['fecha_historia'];
+$precio = $datos['precio'];
 $diagnostico = $datos['diag'];
 $examen_fisico = $datos['ex_fi'];
 $anamnesis = $datos['anam'];
 $axamenes = $datos['exam'];
+$tratamiento = $datos['tratamiento'];
 
 /* fecha cita */
 $fcreacion = $datos['fcreacion'];
 $Fechacita = $datos['fcita'];
-$precio = $datos['precio'];
 $atencion = $datos['atencion'];
 
-
+/* Files */
+$count_image = $datos['count_image'];
+$count_pdf = $datos['count_pdf'];
+$count_doc = $datos['count_doc']; 
 
 ?>
 
@@ -83,6 +89,7 @@ $atencion = $datos['atencion'];
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
+
     <!-- HEADER -->
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
 
@@ -93,7 +100,6 @@ $atencion = $datos['atencion'];
     <link href="<?= FOLDER_PATH ?>/src/css/default-skin.css" rel="stylesheet" />
 
 
-    <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/photoswipe.min.js"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/photoswipe-ui-default.min.js"></script>
 
@@ -125,10 +131,10 @@ $atencion = $datos['atencion'];
             transform: none !important;
         } */
         /* #gallery_viewer {
-            display: grid;
-            height: calc(100vh - 450px);
-            grid-template: repeat(2, 1fr) / repeat(4, 1fr);
-            grid-gap: 0.5em;
+            display: grid !important;
+            height: auto !important;
+            grid-template: repeat(2, 1fr) / repeat(4, 1fr) !important;
+            grid-gap: 0.5em !important;
         } */
     </style>
 
@@ -234,7 +240,11 @@ $atencion = $datos['atencion'];
 
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Datos de la consulta</h5><span>Fecha consulta: <?= $fecha_historia ?></span>
+                                    <h5 class="card-title">Datos de la consulta</h5>
+                                    <div style="display: flex;">
+                                        <span>Fecha consulta: <?= $fecha_historia ?></span>
+                                        <span style="margin-left: auto;">Precio: S/. <?= $precio ?></span>
+                                    </div>
                                     <div class="form-row">
                                         <div class="col-md-12">
                                             <div class="position-relative form-group">
@@ -267,6 +277,14 @@ $atencion = $datos['atencion'];
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group">
+                                                <label class="">Tratamiento</label>
+                                                <textarea class="form-control" rows="3" style="overflow-y: scroll;" readonly><?= $tratamiento ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -283,8 +301,8 @@ $atencion = $datos['atencion'];
                                         </div>
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label class="">Precio</label>
-                                                <input type="text" class="form-control" value="<?= $precio ?>" readonly>
+                                                <label class="">Fecha cita creada</label>
+                                                <input type="text" class="form-control" value="<?= $fcreacion ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -295,57 +313,169 @@ $atencion = $datos['atencion'];
                                                 <input type="text" class="form-control" value="<?= $atencion ?>" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group">
-                                                <label class="">Fecha cita creada</label>
-                                                <input type="text" class="form-control" value="<?= $fcreacion ?>" readonly>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
 
+
+
+
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
                                     <h5 class="card-title">Archivos [Imagen, Word y PDF]</h5>
-                                    <?php 
-                                        $archives = $this->getArchives($id);
+                                    <h5 class="card-subtitle">Imágenes</h5>
+                                    <div class="row" style="margin-bottom: 20px;">
+                                        <?php
+                                        if ($count_image == 0) {
+                                            echo '<style>
+                                                #demo-test-gallery {
+                                                    display: grid;
+                                                    height: auto;
+                                                    grid-template: repeat(1, 1fr) / repeat(1, 1fr);
+                                                    grid-gap: 0.5em;
+                                                }
 
-                                        echo "<h5 class='card-subtitle'>Imagenes</h5>";
-                                        echo    "<div class='demo-gallery' data-pswp-uid='1' style='margin-left: 15px;margin-right: 15px;'>";
-                                        echo        "<div class='row' style='margin-bottom: 20px;'>";
-                                        foreach ($archives as $images) {
-                                            if($images['Id_Tipo_Archivo'] === '1' || $images['Id_Tipo_Archivo'] === '2'){
-                                                echo "<div class='col-lg-4 col-md-6 col-sm-12' style='margin-bottom:15px'>";
-                                                echo   "<a href='".FOLDER_PATH."/".$images['Enlace']."' data-size='3000x1718' data-med='".FOLDER_PATH."/".$images['Enlace']."' data-med-size='524x524' data-author='Folkert Gorter' class='demo-gallery__img--main' style='margin-right:10px'>";
-                                                echo       "<img src='".FOLDER_PATH."/".$images['Enlace']."' alt='' style='width: 100%; height: 100%' />";
-                                                echo   "</a>";
-                                                echo "</div>";
-                                            }
+                                                #demo-test-gallery>a:nth-child(1) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+                                            </style>';
                                         }
-                                        echo    "</div>";
-                                        echo "</div>";
-                                        echo "<h5 class='card-subtitle'>Documentos PDF</h5>";
-                                        echo "<div class='form-row'>";
-                                        foreach ($archives as $images) {
-                                            if($images['Id_Tipo_Archivo'] === '3'){
-                                                echo    "<a href='".FOLDER_PATH."/".$images['Enlace']."' style='text-decoration: underline; color: #333333; font-weight: normal;'>Descargar plantilla de envío (Formato en pdf)."; 
-                                                echo        "<i class='fa fa-file-pdf' aria-hidden='true' style='margin-left:10px;font-size: 25px; color: rgb(255, 38, 38);'></i>";
-                                                echo    "</a>";
+                                        if ($count_image > 0 && $count_image <= 4) {
+                                            echo '<style>
+                                                #demo-test-gallery {
+                                                    display: grid;
+                                                    height: auto;
+                                                    grid-template: auto / repeat(2, 1fr);
+                                                    grid-gap: 0.5em;
+                                                }
+
+                                                #demo-test-gallery>a:nth-child(1) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+
+                                                #demo-test-gallery>a:nth-child(2) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+
+                                                #demo-test-gallery>a:nth-child(3) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+
+                                                #demo-test-gallery>a:nth-child(4) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+
+                                                @media (max-width: 800px) {
+                                                    #demo-test-gallery {
+                                                        grid-template-columns: repeat(1, 1fr);
+                                                        grid-template-rows: auto;
+                                                    }
+                                                }
+                                            </style>';
+                                        } 
+                                        if ($count_image > 4) {
+                                            echo '<style>
+                                            #demo-test-gallery {
+                                                display: grid;
+                                                height: auto;
+                                                grid-template-columns: repeat(6, 1fr);
+                                                grid-template-rows: auto;
+                                                grid-gap: 0.5em;
                                             }
-                                        }
-                                        echo "</div>";      
-                                        echo "<h5 class='card-subtitle'>Documentos Word</h5>";
-                                        echo "<div class='form-row' style='margin-bottom: 20px;'>";
-                                        foreach ($archives as $images) {
-                                            if($images['Id_Tipo_Archivo'] === '4'){
-                                                echo    "<a href='".FOLDER_PATH."/".$images['Enlace']."' style='text-decoration: underline; color: #333333; font-weight: normal;'>Descargar plantilla de envío (Formato en word)."; 
-                                                echo        "<i class='far fa-file-word' aria-hidden='true' style='margin-left:10px;font-size: 25px; color: #777777;'></i>";
-                                                echo    "</a>";
+                                            
+                                            #demo-test-gallery>a:nth-child(7n + 1) {
+                                                grid-column: span 2;
+                                                grid-row: span 2;
                                             }
+                                            
+                                            #demo-test-gallery>a:nth-child(2) {
+                                                grid-column: span 3;
+                                                grid-row: span 3;
+                                            }
+                                            
+                                            #demo-test-gallery>a:nth-child(4) {
+                                                grid-column: span 1;
+                                                grid-row: span 1;
+                                            }
+                                            
+                                            #demo-test-gallery>a:hover {
+                                                opacity: 1;
+                                            }
+                                            
+                                            #demo-test-gallery>a {
+                                                overflow: hidden;
+                                                position: relative;
+                                            }
+                                            
+                                            #demo-test-gallery a {
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                                text-decoration: none;
+                                            }
+
+                                            @media (max-width: 800px) {
+                                                #demo-test-gallery {
+                                                    grid-template-columns: repeat(1, 1fr);
+                                                }
+                                                #demo-test-gallery>a:nth-child(7n + 1) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+                                                
+                                                #demo-test-gallery>a:nth-child(2) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+                                                
+                                                #demo-test-gallery>a:nth-child(4) {
+                                                    grid-column: span 1;
+                                                    grid-row: span 1;
+                                                }
+                                            }
+                                            
+                                            @media (max-width: 800px) and (max-width: 350px) {
+                                                #demo-test-gallery>a {
+                                                    width: 98%;
+                                                }
+                                            }
+                                            </style>';
                                         }
-                                        echo "</div>";
-                                    ?>
+                                        ?>
+                                            <div id="demo-test-gallery" class="demo-gallery" style="margin-left: 15px;margin-right: 15px;<?php if($count_image == 0) {echo'width: 100%;';} ?>">
+                                                <?php 
+                                                    if ($count_image == 0) {
+                                                        echo '<span style="display: flex;border: 1px dashed #7a8295;color: #7a8295;height: 35px;justify-content: center;align-items: center;">No se encontraron imagenes</span>';
+                                                    } else {
+                                                        $list_images = $this->Get_Files($id, 1);
+                                                        while($list=$list_images->fetch()){
+                                                            list($width, $height) = getimagesize(ROOT . FOLDER_PATH . '/' . $list["link"]);
+                                                            if ($width > 2000000) {
+                                                                $newwidth = $width * 2;
+                                                                $newheight = $height * 2;
+                                                            } else {
+                                                                $newwidth = $width * 3;
+                                                                $newheight = $height * 3;
+                                                            }
+                                                            
+                                                            echo '
+                                                                <a href="' . FOLDER_PATH . '/' . $list["link"] . '" data-size="' . $newwidth . 'x' . $newheight . '" data-med="' . FOLDER_PATH . '/' . $list["link"] . '" data-med-size="' . $width . 'x' . $height . '" class="demo-gallery__img--main">
+                                                                    <img src="' . FOLDER_PATH . '/' . $list["link"] . '" alt="" style="" />
+                                                                    <figure style="display: none;">Nombre del archivo: ' . $list["name_archivo"] . ' | Dimensiones: ' . $width . ' x ' . $height . ' | Tipo: ' . $list["tipo_archivo"] . ' | Tamaño: ' . number_format(($list["ar_size"]/1000), 1) . ' KB</figure>
+                                                                </a>
+                                                            ';
+                                                        }
+                                                    }
+                                                ?>
+                                                
+
+                                            </div>
+
                                         <!-- <div class="style-select">
                                             <p style="margin:24px 0 12px;color:#444;">Demo gallery style</p>
 
@@ -368,8 +498,58 @@ $atencion = $datos['atencion'];
                                             </div>
 
                                         </div> -->
+
+
+
+                                    </div>
+
+
+                                    <h5 class="card-subtitle">Documentos Word</h5>
+                                    <?php 
+                                        if ($count_doc == 0) {
+                                            echo '<span style="display: flex;border: 1px dashed #7a8295;color: #7a8295;height: 35px;justify-content: center;align-items: center;">No se encontraron documentos Word</span>';
+                                        } else {
+                                            echo '<div style="border-top: 1px solid #7a8295;"></div>';
+                                            $list_doc = $this->Get_Files($id, 4);
+                                            while($list=$list_doc->fetch()){
+                                                echo '
+                                                    <div style="display: flex;border-bottom: 1px solid #7a8295;">
+                                                        <span title="Tipo: ' . $list["tipo_archivo"] . ' | Tamaño: ' . number_format(($list["ar_size"]/1000), 1) . ' KB">' . $list["name_archivo"] . '</span>
+                                                        <a href="' . FOLDER_PATH . '/' . $list["link"] . '" style="color: #000973; font-weight: bold; margin-left: auto;" download="' . $list["name_archivo"] . '">
+                                                            Descargar <i class="fa fa-fw" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                ';
+                                            }
+                                        }
+                                    ?>
+
+                                    <br>
+
+                                    <h5 class="card-subtitle">Documentos PDF</h5>
+                                    <?php 
+                                        if ($count_pdf == 0) {
+                                            echo '<span style="display: flex;border: 1px dashed #7a8295;color: #7a8295;height: 35px;justify-content: center;align-items: center;">No se encontraron documentos PDF</span>';
+                                        } else {
+                                            echo '<div style="border-top: 1px solid #7a8295;"></div>';
+                                            $list_pdf = $this->Get_Files($id, 3);
+                                            while($list=$list_pdf->fetch()){
+                                                echo '
+                                                    <div style="display: flex;border-bottom: 1px solid #7a8295;">
+                                                        <span title="Tipo: ' . $list["tipo_archivo"] . ' | Tamaño: ' . number_format(($list["ar_size"]/1000), 1) . ' KB">' . $list["name_archivo"] . '</span>
+                                                        <a href="' . FOLDER_PATH . '/' . $list["link"] . '" style="color: #730000; font-weight: bold; margin-left: auto;" download="' . $list["name_archivo"] . '">
+                                                            Descargar <i class="fa fa-fw" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                ';
+                                            }
+                                        }
+                                    ?>
+
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -558,6 +738,7 @@ $atencion = $datos['atencion'];
 
         </div>
 
+
     </div>
 
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
@@ -566,56 +747,19 @@ $atencion = $datos['atencion'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.all.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
     <script src="<?= FOLDER_PATH ?>/src/js/cuestionario.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 
     <script>
         $(':input[readonly]').css({
             'background-color': '#fff'
         });
-    </script>
-    <script>
         $(window).on("load",function(){
-            GetFiles(<?= $id ?>);
-        });
-    </script>
-
-    <script>
-        function GetFiles(e) {
-            var data = new FormData();
-            data.append("meta_data", e);
-            $.ajax({
-                beforeSend: function() {
-                    /* $("#data-details").css("display", "none");
-                    $("#data-loading").css("display", "block"); */
-                    /* $("#data-details").html(''); */
-                },
-                url: "<?= FOLDER_PATH ?>/details/get_files",
-                type: "POST",
-                data: data,
-                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-                processData: false, // NEEDED, DON'T OMIT THIS
-                success: function(resp) {
-                    /* var obj_details = JSON.parse(resp);
-                    obj_details = obj_details[0]; */
-
-                    /* $("#det_gen").html(genero);
-                    $("#det_edad").html(calcularEdad(obj_details[6]));
-                    $("#det_fn").html(obj_details[12]);
-                    $("#det_cel").html(obj_details[5]);
-                    $("#det_email").html((obj_details[11]!='') ? obj_details[11] : "No definido");
-                    $("#det_fc").html(obj_details[8]);
-                    $("#det_est").html(estado);
-                    $("#det_cost").html("S/. " + obj_details[9]);
-
-                    $("#data-loading").css("display", "none");
-                    $("#data-details").css("display", "block"); */
-                    
-                    /* $("#data-details").html(resp); */
-                }
+            $('.demo-gallery__img--main').find('img').each(function(){
+                var imgClass = (this.width/this.height > 1) ? 'wide' : 'tall';
+                $(this).addClass(imgClass);
             })
-        }
+        })
     </script>
-
+    
     <script type="text/javascript">
         (function() {
 
@@ -779,17 +923,7 @@ $atencion = $datos['atencion'];
                                 y: rect.top + pageYScroll,
                                 w: rect.width
                             };
-                        },
-
-                        addCaptionHTMLFn: function(item, captionEl, isFake) {
-                            if (!item.title) {
-                                captionEl.children[0].innerText = '';
-                                return false;
-                            }
-                            captionEl.children[0].innerHTML = item.title + '<br/><small>Photo: ' + item
-                                .author + '</small>';
-                            return true;
-                        },
+                        }
 
                     };
 

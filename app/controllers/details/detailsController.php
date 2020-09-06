@@ -6,6 +6,7 @@ require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 class details extends Controller
 {
     protected $session;
+
     public function __construct()
     {
         $this->session = new Session;
@@ -38,23 +39,10 @@ class details extends Controller
         ]);
     }
 
-    public function get_files()
+    public function Get_Files($historyId, $type)
     {
-        $cod = $_POST['meta_data'];
         
-        /* $history = utf8_decode(base64_decode($history));
-        $history = str_replace('show-data-history-details', '', $history);
-        $history = str_replace('[', '', $history);
-        $history = str_replace(']', '', $history); */
+        return $this->model->mostrar_archivo_historial($historyId, $type, $this->session->get('admin'));
 
-        /* $cod_history = explode("|", $history); */
-        $datos_details = $this->model->mostrar_archivo_historial($cod, $this->session->get('admin'));
-    }
-
-    public function getArchives($id){
-        
-        $resultArchives = $this->model->getArchives($id)->fetchAll(PDO::FETCH_ASSOC);
-        return $resultArchives;
-        
     }
 }

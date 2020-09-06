@@ -3,7 +3,7 @@
 class detailsModel extends Model
 {
 
-    /* ----------------------------- CONSULTAS DE PERFIL ----------------------------- */
+    /* ----------------------------- CONSULTAS DETALLE ----------------------------- */
 
     
     public function mostrar_detalle_historial($cod_history, $username)
@@ -13,15 +13,11 @@ class detailsModel extends Model
         return $res;
     }
 
-    public function mostrar_archivo_historial($cod_history, $username)
+    public function mostrar_archivo_historial($cod_history, $type, $username)
     {
-        $query = "CALL mostrar_archivo_historial($cod_history, '$username');";
+        $query = "CALL mostrar_archivo_historial($cod_history, $type, '$username');";
         $res = Model::query_execute($query);
         return $res;
     }
 
-    public function getArchives($idHistory){
-        $query = "SELECT Enlace,Id_Tipo_Archivo FROM archivo WHERE Id_Historia_Clinica = $idHistory";
-        return Model::query_execute($query);
-    }
 }
