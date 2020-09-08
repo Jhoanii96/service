@@ -50,6 +50,7 @@
               <!-- CONTENIDO AYUDA -->
                 <div class="main-card mb-3 card">
                     <div class="card-body">
+                    <button type="button" class="btn btn-warning" id="btnAddAnswer" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar</button>
                         <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
                             <thead>
                                 <tr>    
@@ -98,6 +99,37 @@
           </div>
       </div>
     </div>
+    
+    <!-- MODAL ADD QUESTION -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Pregunta:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveAnswer" >Guardar pregunta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
@@ -137,6 +169,16 @@
                 alert('error');
             })
         }
+
+        // $('#btnSaveAnswer').submit(function(){
+            
+        // })
+        // .done(function(){
+
+        // })
+        // .fail(function(){
+
+        // })
     </script>
 </body>
 </html>

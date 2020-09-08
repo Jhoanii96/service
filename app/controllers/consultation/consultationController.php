@@ -313,23 +313,33 @@ class consultation extends Controller
         $tratamiento_clinical = $_POST['tratamiento-clinical'];
         $filter = $_FILES["file"]["tmp_name"][0];
         if ($filter !== "") {
-            
-            for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
-                // $nameImage[$i] = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['file']['type'][$i]);
-                $nameImage[$i] = $_FILES["file"]["name"][$i];
-            }
+            $microseconds2 = microtime(true);
+            $microseconds2 = str_replace('.', '', $microseconds2);
+            $rand = rand(100000,999999);
+
+            $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/files/images/';
+            $imagen_destinoDoc = ROOT . FOLDER_PATH . '/src/assets/files/docs/';
+            $imagen_destinoPdf = ROOT . FOLDER_PATH . '/src/assets/files/pdfs/';
+
+            // for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
+            //     if(file_exists()){
+            //         $nameImageBD[$i] = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['file']['type'][$i]);
+            //     }
+            //     $nameImage[$i] = $_FILES["file"]["name"][$i];
+            // }
 
             for ($i=0; $i < count($_FILES["file"]["tmp_name"]); $i++) { 
                 $file_tmp[$i] = $_FILES["file"]["tmp_name"][$i];
             }
-            $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/media/images/historia_clinica/';
-            $imagen_destinoDocument = ROOT . FOLDER_PATH . '/src/Documentos/';
-            
+
             if(!file_exists($imagen_destino)){
                 mkdir($imagen_destino);
             }
-            if(!file_exists($imagen_destinoDocument)){
-                mkdir($imagen_destinoDocument);
+            if(!file_exists($imagen_destinoDoc)){
+                mkdir($imagen_destinoDoc);
+            }
+            if(!file_exists($imagen_destinoPdf)){
+                mkdir($imagen_destinoPdf);
             }
 
             for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
@@ -337,21 +347,49 @@ class consultation extends Controller
                 $imagen_type[$i] = $_FILES["file"]["type"][$i];
 
                 if($imagen_type[$i] === 'application/pdf'){
+                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                    $ruta[$i] = './src/assets/files/pdfs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 3;
-                    move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
-                    $imagen_bd[$i] = 'src/Documentos/' . $nameImage[$i];    
+                    while(file_exists($ruta[$i])){
+                        $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                        $ruta[$i] = './src/assets/files/pdfs/' . $nameImageBD[$i];
+                    }
+                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    move_uploaded_file($file_tmp[$i], $ruta[$i]);
+                    $imagen_bd[$i] = $ruta[$i];   
                 }else if($imagen_type[$i] === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                    $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 4;
-                    move_uploaded_file($file_tmp[$i], $imagen_destinoDocument . $nameImage[$i]);
-                    $imagen_bd[$i] = 'src/Documentos/' . $nameImage[$i];  
+                    while(file_exists($ruta[$i])){
+                        $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                        $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i];
+                    }
+                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    move_uploaded_file($file_tmp[$i], $ruta[$i]);
+                    $imagen_bd[$i] = $ruta[$i];  
                 }else if($imagen_type[$i] === 'image/jpeg' || $imagen_type[$i] === 'image/jpg'){
+                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                    $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 1;
-                    move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
-                    $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
+                    while(file_exists($ruta[$i])){
+                        $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                        $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i];
+                    }
+                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    move_uploaded_file($file_tmp[$i], $ruta[$i]);
+                    $imagen_bd[$i] = $ruta[$i];
                 }else if($imagen_type[$i] === 'image/png'){
+                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                    $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 2;
-                    move_uploaded_file($file_tmp[$i], $imagen_destino . $nameImage[$i]);
-                    $imagen_bd[$i] = 'src/assets/media/images/historia_clinica/' . $nameImage[$i];
+                    while(file_exists($ruta[$i])){
+                        $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                        $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i];
+                    }
+                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    move_uploaded_file($file_tmp[$i], $ruta[$i]);
+                    $imagen_bd[$i] = $ruta[$i];
                 }
             }
             $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$nameImage,$imagen_size,$imagen_type);

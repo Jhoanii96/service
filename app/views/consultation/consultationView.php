@@ -792,10 +792,7 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Si'
                 }).then((result) => {
-
                     if (result.value) {
-
-                        var doc = new jsPDF();
 
                         $.ajax({
                                 type: "post",
@@ -808,6 +805,7 @@
                             .done(function(data) {
                                 if (Object.keys(data).length > 1) {
 
+                                    var doc = new jsPDF();
                                     let docDefinition = {
                                         content: [
                                             // {
@@ -821,7 +819,6 @@
                                                 color: '#4169E1',
                                                 style: 'header',
                                                 alignment: 'center'
-
                                             }, {
                                                 style: 'tableExample',
                                                 color: '#00CED1',
@@ -847,7 +844,9 @@
                                                             alignment: 'left'
                                                         }, {
                                                             text: 'Fecha de Nacimiento :\n\n' + data.Fecha_Nacimiento
-                                                        }, 'Sexo : \n\n Masculino'],
+                                                        }, {
+                                                            text: 'Sexo : \n\n Masculino'
+                                                        }],
                                                         [{
                                                             text: 'Datos del Doctor',
                                                             style: 'tableHeader',
@@ -863,25 +862,31 @@
                                                         [{
                                                             text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad') ?>',
                                                             alignment: 'left'
-                                                        }, '', '']
+                                                        }, {}, {}]
                                                     ]
                                                 }
-                                            },
-                                            'Tratamiento :',
-                                            data.Tratamiento
+                                            },{
 
+                                                text: '\n\nTratamiento :\n\n' + data.Tratamiento
+                                            }
                                         ]
                                     }
-                                    pdfMake.createPdf(docDefinition).print();
+                                    let win = window.open('','_blank');
+                                    // if(win){
+                                        pdfMake.createPdf(docDefinition).print({}, win);
+                                        // win.focus();
+                                        setTimeout(() => {
+                                        window.location.href = "/service/my";
+                                        }, 3000);
+                                    // }
+                                    
                                 }
-                                    location.href = "<?= FOLDER_PATH ?>/my";
-
                             })
                             .fail(function() {
 
                             });
                     } else {
-                        location.href = "<?= FOLDER_PATH ?>/my";
+                        window.location.href = "<?= FOLDER_PATH ?>/my";
                     }
                 });
             });

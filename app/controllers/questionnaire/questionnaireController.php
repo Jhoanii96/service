@@ -40,6 +40,11 @@ class questionnaire extends Controller{
     $resultQuestions = $this->questionnaireModel->getQuestionnaire($idUser)->fetchAll(PDO::FETCH_ASSOC);
     return $resultQuestions;
   }
+
+  public function insertQuestion(){
+    $idUser = $this->session->get('idUser');
+    $resultQuestions = $this->questionnaireModel->getQuestionnaire($idUser)->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
 
 ?>
