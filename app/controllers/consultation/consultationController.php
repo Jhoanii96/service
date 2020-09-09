@@ -340,7 +340,7 @@ class consultation extends Controller
                 $microseconds2 = microtime(true);
                 $microseconds2 = str_replace('.', '', $microseconds2);
                 $rand = rand(100000,999999);
-                $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES["file"]["type"][$i]);
 
                 $file_tmp[$i] = $_FILES["file"]["tmp_name"][$i];
                 $imagen_size[$i] = $_FILES["file"]["size"][$i];
@@ -364,8 +364,9 @@ class consultation extends Controller
                         $ruta[$i] = 'src/assets/files/docs/' . $nameImageBD[$i];
                     }
                     $nameImage[$i] = $imagen_name[$i];
+                    $ruta[$i] = str_replace(".vnd.openxmlformats-officedocument.wordprocessingml.document",".docx",$ruta[$i]); 
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
-                    $imagen_bd[$i] = str_replace(".vnd.openxmlformats-officedocument.wordprocessingml.document",".docx",$ruta[$i]); 
+                    $imagen_bd[$i] = $ruta[$i];
                 }else if($imagen_type[$i] === 'application/msword'){
                     $ruta[$i] = 'src/assets/files/docs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 4;
@@ -374,8 +375,9 @@ class consultation extends Controller
                         $ruta[$i] = 'src/assets/files/docs/' . $nameImageBD[$i];
                     }
                     $nameImage[$i] = $imagen_name[$i];
+                    $ruta[$i] = str_replace(".msword",".doc",$ruta[$i]);  
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
-                    $imagen_bd[$i] = str_replace(".msword",".doc",$ruta[$i]);  
+                    $imagen_bd[$i] = $ruta[$i];  
                 }else if($imagen_type[$i] === 'image/jpeg' || $imagen_type[$i] === 'image/jpg'){
                     $ruta[$i] = 'src/assets/files/images/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 1;
