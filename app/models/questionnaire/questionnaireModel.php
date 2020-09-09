@@ -47,6 +47,8 @@ class questionnaireModel extends Model{
     return $res;
   }
 
+
+
   public function getAnswers($idPaciente,$idQuestionnaire){
 
       $query= "SELECT depa.Respuesta,depa.Id_Detalle_Cuestionario FROM detalle_cuestionario_paciente depa INNER JOIN detalle_cuestionario de

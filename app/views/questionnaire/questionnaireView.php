@@ -12,7 +12,7 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-, 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
 
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
@@ -50,8 +50,16 @@
               <!-- CONTENIDO AYUDA -->
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                    <button type="button" class="btn btn-warning" id="btnAddAnswer" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar</button>
-                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                            <form class="form-inline mb-5 mt-4" >
+                                <!-- <div class="col-md-6"> -->
+                                    <input name="filter" id="filter" type="text" style="width: 400px;" placeholder="Busque su pregunta" class="form-control">
+                                    <button class="btn btn-primary ml-2" >Buscar</button>
+                                <!-- </div> -->
+                                    <div style="margin-left:auto">
+                                        <button type="button" class="btn btn-warning"  id="btnAddAnswer" data-toggle="modal" data-target="#exampleModal">Agregar</button>
+                                    </div>
+                            </form>
+                        <table style="width: 100%;" id="tblQuestionnaire" class="table table-hover table-striped table-bordered">
                             <thead>
                                 <tr>    
                                     <!-- <th style='display:none;'>id</th> -->
@@ -83,14 +91,6 @@
                                         }
                                     ?>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <!-- <th style='display:none;'>id</th> -->
-                                    <th>Nro</th>
-                                    <th>Pregunta</th>    
-                                    <th>Opciones</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                     <form>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Pregunta:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="answer">
                         </div>
                         <!-- <div class="form-group">
                             <label for="message-text" class="col-form-label">Message:</label>
@@ -131,6 +131,9 @@
     </div>
 
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script>
@@ -170,15 +173,42 @@
             })
         }
 
-        // $('#btnSaveAnswer').submit(function(){
+        $('#btnSaveAnswer').click(function(e){
+            e.preventDefault();
+            let dato = $('#answer').val();
             
-        // })
-        // .done(function(){
+            if(dato !== ''){
+                $.ajax({
+                    url: '<?= FOLDER_PATH ?>/questionnaire/insertQuestion',
+                    type: 'post',
+                    data: {dato}
+                })
+                .done(function(response){
+                        let table = document.getElementById('tblQuestionnaire');
+                        let rowCount = table.rows.length; 
+                        let content = '<td>';
+                        content += rowCount;
+                        content += '</td>';
+                        content += '<td>';
+                        content += dato;
+                        content += '</td>';
+                        content += '<td class="text-center">';
+                        content +=      '<div role="group" class="btn-group-sm btn-group">';
+                        content +=          '<button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>';
+                        content +=          '<button class="btn-shadow btn btn-danger btnDeleteQuestion"><i class="fa fa-trash"></i></button>';
+                        content +=       '</div>';
+                        content += '</td>';
+                        table.insertRow(-1).innerHTML = content;
+                    $('#answer').val('');
+                    console.log(response);
+                })
+                .fail(function(error){
+                    console.log(error);
+                })
+            }
 
-        // })
-        // .fail(function(){
-
-        // })
+                // $('#exampleModal').modal('hide');
+        })
     </script>
 </body>
 </html>
