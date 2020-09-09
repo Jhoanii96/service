@@ -1076,7 +1076,7 @@
                                     pdfMake.createPdf(docDefinition).print({}, win);
                                     // win.focus();
                                     setTimeout(() => {
-                                        window.location.href = "/service/my";
+                                        window.location.href = "<?= FOLDER_PATH ?>/my";
                                     }, 3000);
                                     // }
 
@@ -1375,8 +1375,8 @@
                         $('#cita-fechana').html(edad);
                         $('#cita-genero').html(data.Genero);
                         $('#namePatient').html(data.Nombre + " " + data.Apellido_Paterno + " " + data.Apellido_Materno);
-                        $('#btnSaveAnswers').css('display', 'none');
-                        $('#btnUpdateAnswers').css('display', 'block');
+                        // $('#btnSaveAnswers').css('display', 'none');
+                        // $('#btnUpdateAnswers').css('display', 'block');
                         $('#filter').val("");
                         $('#btnSavePatient').css('display', 'none');
                         $('#btnUpdatePatient').css('display', 'block');
@@ -1400,26 +1400,23 @@
                                     }
                                 }
                             } else {
-                                // $(this).val("");
+                                
                             }
                         });
-
-
-                        // for(let i=0;i < id_detalle.length;i++){
-                        //     $('.input-answers').each(function(index) {
-                        //         if (index < data[0]) {
-                        //             if(data[index+1].Id_Detalle_Cuestionario === id_detalle[i]){
-                        //                 $(this).val(data[index + 1].Respuesta);
-                        //                 console.log(data[index + 1].Respuesta);
-                        //                 console.log(index);
-                        //                 break;
-                        //             }
-                        //         } else {
-                        //             $(this).val("");
-                        //         }
-                        //     });
-                        // }
-
+                        let cantQuestion = $('.input-answers').toArray().length;
+                        let cantVal = 0;
+                        $('.input-answers').each(function(index) {
+                            if($(this).val() === ''){
+                                cantVal++;
+                            }
+                        });
+                        if(cantVal === cantQuestion){
+                            $('#btnSaveAnswers').css('display', 'block');
+                            $('#btnUpdateAnswers').css('display', 'none');
+                        }else{
+                            $('#btnSaveAnswers').css('display', 'none');
+                            $('#btnUpdateAnswers').css('display', 'block');
+                        }
 
                         // console.log(Object.keys(data.0).length);
                         generar_citas_paciente('');
