@@ -36,9 +36,9 @@ class consultation extends Controller
 
         if (isset($_GET['cod_name'])) {
             $nombre_usuario = utf8_decode(base64_decode($_GET['cod_name']));
-           
+
             $id_nombre = explode('|', $nombre_usuario); /* $id_nombre[2]: id cita */
-            $id_cita = $id_nombre[2]; 
+            $id_cita = $id_nombre[2];
         } else {
             $id_nombre = [];
             $id_nombre[0] = 'nothing';
@@ -164,7 +164,7 @@ class consultation extends Controller
             $idPaciente = $this->session->get('idPaciente');
             $idUser = $this->session->get("idUser");
             $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-            $answers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
+            $answers = $this->questionModel->getAnswers($idPaciente, $idQuestionnaire['Id_Cuestionario']);
             $cantidad = $answers->rowCount();
             if ($cantidad > 0) {
                 $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
@@ -249,40 +249,40 @@ class consultation extends Controller
         /** Test */
         if (isset($_POST['answers']) && $_POST['answers'] !== "") {
             $detalle = $_POST['detalle'];
-            $respuestas = $_POST['answers']; 
+            $respuestas = $_POST['answers'];
             $arrayDetalle = $detalle;
             $arrayRespuesta = $respuestas;
             $idUser = $this->session->get("idUser");
             $idPaciente = $this->session->get('idPaciente');
             $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-            $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
+            $getAnswers = $this->questionModel->getAnswers($idPaciente, $idQuestionnaire['Id_Cuestionario']);
             $countAnswers = $getAnswers->rowCount();
-            if($countAnswers > 0){
+            if ($countAnswers > 0) {
                 $getAnswers = $getAnswers->fetchAll(PDO::FETCH_ASSOC);
-                for($i=0;$i< count($getAnswers);$i++){
-                    $arrayID[$i] = array_search($getAnswers[$i]['Id_Detalle_Cuestionario'],$arrayDetalle);
+                for ($i = 0; $i < count($getAnswers); $i++) {
+                    $arrayID[$i] = array_search($getAnswers[$i]['Id_Detalle_Cuestionario'], $arrayDetalle);
                 }
             }
             $resultInsertAnswer = 0;
-            if($countAnswers < count($respuestas)){
-                $j=0;
-                for($i=0;$i< count($arrayDetalle);$i++){
-                        if(!in_array($i,$arrayID)){
-                            $insertDetalle[$j] = $arrayDetalle[$i];
-                            $insertAnswer[$j] = $arrayRespuesta[$i];
-                            $j++;
-                        }
+            if ($countAnswers < count($respuestas)) {
+                $j = 0;
+                for ($i = 0; $i < count($arrayDetalle); $i++) {
+                    if (!in_array($i, $arrayID)) {
+                        $insertDetalle[$j] = $arrayDetalle[$i];
+                        $insertAnswer[$j] = $arrayRespuesta[$i];
+                        $j++;
+                    }
                 }
-                
-                $resultInsertAnswer = $this->questionModel->insertAnswers($insertDetalle,$idPaciente,$insertAnswer);
+
+                $resultInsertAnswer = $this->questionModel->insertAnswers($insertDetalle, $idPaciente, $insertAnswer);
                 $resultInsertAnswer = $resultInsertAnswer->rowCount();
             }
             $updateAnswers = $this->questionModel->updateAnswers($detalle, $idPaciente, $respuestas);
-                if ($updateAnswers > 0 || $resultInsertAnswer > 0) {
-                    echo "Sus respuestas fueron actualizadas";
-                } else {
-                    echo "No se actualizaron las respuestas";
-                }
+            if ($updateAnswers > 0 || $resultInsertAnswer > 0) {
+                echo "Sus respuestas fueron actualizadas";
+            } else {
+                echo "No se actualizaron las respuestas";
+            }
         } else {
             echo "Llene los campos";
         }
@@ -299,8 +299,12 @@ class consultation extends Controller
 
     public function insertClinicalTest(){
         
-        if(isset($_POST['id_clinicalTest']) && !empty($_POST['id_clinicalTest'])){
-            $idCita = $_POST['id_clinicalTest'];
+        if(isset($_POST['ic']) || !empty($_POST['ic'])){
+            if ($_POST['ic'] === 'undefined') {
+                $idCita = null;
+            } else {
+                $idCita = $_POST['ic'];
+            }
         }else{
             $idCita = null;
         }
@@ -311,83 +315,85 @@ class consultation extends Controller
         $examenes_clinical = $_POST['examenes-clinical'];
         $diagnostico_clinical = $_POST['diagnostico-clinical'];
         $tratamiento_clinical = $_POST['tratamiento-clinical'];
-        $filter = $_FILES["file"]["tmp_name"][0];
-        if ($filter !== "") {
-            $microseconds2 = microtime(true);
-            $microseconds2 = str_replace('.', '', $microseconds2);
-            $rand = rand(100000,999999);
+        if (isset($_FILES["file"]["name"][0]) || !empty($_FILES["file"]["name"][0])) {
+            $filter = $_FILES["file"]["name"][0];
+        } else {
+            $filter = null;
+        }
+        
+        $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/files/images/';
+        $imagen_destinoDoc = ROOT . FOLDER_PATH . '/src/assets/files/docs/';
+        $imagen_destinoPdf = ROOT . FOLDER_PATH . '/src/assets/files/pdfs/';
+        if(!file_exists($imagen_destino)){
+            mkdir($imagen_destino);
+        }
+        if(!file_exists($imagen_destinoDoc)){
+            mkdir($imagen_destinoDoc);
+        }
+        if(!file_exists($imagen_destinoPdf)){
+            mkdir($imagen_destinoPdf);
+        }
 
-            $imagen_destino = ROOT . FOLDER_PATH . '/src/assets/files/images/';
-            $imagen_destinoDoc = ROOT . FOLDER_PATH . '/src/assets/files/docs/';
-            $imagen_destinoPdf = ROOT . FOLDER_PATH . '/src/assets/files/pdfs/';
 
-            // for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
-            //     if(file_exists()){
-            //         $nameImageBD[$i] = date("m" . "d" . "y") . date("h" . "i" . "s" . microtime(TRUE)) . "." . basename($_FILES['file']['type'][$i]);
-            //     }
-            //     $nameImage[$i] = $_FILES["file"]["name"][$i];
-            // }
-
-            for ($i=0; $i < count($_FILES["file"]["tmp_name"]); $i++) { 
-                $file_tmp[$i] = $_FILES["file"]["tmp_name"][$i];
-            }
-
-            if(!file_exists($imagen_destino)){
-                mkdir($imagen_destino);
-            }
-            if(!file_exists($imagen_destinoDoc)){
-                mkdir($imagen_destinoDoc);
-            }
-            if(!file_exists($imagen_destinoPdf)){
-                mkdir($imagen_destinoPdf);
-            }
-
+        if ($filter !== null) {
             for ($i=0; $i < count($_FILES["file"]["name"]); $i++) { 
+                $microseconds2 = microtime(true);
+                $microseconds2 = str_replace('.', '', $microseconds2);
+                $rand = rand(100000,999999);
+                $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+
+                $file_tmp[$i] = $_FILES["file"]["tmp_name"][$i];
                 $imagen_size[$i] = $_FILES["file"]["size"][$i];
                 $imagen_type[$i] = $_FILES["file"]["type"][$i];
-
+                $imagen_name[$i] = $_FILES["file"]["name"][$i];
                 if($imagen_type[$i] === 'application/pdf'){
-                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                     $ruta[$i] = './src/assets/files/pdfs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 3;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                         $ruta[$i] = './src/assets/files/pdfs/' . $nameImageBD[$i];
                     }
-                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
                     $imagen_bd[$i] = $ruta[$i];   
                 }else if($imagen_type[$i] === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
-                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                     $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 4;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                         $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i];
                     }
-                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
-                    $imagen_bd[$i] = $ruta[$i];  
+                    $imagen_bd[$i] = str_replace(".vnd.openxmlformats-officedocument.wordprocessingml.document",".docx",$ruta[$i]); 
+                }else if($imagen_type[$i] === 'application/msword'){
+                    $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i]; 
+                    $imagen_type[$i] = 4;
+                    while(file_exists($ruta[$i])){
+                        $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
+                        $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i];
+                    }
+                    $nameImage[$i] = $imagen_name[$i];
+                    move_uploaded_file($file_tmp[$i], $ruta[$i]);
+                    $imagen_bd[$i] = str_replace(".msword",".doc",$ruta[$i]);  
                 }else if($imagen_type[$i] === 'image/jpeg' || $imagen_type[$i] === 'image/jpg'){
-                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                     $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 1;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                         $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i];
                     }
-                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
                     $imagen_bd[$i] = $ruta[$i];
                 }else if($imagen_type[$i] === 'image/png'){
-                    $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                     $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 2;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
                         $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i];
                     }
-                    $nameImage[$i] = $_FILES["file"]["name"][$i];
+                    $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
                     $imagen_bd[$i] = $ruta[$i];
                 }
@@ -400,7 +406,8 @@ class consultation extends Controller
         return $result;
     }
 
-    public function updateClinicalTest(){
+    public function updateClinicalTest()
+    {
         $idUser = $this->session->get("idUser");
         $idPaciente = $this->session->get('idPaciente');
         $anamnesis_clinical = $_POST['anamnesis-clinical'];
@@ -409,16 +416,17 @@ class consultation extends Controller
         $diagnostico_clinical = $_POST['diagnostico-clinical'];
         $tratamiento_clinical = $_POST['tratamiento-clinical'];
         $lastIDClinicalTest = $this->settingsModel->getIDClinicalTest($idPaciente)->fetch(PDO::FETCH_ASSOC);
-        $resultUpdateClinicalTest = $this->settingsModel->updateClinicalTest($lastIDClinicalTest['Id_historia_clinica'],$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical);
+        $resultUpdateClinicalTest = $this->settingsModel->updateClinicalTest($lastIDClinicalTest['Id_historia_clinica'], $anamnesis_clinical, $examen_clinical, $examenes_clinical, $diagnostico_clinical, $tratamiento_clinical);
         $resultUpdateClinicalTest = $resultUpdateClinicalTest->rowCount();
-        if($resultUpdateClinicalTest > 0){
+        if ($resultUpdateClinicalTest > 0) {
             echo "Se actualizó la prueba clinica";
-        }else{
+        } else {
             echo "No se pudo actualizar la prueba clinica";
         }
     }
 
-    public function createPrintHistoryMedical(){
+    public function createPrintHistoryMedical()
+    {
         $idUser = $this->session->get("idUser");
         $idPaciente = $this->session->get('idPaciente');
         // $NameDoctor = $this->session->get('Nombres');
@@ -503,6 +511,7 @@ class consultation extends Controller
 
         $usu_cod = $this->session->get('admin');
         $ResultAnswers = $this->model->lista_historia_clinica($paciente, $usu_cod);
+        $count = 0;
         while ($datos_consulta = $ResultAnswers->fetch()) {
 
             $birthDate = explode("-", $datos_consulta['fecha_nacimiento']);
@@ -510,17 +519,18 @@ class consultation extends Controller
                 ? ((date("Y") - $birthDate[0]) - 1)
                 : (date("Y") - $birthDate[0]));
 
+            $count += 1;
             echo '
                 <tr>
                     <td>' . $datos_consulta['nombre_paciente'] . '</td>
                     <td>' . $age . '</td>
                     <td>' . date("Y-m-d", strtotime($datos_consulta['fecha_consulta'])) . '</td>
                     <td>' . date("H:i", strtotime($datos_consulta['fecha_consulta'])) . '</td>
-                    <td>' . $datos_consulta['num_imagen'] . '</td>
                     <td>' . $datos_consulta['num_archivo'] . '</td>
+                    <td>' . $datos_consulta['num_imagen'] . '</td>
                     <td class="text-center">
                         <div role="group" class="btn-group-sm btn-group">
-                            <button class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
+                            <button id="details_' . $count . '" onclick="GetDetailsCon(' . $count . ')" meta-data="{' . base64_encode(utf8_encode("[" . $count . "]|" . $datos_consulta["id_historia"] . "-data-history-details")) . '}" data-toggle="modal" data-target="#AppDetails" class="btn-shadow btn btn-warning text-white"><i class="fa fa-eye"></i> Detalle</button>
                             <button class="btn-shadow btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
@@ -583,7 +593,7 @@ class consultation extends Controller
                 $css = "#008c44";
                 /* <td class="text-center" style="color: ' . $css . ';">' . $estado . '</td> */
             }
-
+            
             echo '
       
             <tr>
@@ -609,7 +619,6 @@ class consultation extends Controller
         </tfoot>
         
         ';
-
     }
 
     // public function createPDFPrinter(){
@@ -622,15 +631,40 @@ class consultation extends Controller
     // }
 
 
-    public function save_appointment(){
-    
+    public function save_appointment()
+    {
+
         $datecita = $_POST["datecita"];
         $timecita = $_POST["timecita"];
         $dnipaciente = $_POST["dnipaciente"];
-    
+
         $timecita = $timecita . ':00';
-    
+
         $this->model->insertar_cita($datecita, $timecita, $dnipaciente, $this->session->get('admin'));
-    
-      }
+    }
+
+
+    public function show_details()
+    {
+        $history = $_POST['meta_data'];
+        $history = str_replace('{', '', $history);
+        $history = str_replace('}', '', $history);
+
+        $history = utf8_decode(base64_decode($history));
+        $history = str_replace('-data-history-details', '', $history);
+
+        $cod_history = explode("|", $history);
+
+        $json = array();
+        $lista_historys = $this->model->obtener_details($cod_history[1], $this->session->get('admin'));
+
+        while ($details = $lista_historys->fetch()) {
+            $json[] = $details;
+        }
+        $json[1] = FOLDER_PATH . "/details/" . base64_encode(utf8_encode("[" . $json[0][0] . "]|show-data-history-details"));
+        $json[0]["id"] = base64_encode(utf8_encode("[" . $json[0][0] . "]|show-data-history-details"));
+        $json[0][0] = base64_encode(utf8_encode("[" . $json[0][0] . "]|show-data-history-details"));
+
+        echo (json_encode($json));
+    }
 }

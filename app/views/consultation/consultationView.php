@@ -131,6 +131,19 @@
             width: auto !important;
         }
     </style>
+    <style>
+        .title-details {
+            color: #468847;
+            padding: 8px 35px 8px 14px;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+            background-color: #e3f3fc;
+            border: 1px solid #d9d5fb;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+        }
+    </style>
     <!-- HEADER -->
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
@@ -431,7 +444,7 @@
                                                                 <label for="genero">Anamnesis</label>
                                                                 <?php
                                                                 if ($data['id_cita'] !== null) {
-                                                                    echo "<input type='hidden' name='id_clinicalTest' value='" . $data['id_cita'] . "'>";
+                                                                    echo "<input type='hidden' id='id_clinicalTest' value='" . $data['id_cita'] . "'>";
                                                                 }
                                                                 ?>
                                                                 <textarea row="1" class="form-control autosize" id="anamnesis-clinical" name="anamnesis-clinical" style="max-height: 200px; height: 35px" required><?php echo ($history) ? $history['Anamnesis_Pred'] : ""; ?></textarea>
@@ -442,7 +455,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Examen Físico</label>
-                                                                <textarea rows="1" class="form-control autosize" name="examen-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examen_Fisico_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize" id="examen-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examen_Fisico_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -450,7 +463,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Exámenes</label>
-                                                                <textarea rows="1" class="form-control autosize" name="examenes-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examenes_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize" id="examenes-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Examenes_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -458,7 +471,7 @@
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
                                                                 <label for="genero">Diagnóstico</label>
-                                                                <textarea rows="1" class="form-control autosize" name="diagnostico-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Diagnostico_Pred'] : ""; ?></textarea>
+                                                                <textarea rows="1" class="form-control autosize" id="diagnostico-clinical" style="max-height: 200px; height: 35px;" required><?php echo ($history) ? $history['Diagnostico_Pred'] : ""; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -473,10 +486,10 @@
                                                     <div class="form-row">
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
-                                                                <label>Subir archivos JPG/PNG</label>
+                                                                <label>Subir archivos JPG/PNG/PDF/WORD</label>
                                                                 <div id="uploads"></div>
                                                                 <div class="dropzone" id="dropzone" style="display:flex;align-items:center;justify-content:center">Arrastre archivos o de clic aquí para subirlos</div>
-                                                                <input id="filepdf" type="file" style="display: none;" name="file[]" accept="image/png,image/jpeg,image/jpg,application/pdf" multiple="true" />
+                                                                <input id="filesimdc" type="file" style="display: none;" name="file[]" accept="image/png,image/jpeg,image/jpg,application/pdf,application/msword" multiple="true" />
                                                                 <!-- <input type="file" name="file[]" multiple="true"> -->
                                                             </div>
                                                         </div>
@@ -624,6 +637,135 @@
         </div>
 
     </div>
+
+
+    <div class="modal fade" id="AppDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles de la consulta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="data-loading" style="display: block; margin: auto;">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(241, 242, 243, 0); display: block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <rect x="40" y="40" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="47" y="40" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.1388888888888889s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="54" y="40" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.2777777777777778s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="40" y="47" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.9722222222222222s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="54" y="47" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.41666666666666663s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="40" y="54" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.8333333333333333s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="47" y="54" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.6944444444444444s" calcMode="discrete"></animate>
+                        </rect>
+                        <rect x="54" y="54" width="6" height="6" fill="#7bc3d1">
+                            <animate attributeName="fill" values="#1e80cd;#7bc3d1;#7bc3d1" keyTimes="0;0.125;1" dur="1.1111111111111112s" repeatCount="indefinite" begin="0.5555555555555556s" calcMode="discrete"></animate>
+                        </rect>
+                    </svg>
+                </div>
+                <div id="data-details" style="display: none;">
+                    <div class="modal-body">
+                        <p class="mb-0 title-details">Datos del paciente</p>
+                        <div class="form-row mt-3">
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 10px;">Nombre: </label>
+                                    <span id="det_nom" style="padding: 7px 0; left: 5px; white-space: nowrap;"></span>
+                                </div>
+
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">DNI: </label>
+                                    <span id="det_dni" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Genero: </label>
+                                    <span id="det_gen" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Edad: </label>
+                                    <span id="det_edad" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha de nacimiento: </label>
+                                    <span id="det_fn" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Celular: </label>
+                                    <span id="det_cel" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Email: </label>
+                                    <span id="det_email" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <p class="mb-0 title-details">
+                            <span style="padding-right: 120px;">Datos consulta</span>
+                            <span style="padding-right: 120px;display: inline-block;">Fecha consulta: <span id="det_fcon" style="padding: 7px 0; left: 5px;"></span></span>
+                            <span style="display: inline-block;">Precio: <span id="det_cost" style="padding: 7px 0; left: 5px;"></span></span></p>
+                        <div class="form-row mt-3">
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Diagnostico: </label>
+                                    <span id="det_diag" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Anamnesis: </label>
+                                    <span id="det_anam" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Examen físico: </label>
+                                    <span id="det_exfi" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
+                                <div class="position-relative form-group" style="margin-right: -15px; margin-left: -15px;">
+                                    <label style="padding: 7px 12px; left: 5px;">Examenes: </label>
+                                    <span id="det_exams" style="padding: 0 12px; left: 5px; display: block;"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <p class="mb-0 title-details">Datos de la cita</p>
+                        <div class="form-row mt-3">
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Fecha cita: </label>
+                                    <span id="det_fc" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ml-4 mr-4">
+                                <div class="position-relative row form-group"><label style="padding: 7px 12px; left: 5px;">Estado: </label>
+                                    <span id="det_est" style="padding: 7px 0; left: 5px;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: normal;">
+                    <a id="lnk" href="#" style="text-align: left;" target="_blank">Mas detalles</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left: auto;">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -640,6 +782,7 @@
             g_edad = "",
             count_insert_cita = 0,
             doclick = 0;
+        let files = [];
     </script>
     <script>
         $(window).on("load", function() {
@@ -649,43 +792,66 @@
             // $(".loader").hide(); 
         });
 
-
         var pdf_file;
+        let newFiles = [];
 
         (function() {
             var dropzone = document.getElementById('dropzone');
-            var fileupload = $("#filepdf");
+            var fileupload = $("#filesimdc");
+            let filesContainer = $('#myFiles');
             let listado = '';
-            var upload = function(files) {
-                for (let index = 0; index < files.length; index++) {
-                    pdf_file = files[index];
+            var short_text = '';
+            var upload = function(filesInput) {
+                for (let index = 0; index < filesInput.files.length; index++) {
+                    pdf_file = filesInput[index];
 
                     document.getElementById("dropzone").style.lineHeight = "normal";
                     document.getElementById("dropzone").style.color = "rgb(253, 0, 0)";
                     document.getElementById("dropzone").style.border = "2px inset rgb(255, 77, 0)";
-                    listado += '<div>';
-                    if (files[index].type == 'application/pdf') {
+                    listado += '<div title="' + filesInput.files[index].name + '" style="margin: 10px;">';
+                    if (filesInput.files[index].type == 'application/pdf') {
                         listado += '<i class="fa fa-file-pdf" style="font-size: 60px;display:block; color: rgb(255, 38, 38);"></i>';
-                    } else if (files[index].type == 'image/jpeg' || files[index].type == 'image/png' || files[index].type == 'image/jpg') {
+                    } else if (filesInput.files[index].type == 'image/jpeg' || filesInput.files[index].type == 'image/png' || filesInput.files[index].type == 'image/jpg') {
                         listado += '<i class="fas fa-file-image" style="font-size: 60px;display:block; color: DarkCyan;"></i>';
-                    } else if (files[index].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                    } else if (filesInput.files[index].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || filesInput.files[index].type == 'application/msword') {
                         listado += '<i class="far fa-file-word" style="font-size: 60px;display:block; color: #777777;"></i>';
                     }
-                    console.log(files[index].type);
-                    listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + files[index].name + '</span>';
+                    console.log(filesInput.files[index].type);
+                    short_text = truncate(filesInput.files[index].name,10);
+                    /* listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + filesInput.files[index].name + '</span>'; */
+                    listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + short_text + '</span>';
                     listado += '</div>';
                 }
+                
+                for (let index = 0; index < filesInput.files.length; index++) {
+                    let file = filesInput.files[index];
+                    newFiles.push(file);
+                    files.push(file);
+                }
+
+                /* newFiles.forEach(file => {
+                    let fileElement = $(`<p>${file.name}</p>`);
+                    fileElement.data('fileData', file);
+                    filesContainer.append(fileElement);
+
+                    fileElement.click(function(event) {
+                        let fileElement = $(event.target);
+                        let indexToRemove = files.indexOf(fileElement.data('fileData'));
+                        fileElement.remove();
+                        files.splice(indexToRemove, 1);
+                    });
+                }); */
                 dropzone.innerHTML = listado;
             }
 
             dropzone.ondrop = function(e) {
                 e.preventDefault();
                 this.className = 'dropzone';
-                // if (e.dataTransfer.files[0].type != 'application/pdf') {
-                //     Swal.fire("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
-                //     return;
-                // }
-                upload(e.dataTransfer.files);
+                /* if (e.dataTransfer.files[0].type != 'application/pdf') {
+                     Swal.fire("Atención!", "Debe se ingresado solo el archivo PDF", "warning");
+                     return;
+                } */
+                upload(e.dataTransfer);
             }
 
             dropzone.onmouseover = function() {
@@ -702,22 +868,48 @@
                 document.getElementById("dropzone").style.backgroundColor = "rgb(40,204,233,0.35)";
                 document.getElementById("dropzone").style.color = "rgb(77, 58, 156)";
                 document.getElementById("dropzone").style.border = "2px dashed #16008c";
-                /* border: 2px dashed #16008c; */
+
                 fileupload.click();
             }
 
             fileupload.change(function() {
-                // if (this.files.length >= 2) {
-                //     Swal.fire("Atención!", "Debe ingresar solamente (1) archivo PDF", "warning");
-                //     return;
-                // }
+                for (let index = 0; index < fileupload[0].files.length; index++) {
+                    document.getElementById("dropzone").style.lineHeight = "normal";
+                    document.getElementById("dropzone").style.color = "rgb(253, 0, 0)";
+                    document.getElementById("dropzone").style.border = "2px inset rgb(255, 77, 0)";
+                    listado += '<div title="' + fileupload[0].files[index].name + '" style="margin: 10px;">';
+                    if (fileupload[0].files[index].type == 'application/pdf') {
+                        listado += '<i class="fa fa-file-pdf" style="font-size: 60px;display:block; color: rgb(255, 38, 38);"></i>';
+                    } else if (fileupload[0].files[index].type == 'image/jpeg' || fileupload[0].files[index].type == 'image/png' || fileupload[0].files[index].type == 'image/jpg') {
+                        listado += '<i class="fas fa-file-image" style="font-size: 60px;display:block; color: DarkCyan;"></i>';
+                    } else if (fileupload[0].files[index].type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || fileupload[0].files[index].type == 'application/msword') {
+                        listado += '<i class="far fa-file-word" style="font-size: 60px;display:block; color: #777777;"></i>';
+                    }
+                    console.log(fileupload[0].files[index].type);
+                    short_text = truncate(fileupload[0].files[index].name,10);
+                    /* listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + filesInput.files[index].name + '</span>'; */
+                    listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + short_text + '</span>';
+                    listado += '</div>';
+                    dropzone.innerHTML = listado;
 
-                // if (this.files[0].type != 'image/jpeg' ) {
-                //     Swal.fire("Atención!", "Debe se ingresado imagenes o documentos word o pdf", "warning");
-                //     console.log(this.files[0].type);
-                //     return;
-                // }
-                upload(this.files);
+                    let file = fileupload[0].files[index];
+                    newFiles.push(file);
+                    files.push(file);
+                }
+
+                /* newFiles.forEach(file => {
+                    let fileElement = $(`<p>${file.name}</p>`);
+                    fileElement.data('fileData', file);
+                    filesContainer.append(fileElement);
+
+                    fileElement.click(function(event) {
+                        let fileElement = $(event.target);
+                        let indexToRemove = files.indexOf(fileElement.data('fileData'));
+                        fileElement.remove();
+                        files.splice(indexToRemove, 1);
+                    });
+                }); */
+                /* upload(fileupload); */
             });
 
             dropzone.ondragover = function() {
@@ -729,6 +921,11 @@
                 this.className = 'dropzone';
                 return false;
             }
+
+            function truncate(str, n){
+                return (str.length > n) ? str.substr(0, n-1) + '&hellip;' : str;
+            };
+
         }());
 
         function selectSupr(e) {
@@ -740,6 +937,8 @@
             }
         }
     </script>
+
+
     <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <script>
         $('input[id$="endTime"]').inputmask("hh:mm", {
@@ -792,6 +991,7 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Si'
                 }).then((result) => {
+
                     if (result.value) {
 
                         $.ajax({
@@ -804,7 +1004,6 @@
                             })
                             .done(function(data) {
                                 if (Object.keys(data).length > 1) {
-
                                     var doc = new jsPDF();
                                     let docDefinition = {
                                         content: [
@@ -819,6 +1018,7 @@
                                                 color: '#4169E1',
                                                 style: 'header',
                                                 alignment: 'center'
+
                                             }, {
                                                 style: 'tableExample',
                                                 color: '#00CED1',
@@ -865,21 +1065,21 @@
                                                         }, {}, {}]
                                                     ]
                                                 }
-                                            },{
+                                            }, {
 
                                                 text: '\n\nTratamiento :\n\n' + data.Tratamiento
                                             }
                                         ]
                                     }
-                                    let win = window.open('','_blank');
+                                    let win = window.open('', '_blank');
                                     // if(win){
-                                        pdfMake.createPdf(docDefinition).print({}, win);
-                                        // win.focus();
-                                        setTimeout(() => {
+                                    pdfMake.createPdf(docDefinition).print({}, win);
+                                    // win.focus();
+                                    setTimeout(() => {
                                         window.location.href = "/service/my";
-                                        }, 3000);
+                                    }, 3000);
                                     // }
-                                    
+
                                 }
                             })
                             .fail(function() {
@@ -1182,18 +1382,18 @@
                         $('#btnUpdatePatient').css('display', 'block');
                         $('#next-btn2').attr('disabled', false);
                         // let cantQuestion = $('.input-answers').toArray().length;
-                        let id_detalle = new Array(); 
+                        let id_detalle = new Array();
 
-                        $('.input-detalle').each(function(index){
+                        $('.input-detalle').each(function(index) {
                             id_detalle[index] = $(this).val();
                         })
 
                         $('.input-answers').each(function(index) {
                             if (index < data[0]) {
-                    
-                                for(let i=0;i < id_detalle.length;i++){
-                                    if(data[index+1].Id_Detalle_Cuestionario === id_detalle[i]){
-                                        $('.input-answers').eq(i).val(data[index+1].Respuesta);
+
+                                for (let i = 0; i < id_detalle.length; i++) {
+                                    if (data[index + 1].Id_Detalle_Cuestionario === id_detalle[i]) {
+                                        $('.input-answers').eq(i).val(data[index + 1].Respuesta);
                                         console.log(data[index + 1].Respuesta);
                                         console.log(index);
                                         break;
@@ -1204,7 +1404,7 @@
                             }
                         });
 
-                        
+
                         // for(let i=0;i < id_detalle.length;i++){
                         //     $('.input-answers').each(function(index) {
                         //         if (index < data[0]) {
@@ -1338,12 +1538,35 @@
 
             if ($('#pru-nombre').html() !== "") {
                 if (buttonPressed === 'btnSaveClinicalTest') {
+                    var data = new FormData();
+                    var ac = $('#anamnesis-clinical').val();
+                    var ec = $('#examen-clinical').val();
+                    var esc = $('#examenes-clinical').val();
+                    var dc = $('#diagnostico-clinical').val();
+                    var tc = $('#tratamiento-clinical').val();
+                    var ic = $('#id_clinicalTest').val();
+                    /* var fl = $('input[type=file]')[0].files; */
+
+                    data.append("anamnesis-clinical", ac);
+                    data.append("examen-clinical", ec);
+                    data.append("examenes-clinical", esc);
+                    data.append("diagnostico-clinical", dc);
+                    data.append("tratamiento-clinical", tc);
+                    data.append("ic", ic);
+
+                    files.forEach(file => {
+                        data.append('file[]', file);
+                    });
                     $.ajax({
+                            beforeSend: function() {
+                                $("#btnSaveClinicalTest").html('Guardando prueba&ThinSpace;&ThinSpace;<span id="spinner-h" class="fa fa-spinner fa-spin"></span>');
+                                $("#btnSaveClinicalTest").attr("disabled", true);
+                            },
                             type: "post",
                             url: "<?= FOLDER_PATH ?>/consultation/insertClinicalTest",
-                            data: new FormData(this),
+                            data: data,
                             processData: false,
-                            cache: false,
+                            // cache: false,
                             contentType: false
                         })
                         .done(function(response) {
@@ -1353,6 +1576,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            $("#btnSaveClinicalTest").html('Guardar prueba');
                             $('#next-btn2').attr('disabled', false);
                             $('#btnUpdateClinicalTest').css('display', 'block');
                             $('#btnSaveClinicalTest').css('display', 'none');
@@ -1369,6 +1593,10 @@
                 } else if (buttonPressed === 'btnUpdateClinicalTest') {
                     let datos = $(this).serialize();
                     $.ajax({
+                            beforeSend: function() {
+                                $("#btnUpdateClinicalTest").html('Actualizando prueba&ThinSpace;&ThinSpace;<span id="spinner-h" class="fa fa-spinner fa-spin"></span>');
+                                $("#btnUpdateClinicalTest").attr("disabled", true);
+                            },
                             type: "post",
                             url: "<?= FOLDER_PATH ?>/consultation/updateClinicalTest",
                             data: datos
@@ -1380,6 +1608,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            $("#btnUpdateClinicalTest").html('Actualizar prueba');
                             $('#next-btn2').attr('disabled', false);
 
                         })
@@ -1832,6 +2061,112 @@
                 }
             })
         };
+    </script>
+
+    <script>
+        function GetDetailsCon(e) {
+            var data_app = document.getElementById('details_' + e);
+            var meta_data = data_app.getAttribute('meta-data');
+
+            var data = new FormData();
+            data.append("meta_data", meta_data);
+            $.ajax({
+                beforeSend: function() {
+                    $("#data-details").css("display", "none");
+                    $("#data-loading").css("display", "block");
+                    /* $("#data-details").html(''); */
+                },
+                url: "<?= FOLDER_PATH ?>/consultation/show_details",
+                type: "POST",
+                data: data,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+                success: function(resp) {
+                    var obj_details = JSON.parse(resp);
+                    var link = obj_details[1];
+                    var genero = '';
+                    var estado = '';
+                    obj_details = obj_details[0];
+
+
+                    if (obj_details[3] == 'M') {
+                        genero = 'Masculino';
+                    }
+                    if (obj_details[3] == 'F') {
+                        genero = 'Femenino';
+                    }
+                    if (obj_details[3] == 'O') {
+                        genero = 'Otros';
+                    }
+                    if (obj_details[16] == '0') {
+                        estado = 'Pendiente';
+                    }
+                    if (obj_details[16] == '1') {
+                        estado = 'Atendido';
+                    }
+                    if (obj_details[16] == '2') {
+                        estado = 'Anulado';
+                    }
+
+                    $("#det_nom").html(obj_details[1]);
+                    $("#det_dni").html(obj_details[2]);
+                    $("#det_gen").html(genero);
+                    $("#det_cel").html(obj_details[4]);
+                    $("#det_edad").html(calcularEdad(obj_details[8]));
+                    $("#det_fn").html(obj_details[5]);
+                    $("#det_email").html(isNullorEmpty(obj_details[6]));
+
+                    $("#det_fcon").html(obj_details[9]);
+                    $("#det_diag").html(obj_details[10]);
+                    $("#det_anam").html(obj_details[12]);
+                    $("#det_exfi").html(obj_details[11]);
+                    $("#det_exams").html(obj_details[13]);
+
+                    $("#det_fc").html(isNullorEmpty(obj_details[15]));
+                    if (isNullorEmpty(obj_details[16]) != "No definido") {
+                        $("#det_est").html(estado);
+                    } else {
+                        $("#det_est").html("No definido");
+                    }
+
+                    if (isNullorEmpty(obj_details[18]) != "No definido") {
+                        $("#det_cost").html("S/. " + isNullorEmpty(obj_details[18]));
+                    } else {
+                        $("#det_cost").html("No definido");
+                    }
+
+                    $("#lnk").attr("href", link);
+
+                    $("#data-loading").css("display", "none");
+                    $("#data-details").css("display", "block");
+
+                    /* $("#data-details").html(resp); */
+                }
+            })
+        }
+
+        function calcularEdad(fechana) {
+            console.log(fechana);
+            let dateParts = fechana.split("-");
+            let hoy = new Date();
+            let cumpleanos = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0, 2));
+            let edad = hoy.getFullYear() - cumpleanos.getFullYear();
+            let m = hoy.getMonth() - cumpleanos.getMonth();
+
+            if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                edad--;
+            }
+            edad = edad.toString() + " años";
+            return edad;
+        }
+
+        function isNullorEmpty(e) {
+            if (e == '' || e == null) {
+                return "No definido";
+            } else {
+                return e;
+            }
+        }
     </script>
 
 </body>
