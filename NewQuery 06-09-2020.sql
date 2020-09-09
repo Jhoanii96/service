@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 ALTER VIEW `v_detalle_historia` AS
     
     SELECT 
@@ -46,7 +53,7 @@ ALTER VIEW `v_detalle_historia` AS
 
 
 
-VIEW `v_lista_archivo` AS
+ALTER VIEW `v_lista_archivo` AS
     SELECT 
         `ar`.`Id_Archivo` AS `id`,
         `ar`.`Subnombre` AS `name_archivo`,

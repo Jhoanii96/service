@@ -347,51 +347,51 @@ class consultation extends Controller
                 $imagen_type[$i] = $_FILES["file"]["type"][$i];
                 $imagen_name[$i] = $_FILES["file"]["name"][$i];
                 if($imagen_type[$i] === 'application/pdf'){
-                    $ruta[$i] = './src/assets/files/pdfs/' . $nameImageBD[$i]; 
+                    $ruta[$i] = 'src/assets/files/pdfs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 3;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
-                        $ruta[$i] = './src/assets/files/pdfs/' . $nameImageBD[$i];
+                        $ruta[$i] = 'src/assets/files/pdfs/' . $nameImageBD[$i];
                     }
                     $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
                     $imagen_bd[$i] = $ruta[$i];   
                 }else if($imagen_type[$i] === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
-                    $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i]; 
+                    $ruta[$i] = 'src/assets/files/docs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 4;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
-                        $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i];
+                        $ruta[$i] = 'src/assets/files/docs/' . $nameImageBD[$i];
                     }
                     $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
                     $imagen_bd[$i] = str_replace(".vnd.openxmlformats-officedocument.wordprocessingml.document",".docx",$ruta[$i]); 
                 }else if($imagen_type[$i] === 'application/msword'){
-                    $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i]; 
+                    $ruta[$i] = 'src/assets/files/docs/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 4;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
-                        $ruta[$i] = './src/assets/files/docs/' . $nameImageBD[$i];
+                        $ruta[$i] = 'src/assets/files/docs/' . $nameImageBD[$i];
                     }
                     $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
                     $imagen_bd[$i] = str_replace(".msword",".doc",$ruta[$i]);  
                 }else if($imagen_type[$i] === 'image/jpeg' || $imagen_type[$i] === 'image/jpg'){
-                    $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i]; 
+                    $ruta[$i] = 'src/assets/files/images/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 1;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
-                        $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i];
+                        $ruta[$i] = 'src/assets/files/images/' . $nameImageBD[$i];
                     }
                     $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
                     $imagen_bd[$i] = $ruta[$i];
                 }else if($imagen_type[$i] === 'image/png'){
-                    $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i]; 
+                    $ruta[$i] = 'src/assets/files/images/' . $nameImageBD[$i]; 
                     $imagen_type[$i] = 2;
                     while(file_exists($ruta[$i])){
                         $nameImageBD[$i] = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['file']['type'][$i]);
-                        $ruta[$i] = './src/assets/files/images/' . $nameImageBD[$i];
+                        $ruta[$i] = 'src/assets/files/images/' . $nameImageBD[$i];
                     }
                     $nameImage[$i] = $imagen_name[$i];
                     move_uploaded_file($file_tmp[$i], $ruta[$i]);
