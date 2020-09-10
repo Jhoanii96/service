@@ -264,13 +264,20 @@ class consultation extends Controller
                 }
             }
             $resultInsertAnswer = 0;
-            if ($countAnswers < count($respuestas)) {
+            if ($countAnswers < count($respuestas) ) {
                 $j = 0;
                 for ($i = 0; $i < count($arrayDetalle); $i++) {
-                    if (!in_array($i, $arrayID)) {
+                    if(!isset($arrayID)){
                         $insertDetalle[$j] = $arrayDetalle[$i];
                         $insertAnswer[$j] = $arrayRespuesta[$i];
                         $j++;
+                    }
+                    else {
+                        if(!in_array($i, $arrayID)){
+                            $insertDetalle[$j] = $arrayDetalle[$i];
+                            $insertAnswer[$j] = $arrayRespuesta[$i];
+                            $j++;
+                        }
                     }
                 }
 
