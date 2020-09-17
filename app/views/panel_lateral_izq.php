@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="<?= FOLDER_PATH ?>/reports">
                         <i class="metismenu-icon pe-7s-display1"></i>
                         Reportes
                     </a>
@@ -73,21 +73,10 @@
 
                     <ul>
                         <li>
-                            <a href="javascript:;">
-                                Administrar
-                            </a>
-                        </li>
-                        <li>
                             <a href="<?= FOLDER_PATH ?>/questionnaire">
                                 Listado
                             </a>
                         </li>
-                        <!-- <li>
-                                        <a href="elements-utilities.html">
-                                            <i class="metismenu-icon">
-                                            </i>Utilities
-                                        </a>
-                                    </li> -->
                     </ul>
                 </li>
                 <li>

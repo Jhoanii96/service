@@ -20,6 +20,12 @@ class questionnaireModel extends Model{
     return $res;
   }
 
+  public function insertNewQuestion($idQuestionnaire,$pregunta){
+    $query = "INSERT INTO detalle_cuestionario(Id_Cuestionario,Pregunta,Nuevo) VALUES($idQuestionnaire,'".$pregunta."',1)";
+    $res = Model::query_execute($query);
+    return $res;
+  }
+
   public function getStateQuestionnaire($idUser){
     $query = "SELECT estado_crear_mas FROM cuestionario WHERE Id_Usuario = $idUser";
     $res = Model::query_execute($query);
@@ -38,6 +44,20 @@ class questionnaireModel extends Model{
     return $res;
   }
 
+  public function getQuestionnaireAll($idPaciente,$idQuestionnaire){
+    // $query = "SELECT de.Id_Detalle_Cuestionario AS Id_Detalle,de.Pregunta FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
+    // de.Id_Cuestionario = cu.Id_Cuestionario WHERE cu.Id_Usuario = $idUser";
+    $query= "SELECT depa.Respuesta,de.Pregunta,depa.Id_Detalle_Cuestionario AS Id_Detalle FROM detalle_cuestionario_paciente depa INNER JOIN detalle_cuestionario de
+      ON de.Id_Detalle_Cuestionario = depa.Id_Detalle_Cuestionario WHERE Id_Paciente = $idPaciente AND Id_Cuestionario = $idQuestionnaire";
+    return Model::query_execute($query);
+  }
+
+  public function getNewQuestions($idUser){
+    $query = "SELECT de.Id_Detalle_Cuestionario AS Id_Detalle,de.Pregunta FROM cuestionario cu INNER JOIN detalle_cuestionario de ON
+          de.Id_Cuestionario = cu.Id_Cuestionario WHERE cu.Id_Usuario = $idUser AND Nuevo = 1 AND Mostrar = 1";
+    return Model::query_execute($query);
+  }
+
   public function insertAnswers($idDetalleCuest,$idPaciente,$respuesta){
     
     for ($i=0; $i < count($respuesta); $i++) { 
@@ -46,8 +66,6 @@ class questionnaireModel extends Model{
     }
     return $res;
   }
-
-
 
   public function getAnswers($idPaciente,$idQuestionnaire){
 
@@ -58,9 +76,16 @@ class questionnaireModel extends Model{
     return $res = Model::query_execute($query);
   }
 
-  public function compareAnswers(){
-    $query = "SELECT FROM detalle_cuestionario_paciente WHERE ";
+  public function getAnswersAll($idPaciente,$idQuestionnaire){
+      $query= "SELECT depa.Respuesta,de.Pregunta,depa.Id_Detalle_Cuestionario FROM detalle_cuestionario_paciente depa INNER JOIN detalle_cuestionario de
+      ON de.Id_Detalle_Cuestionario = depa.Id_Detalle_Cuestionario WHERE Id_Paciente = $idPaciente AND Id_Cuestionario = $idQuestionnaire";
+  
+      return Model::query_execute($query);
   }
+
+  // public function compareAnswers(){
+  //   $query = "SELECT FROM detalle_cuestionario_paciente WHERE ";
+  // }
 
   public function updateAnswers($idDetalleCuest,$idPaciente,$respuestas){
     $cont = 0;

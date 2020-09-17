@@ -12,13 +12,13 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-    <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/js/select2-bootstrap4.css">
 
-    <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
     <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <!-- <link type="text/css" rel="stylesheet" href="<!?= FOLDER_PATH ?>/src/js/select2-bootstrap4.css"> -->
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="<?= FOLDER_PATH ?>/src/css/selectize.css">
+    <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
 
     <style>
         .loader {
@@ -380,8 +380,8 @@
                                                                         <!-- <label for="exampleEmail3">--------------------------------------------</label> -->
                                                                         <p class="form-control-plaintext">Control de preguntas</p>
                                                                     </div>
-                                                                    <div class="form-row">
-                                                                        <?php
+                                                                    <div class="form-row" id="block-questions">
+                                                                        <!--?php
                                                                         $questions = $this->getQuestionnaire();
 
                                                                         foreach ($questions as $key => $row) {
@@ -393,7 +393,7 @@
                                                                             echo    "</div>";
                                                                             echo "</div>";
                                                                         }
-                                                                        ?>
+                                                                        ?!-->
                                                                     </div>
                                                                     <div class="form-row">
                                                                         <div class="col-md-12">
@@ -988,8 +988,9 @@
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
+                    cancelButtonColor: 'SlateBlue',
+                    confirmButtonText: 'Imprimir',
+                    cancelButtonText: 'Guardar y continuar'
                 }).then((result) => {
 
                     if (result.value) {
@@ -1006,6 +1007,7 @@
                                 if (Object.keys(data).length > 1) {
                                     var doc = new jsPDF();
                                     let docDefinition = {
+                                        pageSize: 'A6',
                                         content: [
                                             // {
                                             //     image: '<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg',
@@ -1017,14 +1019,15 @@
                                                 text: "EVALUACIÓN MEDICA\n\n\n\n",
                                                 color: '#4169E1',
                                                 style: 'header',
-                                                alignment: 'center'
-
+                                                alignment: 'center',
+                                                fontSize: 5
                                             }, {
                                                 style: 'tableExample',
                                                 color: '#00CED1',
                                                 table: {
-                                                    widths: [160, 160, 160],
+                                                    widths: [65, 65, 65],
                                                     headerRows: 1,
+                                                    
                                                     // keepWithHeaderRows: 1,
                                                     body: [
                                                         [{
@@ -1032,42 +1035,51 @@
                                                             style: 'tableHeader',
                                                             colSpan: 3,
                                                             alignment: 'left',
-                                                            color: '#708090'
+                                                            color: '#708090',
+                                                            fontSize: 5
                                                         }, {}, {}],
                                                         [{
                                                             text: 'Apellidos y Nombres : ' + data.Nombre,
                                                             alignment: 'left',
-                                                            colSpan: 3
+                                                            colSpan: 3,
+                                                            fontSize: 5
                                                         }, '', ''],
                                                         [{
                                                             text: 'Documento de identidad :\n\n ' + data.Documento,
-                                                            alignment: 'left'
+                                                            alignment: 'left',
+                                                            fontSize: 5
                                                         }, {
-                                                            text: 'Fecha de Nacimiento :\n\n' + data.Fecha_Nacimiento
+                                                            text: 'Fecha de Nacimiento :\n\n' + data.Fecha_Nacimiento,
+                                                            fontSize: 5
                                                         }, {
-                                                            text: 'Sexo : \n\n Masculino'
+                                                            text: 'Sexo : \n\n Masculino',
+                                                            fontSize: 5
                                                         }],
                                                         [{
                                                             text: 'Datos del Doctor',
                                                             style: 'tableHeader',
                                                             colSpan: 3,
                                                             alignment: 'left',
-                                                            color: '#708090'
+                                                            color: '#708090',
+                                                            fontSize: 5
                                                         }, {}, {}],
                                                         [{
                                                             text: 'Apellidos y Nombres : <?php echo $this->session->get('Nombres') . ' ' . $this->session->get('Apellidos'); ?>',
                                                             colSpan: 3,
-                                                            alignment: 'left'
+                                                            alignment: 'left',
+                                                            fontSize: 5
                                                         }, {}, {}],
                                                         [{
                                                             text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad') ?>',
-                                                            alignment: 'left'
+                                                            alignment: 'left',
+                                                            fontSize: 5
                                                         }, {}, {}]
                                                     ]
                                                 }
                                             }, {
 
-                                                text: '\n\nTratamiento :\n\n' + data.Tratamiento
+                                                text: '\n\nTratamiento :\n\n' + data.Tratamiento,
+                                                fontSize: 5
                                             }
                                         ]
                                     }
@@ -1231,6 +1243,17 @@
                         $('#cita-dni').html(data.Documento);
                         $('#cita-fechana').html(edad);
                         $('#cita-genero').html(data.Genero);
+                        let questions = "";
+                        for (let index = 1; index <= data[0]; index++) {
+                            questions += "<div class='col-md-6'>";
+                            questions +=    "<div class='position-relative form-group'>";
+                            questions +=        "<label for='question'>P"+ index +": ¿" + data[index].Pregunta + "?</label>";
+                            questions +=        "<input type='hidden' name='detalle[]' value='" + data[index].Id_Detalle + "' class='input-detalle'>";
+                            questions +=        "<input name='answers[]' type='text' id='answer"+index+"' class='form-control input-answers' required>";
+                            questions +=    "</div>";
+                            questions += "</div>";
+                        }
+                        $('#block-questions').html(questions);
                         $('#btnSaveAnswers').css('display', 'block');
                         $('#btnUpdateAnswers').css('display', 'none');
                         $('#btnUpdatePatient').css('display', 'block');
@@ -1381,28 +1404,36 @@
                         $('#btnSavePatient').css('display', 'none');
                         $('#btnUpdatePatient').css('display', 'block');
                         $('#next-btn2').attr('disabled', false);
-                        // let cantQuestion = $('.input-answers').toArray().length;
+
+                        /** mostrar las preguntas */
+                        let questions = "";
+                        for (let index = 3; index <= data[0]+2+data[1]; index++) {
+                            questions += "<div class='col-md-6'>";
+                            questions +=    "<div class='position-relative form-group'>";
+                            questions +=        "<label for='question'>P"+ (index-2) +": ¿" + data[index].Pregunta + "?</label>";
+                            questions +=        "<input type='hidden' name='detalle[]' value='" + data[index].Id_Detalle + "' class='input-detalle'>";
+                            questions +=        "<input name='answers[]' type='text' id='answer"+ (index-2) +"' class='form-control input-answers' required>";
+                            questions +=    "</div>";
+                            questions += "</div>";
+                        } 
+                        $('#block-questions').html(questions);
+                        /** end mostrar */
+
                         let id_detalle = new Array();
 
                         $('.input-detalle').each(function(index) {
                             id_detalle[index] = $(this).val();
                         })
+                        console.log(data[1] + 2 );
+                        let inicio = data[2]+3+data[1];
+                        
+                        for (let i = 0  ; i < id_detalle.length - data[1]; i++) {
+                                let pos = id_detalle.indexOf(data[inicio+i].Id_Detalle_Cuestionario);
+                                if(pos !== -1){
+                                    $('.input-answers').eq(pos).val(data[inicio+i].Respuesta);
+                                }    
+                        }
 
-                        $('.input-answers').each(function(index) {
-                            if (index < data[0]) {
-
-                                for (let i = 0; i < id_detalle.length; i++) {
-                                    if (data[index + 1].Id_Detalle_Cuestionario === id_detalle[i]) {
-                                        $('.input-answers').eq(i).val(data[index + 1].Respuesta);
-                                        console.log(data[index + 1].Respuesta);
-                                        console.log(index);
-                                        break;
-                                    }
-                                }
-                            } else {
-                                
-                            }
-                        });
                         let cantQuestion = $('.input-answers').toArray().length;
                         let cantVal = 0;
                         $('.input-answers').each(function(index) {

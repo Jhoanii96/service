@@ -45,7 +45,7 @@ class questionnaire extends Controller{
     $idUser = $this->session->get('idUser');
     $question = $_POST['dato'];
     $idCuestionario = $this->questionnaireModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-    $resultQuestions = $this->questionnaireModel->insertQuestion($idCuestionario['Id_Cuestionario'],$question);
+    $resultQuestions = $this->questionnaireModel->insertNewQuestion($idCuestionario['Id_Cuestionario'],$question);
     $cant = $resultQuestions->rowCount();
     if($cant > 0){
       echo "Se inserto correctamente";

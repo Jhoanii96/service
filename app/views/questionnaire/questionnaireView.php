@@ -52,11 +52,11 @@
                     <div class="card-body">
                             <form class="form-inline mb-5 mt-4" >
                                 <!-- <div class="col-md-6"> -->
-                                    <input name="filter" id="filter" type="text" style="width: 400px;" placeholder="Busque su pregunta" class="form-control">
-                                    <button class="btn btn-primary ml-2" >Buscar</button>
+                                    <!-- <input name="filter" id="filter" type="text" style="width: 400px;" placeholder="Busque su pregunta" class="form-control">
+                                    <button class="btn btn-primary ml-2" >Buscar</button> -->
                                 <!-- </div> -->
-                                    <div style="margin-left:auto">
-                                        <button type="button" class="btn btn-warning"  id="btnAddAnswer" data-toggle="modal" data-target="#exampleModal">Agregar</button>
+                                    <div>
+                                        <button type="button" class="btn btn-warning"  id="btnAddAnswer" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i>   Agregar</button>
                                     </div>
                             </form>
                         <table style="width: 100%;" id="tblQuestionnaire" class="table table-hover table-striped table-bordered">
@@ -84,7 +84,7 @@
                                         echo "<td class='text-center'>
                                                 <div role='group' class='btn-group-sm btn-group'>
                                                     <button class='btn-shadow btn btn-warning text-white'><i class='fa fa-edit' ></i> Editar</button>
-                                                    <button class='btn-shadow btn btn-danger btnDeleteQuestion' onclick='deleteQuestion(".$idQuestion[$i].")'><i class='fa fa-trash'></i></button>
+                                                    <button class='btn-shadow btn btn-danger btnDeleteQuestion' onclick='deleteQuestion(".$idQuestion[$i].",this)'><i class='fa fa-trash'></i></button>
                                                 </div>
                                              </td>";
                                         echo "</tr>";
@@ -131,11 +131,12 @@
     </div>
 
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
         let close = document.getElementById("btn-adm_close");
@@ -158,18 +159,32 @@
             console.log(data);
         })
 
-        function deleteQuestion(idQuestion){
-            
+        function deleteQuestion(idQuestion,value){
+            let i = value.parentNode.parentNode.parentNode.rowIndex;
             $.ajax({
                 type: 'POST',
                 url: '<?= FOLDER_PATH ?>/questionnaire/deleteQuestion',
                 data: {id:idQuestion}
             })
             .done(function(data){
-                alert(data);
+                let table = document.getElementById('tblQuestionnaire');
+                table.deleteRow(i);
+                // alert(data);
+                Swal.fire({
+                    icon: 'success',
+                    title: data,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .fail(function(){
-                alert('error');
+                // alert('error');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hubo un error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
         }
 

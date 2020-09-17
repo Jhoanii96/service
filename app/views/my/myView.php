@@ -43,6 +43,7 @@
         $this->session->add('especialidad', $profile['especialidad']);
         $this->session->add('idUser', $profile['Id_Usuario']);
         $this->session->add('idDoctor', $profile['Id_Doctor']);
+        $this->session->add('monto_consulta',$profile['Monto_Pago']);
         $imagen = $profile['imagen'];
         $this->session->add('image_user', $profile['imagen']);
         ?>

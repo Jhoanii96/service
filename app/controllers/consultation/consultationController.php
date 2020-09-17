@@ -96,6 +96,11 @@ class consultation extends Controller
             $result = $idPatient->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 $this->session->add('idPaciente', $result['Id_Paciente']);
+                $questions = $this->questionModel->getQuestionnaire($idUser);
+                $cantQuestions = $questions->rowCount();
+                $questions = $questions->fetchAll(PDO::FETCH_ASSOC);
+                array_push($result,$cantQuestions);
+                $result = array_merge($result,$questions);
                 $patientArray = json_encode($result);
             } else {
                 $patientArray = json_encode(['no se obtuvo paciente']);
@@ -164,12 +169,36 @@ class consultation extends Controller
             $idPaciente = $this->session->get('idPaciente');
             $idUser = $this->session->get("idUser");
             $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-            $answers = $this->questionModel->getAnswers($idPaciente, $idQuestionnaire['Id_Cuestionario']);
-            $cantidad = $answers->rowCount();
-            if ($cantidad > 0) {
+            $questions = $this->questionModel->getQuestionnaireAll($idPaciente, $idQuestionnaire['Id_Cuestionario']);
+            $newQuestion = $this->questionModel->getNewQuestions($idUser);
+            $cantNewQuestions = $newQuestion->rowCount();
+            $cantQuestions = $questions->rowCount();
+            if ($cantQuestions + $cantNewQuestions > 0) {
+                $answers = $this->questionModel->getAnswersAll($idPaciente, $idQuestionnaire['Id_Cuestionario']);
+                $cantidad = $answers->rowCount();
+                /** obtner las preguntas */
+                $questions = $questions->fetchAll(PDO::FETCH_ASSOC);
+                $newQuestion = $newQuestion->fetchAll(PDO::FETCH_ASSOC);
+
+                for ($j=0; $j < $cantQuestions ; $j++) { 
+                    $arrayID[$j] = $questions[$j]['Id_Detalle'];
+                }
+
+                $cantNewQuestion = $cantNewQuestions;
+                for ($i=0; $i < $cantNewQuestions; $i++) { 
+                        $j=0;
+                        if(isset($arrayID)){
+                            if(in_array($newQuestion[$i]['Id_Detalle'], $arrayID)){
+                                unset($newQuestion[$i]);
+                                // array_splice($newQuestion,$i,1);
+                                $cantNewQuestion--;
+                            }
+                        }
+                }
                 $answers = $answers->fetchAll(PDO::FETCH_ASSOC);
-                array_push($result, $cantidad);
-                $result = array_merge($result, $answers);
+                /** end preguntas */
+                array_push($result, $cantQuestions, $cantNewQuestion, $cantidad);
+                $result = array_merge($result, $questions, $newQuestion , $answers);
             }
             $arrayJSON =  json_encode($result);
         } else {
@@ -217,35 +246,6 @@ class consultation extends Controller
 
     public function updateAnswers()
     {
-        // if (isset($_POST['answers']) && $_POST['answers'] !== "") {
-        //     $detalle = $_POST['detalle'];
-        //     $respuestas = $_POST['answers']; 
-        //     $arrayDetalle = $detalle;
-        //     $arrayRespuesta = $respuestas;
-        //     $idUser = $this->session->get("idUser");
-        //     $idPaciente = $this->session->get('idPaciente');
-        //     $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-        //     $getAnswers = $this->questionModel->getAnswers($idPaciente,$idQuestionnaire['Id_Cuestionario']);
-        //     $getAnswers = $getAnswers->rowCount();
-        //     $resultInsertAnswer = 0;
-        //     if($getAnswers < count($respuestas)){
-        //         $count = count($respuestas) - $getAnswers;
-        //         $cant = count($respuestas) - $count;
-        //         $insertDetalle = array_splice($arrayDetalle,$cant,$count);
-        //         $insertAnswer = array_splice($arrayRespuesta,$cant,$count);              
-        //         $resultInsertAnswer = $this->questionModel->insertAnswers($insertDetalle,$idPaciente,$insertAnswer);
-        //         $resultInsertAnswer = $resultInsertAnswer->rowCount();
-        //     }
-        //     $updateAnswers = $this->questionModel->updateAnswers($detalle, $idPaciente, $respuestas);
-        //         if ($updateAnswers > 0 || $resultInsertAnswer > 0) {
-        //             echo "Sus respuestas fueron actualizadas";
-        //         } else {
-        //             echo "No se actualizaron las respuestas";
-        //         }
-        // } else {
-        //     echo "Llene los campos";
-        // }
-
         /** Test */
         if (isset($_POST['answers']) && $_POST['answers'] !== "") {
             $detalle = $_POST['detalle'];
@@ -255,7 +255,7 @@ class consultation extends Controller
             $idUser = $this->session->get("idUser");
             $idPaciente = $this->session->get('idPaciente');
             $idQuestionnaire = $this->questionModel->getIdQuestionnaire($idUser)->fetch(PDO::FETCH_ASSOC);
-            $getAnswers = $this->questionModel->getAnswers($idPaciente, $idQuestionnaire['Id_Cuestionario']);
+            $getAnswers = $this->questionModel->getAnswersAll($idPaciente, $idQuestionnaire['Id_Cuestionario']);
             $countAnswers = $getAnswers->rowCount();
             if ($countAnswers > 0) {
                 $getAnswers = $getAnswers->fetchAll(PDO::FETCH_ASSOC);
@@ -322,6 +322,7 @@ class consultation extends Controller
         $examenes_clinical = $_POST['examenes-clinical'];
         $diagnostico_clinical = $_POST['diagnostico-clinical'];
         $tratamiento_clinical = $_POST['tratamiento-clinical'];
+        $monto_consulta = $this->session->get('monto_consulta');
         if (isset($_FILES["file"]["name"][0]) || !empty($_FILES["file"]["name"][0])) {
             $filter = $_FILES["file"]["name"][0];
         } else {
@@ -407,9 +408,9 @@ class consultation extends Controller
                     $imagen_bd[$i] = $ruta[$i];
                 }
             }
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd,$nameImage,$imagen_size,$imagen_type);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$monto_consulta,$imagen_bd,$nameImage,$imagen_size,$imagen_type);
         }else{
-            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$imagen_bd = null,$nameImage = null,$imagen_size = null,$imagen_type = null);
+            $result = $this->settingsModel->insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis_clinical,$examen_clinical,$examenes_clinical,$diagnostico_clinical,$tratamiento_clinical,$monto_consulta,$imagen_bd = null,$nameImage = null,$imagen_size = null,$imagen_type = null);
         }
 
         return $result;

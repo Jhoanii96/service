@@ -28,18 +28,18 @@ class settingsModel extends Model{
     return Model::query_execute($query);
   }
 
-  public function insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis,$exam_fisico,$examenes,$diagnostico,$tratamiento,$enlace,$nameImage,$imagen_size,$imagen_type){
+  public function insertClinicalTest($idPaciente,$idUser,$idCita,$anamnesis,$exam_fisico,$examenes,$diagnostico,$tratamiento,$monto_consulta,$enlace,$nameImage,$imagen_size,$imagen_type){
     
     try {
       $db = Model::conectar();
       $db->beginTransaction();
       $datenow = date("Y-m-d H:i:s");
       if($idCita !== null){
-        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Id_Cita,Fecha,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
-        ($idPaciente,$idUser,$idCita,'$datenow','$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
+        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Id_Cita,Fecha,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento,Monto) VALUES 
+        ($idPaciente,$idUser,$idCita,'$datenow','$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento',$monto_consulta");
       }else{
-        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Fecha,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento) VALUES 
-        ($idPaciente,$idUser,'$datenow','$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento')");
+        $db->query("INSERT INTO historia_clinica(Id_Paciente,Id_Usuario,Fecha,Anamnesis,Examenes,Examen_Fisico,Diagnostico,Tratamiento,Monto) VALUES 
+        ($idPaciente,$idUser,'$datenow','$anamnesis','$examenes','$exam_fisico','$diagnostico','$tratamiento',$monto_consulta)");
       }
       if( $nameImage !== null ){
         if( count($nameImage) > 0 ){
