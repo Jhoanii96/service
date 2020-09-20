@@ -156,7 +156,7 @@
             })
             .done(function(data){
 
-                if (Object.keys(data).length > 1) {
+                if (Object.keys(data).length > 0) {
                     // alert(data);
                     let fechas = new Array();
                     let ganancias = new Array();
@@ -252,7 +252,7 @@
             })
             .done(function(data){
 
-                if (Object.keys(data).length > 1) {
+                if (Object.keys(data).length > 0) {
                     // alert(data);
                     let fechas = new Array();
                     let cantidad = new Array();
@@ -315,12 +315,19 @@
             })
         })
 
+        let pulsado = true;
         $('#btnConsultarAmbos').click(function(e){
             e.preventDefault();
             let dateBefore = $('#report-before').val(); 
             let dateAfter = $('#report-after').val();
             dateBefore = dateBefore + ' 00:00:00';
             dateAfter = dateAfter + ' 23:59:59';
+            var ctx = document.getElementById('myChart');
+            var cantx = document.getElementById('cantidadChart');
+            // ctx2d = ctx.getContext('2d');
+            // ctx2d.clearRect(0, 0, ctx.width, ctx.height);
+            // cantx2d = cantx.getContext('2d');
+            // cantx2d.clearRect(0, 0, cantx.width, cantx.height);
 
             console.log(dateBefore,dateAfter);
             $.ajax({
@@ -329,9 +336,10 @@
                 url: '<?= FOLDER_PATH ?>/reports/getReport',
                 data: {before:dateBefore,after:dateAfter}
             })
+            
             .done(function(data){
 
-                if (Object.keys(data).length > 1) {
+                if (Object.keys(data).length > 0) {
                     // alert(data);
                     let fechas = new Array();
                     let cantidad = new Array();
@@ -347,77 +355,150 @@
                         totalGanancia += parseFloat(data[index].Monto);
                     }
                     // console.log(fechas,ganancias);
-                    var ctx = document.getElementById('myChart');
-                    var mixedChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: fechas,
-                            datasets: [{
-                                label: 'Ganancias de consultas',
-                                data: ganancias ,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
+                    if(pulsado){
+                        // charts = AddChart(ctx,cantx,fechas,ganancias,cantidad);
+                        var mixedChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: fechas,
+                                datasets: [{
+                                    label: 'Ganancias de consultas',
+                                    data: ganancias ,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)'
+                                    ],
+                                    borderWidth: 1
                                 }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
                             }
-                        }
-                    });
-
-                    var cantx = document.getElementById('cantidadChart');
-                    var cantChart = new Chart(cantx, {
-                        type: 'bar',
-                        data: {
-                            labels: fechas,
-                            datasets: [{
-                                label: 'Cantidad de consultas',
-                                data: cantidad ,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
+                        });
+                        var cantChart = new Chart(cantx, {
+                            type: 'bar',
+                            data: {
+                                labels: fechas,
+                                datasets: [{
+                                    label: 'Cantidad de consultas',
+                                    data: cantidad ,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)'
+                                    ],
+                                    borderWidth: 1
                                 }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
                             }
-                        }
-                    });
+                        });
+                        pulsado = false;
+                    }else{
+                        // mixedChart.destroy();
+                        // cantChart.destroy();
+                        var mixedChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: fechas,
+                                datasets: [{
+                                    label: 'Ganancias de consultas',
+                                    data: ganancias ,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                        var cantChart = new Chart(cantx, {
+                            type: 'bar',
+                            data: {
+                                labels: fechas,
+                                datasets: [{
+                                    label: 'Cantidad de consultas',
+                                    data: cantidad ,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                        // AddChart(ctx,cantx,fechas,ganancias,cantidad);
+                    }
                     $('#totalGanancia').css('display','block');
                     $('#lblGananciaTotal').css('display','block');
                     $('#totalGanancia').val('S/'+totalGanancia);
@@ -431,6 +512,82 @@
                 alert('status: ' + textStatus);
             })
         })
+
+        function AddChart(ctx,cantx,fechas,ganancias,cantidad){
+            var mixedChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: fechas,
+                    datasets: [{
+                        label: 'Ganancias de consultas',
+                        data: ganancias ,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            var cantChart = new Chart(cantx, {
+                type: 'bar',
+                data: {
+                    labels: fechas,
+                    datasets: [{
+                        label: 'Cantidad de consultas',
+                        data: cantidad ,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            let charts = new Array();
+            charts.push(mixedChart,cantChart);
+            return charts;
+        }
+
     </script>
 </body>
 </html>
