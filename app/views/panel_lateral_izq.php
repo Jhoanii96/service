@@ -53,10 +53,23 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= FOLDER_PATH ?>/reports">
+                    <a href="javascript:;">
                         <i class="metismenu-icon pe-7s-display1"></i>
                         Reportes
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
+                    <ul>
+                        <li>
+                            <a href="<?= FOLDER_PATH ?>/reports_list">
+                                Reporte Lista
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= FOLDER_PATH ?>/reports">
+                                Reporte gráfico
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="javascript:;">

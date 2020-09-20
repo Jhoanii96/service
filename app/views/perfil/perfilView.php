@@ -2,18 +2,18 @@
 
 
 $datos = $data['datos_perfil']->fetch();
-if ($datos[7] == 'Masculino') {
+if ($datos['genero'] == 'Masculino') {
   $genero = 'Doctor';
 }
-if ($datos[7] == 'Femenino') {
+if ($datos['genero'] == 'Femenino') {
   $genero = 'Doctora';
 } else {
   $genero = 'Doctor';
 }
 
-$Fechanac_day = date("d", strtotime($datos[13]));
-$Fechanac_mes = date("F", strtotime($datos[13]));
-$Fechanac_year = date("Y", strtotime($datos[13]));
+$Fechanac_day = date("d", strtotime($datos['fecha']));
+$Fechanac_mes = date("F", strtotime($datos['fecha']));
+$Fechanac_year = date("Y", strtotime($datos['fecha']));
 $Fechanacimiento = "$Fechanac_day de $Fechanac_mes del año $Fechanac_year";
 
 $Fecharegistro = date("d/m/Y h:i:s A", strtotime($datos[17]));
@@ -23,7 +23,7 @@ $Fechareg_mes = date("F", strtotime($datos[18]));
 $Fechareg_year = date("Y", strtotime($datos[18]));
 $Fechapago = "$Fechareg_day de $Fechareg_mes del año $Fechareg_year";
 
-$cellphone = str_split($datos[8], 1);
+$cellphone = str_split($datos['celular1'], 1);
 $digits = count($cellphone);
 $digits = $digits - 1;
 $newcellphone = [];
@@ -52,7 +52,7 @@ for ($i = $digits; $i >= 0; $i--) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="es">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Perfil: <?php echo ($datos[1] . ' ' . $datos[2] . ' ' . $datos[3]); ?></title>
+  <title>Perfil: <?php echo ($datos['nombre'] . ' ' . $datos['ape_paterno'] . ' ' . $datos['ape_materno']); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
   <meta name="description" content="Examples of just how powerful ArchitectUI really is!">
 
@@ -142,7 +142,7 @@ for ($i = $digits; $i >= 0; $i--) {
 
                         </div>
 
-                        <h3 class="profile-username text-center"><?php echo ($datos[1] . ' ' . $datos[2]); ?></h3>
+                        <h3 class="profile-username text-center"><?php echo ($datos['nombre'] . ' ' . $datos['ape_paterno']); ?></h3>
 
                         <p class="text-muted text-center" style="margin-bottom: 0;">Doctor</p>
                       </div>
@@ -162,32 +162,32 @@ for ($i = $digits; $i >= 0; $i--) {
                         <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
 
                         <p class="text-muted">
-                          <a href="mailto:<?= $datos[16] ?>"><?= $datos[16] ?></a>
+                          <a href="mailto:<?= $datos['correo'] ?>"><?= $datos['correo'] ?></a>
                         </p>
 
                         <hr>
 
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación actual</strong>
 
-                        <p class="text-muted"><?= $datos[20] ?>, <?= $datos[21] ?></p>
+                        <p class="text-muted"><?= $datos['pais'] ?>, <?= $datos['departamento'] ?></p>
 
                         <hr>
 
                         <strong><i class="fas fa-user-md mr-1"></i> Especialidad</strong>
 
-                        <p class="text-muted"><?= $datos[5] ?></p>
+                        <p class="text-muted"><?= $datos['especialidad'] ?></p>
 
                         <hr>
 
                         <strong><i class="fas fa-plus-circle mr-1"></i> Código Médico del Perú</strong>
 
-                        <p class="text-muted"><?= $datos[6] ?></p>
+                        <p class="text-muted"><?= $datos['cmp'] ?></p>
 
                         <hr>
 
                         <strong><i class="fas fa-money-bill mr-1"></i> Precio promedio por consulta</strong>
 
-                        <p class="text-muted">S/. <?= $datos[28] ?></p>
+                        <p class="text-muted">S/. <?= $datos['precioconsulta'] ?></p>
 
                       </div>
                       <!-- /.card-body -->
@@ -321,6 +321,12 @@ for ($i = $digits; $i >= 0; $i--) {
                                 <label for="date_active" class="col-sm-2 col-form-label">Fecha registro</label>
                                 <div class="col-sm-10">
                                   <input type="text" class="form-control" id="date_active" value="<?= $Fecharegistro ?>" readonly>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="precio_pro" class="col-sm-2 col-form-label">Precio promedio</label>
+                                <div class="col-sm-10">
+                                  <input type="number" class="form-control" id="precio_pro" value="<?= $datos['precioconsulta'] ?>" min="0" value="5000" step=".01">
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -527,6 +533,7 @@ for ($i = $digits; $i >= 0; $i--) {
   <script>
     $('#btn_account').on('click', function() {
       var email = $('#e-mail').val();
+      var precio = $('#precio_pro').val();
       var ufile = $('#uploadFile').val(); /* text image */
 
       if (email != "") {
@@ -549,6 +556,7 @@ for ($i = $digits; $i >= 0; $i--) {
       var data = new FormData();
 
       data.append("email", email);
+      data.append("precio", precio);
       data.append("image", $('input[type=file]')[0].files[0]);
 
       $.ajax({

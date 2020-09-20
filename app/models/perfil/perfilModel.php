@@ -57,8 +57,8 @@ class perfilModel extends Model
         Model::query_execute($query);
     }
 
-    public function ActualizarPerfil_2($email, $link_image, $username, $isnotimage){
-        $query = "CALL actualizar_perfil_cuenta('$email', '$link_image', '$username', '$isnotimage')"; 
+    public function ActualizarPerfil_2($email, $precio, $link_image, $username, $isnotimage){
+        $query = "CALL actualizar_perfil_cuenta('$email', '$precio', '$link_image', '$username', '$isnotimage')"; 
         Model::query_execute($query);
     }
 
