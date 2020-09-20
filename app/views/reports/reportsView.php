@@ -67,6 +67,12 @@
                       </div>
                       <!-- <div class="row"> -->
                       <!-- </div> -->
+                        <div class="row mb-3" style="display:flex;align-items:center;justify-content:flex-end;" id="contentTotalGanancia">
+                            <div class="col-md-3" >
+                                <label for="" style="display:none" id="lblGananciaTotal">Ganancia total : </label>
+                                <input type="text" class="form-control" id="totalGanancia" style="display:none">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6 col-sm-12" style="margin:0 auto">
                                 <canvas id="myChart" width="150" height="150" ></canvas>    
@@ -215,6 +221,10 @@
                             }
                         }
                     });
+                    $('#totalGanancia').css('display','block');
+                    $('#lblGananciaTotal').css('display','block');
+                    $('#totalGanancia').val('S/'+totalGanancia);
+                    $('#totalGanancia').attr('disabled','true');
                     console.log(' Ganancia total : '+ totalGanancia);
                 }else{
                     alert(data);
@@ -291,6 +301,10 @@
                             }
                         }
                     });
+                    $('#totalGanancia').css('display','block');
+                    $('#lblGananciaTotal').css('display','block');
+                    $('#totalGanancia').val('S/'+totalGanancia);
+                    $('#totalGanancia').attr('disabled','true');
                     console.log(' Ganancia total : '+ totalGanancia);
                 }else{
                     alert(data);
@@ -404,6 +418,10 @@
                             }
                         }
                     });
+                    $('#totalGanancia').css('display','block');
+                    $('#lblGananciaTotal').css('display','block');
+                    $('#totalGanancia').val('S/'+totalGanancia);
+                    $('#totalGanancia').attr('disabled','true');
                     console.log(' Ganancia total : '+ totalGanancia);
                 }else{
                     alert(data);
