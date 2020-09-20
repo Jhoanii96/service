@@ -14,7 +14,11 @@ class settingsModel extends Model{
   }
 
   public function getHistoryPred($idUser){
-    $query = "SELECT Anamnesis_Pred,Examenes_Pred,Examen_Fisico_Pred,Diagnostico_Pred,Tratamiento_Pred FROM historia_clinica_predeterminado WHERE Id_Usuario = $idUser";
+    $query = "SELECT hc.Anamnesis_Pred, hc.Examenes_Pred, hc.Examen_Fisico_Pred, hc.Diagnostico_Pred, hc.Tratamiento_Pred, us.Monto_Pago 
+      FROM historia_clinica_predeterminado hc 
+      INNER JOIN usuario us 
+      ON us.Id_Usuario = hc.Id_Usuario 
+      WHERE hc.Id_Usuario = $idUser;";
     return Model::query_execute($query);
   }
 

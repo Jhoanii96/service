@@ -56,7 +56,13 @@ class perfil extends Controller
     {
 
         $email = $_POST['email'];
-        $text_image = $_FILES['image']['name'];
+        $precio = $_POST['precio'];
+        if (!isset($_FILES['image']['name'])) {
+            $text_image = NULL;
+        } else {
+            $text_image = $_FILES['image']['name'];
+        }
+        
         $username = $this->session->get('admin');
 
         $microseconds2 = microtime(true);
@@ -67,6 +73,7 @@ class perfil extends Controller
 
         if($text_image == "" || $text_image == NULL) {
             $isnotimage = "1";
+            $link_image = "";
         } else {
             $file_name = date("y" . "d" . "m") . date("h" . "i" . "s") . $rand . $microseconds2 . "." . basename($_FILES['image']['type']);
             $file_tmp = $_FILES['image']['tmp_name'];
@@ -76,7 +83,7 @@ class perfil extends Controller
             $link_image = 'src/assets/media/images/profile/' . $file_name;
         }
 
-        $this->model->ActualizarPerfil_2($email, $link_image, $username, $isnotimage); 
+        $this->model->ActualizarPerfil_2($email, $precio, $link_image, $username, $isnotimage); 
 
 
     }

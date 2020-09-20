@@ -322,7 +322,7 @@ class consultation extends Controller
         $examenes_clinical = $_POST['examenes-clinical'];
         $diagnostico_clinical = $_POST['diagnostico-clinical'];
         $tratamiento_clinical = $_POST['tratamiento-clinical'];
-        $monto_consulta = $this->session->get('monto_consulta');
+        $monto_consulta = $_POST['pr'];
         if (isset($_FILES["file"]["name"][0]) || !empty($_FILES["file"]["name"][0])) {
             $filter = $_FILES["file"]["name"][0];
         } else {

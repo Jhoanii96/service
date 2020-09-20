@@ -486,6 +486,14 @@
                                                     <div class="form-row">
                                                         <div class="col-md-12">
                                                             <div class="position-relative form-group">
+                                                                <label for="genero">Precio</label>
+                                                                <input type="number" class="form-control" id="precio" name="precio" style="" value="<?php echo ($history) ? $history['Monto_Pago'] : ""; ?>" min="0" value="5000" step=".01" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
                                                                 <label>Subir archivos JPG/PNG/PDF/WORD</label>
                                                                 <div id="uploads"></div>
                                                                 <div class="dropzone" id="dropzone" style="display:flex;align-items:center;justify-content:center">Arrastre archivos o de clic aquí para subirlos</div>
@@ -1573,6 +1581,7 @@
                     var dc = $('#diagnostico-clinical').val();
                     var tc = $('#tratamiento-clinical').val();
                     var ic = $('#id_clinicalTest').val();
+                    var pr = $('#precio').val();
                     /* var fl = $('input[type=file]')[0].files; */
 
                     data.append("anamnesis-clinical", ac);
@@ -1581,6 +1590,7 @@
                     data.append("diagnostico-clinical", dc);
                     data.append("tratamiento-clinical", tc);
                     data.append("ic", ic);
+                    data.append("pr", pr);
 
                     files.forEach(file => {
                         data.append('file[]', file);
