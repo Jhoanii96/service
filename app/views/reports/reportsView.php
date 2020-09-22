@@ -354,9 +354,6 @@
                         ganancias.push(data[index].Monto); 
                         totalGanancia += parseFloat(data[index].Monto);
                     }
-                    // console.log(fechas,ganancias);
-                    if(pulsado){
-                        // charts = AddChart(ctx,cantx,fechas,ganancias,cantidad);
                         var mixedChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
@@ -425,80 +422,7 @@
                                 }
                             }
                         });
-                        pulsado = false;
-                    }else{
-                        // mixedChart.destroy();
-                        // cantChart.destroy();
-                        var mixedChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: fechas,
-                                datasets: [{
-                                    label: 'Ganancias de consultas',
-                                    data: ganancias ,
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                        var cantChart = new Chart(cantx, {
-                            type: 'bar',
-                            data: {
-                                labels: fechas,
-                                datasets: [{
-                                    label: 'Cantidad de consultas',
-                                    data: cantidad ,
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                        // AddChart(ctx,cantx,fechas,ganancias,cantidad);
-                    }
+                        
                     $('#totalGanancia').css('display','block');
                     $('#lblGananciaTotal').css('display','block');
                     $('#totalGanancia').val('S/'+totalGanancia);
