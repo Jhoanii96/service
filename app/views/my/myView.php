@@ -70,7 +70,7 @@
                                         <i class="pe-7s-home icon-gradient bg-mean-fruit">
                                         </i>
                                     </div>
-                                    <div>Actualizando datos
+                                    <div>Actualizando datos 
                                         <div class="page-title-subheading">Mi información
                                         </div>
                                     </div>
@@ -869,6 +869,43 @@
             return false;
         });
 
+        (function requestNotification(){
+                // setInterval(() => {
+                    
+                    $.ajax({
+                        url: "<?php echo FOLDER_PATH ?>/my/notifications",
+                        type: 'get',
+                        success: function(data){
+                            if (Object.keys(data).length > 0) {
+                                let content = '';
+                                for (let index = 0; index < Object.keys(data).length; index++) {
+                                    
+                                    content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2">';
+                                    content +=    '<div>'
+                                    content +=        '<span class="vertical-timeline-element-icon bounce-in"></span>';
+                                    content +=        '<div class="vertical-timeline-element-content bounce-in">';
+                                    content +=            '<h4 class="timeline-title">'+data[index].Titulo;
+                                    content +=                '<span class="badge badge-danger ml-2">NEW</span>';
+                                    content +=            '</h4>';
+                                    content +=            '<span class="vertical-timeline-element-date"></span>';
+                                    content +=        '</div>';
+                                    content +=    '</div>';
+                                    content += '</div>';
+                                    // content += '<br>'
+                                    console.log(data[index].Titulo , data[index].Descripcion);
+                                }
+                                $('#notifications-box').html(content);
+                                $('#cant-notifications').html(Object.keys(data).length);
+                            }
+                            console.log(status.status)
+                        },
+                        dataType: 'JSON',
+                        complete:requestNotification,
+                        timeout: 60000
+                    });
+                // }, 10000);
+        })();
+
         let click = 0;
 
 
@@ -1029,6 +1066,8 @@
                 return e;
             }
         }
+
+
     </script>
 
 

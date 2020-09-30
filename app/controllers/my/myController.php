@@ -25,6 +25,7 @@ class my extends Controller
         $this->tipadoModel = new tipadoModel();
         $this->questionnaireModel = new questionnaireModel();
         $this->model = new myModel();
+    
     }
 
     public function index()
@@ -191,4 +192,17 @@ class my extends Controller
       echo(json_encode($json));
     }
 
+    public function notifications(){
+        $idUser = $this->session->get('idUser');
+        $notifications = $this->model->notifications($idUser);
+        $cantNotifications = $notifications->rowCount();
+        if($cantNotifications > 0){
+            $resultNotifications = $notifications->fetchAll(PDO::FETCH_ASSOC);
+            $resp = json_encode($resultNotifications);
+        }else{
+            $resp = ['no hay resultados'];
+            $resp = json_encode($resp);
+        }
+        print_r($resp);
+    }
 }

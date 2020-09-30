@@ -42,11 +42,11 @@
         <div class="app-header-right">
             <div class="header-dots">
                 <div class="dropdown">
-                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="p-0 mr-2 btn btn-link">
+                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="p-0 mr-2 btn btn-link" id="btnNotification">
                         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
                             <!-- <span class="icon-wrapper-bg bg-danger"></span> -->
                             <span class="icon-wrapper-bg bg-deep-blue"></span>
-                            <i class="icon ion-android-notifications"></i>
+                            <i class="icon ion-android-notifications" aria-hidden="true"></i>
                             <!-- <i class="icon text-danger icon-anim-pulse ion-android-notifications"></i> -->
                             <!-- <span class="badge badge-dot badge-dot-sm badge-danger">Notificaciones</span> -->
                         </span>
@@ -56,8 +56,8 @@
                             <div class="dropdown-menu-header-inner bg-deep-blue">
                                 <div class="menu-header-image opacity-1" style="background-image: url('<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg');"></div>
                                 <div class="menu-header-content text-dark">
-                                    <h5 class="menu-header-title">Notificaciones</h5>
-                                    <h6 class="menu-header-subtitle">Tiene <b>21</b> mensajes sin leer</h6>
+                                    <h5 class="menu-header-title" id="content-notification">NOTIFICACIONES</h5>
+                                    <h6 class="menu-header-subtitle">Tiene <b id="cant-notifications"></b> mensajes sin leer</h6>
                                 </div>
                             </div>
                         </div>
@@ -66,8 +66,8 @@
                                 <div class="scroll-area-sm">
                                     <div class="scrollbar-container">
                                         <div class="p-3">
-                                            <div class="notifications-box">
-                                                <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column">
+                                            <div class="notifications-box" ">
+                                                <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column" id="notifications-box">
                                                     <div class="vertical-timeline-item dot-danger vertical-timeline-element">
                                                         <div><span class="vertical-timeline-element-icon bounce-in"></span>
                                                             <div class="vertical-timeline-element-content bounce-in">
@@ -76,7 +76,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="vertical-timeline-item dot-warning vertical-timeline-element">
+                                                    <!-- <div class="vertical-timeline-item dot-warning vertical-timeline-element">
                                                         <div>
                                                             <span class="vertical-timeline-element-icon bounce-in"></span>
                                                             <div class="vertical-timeline-element-content bounce-in">
@@ -84,7 +84,7 @@
                                                                 <span class="vertical-timeline-element-date"></span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="vertical-timeline-item dot-success vertical-timeline-element">
                                                         <div>
                                                             <span class="vertical-timeline-element-icon bounce-in"></span>
@@ -96,7 +96,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="vertical-timeline-item dot-info vertical-timeline-element">
+                                                    <!-- <div class="vertical-timeline-item dot-info vertical-timeline-element">
                                                         <div>
                                                             <span class="vertical-timeline-element-icon bounce-in"></span>
                                                             <div class="vertical-timeline-element-content bounce-in">
@@ -140,7 +140,7 @@
                                                                 <span class="vertical-timeline-element-date"></span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -322,3 +322,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    
+</script>

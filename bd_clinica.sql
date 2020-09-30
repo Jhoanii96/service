@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-09-2020 a las 21:56:09
+-- Tiempo de generación: 30-09-2020 a las 05:14:28
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `bd_clinica3`
+-- Base de datos: `bd_clinica2`
 --
 
 DELIMITER $$
@@ -2614,6 +2614,16 @@ CREATE TABLE `mensaje` (
   `Archivo_Adjunto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `mensaje`
+--
+
+INSERT INTO `mensaje` (`Id_Mensaje`, `Titulo`, `Descripcion`, `Archivo_Adjunto`) VALUES
+(1, 'Tu plan que contrataste esta apunto de agotarse !!', 'Debes renovar tu plan al fast prro', ''),
+(2, 'No puedes rechazar esta promoción por invierno', 'Afiliate a esta promocion y te daremos tu pollito XD', ''),
+(3, 'kahdkjashdkjh', 'aksjdhkajshdkjh', ''),
+(4, 'saluuuuuute', 'saluuuuuute :v', '');
+
 -- --------------------------------------------------------
 
 --
@@ -2627,6 +2637,16 @@ CREATE TABLE `mensaje_usuario` (
   `Leido` tinyint(1) NOT NULL DEFAULT 1,
   `Fecha` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `mensaje_usuario`
+--
+
+INSERT INTO `mensaje_usuario` (`Id_Mensaje_Usuario`, `Id_Usuario`, `Id_Mensaje`, `Leido`, `Fecha`) VALUES
+(1, 1, 1, 1, '2020-09-28 16:56:15'),
+(2, 1, 2, 1, '2020-09-29 20:14:01'),
+(3, 1, 3, 1, '2020-09-29 20:38:57'),
+(4, 1, 4, 1, '2020-09-29 21:28:18');
 
 -- --------------------------------------------------------
 
@@ -3497,6 +3517,18 @@ ALTER TABLE `imagen`
   ADD PRIMARY KEY (`Id_Imagen`);
 
 --
+-- Indices de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  ADD PRIMARY KEY (`Id_Mensaje`);
+
+--
+-- Indices de la tabla `mensaje_usuario`
+--
+ALTER TABLE `mensaje_usuario`
+  ADD PRIMARY KEY (`Id_Mensaje_Usuario`);
+
+--
 -- Indices de la tabla `paciente`
 --
 ALTER TABLE `paciente`
@@ -3639,6 +3671,18 @@ ALTER TABLE `historia_clinica_predeterminado`
 --
 ALTER TABLE `imagen`
   MODIFY `Id_Imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+
+--
+-- AUTO_INCREMENT de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  MODIFY `Id_Mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `mensaje_usuario`
+--
+ALTER TABLE `mensaje_usuario`
+  MODIFY `Id_Mensaje_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
