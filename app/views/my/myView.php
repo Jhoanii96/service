@@ -15,7 +15,7 @@
 
     <!-- HEADER -->
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
-
+    
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 
     <style>
@@ -30,6 +30,17 @@
             -moz-border-radius: 4px;
             border-radius: 4px;
         }
+        .container-notification{
+            width:80%;
+            /* height:200px; */
+            /* background-color:orange; */
+            color:#FA8072;
+            font-size:24pt;
+            overflow:hidden;
+            white-space:nowrap;
+            text-overflow: ellipsis;
+        }
+        
     </style>
 
 </head>
@@ -869,26 +880,30 @@
             return false;
         });
 
+
+        //First option Long Pooling
+        let timestamp = null;
         (function requestNotification(){
-                // setInterval(() => {
                     
                     $.ajax({
                         url: "<?php echo FOLDER_PATH ?>/my/notifications",
                         type: 'get',
+                        dataType: 'JSON',
                         success: function(data){
                             if (Object.keys(data).length > 0) {
                                 let content = '';
                                 for (let index = 0; index < Object.keys(data).length; index++) {
                                     
-                                    content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2">';
+                                    content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2" ">';
                                     content +=    '<div>'
                                     content +=        '<span class="vertical-timeline-element-icon bounce-in"></span>';
-                                    content +=        '<div class="vertical-timeline-element-content bounce-in">';
-                                    content +=            '<h4 class="timeline-title">'+data[index].Titulo;
-                                    content +=                '<span class="badge badge-danger ml-2">NEW</span>';
+                                    content +=        '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none">';
+                                    content +=            '<h4 class="timeline-title container-notification" >'+data[index].Titulo;
                                     content +=            '</h4>';
+                                    content +=            '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
                                     content +=            '<span class="vertical-timeline-element-date"></span>';
-                                    content +=        '</div>';
+                                    content +=        '</a>';
+                                    // content +=        '<p>Hace 2 horas</p>'
                                     content +=    '</div>';
                                     content += '</div>';
                                     // content += '<br>'
@@ -898,13 +913,55 @@
                                 $('#cant-notifications').html(Object.keys(data).length);
                             }
                             console.log(status.status)
-                        },
-                        dataType: 'JSON',
-                        complete:requestNotification,
-                        timeout: 60000
+                            setTimeout(() => {
+                                requestNotification();
+                            },6000);
+                        }
+                        // complete:requestNotification,
+                        // timeout: 60000
                     });
-                // }, 10000);
+                
         })();
+
+        //Second option Long Pooling
+
+        // let timestamp = null;
+
+        // function cargar_push(){
+        //     $.ajax({
+        //         async:true,
+        //         type:'post',
+        //         url: 'httpush.php',
+        //         data: "&timestamp ="+timestamp,
+        //         dataType:'html',
+        //         success: function(data){
+        //             let json = eval("("+ data +")");
+        //             timestamp = json.timestamp;
+        //             mensaje = json.mensaje;
+        //             id = json.id;
+        //             status = json.status;
+                    
+        //             if(timestamp == null){
+
+        //             }else{
+        //                 $.ajax({
+        //                     async:true,
+        //                     type: 'post',
+        //                     url: 'mensajes.php',
+        //                     data: "",
+        //                     dataType: 'html',
+        //                     success: function(data){
+        //                         $('#contenido').html(data);
+        //                     }
+        //                 });
+        //             }
+        //             setTimeout(() => {
+        //                 cargar_push()
+        //             }, 1000);
+        //         }
+        //     })
+        // }
+
 
         let click = 0;
 

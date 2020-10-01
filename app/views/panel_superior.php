@@ -66,8 +66,8 @@
                                 <div class="scroll-area-sm">
                                     <div class="scrollbar-container">
                                         <div class="p-3">
-                                            <div class="notifications-box" ">
-                                                <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column" id="notifications-box">
+                                            <div class="notifications-box" >
+                                                <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column" id="notifications-box" style="height:auto;">
                                                     <div class="vertical-timeline-item dot-danger vertical-timeline-element">
                                                         <div><span class="vertical-timeline-element-icon bounce-in"></span>
                                                             <div class="vertical-timeline-element-content bounce-in">
@@ -96,51 +96,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="vertical-timeline-item dot-info vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in"></span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">This dot has an info state</h4>
-                                                                <span class="vertical-timeline-element-date"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item dot-danger vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in"></span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">All Hands Meeting</h4>
-                                                                <span class="vertical-timeline-element-date"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item dot-warning vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in"></span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <p>Yet another one, at <span class="text-success">15:00 PM</span>
-                                                                </p><span class="vertical-timeline-element-date"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item dot-success vertical-timeline-element">
-                                                        <div><span class="vertical-timeline-element-icon bounce-in"></span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">Build the production release
-                                                                    <span class="badge badge-danger ml-2">NEW</span>
-                                                                </h4>
-                                                                <span class="vertical-timeline-element-date"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item dot-dark vertical-timeline-element">
-                                                        <div><span class="vertical-timeline-element-icon bounce-in"></span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">This dot has a dark state</h4>
-                                                                <span class="vertical-timeline-element-date"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +106,8 @@
                         <ul class="nav flex-column">
                             <li class="nav-item-divider nav-item"></li>
                             <li class="nav-item-btn text-center nav-item">
-                                <button class="btn-shadow btn-wide btn-pill btn btn-focus btn-sm">Ver los últimos cambios</button>
+                                <!-- <button class="btn-shadow btn-wide btn-pill btn btn-focus btn-sm">Ver los últimos cambios</button> -->
+                                <a href="<?= FOLDER_PATH ?>/notifications" class="btn-shadow btn-wide btn-pill btn btn-focus btn-sm">Ver los últimos cambios</a>
                             </li>
                         </ul>
                     </div>
