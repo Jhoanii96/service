@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="input-group pb-4" style="margin-left: auto;">
                                         <div class="position-relative input-group">
-                                            <input type="text" name="monto" id="monto" class="mr-2 form-control" value="Ganancia: S/.0" style="width: 180px;" readonly>
+                                            <input type="text" name="monto" id="monto" class="mr-2 form-control" value="Total: S/.0" style="width: 180px;" readonly>
                                             <input type="text" name="count" id="count" class="mr-2 form-control" value="Nro: 115" style="width: 90px;" readonly>
                                         </div>
                                     </div>
@@ -277,7 +277,7 @@
     </script>
     <script>
         $(document).ready(function (){
-            $("#monto").val("Ganancia: S/. <?= number_format((float)$monto, 2, '.', '') ?>");
+            $("#monto").val("Total: S/. <?= number_format((float)$monto, 2, '.', '') ?>");
             $("#count").val("Nro: <?= $count ?>");
         });
         $(':input[readonly]').css({
@@ -356,7 +356,7 @@
                     $("#spinner-src-" + numbtn).remove();
                     $("#btnsrc" + numbtn).attr("disabled", false);
                     $("#example").html(obj_details[0]);
-                    $("#monto").val("Ganancia: S/." + obj_details[1].toFixed(2));
+                    $("#monto").val("Total: S/." + obj_details[1].toFixed(2));
                     $("#count").val("Nro: " + obj_details[2]);
                 }
             })

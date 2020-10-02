@@ -36,23 +36,24 @@ class login extends Controller
 		$param[1] = $pass;
 
 		if (!$this->VerificarParametros($param)) {
-			echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
 			$this->renderErrorMessage('*El usuario y la contraseña son obligatorios');
 		} else {
 			@$parametro = $this->model->load_user($param[0]);
 			$identi = $parametro->fetch();
 
 			if ($param[0] != $identi[0]) {
-				echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
 				$this->renderErrorMessage('*El usuario no existe');
 			} else {
 				// if($param['password'] != $parametro['clave_organizador']){
 				if ($param[1] != $identi[1]) {
-					echo ("<script>location.href = '" . FOLDER_PATH . "/login';</script>");
 					$this->renderErrorMessage('*La contraseña es incorrecta');
 				} else {
-					$this->session->add('admin', $param[0]);
-					echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
+					if (($identi[2]  . ' 23:59:59') <= date('Y-m-d H:i:s')) {
+						$this->renderErrorMessage('*Su cuenta ha expirado por favor contactese con este número para mas información');
+					} else {
+						$this->session->add('admin', $param[0]);
+						echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");
+					}
 					// if (!empty($_POST["chkb"])) {
 					// 	setcookie("member_login", $id, time() + (10 * 365 * 24 * 60 * 60));
 					// 	setcookie("member_password", $pass, time() + (10 * 365 * 24 * 60 * 60));

@@ -46,6 +46,48 @@
 </head>
 
 <body>
+    <?php 
+    
+    $datos_enabled = $data['Enabled']->fetch(); 
+
+    $fecha_habilitado = $datos_enabled['fecha'] . ' 23:59:59';
+
+    $fecha_7daysago = strtotime('-7 day', strtotime($fecha_habilitado));
+    $fecha_7daysago = date('Y-m-d H:i:s', $fecha_7daysago);
+    $fecha_3daysago = strtotime('-3 day', strtotime($fecha_habilitado));
+    $fecha_3daysago = date('Y-m-d H:i:s', $fecha_3daysago);
+    $act_msg = 0;
+    $color_alert = 'alert-primary';
+    
+    if (date('Y-m-d H:i:s') >= $fecha_7daysago && date('Y-m-d H:i:s') <= $fecha_habilitado) {
+        $date_ini = new DateTime(date('Y-m-d H:i:s'));
+        $date_fin = new DateTime($fecha_habilitado);
+        $interval = $date_ini->diff($date_fin);
+        if (date('Y-m-d H:i:s') >= $fecha_3daysago && date('Y-m-d H:i:s') <= $fecha_habilitado) {
+            $mensage = "Nota: Tu fecha de uso del sistema caducará en ".$interval->d." dias ".$interval->h." horas y ".$interval->i." minutos, cuando caduque usted ya no podrá seguir usando la aplicación"; 
+            $color_alert = 'alert-danger';
+        } else {
+            $mensage = "Nota: Tu fecha de uso del sistema caducará en ".$interval->d." dias ".$interval->h." horas y ".$interval->i." minutos, cuando caduque usted ya no podrá seguir usando la aplicación"; 
+        }
+        $act_msg = 1;
+    } else {
+        if (date('Y-m-d H:i:s') > $fecha_habilitado) {
+            echo ("<script>location.href = '" . FOLDER_PATH . "/login/salir';</script>");
+        }
+    }
+
+    if ($act_msg == 1) {
+        echo '
+        <div class="alert ' . $color_alert . ' alert-server" role="alert" style="z-index: 99999; width: 100%; height: 60px; border-radius: 0; margin-bottom: 0px;position: fixed;">
+            <div style="margin: 0;position: relative;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);text-align: center;">
+                <button id="close-alert" type="button" class="close" data-dismiss="alert" style="line-height: 0.75;">×</button>
+                ' . $mensage . '
+            </div>
+        </div>';
+    }
+    
+    ?>
+    
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
         <?php
         $profile = $this->showProfile();
@@ -62,7 +104,7 @@
         <!-- HEADER -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
 
-        <div class="app-main">
+        <div id="body-main" class="app-main"<?php if ($act_msg == 1) { echo(' style="padding-top: 120px;"'); } ?>>
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
@@ -1127,7 +1169,12 @@
 
     </script>
 
-
+    <script>
+        $('#close-alert').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+        });
+    </script>
 
 </body>
 

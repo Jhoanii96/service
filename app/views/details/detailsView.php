@@ -459,8 +459,13 @@ $count_doc = $datos['count_doc'];
                                                                 $newwidth = $width * 1.5;
                                                                 $newheight = $height * 1.5;
                                                             } else {
-                                                                $newwidth = $width * 3;
-                                                                $newheight = $height * 3;
+                                                                if ($width < 750) {
+                                                                    $newwidth = $width * 5;
+                                                                    $newheight = $height * 5;
+                                                                } else {
+                                                                    $newwidth = $width * 3;
+                                                                    $newheight = $height * 3;
+                                                                }
                                                             }
                                                             
                                                             echo '
