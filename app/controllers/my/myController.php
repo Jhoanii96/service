@@ -205,4 +205,14 @@ class my extends Controller
         }
         print_r($resp);
     }
+
+    public function updateStateAllNotifications(){
+        $notifications = $this->model->updateStateAllNotifications();
+        $cantNotifications = $notifications->rowCount();
+        if($cantNotifications > 0){
+            echo "Se actualizaron todas las notificaciones";
+        }else{
+            echo "No se actualizaron";
+        }
+    }
 }

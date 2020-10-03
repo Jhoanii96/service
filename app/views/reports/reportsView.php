@@ -120,7 +120,7 @@
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script src="https://cdnjs.com/libraries/Chart.js"></script>
     <script>
@@ -512,6 +512,69 @@
             return charts;
         }
 
+
+        /** Para las notificaciones */
+
+        (function requestNotification(){
+                    
+            $.ajax({
+                url: "<?php echo FOLDER_PATH ?>/my/notifications",
+                type: 'get',
+                dataType: 'JSON',
+                success: function(data){
+                    if (Object.keys(data).length > 0) {
+                        let content = '';
+                        let cantNotification = 0;
+                        for (let index = 0; index < Object.keys(data).length; index++) {
+                            
+                            content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2" ">';
+                            content +=    '<div>'
+                            content +=        '<span class="vertical-timeline-element-icon bounce-in"></span>';
+                            content +=        '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none" onclick="return notificationclick()">';
+                            content +=            '<h4 class="timeline-title container-notification" >'+data[index].Titulo;
+                            content +=            '</h4>';
+                            if(data[index].Leido === '0'){
+                            cantNotification++;
+                            content +=            '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
+                            }
+                            content +=            '<span class="vertical-timeline-element-date"></span>';
+                            content +=        '</a>';
+                            content +=    '</div>';
+                            content += '</div>';
+                            console.log(data[index].Titulo , data[index].Descripcion);
+                        }
+                        $('#notifications-box').html(content);
+                        if(cantNotification > 0){
+                            $('#cantNotification').html(cantNotification);
+                            $('#cantNotification').css('display','block');
+                        }else{
+                            $('#cantNotification').css('display','none');
+                        }
+                        $('#cant-notifications').html(cantNotification);
+                    }
+                    // console.log(status.status)
+                    setTimeout(() => {
+                        requestNotification();
+                    },6000);
+                }
+                // complete:requestNotification,
+                // timeout: 60000
+            });
+            })();
+
+            function notificationclick(){
+                // e.preventDefault();
+                $.ajax({
+                    type:'post',
+                    url:'<?php echo FOLDER_PATH ?>/my/updateStateAllNotifications'
+                })
+                .done(function(response){
+                    console.log(response);
+                })
+                .fail(function(){
+                    console.log('Hubo un error')
+                })
+            }
     </script>
 </body>
 </html>

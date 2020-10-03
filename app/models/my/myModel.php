@@ -17,7 +17,12 @@ class myModel extends Model
     }
 
     public function notifications($idUser){
-        $query = "SELECT me.Titulo,me.Descripcion FROM mensaje_usuario meu INNER JOIN mensaje me ON meu.Id_Mensaje = me.Id_Mensaje WHERE meu.Id_Usuario = $idUser";
+        $query = "SELECT me.Titulo,me.Descripcion,meu.Leido FROM mensaje_usuario meu INNER JOIN mensaje me ON meu.Id_Mensaje = me.Id_Mensaje WHERE meu.Id_Usuario = $idUser";
+        return Model::query_execute($query);
+    }
+
+    public function updateStateAllNotifications(){
+        $query = "UPDATE mensaje_usuario SET Leido = 1";
         return Model::query_execute($query);
     }
 }

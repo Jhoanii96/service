@@ -33,6 +33,18 @@ class notifications extends Controller{
         }
       return $resultNotifications;
   }
+
+  public function updateStateNotification(){
+    $idMensaje = $_POST['id'];
+    $checked = $_POST['state'];
+    $resultMensajes =  $this->notification->updateStateNotification($idMensaje,$checked);
+    $resultMensajes = $resultMensajes->rowCount();
+    if($resultMensajes > 0){
+      echo "Ha leido el mensaje";
+    }else{
+      echo "No ha leido el mensaje";
+    }
+  }
 }
 
 ?>

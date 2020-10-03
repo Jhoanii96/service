@@ -43,10 +43,11 @@
             <div class="header-dots">
                 <div class="dropdown">
                     <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="p-0 mr-2 btn btn-link" id="btnNotification">
-                        <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+                        <span class="icon-wrapper icon-wrapper-alt rounded-circle" >
                             <!-- <span class="icon-wrapper-bg bg-danger"></span> -->
                             <span class="icon-wrapper-bg bg-deep-blue"></span>
-                            <i class="icon ion-android-notifications" aria-hidden="true"></i>
+                            <i class="icon ion-android-notifications" aria-hidden="true" style="font-size:30px"></i>
+                            <span id="cantNotification" style="display:none;border:1px solid red;color:white;background:#F63D3D;width:18px;height:18px;border-radius:50%;position:absolute;right:1px;top:-1px"></span>
                             <!-- <i class="icon text-danger icon-anim-pulse ion-android-notifications"></i> -->
                             <!-- <span class="badge badge-dot badge-dot-sm badge-danger">Notificaciones</span> -->
                         </span>

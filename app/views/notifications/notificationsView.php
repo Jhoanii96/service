@@ -50,19 +50,34 @@
                     <div class="card-body">
                       <div class="container">
                         <div class="content-notification">
-                        <button class="btn btn-outline-dark mb-3"><i class="fas fa-check"></i>  Marcar todo como leido</button>
+                        <!-- <div class="row"> -->
+                          <!-- <button class="btn btn-outline-dark mb-3" id="btnCheckNotification"><i class="fas fa-check"></i>  Marcar todo como leido</button>
+                          <button class="btn btn-outline-primary mb-3" id="btnUncheckNotification" style="display:none" ><i class="fas fa-check"></i>  Desmarcar todo como leido</button>
+                          <button class="btn btn-outline-danger mb-3" id="btnShowAllNotification"><i class="far fa-eye"></i>  Mostrar todas las notificaciones</button> -->
+                        <!-- </div> -->
                         <?php
                           $notification = $this->showNotifications();
-                          foreach ($notification as $notificacion) {
-                            echo "<div class='mb-2' style='border:1px solid rgba(119, 136, 153,0.2);padding:15px;box-shadow: -1px 8px 5px -6px rgba(119,136,153,0.64);'>";
-                            echo    "<b><span>".$notificacion['Titulo']."</span></b>";
-                            echo    "<input type='checkbox' name='' id='' style='float:right'><br>";
-                            echo    "<span>".$notificacion['Descripcion']."</span>";
-                            echo    "<div class='notification_time' style='color:#B0C4DE'><i class='far fa-clock mr-1'></i> hace 2 horas</div>";
-                            echo    "<div style='display:flex;justify-content:flex-end'>";
-                            echo      "<button class='btn btn-primary' >Contactar</button>";
-                            echo    "</div>";
+                          if($notification === null){
+                            echo "<div class='mb-2' style='text-align:center;border:1px groove rgba(119, 136, 153,0.5);padding:25px;'>";
+                            echo    "<b><span><i class='fas fa-bell'></i> No tiene nuevas notificaciones</span></b>";
                             echo "</div>";
+                          }else{
+                            foreach ($notification as $notificacion) {
+                              echo "<div class='notification-card  mb-2' style='border:1px solid rgba(119, 136, 153,0.2);padding:15px;box-shadow: -1px 8px 5px -6px rgba(119,136,153,0.64);'>";
+                              echo    "<input type='hidden' class='id_notification' value='".$notificacion['Id']."'>";
+                              echo    "<b><span>".$notificacion['Titulo']."</span></b><br>";
+                              // if($notificacion['Leido'] === '1'){
+                              //   echo    "<input type='checkbox' class='checkNotification' style='float:right' checked><br>";
+                              // }else{
+                              //   echo    "<input type='checkbox' class='checkNotification' style='float:right'><br>";
+                              // }
+                              echo    "<span>".$notificacion['Descripcion']."</span>";
+                              echo    "<div class='notification_time mb-3' style='color:#F08080'><i class='far fa-clock mr-1'></i> hace 2 horas</div>";
+                              // echo    "<div style='display:flex;justify-content:flex-end'>";
+                              // echo      "<button class='btn btn-primary' >Contactar</button>";
+                              // echo    "</div>";
+                              echo "</div>";
+                            }
                           }
                         ?>   
                         </div>
@@ -76,10 +91,124 @@
     </div>
 </body>
 <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
-    <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
-    <!-- <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
+<script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
+<!-- <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+  $('#btnCheckNotification').click(function(e){
+    e.preventDefault();
+
+    $('.checkNotification').each(function(){
+      $(this).prop('checked',true);
+      console.log('checked');
+    });
+    $('#btnCheckNotification').css('display','none');
+    $('#btnUncheckNotification').css('display','inline-block');
+
+  });
+
+  $('#btnUncheckNotification').click(function(e){
+    e.preventDefault();
+
+    $('.checkNotification').each(function(){
+      $(this).prop('checked',false);
+      console.log('checked');
+    });
+    $('#btnCheckNotification').css('display','inline-block');
+    $('#btnUncheckNotification').css('display','none');
+  });
+
+  $('#btnShowAllNotification').click(function(e){
+    e.preventDefault();
+
+    $('.notification-card').css('display','block');
+  })
+
+  $('.checkNotification').change(function(e){
+    e.preventDefault();
+
+    let data = $(this).siblings('.id_notification').val();
+    let state = $(this).is(':checked') ? true : false;
+    console.log(state);
+    $.ajax({
+      type:'post',
+      url:'<?php echo FOLDER_PATH ?>/notifications/updateStateNotification',
+      data: {id:data, state}
+    })
+    .done(function(response){
+      alert(response);
+    })
+    .fail(function(){
+      alert('Hubo un error');
+    })
+    // $(this).parent().css('display','none');
+  });
+
+  /** Para las notificaciones */
+
+  (function requestNotification(){
+                    
+    $.ajax({
+        url: "<?php echo FOLDER_PATH ?>/my/notifications",
+        type: 'get',
+        dataType: 'JSON',
+        success: function(data){
+            if (Object.keys(data).length > 0) {
+                let content = '';
+                let cantNotification = 0;
+                for (let index = 0; index < Object.keys(data).length; index++) {
+                    
+                    content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2" ">';
+                    content +=    '<div>'
+                    content +=        '<span class="vertical-timeline-element-icon bounce-in"></span>';
+                    content +=        '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none" onclick="return notificationclick()">';
+                    content +=            '<h4 class="timeline-title container-notification" >'+data[index].Titulo;
+                    content +=            '</h4>';
+                    if(data[index].Leido === '0'){
+                    cantNotification++;
+                    content +=            '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
+                    }
+                    content +=            '<span class="vertical-timeline-element-date"></span>';
+                    content +=        '</a>';
+                    content +=    '</div>';
+                    content += '</div>';
+                    console.log(data[index].Titulo , data[index].Descripcion);
+                }
+                $('#notifications-box').html(content);
+                if(cantNotification > 0){
+                    $('#cantNotification').html(cantNotification);
+                    $('#cantNotification').css('display','block');
+                }else{
+                    $('#cantNotification').css('display','none');
+                }
+                $('#cant-notifications').html(cantNotification);
+            }
+            // console.log(status.status)
+            setTimeout(() => {
+                requestNotification();
+            },6000);
+        }
+        // complete:requestNotification,
+        // timeout: 60000
+    });
+  })();
+
+  function notificationclick(){
+      // e.preventDefault();
+      $.ajax({
+          type:'post',
+          url:'<?php echo FOLDER_PATH ?>/my/updateStateAllNotifications'
+      })
+      .done(function(response){
+          console.log(response);
+      })
+      .fail(function(){
+          console.log('Hubo un error')
+      })
+  }
+</script>
+
 </html>

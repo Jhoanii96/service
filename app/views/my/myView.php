@@ -892,27 +892,35 @@
                         success: function(data){
                             if (Object.keys(data).length > 0) {
                                 let content = '';
+                                let cantNotification = 0;
                                 for (let index = 0; index < Object.keys(data).length; index++) {
                                     
                                     content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2" ">';
                                     content +=    '<div>'
                                     content +=        '<span class="vertical-timeline-element-icon bounce-in"></span>';
-                                    content +=        '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none">';
+                                    content +=        '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none" onclick="return notificationclick()">';
                                     content +=            '<h4 class="timeline-title container-notification" >'+data[index].Titulo;
                                     content +=            '</h4>';
+                                    if(data[index].Leido === '0'){
+                                    cantNotification++;
                                     content +=            '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
+                                    }
                                     content +=            '<span class="vertical-timeline-element-date"></span>';
                                     content +=        '</a>';
-                                    // content +=        '<p>Hace 2 horas</p>'
                                     content +=    '</div>';
                                     content += '</div>';
-                                    // content += '<br>'
                                     console.log(data[index].Titulo , data[index].Descripcion);
                                 }
                                 $('#notifications-box').html(content);
-                                $('#cant-notifications').html(Object.keys(data).length);
+                                if(cantNotification > 0){
+                                    $('#cantNotification').html(cantNotification);
+                                    $('#cantNotification').css('display','block');
+                                }else{
+                                    $('#cantNotification').css('display','none');
+                                }
+                                $('#cant-notifications').html(cantNotification);
                             }
-                            console.log(status.status)
+                            // console.log(status.status)
                             setTimeout(() => {
                                 requestNotification();
                             },6000);
@@ -920,8 +928,22 @@
                         // complete:requestNotification,
                         // timeout: 60000
                     });
-                
         })();
+
+        function notificationclick(){
+            // e.preventDefault();
+            $.ajax({
+                type:'post',
+                url:'<?php echo FOLDER_PATH ?>/my/updateStateAllNotifications'
+            })
+            .done(function(response){
+                console.log(response);
+            })
+            .fail(function(){
+                console.log('Hubo un error')
+            })
+        }
+        
 
         //Second option Long Pooling
 

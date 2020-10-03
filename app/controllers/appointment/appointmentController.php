@@ -2,10 +2,13 @@
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/appointment/appointmentModel.php";
+require ROOT . FOLDER_PATH . "/app/models/my/myModel.php";
+
 class appointment extends Controller
 {
   protected $session;
   protected $model;
+  protected $my;
 
   public function __construct()
   {
@@ -17,6 +20,7 @@ class appointment extends Controller
     }
 
     $this->model = new appointmentModel();
+    $this->my = new myModel();
   }
 
   public function index()
@@ -274,5 +278,19 @@ class appointment extends Controller
 
     echo(json_encode($json));
   }
-  
+
+  /** Para las notificaciones */
+  public function notifications(){
+    $idUser = $this->session->get('idUser');
+    $notifications = $this->my->notifications($idUser);
+    $cantNotifications = $notifications->rowCount();
+    if($cantNotifications > 0){
+        $resultNotifications = $notifications->fetchAll(PDO::FETCH_ASSOC);
+        $resp = json_encode($resultNotifications);
+    }else{
+        $resp = ['no hay resultados'];
+        $resp = json_encode($resp);
+    }
+    print_r($resp);
+  }
 }

@@ -2,11 +2,12 @@
 
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/questionnaire/questionnaireModel.php";
+require ROOT . FOLDER_PATH . "/app/models/my/myModel.php";
 
 class questionnaire extends Controller{
 
   protected $session;
-
+  protected $my;
 
   public function __construct(){
     $this->session = new Session;
@@ -17,6 +18,7 @@ class questionnaire extends Controller{
     }
 
     $this->questionnaireModel = new questionnaireModel();
+    $this->my = new myModel();
   }
 
   public function index(){
@@ -53,6 +55,22 @@ class questionnaire extends Controller{
       echo "No se pudo agregar";
     }
   }
+
+  /* Para las notificaiones */
+  public function notifications(){
+    $idUser = $this->session->get('idUser');
+    $notifications = $this->my->notifications($idUser);
+    $cantNotifications = $notifications->rowCount();
+    if($cantNotifications > 0){
+        $resultNotifications = $notifications->fetchAll(PDO::FETCH_ASSOC);
+        $resp = json_encode($resultNotifications);
+    }else{
+        $resp = ['no hay resultados'];
+        $resp = json_encode($resp);
+    }
+    print_r($resp);
+}
+
 }
 
 ?>
