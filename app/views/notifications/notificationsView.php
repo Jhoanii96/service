@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="es">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>CRM Dashboard - Examples of just how powerful ArchitectUI really is!</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description" content="Examples of just how powerful ArchitectUI really is!">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Language" content="es">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>CRM Dashboard - Examples of just how powerful ArchitectUI really is!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <meta name="description" content="Examples of just how powerful ArchitectUI really is!">
 
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
-    <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
-    <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
+  <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
+  <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 </head>
+
 <body>
-<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-      <!-- HEADER -->
-      <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
-      <!-- PANEL LATERAL DERECHO/CONFIGURACIONES DE DISEÑO -->
-      <!--?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?-->
+  <?php require(ROOT . '/' . PATH_VIEWS . 'alert_message.php'); ?>
+  <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+    <!-- HEADER -->
+    <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
+    <!-- PANEL LATERAL DERECHO/CONFIGURACIONES DE DISEÑO -->
+    <!--?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?-->
 
-      <div class="app-main">
+    <div id="body-main" class="app-main" <?php if (isset($act_msg)) if ($act_msg == 1) echo (' style="padding-top: 120px;"'); ?>>
 
-          <!-- PANEL LATERAL IZQUIERDO -->
-          <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
-          
-          <div class="app-main__outer">
-            <div class="app-main__inner">
-                <div class="app-page-title">
-                    <div class="page-title-wrapper">
-                        <div class="page-title-heading">
-                            <div class="page-title-icon">
-                                <i class="pe-7s-home icon-gradient bg-mean-fruit">
-                                </i>
-                            </div>
-                            <div>Notificaciones
-                                <div class="page-title-subheading">
-                                    Notificaciones de administración.
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
+      <!-- PANEL LATERAL IZQUIERDO -->
+      <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
+
+      <div class="app-main__outer">
+        <div class="app-main__inner">
+          <div class="app-page-title">
+            <div class="page-title-wrapper">
+              <div class="page-title-heading">
+                <div class="page-title-icon">
+                  <i class="pe-7s-home icon-gradient bg-mean-fruit">
+                  </i>
                 </div>
               <!-- CONTENIDO AYUDA -->
                 <div class="main-card mb-3 card pl-5 pr-5 pt-4">
@@ -84,11 +79,14 @@
                       </div>
                     </div>
                 </div>
-              <!-- END CONTENIDO AYUDA -->
+              </div>
             </div>
           </div>
+          <!-- END CONTENIDO AYUDA -->
+        </div>
       </div>
     </div>
+  </div>
 </body>
 <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
@@ -207,7 +205,49 @@
       })
       .fail(function(){
           console.log('Hubo un error')
-      })
+      });
+
+<script>
+  $('#close-alert7').click(function() {
+    $("#top-header").css("margin-top", "");
+    $("#body-main").css("padding-top", "");
+    var active = '0';
+    setCookie('alert_active7', active, 7);
+  });
+  $('#close-alert4').click(function() {
+    $("#top-header").css("margin-top", "");
+    $("#body-main").css("padding-top", "");
+    var active = '0';
+    setCookie('alert_active4', active, 7);
+  });
+  $('#close-alert2').click(function() {
+    $("#top-header").css("margin-top", "");
+    $("#body-main").css("padding-top", "");
+  });
+
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
   }
 </script>
 

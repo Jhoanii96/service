@@ -22,7 +22,11 @@ class questionnaire extends Controller{
   }
 
   public function index(){
-    $this->view('questionnaire/questionnaire');
+    $usu_cod = $this->session->get('admin');
+    $enabled = $this->questionnaireModel->fecha_habilitado($usu_cod);
+    $this->view('questionnaire/questionnaire',[
+      'Enabled' => $enabled 
+    ]);
   }
 
   public function deleteQuestion(){

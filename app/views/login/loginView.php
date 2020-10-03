@@ -33,7 +33,7 @@
                     </span>
                 </div>
 
-                <form action="<?= FOLDER_PATH . '/login/signin' ?>" method="post" id="login-form" class="login100-form validate-form">
+                <form action="<?= FOLDER_PATH . '/login/signin' ?>" method="post" id="login-form" class="login100-form validate-form" style="position: relative;">
                     <span class="login100-form-title">
                         Conexión
                     </span>
@@ -54,8 +54,8 @@
                         </span>
                     </div>
                     <?php
-                    if (!empty($data['error_message'])) {
-                        echo '<span style="text-align: center;display: block;color: red;margin-bottom: 15px;">' . $data['error_message'] . '</span>';
+                    if (isset($data['error_message'])) {
+                        echo '<span style="text-align: center;display: block;color: red;font-size: 12px;">' . $data['error_message'] . '</span>';
                     } else {
                         echo '';
                     }
@@ -76,7 +76,7 @@
                         </a>
                     </div>
 
-                    <div class="text-center p-t-60">
+                    <div style="position: absolute;left: 50%;bottom: 5px;margin-left: -50px;">
                         <a class="txt2" href="<?= FOLDER_PATH ?>/register">
                             Crea tu cuenta
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>

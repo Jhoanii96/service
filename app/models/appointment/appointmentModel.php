@@ -46,5 +46,9 @@ class appointmentModel extends Model
         $res = Model::query_execute($query);
         return $res;
     }
+    public function fecha_habilitado($idUser){
+        $query = "SELECT us.Mensaje_Habilitado as activo, us.Fecha_Habilitado as fecha FROM usuario us WHERE us.Nombre = '$idUser'";
+        return Model::query_execute($query);
+    }
 
 }

@@ -32,8 +32,10 @@ class my extends Controller
     {
         $usu_cod = $this->session->get('admin');
         $Result = $this->model->lista_historia_clinica($usu_cod);
+        $enabled = $this->model->fecha_habilitado($usu_cod);
         $this->view('my/my', [
-            'Result' => $Result
+            'Result' => $Result, 
+            'Enabled' => $enabled 
         ]);
     }
 

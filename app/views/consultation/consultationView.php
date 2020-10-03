@@ -150,12 +150,13 @@
 </head>
 
 <body style="overflow: hidden;">
+    <?php require(ROOT . '/' . PATH_VIEWS . 'alert_message.php'); ?>
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
 
         <!-- HEADER -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
 
-        <div class="app-main">
+        <div id="body-main" class="app-main" <?php if (isset($act_msg)) if ($act_msg == 1) echo (' style="padding-top: 120px;"'); ?>>
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
@@ -825,12 +826,12 @@
                         listado += '<i class="far fa-file-word" style="font-size: 60px;display:block; color: #777777;"></i>';
                     }
                     console.log(filesInput.files[index].type);
-                    short_text = truncate(filesInput.files[index].name,10);
+                    short_text = truncate(filesInput.files[index].name, 10);
                     /* listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + filesInput.files[index].name + '</span>'; */
                     listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + short_text + '</span>';
                     listado += '</div>';
                 }
-                
+
                 for (let index = 0; index < filesInput.files.length; index++) {
                     let file = filesInput.files[index];
                     newFiles.push(file);
@@ -894,7 +895,7 @@
                         listado += '<i class="far fa-file-word" style="font-size: 60px;display:block; color: #777777;"></i>';
                     }
                     console.log(fileupload[0].files[index].type);
-                    short_text = truncate(fileupload[0].files[index].name,10);
+                    short_text = truncate(fileupload[0].files[index].name, 10);
                     /* listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + filesInput.files[index].name + '</span>'; */
                     listado += '<span class="title_pdf" style="display:block; color: rgb(255, 38, 38);">' + short_text + '</span>';
                     listado += '</div>';
@@ -930,8 +931,8 @@
                 return false;
             }
 
-            function truncate(str, n){
-                return (str.length > n) ? str.substr(0, n-1) + '&hellip;' : str;
+            function truncate(str, n) {
+                return (str.length > n) ? str.substr(0, n - 1) + '&hellip;' : str;
             };
 
         }());
@@ -1035,7 +1036,7 @@
                                                 table: {
                                                     widths: [65, 65, 65],
                                                     headerRows: 1,
-                                                    
+
                                                     // keepWithHeaderRows: 1,
                                                     body: [
                                                         [{
@@ -1254,11 +1255,11 @@
                         let questions = "";
                         for (let index = 1; index <= data[0]; index++) {
                             questions += "<div class='col-md-6'>";
-                            questions +=    "<div class='position-relative form-group'>";
-                            questions +=        "<label for='question'>P"+ index +": ¿" + data[index].Pregunta + "?</label>";
-                            questions +=        "<input type='hidden' name='detalle[]' value='" + data[index].Id_Detalle + "' class='input-detalle'>";
-                            questions +=        "<input name='answers[]' type='text' id='answer"+index+"' class='form-control input-answers' required>";
-                            questions +=    "</div>";
+                            questions += "<div class='position-relative form-group'>";
+                            questions += "<label for='question'>P" + index + ": ¿" + data[index].Pregunta + "?</label>";
+                            questions += "<input type='hidden' name='detalle[]' value='" + data[index].Id_Detalle + "' class='input-detalle'>";
+                            questions += "<input name='answers[]' type='text' id='answer" + index + "' class='form-control input-answers' required>";
+                            questions += "</div>";
                             questions += "</div>";
                         }
                         $('#block-questions').html(questions);
@@ -1415,15 +1416,15 @@
 
                         /** mostrar las preguntas */
                         let questions = "";
-                        for (let index = 3; index <= data[0]+2+data[1]; index++) {
+                        for (let index = 3; index <= data[0] + 2 + data[1]; index++) {
                             questions += "<div class='col-md-6'>";
-                            questions +=    "<div class='position-relative form-group'>";
-                            questions +=        "<label for='question'>P"+ (index-2) +": ¿" + data[index].Pregunta + "?</label>";
-                            questions +=        "<input type='hidden' name='detalle[]' value='" + data[index].Id_Detalle + "' class='input-detalle'>";
-                            questions +=        "<input name='answers[]' type='text' id='answer"+ (index-2) +"' class='form-control input-answers' required>";
-                            questions +=    "</div>";
+                            questions += "<div class='position-relative form-group'>";
+                            questions += "<label for='question'>P" + (index - 2) + ": ¿" + data[index].Pregunta + "?</label>";
+                            questions += "<input type='hidden' name='detalle[]' value='" + data[index].Id_Detalle + "' class='input-detalle'>";
+                            questions += "<input name='answers[]' type='text' id='answer" + (index - 2) + "' class='form-control input-answers' required>";
                             questions += "</div>";
-                        } 
+                            questions += "</div>";
+                        }
                         $('#block-questions').html(questions);
                         /** end mostrar */
 
@@ -1432,27 +1433,27 @@
                         $('.input-detalle').each(function(index) {
                             id_detalle[index] = $(this).val();
                         })
-                        console.log(data[1] + 2 );
-                        let inicio = data[2]+3+data[1];
-                        
-                        for (let i = 0  ; i < id_detalle.length - data[1]; i++) {
-                                let pos = id_detalle.indexOf(data[inicio+i].Id_Detalle_Cuestionario);
-                                if(pos !== -1){
-                                    $('.input-answers').eq(pos).val(data[inicio+i].Respuesta);
-                                }    
+                        console.log(data[1] + 2);
+                        let inicio = data[2] + 3 + data[1];
+
+                        for (let i = 0; i < id_detalle.length - data[1]; i++) {
+                            let pos = id_detalle.indexOf(data[inicio + i].Id_Detalle_Cuestionario);
+                            if (pos !== -1) {
+                                $('.input-answers').eq(pos).val(data[inicio + i].Respuesta);
+                            }
                         }
 
                         let cantQuestion = $('.input-answers').toArray().length;
                         let cantVal = 0;
                         $('.input-answers').each(function(index) {
-                            if($(this).val() === ''){
+                            if ($(this).val() === '') {
                                 cantVal++;
                             }
                         });
-                        if(cantVal === cantQuestion){
+                        if (cantVal === cantQuestion) {
                             $('#btnSaveAnswers').css('display', 'block');
                             $('#btnUpdateAnswers').css('display', 'none');
-                        }else{
+                        } else {
                             $('#btnSaveAnswers').css('display', 'none');
                             $('#btnUpdateAnswers').css('display', 'block');
                         }
@@ -2206,7 +2207,49 @@
             }
         }
     </script>
+    <script>
+        $('#close-alert7').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active7', active, 7);
+        });
+        $('#close-alert4').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active4', active, 7);
+        });
+        $('#close-alert2').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+        });
 
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        }
+    </script>
 </body>
 
 </html>

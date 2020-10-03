@@ -1,4 +1,4 @@
-<div class="app-header header-shadow">
+<div id="top-header" class="app-header header-shadow"<?php if (isset($act_msg)) { if ($act_msg == 1) { echo(' style="margin-top: 60px;"'); } } ?>>
     <div class="app-header__logo" style="/* background: url('<?= FOLDER_PATH ?>/src/assets/media/images/logo-inverse.png') no-repeat */">
         <div class="logo-src" style="background: url('<?= FOLDER_PATH ?>/src/assets/media/images/logo-inverse.png') no-repeat"></div>
         <div class="header__pane ml-auto">

@@ -21,7 +21,11 @@ class settings extends Controller
   }
 
   public function index(){
-    $this->view('settings/settings');
+    $usu_cod = $this->session->get('admin');
+    $enabled = $this->settingsModel->fecha_habilitado($usu_cod);
+    $this->view('settings/settings',[
+      'Enabled' => $enabled 
+    ]);
   }
 
   public function insertHistoryPred(){

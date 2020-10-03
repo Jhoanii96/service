@@ -3,12 +3,14 @@
 require ROOT . FOLDER_PATH . "/system/libs/Session.php";
 require ROOT . FOLDER_PATH . "/app/models/notifications/notificationsModel.php";
 
-class notifications extends Controller{
+class notifications extends Controller
+{
 
   protected $session;
   public $notification;
 
-  public function __construct(){
+  public function __construct()
+  {
     $this->session = new Session;
     $this->session->getAll();
     $this->notification = new notificationModel();
@@ -18,20 +20,25 @@ class notifications extends Controller{
     }
   }
 
-  public function index(){
-    $this->view('notifications/notifications');
+  public function index()
+  {
+    $enabled = $this->notification->fecha_habilitado($this->session->get('admin'));
+    $this->view('notifications/notifications', [
+      'Enabled' => $enabled
+    ]);
   }
 
-  public function showNotifications(){
+  public function showNotifications()
+  {
     $idUser = $this->session->get('idUser');
     $notifications = $this->notification->showNotifications($idUser);
     $cantNotifications = $notifications->rowCount();
-        if($cantNotifications > 0){
-          $resultNotifications = $notifications->fetchAll(PDO::FETCH_ASSOC);   
-        }else{
-          $resultNotifications = null;
-        }
-      return $resultNotifications;
+    if ($cantNotifications > 0) {
+      $resultNotifications = $notifications->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+      $resultNotifications = null;
+    }
+    return $resultNotifications;
   }
 
   public function updateStateNotification(){
@@ -46,5 +53,3 @@ class notifications extends Controller{
     }
   }
 }
-
-?>

@@ -15,7 +15,7 @@
 
     <!-- HEADER -->
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
-    
+
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 
     <style>
@@ -30,22 +30,27 @@
             -moz-border-radius: 4px;
             border-radius: 4px;
         }
-        .container-notification{
-            width:80%;
+
+        .container-notification {
+            width: 80%;
             /* height:200px; */
             /* background-color:orange; */
-            color:#FA8072;
-            font-size:24pt;
-            overflow:hidden;
-            white-space:nowrap;
+            color: #FA8072;
+            font-size: 24pt;
+            overflow: hidden;
+            white-space: nowrap;
             text-overflow: ellipsis;
         }
+
         
     </style>
 
 </head>
 
 <body>
+
+    <?php require(ROOT . '/' . PATH_VIEWS . 'alert_message.php'); ?>
+
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
         <?php
         $profile = $this->showProfile();
@@ -54,7 +59,7 @@
         $this->session->add('especialidad', $profile['especialidad']);
         $this->session->add('idUser', $profile['Id_Usuario']);
         $this->session->add('idDoctor', $profile['Id_Doctor']);
-        $this->session->add('monto_consulta',$profile['Monto_Pago']);
+        $this->session->add('monto_consulta', $profile['Monto_Pago']);
         $imagen = $profile['imagen'];
         $this->session->add('image_user', $profile['imagen']);
         ?>
@@ -62,7 +67,7 @@
         <!-- HEADER -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
 
-        <div class="app-main">
+        <div id="body-main" class="app-main" <?php if (isset($act_msg)) if ($act_msg == 1) echo (' style="padding-top: 120px;"'); ?>>
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
@@ -81,7 +86,7 @@
                                         <i class="pe-7s-home icon-gradient bg-mean-fruit">
                                         </i>
                                     </div>
-                                    <div>Actualizando datos 
+                                    <div>Actualizando datos
                                         <div class="page-title-subheading">Mi información
                                         </div>
                                     </div>
@@ -962,7 +967,7 @@
         //             mensaje = json.mensaje;
         //             id = json.id;
         //             status = json.status;
-                    
+
         //             if(timestamp == null){
 
         //             }else{
@@ -1145,11 +1150,51 @@
                 return e;
             }
         }
-
-
     </script>
 
+    <script>
+        $('#close-alert7').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active7', active, 7);
+        });
+        $('#close-alert4').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active4', active, 7);
+        });
+        $('#close-alert2').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+        });
 
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        }
+    </script>
 
 </body>
 
