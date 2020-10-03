@@ -15,7 +15,7 @@
 
     <!-- HEADER -->
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
-    
+
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 
     <style>
@@ -30,64 +30,27 @@
             -moz-border-radius: 4px;
             border-radius: 4px;
         }
-        .container-notification{
-            width:80%;
+
+        .container-notification {
+            width: 80%;
             /* height:200px; */
             /* background-color:orange; */
-            color:#FA8072;
-            font-size:24pt;
-            overflow:hidden;
-            white-space:nowrap;
+            color: #FA8072;
+            font-size: 24pt;
+            overflow: hidden;
+            white-space: nowrap;
             text-overflow: ellipsis;
         }
+
         
     </style>
 
 </head>
 
 <body>
-    <?php 
-    
-    $datos_enabled = $data['Enabled']->fetch(); 
 
-    $fecha_habilitado = $datos_enabled['fecha'] . ' 23:59:59';
+    <?php require(ROOT . '/' . PATH_VIEWS . 'alert_message.php'); ?>
 
-    $fecha_7daysago = strtotime('-7 day', strtotime($fecha_habilitado));
-    $fecha_7daysago = date('Y-m-d H:i:s', $fecha_7daysago);
-    $fecha_3daysago = strtotime('-3 day', strtotime($fecha_habilitado));
-    $fecha_3daysago = date('Y-m-d H:i:s', $fecha_3daysago);
-    $act_msg = 0;
-    $color_alert = 'alert-primary';
-    
-    if (date('Y-m-d H:i:s') >= $fecha_7daysago && date('Y-m-d H:i:s') <= $fecha_habilitado) {
-        $date_ini = new DateTime(date('Y-m-d H:i:s'));
-        $date_fin = new DateTime($fecha_habilitado);
-        $interval = $date_ini->diff($date_fin);
-        if (date('Y-m-d H:i:s') >= $fecha_3daysago && date('Y-m-d H:i:s') <= $fecha_habilitado) {
-            $mensage = "Nota: Tu fecha de uso del sistema caducará en ".$interval->d." dias ".$interval->h." horas y ".$interval->i." minutos, cuando caduque usted ya no podrá seguir usando la aplicación"; 
-            $color_alert = 'alert-danger';
-        } else {
-            $mensage = "Nota: Tu fecha de uso del sistema caducará en ".$interval->d." dias ".$interval->h." horas y ".$interval->i." minutos, cuando caduque usted ya no podrá seguir usando la aplicación"; 
-        }
-        $act_msg = 1;
-    } else {
-        if (date('Y-m-d H:i:s') > $fecha_habilitado) {
-            echo ("<script>location.href = '" . FOLDER_PATH . "/login/salir';</script>");
-        }
-    }
-
-    if ($act_msg == 1) {
-        echo '
-        <div class="alert ' . $color_alert . ' alert-server" role="alert" style="z-index: 99999; width: 100%; height: 60px; border-radius: 0; margin-bottom: 0px;position: fixed;">
-            <div style="margin: 0;position: relative;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);text-align: center;">
-                <button id="close-alert" type="button" class="close" data-dismiss="alert" style="line-height: 0.75;">×</button>
-                ' . $mensage . '
-            </div>
-        </div>';
-    }
-    
-    ?>
-    
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
         <?php
         $profile = $this->showProfile();
@@ -96,7 +59,7 @@
         $this->session->add('especialidad', $profile['especialidad']);
         $this->session->add('idUser', $profile['Id_Usuario']);
         $this->session->add('idDoctor', $profile['Id_Doctor']);
-        $this->session->add('monto_consulta',$profile['Monto_Pago']);
+        $this->session->add('monto_consulta', $profile['Monto_Pago']);
         $imagen = $profile['imagen'];
         $this->session->add('image_user', $profile['imagen']);
         ?>
@@ -104,7 +67,7 @@
         <!-- HEADER -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_superior.php'); ?>
 
-        <div id="body-main" class="app-main"<?php if ($act_msg == 1) { echo(' style="padding-top: 120px;"'); } ?>>
+        <div id="body-main" class="app-main" <?php if (isset($act_msg)) if ($act_msg == 1) echo (' style="padding-top: 120px;"'); ?>>
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
@@ -123,7 +86,7 @@
                                         <i class="pe-7s-home icon-gradient bg-mean-fruit">
                                         </i>
                                     </div>
-                                    <div>Actualizando datos 
+                                    <div>Actualizando datos
                                         <div class="page-title-subheading">Mi información
                                         </div>
                                     </div>
@@ -925,44 +888,44 @@
 
         //First option Long Pooling
         let timestamp = null;
-        (function requestNotification(){
-                    
-                    $.ajax({
-                        url: "<?php echo FOLDER_PATH ?>/my/notifications",
-                        type: 'get',
-                        dataType: 'JSON',
-                        success: function(data){
-                            if (Object.keys(data).length > 0) {
-                                let content = '';
-                                for (let index = 0; index < Object.keys(data).length; index++) {
-                                    
-                                    content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2" ">';
-                                    content +=    '<div>'
-                                    content +=        '<span class="vertical-timeline-element-icon bounce-in"></span>';
-                                    content +=        '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none">';
-                                    content +=            '<h4 class="timeline-title container-notification" >'+data[index].Titulo;
-                                    content +=            '</h4>';
-                                    content +=            '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
-                                    content +=            '<span class="vertical-timeline-element-date"></span>';
-                                    content +=        '</a>';
-                                    // content +=        '<p>Hace 2 horas</p>'
-                                    content +=    '</div>';
-                                    content += '</div>';
-                                    // content += '<br>'
-                                    console.log(data[index].Titulo , data[index].Descripcion);
-                                }
-                                $('#notifications-box').html(content);
-                                $('#cant-notifications').html(Object.keys(data).length);
-                            }
-                            console.log(status.status)
-                            setTimeout(() => {
-                                requestNotification();
-                            },6000);
+        (function requestNotification() {
+
+            $.ajax({
+                url: "<?php echo FOLDER_PATH ?>/my/notifications",
+                type: 'get',
+                dataType: 'JSON',
+                success: function(data) {
+                    if (Object.keys(data).length > 0) {
+                        let content = '';
+                        for (let index = 0; index < Object.keys(data).length; index++) {
+
+                            content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2" ">';
+                            content += '<div>'
+                            content += '<span class="vertical-timeline-element-icon bounce-in"></span>';
+                            content += '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none">';
+                            content += '<h4 class="timeline-title container-notification" >' + data[index].Titulo;
+                            content += '</h4>';
+                            content += '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
+                            content += '<span class="vertical-timeline-element-date"></span>';
+                            content += '</a>';
+                            // content +=        '<p>Hace 2 horas</p>'
+                            content += '</div>';
+                            content += '</div>';
+                            // content += '<br>'
+                            console.log(data[index].Titulo, data[index].Descripcion);
                         }
-                        // complete:requestNotification,
-                        // timeout: 60000
-                    });
-                
+                        $('#notifications-box').html(content);
+                        $('#cant-notifications').html(Object.keys(data).length);
+                    }
+                    console.log(status.status)
+                    setTimeout(() => {
+                        requestNotification();
+                    }, 6000);
+                }
+                // complete:requestNotification,
+                // timeout: 60000
+            });
+
         })();
 
         //Second option Long Pooling
@@ -982,7 +945,7 @@
         //             mensaje = json.mensaje;
         //             id = json.id;
         //             status = json.status;
-                    
+
         //             if(timestamp == null){
 
         //             }else{
@@ -1165,15 +1128,50 @@
                 return e;
             }
         }
-
-
     </script>
 
     <script>
-        $('#close-alert').click(function() {
+        $('#close-alert7').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active7', active, 7);
+        });
+        $('#close-alert4').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active4', active, 7);
+        });
+        $('#close-alert2').click(function() {
             $("#top-header").css("margin-top", "");
             $("#body-main").css("padding-top", "");
         });
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        }
     </script>
 
 </body>

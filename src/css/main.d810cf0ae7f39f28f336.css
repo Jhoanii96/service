@@ -45063,3 +45063,24 @@ span.multiselect-native-select select {
   display: inline-block;
   border-radius: 50%;
 }
+
+.blink {
+  animation: blink-animation 0.5s infinite;
+  -webkit-animation: blink-animation 0.5s infinite;
+}
+
+@keyframes blink-animation {
+  to {
+    color: #440011;
+    background-color: #fb003f;
+    border-color: #ff003d;
+  }
+}
+
+@-webkit-keyframes blink-animation {
+  to {
+    color: #440011;
+    background-color: #fb003f;
+    border-color: #ff003d;
+  }
+}

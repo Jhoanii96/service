@@ -49,7 +49,8 @@ class login extends Controller
 					$this->renderErrorMessage('*La contraseña es incorrecta');
 				} else {
 					if (($identi[2]  . ' 23:59:59') <= date('Y-m-d H:i:s')) {
-						$this->renderErrorMessage('*Su cuenta ha expirado por favor contactese con este número para mas información');
+						$this->session->add('admin', $param[0]);
+						echo ("<script>location.href = '" . FOLDER_PATH . "/expired';</script>");
 					} else {
 						$this->session->add('admin', $param[0]);
 						echo ("<script>location.href = '" . FOLDER_PATH . "/my';</script>");

@@ -44,10 +44,12 @@ class consultation extends Controller
             $id_nombre[0] = 'nothing';
             $id_cita = null;
         }
-
+        $usu_cod = $this->session->get('admin');
+        $enabled = $this->model->fecha_habilitado($usu_cod);
         $this->view('consultation/consultation', [
             'nombre_usuario' => $id_nombre,
-            'id_cita' => $id_cita
+            'id_cita' => $id_cita, 
+            'Enabled' => $enabled 
         ]);
     }
 

@@ -23,8 +23,10 @@ class reports_list extends Controller
   {
     $usu_cod = $this->session->get('admin');
     $Result = $this->model->lista_historia_clinica($usu_cod);
+    $enabled = $this->model->fecha_habilitado($usu_cod);
     $this->view('reports_list/reports_list', [
-      'Result' => $Result
+      'Result' => $Result, 
+      'Enabled' => $enabled 
     ]);
   }
 

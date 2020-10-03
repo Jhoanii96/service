@@ -1,0 +1,49 @@
+.paymentWrap {
+	padding: 50px;
+}
+
+.paymentWrap .paymentBtnGroup {
+	width: 100%;
+	margin: auto;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod {
+	width: 100%;
+    height: 100px;
+	box-shadow: none;
+    position: relative;
+    margin: auto;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method {
+	position: absolute;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: 2px solid transparent;
+	transition: all 0.5s;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.visa {
+    width: 100%;
+    height: 90px;
+	background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Former_Visa_%28company%29_logo.svg/3072px-Former_Visa_%28company%29_logo.svg.png");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.master-card {
+    width: 100%;
+    height: 90px;
+	background-image: url("https://www.diariobitcoin.com/wp-content/uploads/2016/10/Mastercard-1200x675.png");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.amex {
+    width: 100%;
+    height: 90px;
+	background-image: url("https://cdn.shopify.com/s/files/1/0012/4485/6377/files/amex-card.png?v=1521299619");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.dinners {
+    width: 100%;
+    height: 90px;
+	background-image: url("https://www.dinersclub.pe/venta_establecimientos/images/tarjetas2.png");
+}

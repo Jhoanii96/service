@@ -22,9 +22,10 @@ class perfil extends Controller
     public function index()
     {
         $datos_perfil = $this->model->mostrar_perfil($this->session->get('admin'));
-
+        $enabled = $this->model->fecha_habilitado($this->session->get('admin'));
         $this->AdminView('perfil/perfil', [
-            'datos_perfil' => $datos_perfil
+            'datos_perfil' => $datos_perfil, 
+            'Enabled' => $enabled 
         ]);
     }
 

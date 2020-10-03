@@ -89,6 +89,7 @@
 </head>
 
 <body>
+    <?php require(ROOT . '/' . PATH_VIEWS . 'alert_message.php'); ?>
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
 
         <!-- HEADER -->
@@ -97,7 +98,7 @@
         <!-- PANEL LATERAL DERECHO/CONFIGURACIONES DE DISEÑO -->
         <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_der.php'); ?>
 
-        <div class="app-main">
+        <div id="body-main" class="app-main" <?php if (isset($act_msg)) if ($act_msg == 1) echo (' style="padding-top: 120px;"'); ?>>
 
             <!-- PANEL LATERAL IZQUIERDO -->
             <?php require(ROOT . '/' . PATH_VIEWS . 'panel_lateral_izq.php'); ?>
@@ -894,6 +895,49 @@
             }
             edad = edad.toString() + " años";
             return edad;
+        }
+    </script>
+    <script>
+        $('#close-alert7').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active7', active, 7);
+        });
+        $('#close-alert4').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+            var active = '0';
+            setCookie('alert_active4', active, 7);
+        });
+        $('#close-alert2').click(function() {
+            $("#top-header").css("margin-top", "");
+            $("#body-main").css("padding-top", "");
+        });
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
         }
     </script>
 </body>

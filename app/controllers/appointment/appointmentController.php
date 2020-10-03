@@ -22,9 +22,10 @@ class appointment extends Controller
   public function index()
   {
     $datos_cita = $this->model->mostrar_citas($this->session->get('admin'));
-
+    $enabled = $this->model->fecha_habilitado($this->session->get('admin')); 
     $this->view('appointment/appointment', [
-      'datos_cita' => $datos_cita
+      'datos_cita' => $datos_cita, 
+      'Enabled' => $enabled 
     ]);
   }
 

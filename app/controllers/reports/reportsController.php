@@ -20,7 +20,11 @@ class reports extends Controller{
   }
 
   public function index(){
-    $this->view('reports/reports');
+    $usu_cod = $this->session->get('admin');
+    $enabled = $this->reportsModel->fecha_habilitado($usu_cod);
+    $this->view('reports/reports',[
+      'Enabled' => $enabled 
+    ]);
   }
 
   public function getReport(){
@@ -38,5 +42,3 @@ class reports extends Controller{
     print_r($print_array);
   }
 }
-
-?>
