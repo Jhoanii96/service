@@ -160,10 +160,20 @@
 
                 </aside> <!-- col.// -->
             </div> <!-- row.// -->
+            <div style="margin-top: 10px;display: flex;">
+                <button id="btn_continue" type="button" class="btn btn-primary" style="margin-left: auto;"> Continuar </button>
+            </div>
 
         </div>
         <!--container end.//-->
     </div>
+
+    <script>
+        $('#btn_continue').click(function() {
+            location.href = "<?= FOLDER_PATH ?>/login/salir";
+        });
+    </script>
+
 </body>
 
 </html>
