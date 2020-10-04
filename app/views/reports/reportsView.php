@@ -70,7 +70,7 @@
                       <!-- </div> -->
                         <div class="row mb-3" style="display:flex;align-items:center;justify-content:flex-end;" id="contentTotalGanancia">
                             <div class="col-md-3" >
-                                <label for="" style="display:none" id="lblGananciaTotal">Ganancia total : </label>
+                                <label for="" style="display:none" id="lblGananciaTotal">Total : </label>
                                 <input type="text" class="form-control" id="totalGanancia" style="display:none">
                             </div>
                         </div>

@@ -37,9 +37,16 @@
             <div class="page-title-wrapper">
               <div class="page-title-heading">
                 <div class="page-title-icon">
-                  <i class="pe-7s-home icon-gradient bg-mean-fruit">
-                  </i>
+                  <i class="pe-7s-home icon-gradient bg-mean-fruit"></i>
                 </div>
+                <div>Notificaciones
+                  <div class="page-title-subheading">
+                      Notificaciones del administrador.
+                  </div>
+                </div>
+              </div>
+            </div>    
+          </div>
               <!-- CONTENIDO AYUDA -->
                 <div class="main-card mb-3 card pl-5 pr-5 pt-4">
                     <div class="card-body">
@@ -205,8 +212,9 @@
       })
       .fail(function(){
           console.log('Hubo un error')
-      });
-
+      })
+  }
+</script>
 <script>
   $('#close-alert7').click(function() {
     $("#top-header").css("margin-top", "");
