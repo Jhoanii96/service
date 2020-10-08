@@ -33,9 +33,11 @@ class details extends Controller
         $cod_history = explode("|", $history);
         
         $datos_details = $this->model->mostrar_detalle_historial($cod_history[0], $this->session->get('admin'));
-
+        $usu_cod = $this->session->get('admin');
+        $enabled = $this->model->fecha_habilitado($usu_cod);
         $this->AdminView('details/details', [
-            'datos_details' => $datos_details
+            'datos_details' => $datos_details, 
+            'Enabled' => $enabled 
         ]);
     }
 
