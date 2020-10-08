@@ -58,7 +58,7 @@
                                 <div class="menu-header-image opacity-1" style="background-image: url('<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg');"></div>
                                 <div class="menu-header-content text-dark">
                                     <h5 class="menu-header-title" id="content-notification">NOTIFICACIONES</h5>
-                                    <h6 class="menu-header-subtitle">Tiene <b id="cant-notifications"></b> mensajes sin leer</h6>
+                                    <h6 class="menu-header-subtitle">Tiene <b id="cant-notifications"></b> notificaciones sin leer</h6>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                             <li class="nav-item-divider nav-item"></li>
                             <li class="nav-item-btn text-center nav-item">
                                 <!-- <button class="btn-shadow btn-wide btn-pill btn btn-focus btn-sm">Ver los últimos cambios</button> -->
-                                <a href="<?= FOLDER_PATH ?>/notifications" class="btn-shadow btn-wide btn-pill btn btn-focus btn-sm">Ver los últimos cambios</a>
+                                <a href="<?= FOLDER_PATH ?>/notifications" class="btn-shadow btn-wide btn-pill btn btn-focus btn-sm">Ver todas los notificaciones</a>
                             </li>
                         </ul>
                     </div>

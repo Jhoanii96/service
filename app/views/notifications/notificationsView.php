@@ -67,14 +67,17 @@
                             foreach ($notification as $notificacion) {
                               echo "<div class='notification-card  mb-2' style='border:1px solid rgba(119, 136, 153,0.2);padding:15px;box-shadow: -1px 8px 5px -6px rgba(119,136,153,0.64);'>";
                               echo    "<input type='hidden' class='id_notification' value='".$notificacion['Id']."'>";
-                              echo    "<b><span>".$notificacion['Titulo']."</span></b><br>";
+                              echo    "<b><span>".$notificacion['Titulo']."</span></b><br>";  
                               // if($notificacion['Leido'] === '1'){
                               //   echo    "<input type='checkbox' class='checkNotification' style='float:right' checked><br>";
                               // }else{
                               //   echo    "<input type='checkbox' class='checkNotification' style='float:right'><br>";
                               // }
                               echo    "<span>".$notificacion['Descripcion']."</span>";
-                              echo    "<div class='notification_time mb-3' style='color:#F08080'><i class='far fa-clock mr-1'></i> hace 2 horas</div>";
+                              if($notificacion['Fecha']){
+                                
+                              }
+                              echo    "<div class='notification_time mb-3' style='color:#F08080'><i class='far fa-clock mr-1'></i>".$notificacion['Fecha']."</div>";
                               // echo    "<div style='display:flex;justify-content:flex-end'>";
                               // echo      "<button class='btn btn-primary' >Contactar</button>";
                               // echo    "</div>";
@@ -256,6 +259,19 @@
 
   function eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
+  }
+
+  $(window).load(function(){
+    // e.preventDefault();
+
+    let date = $('.notification_time').html();
+    console.log(date);
+  });
+
+  function showDate(dateNotification){
+    // if(dateNotification){
+
+    // }
   }
 </script>
 

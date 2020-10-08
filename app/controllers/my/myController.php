@@ -209,9 +209,14 @@ class my extends Controller
     }
 
     public function updateStateAllNotifications(){
-        $notifications = $this->model->updateStateAllNotifications();
-        $cantNotifications = $notifications->rowCount();
-        if($cantNotifications > 0){
+        $id = $_POST['id'];
+        if(isset($id) && !empty($id)){
+            $notifications = $this->model->updateStateAllNotifications($id);
+        }else{
+            $notifications = $this->model->updateStateAllNotifications($id = null);
+        }
+        // $cantNotifications = $notifications->rowCount();
+        if($notifications > 0){
             echo "Se actualizaron todas las notificaciones";
         }else{
             echo "No se actualizaron";

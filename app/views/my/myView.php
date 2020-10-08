@@ -887,7 +887,7 @@
 
 
         //First option Long Pooling
-        let timestamp = null;
+        // let timestamp = null;
         (function requestNotification(){
                     
                     $.ajax({
@@ -898,17 +898,26 @@
                             if (Object.keys(data).length > 0) {
                                 let content = '';
                                 let cantNotification = 0;
+                                let arrayId = new Array();
+                                data.forEach((element,index) => {
+                                    if(element.Leido === '0'){
+                                        arrayId.push(element.id);
+                                    }
+                                });
+
                                 for (let index = 0; index < Object.keys(data).length; index++) {
                                     
+
                                     content += '<div class="vertical-timeline-item dot-success vertical-timeline-element mb-2" ">';
                                     content +=    '<div>'
                                     content +=        '<span class="vertical-timeline-element-icon bounce-in"></span>';
-                                    content +=        '<a href="<?= FOLDER_PATH ?>/notifications" class="vertical-timeline-element-content bounce-in row content-row-notification" style="text-decoration:none" onclick="return notificationclick()">';
+                                    content +=        "<a href='<?= FOLDER_PATH ?>/notifications' class='vertical-timeline-element-content bounce-in row content-row-notification' style='text-decoration:none' onclick='notificationclick("+JSON.stringify(arrayId)+")'>";
                                     content +=            '<h4 class="timeline-title container-notification" >'+data[index].Titulo;
                                     content +=            '</h4>';
                                     if(data[index].Leido === '0'){
-                                    cantNotification++;
-                                    content +=            '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
+                                        cantNotification++;
+                                        content +=            '<span class="badge badge-danger ml-2" style="float:right">NEW</span>';
+                                        // arrayId.push(data[index].id);
                                     }
                                     content +=            '<span class="vertical-timeline-element-date"></span>';
                                     content +=        '</a>';
@@ -935,11 +944,15 @@
                     });
         })();
 
-        function notificationclick(){
+        function notificationclick(arrayId){
             // e.preventDefault();
+            // console.log(ids);
+            // let value = arrayId;
+            console.log('valores :'+ arrayId)
             $.ajax({
                 type:'post',
-                url:'<?php echo FOLDER_PATH ?>/my/updateStateAllNotifications'
+                url:'<?php echo FOLDER_PATH ?>/my/updateStateAllNotifications',
+                data: {id : arrayId}
             })
             .done(function(response){
                 console.log(response);
@@ -947,6 +960,7 @@
             .fail(function(){
                 console.log('Hubo un error')
             })
+            // return false
         }
         
 
