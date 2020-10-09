@@ -74,10 +74,7 @@
                               //   echo    "<input type='checkbox' class='checkNotification' style='float:right'><br>";
                               // }
                               echo    "<span>".$notificacion['Descripcion']."</span>";
-                              if($notificacion['Fecha']){
-                                
-                              }
-                              echo    "<div class='notification_time mb-3' style='color:#F08080'><i class='far fa-clock mr-1'></i>".$notificacion['Fecha']."</div>";
+                              echo    "<div class='notification_time mb-3' style='color:#F08080'><i class='far fa-clock mr-1'></i> hace ".$this->transformDate($notificacion['Fecha'])."</div>";
                               // echo    "<div style='display:flex;justify-content:flex-end'>";
                               // echo      "<button class='btn btn-primary' >Contactar</button>";
                               // echo    "</div>";

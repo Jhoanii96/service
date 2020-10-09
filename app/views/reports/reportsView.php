@@ -141,6 +141,8 @@
         }
 
         /** Capturar las fechas de busqueda de ganancias */
+        let clickBtnConsulta = 0;
+
         $('#btnConsultar').click(function(e){
             e.preventDefault();
             let dateBefore = $('#report-before').val(); 
@@ -156,80 +158,91 @@
                 data: {before:dateBefore,after:dateAfter}
             })
             .done(function(data){
-
-                if (Object.keys(data).length > 0) {
-                    // alert(data);
-                    let fechas = new Array();
-                    let ganancias = new Array();
-                    let totalGanancia = 0;
-                    /*  Chart JS*/
-                    for (let index = 0; index < Object.keys(data).length; index++) {
-                        let arrayFecha = data[index].Fecha.split(" ");
-                        console.log("array fecha : " + arrayFecha);
-                        fechas.push(arrayFecha[0]);
-                        ganancias.push(data[index].Monto); 
-                        totalGanancia += parseFloat(data[index].Monto);
-                    }
-                    // console.log(fechas,ganancias);
-                    var ctx = document.getElementById('myChart');
-                    var mixedChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: fechas,
-                            datasets: [{
-                                label: 'Ganancias de consultas',
-                                data: ganancias ,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)'
-                                ],
-                                borderWidth: 1
-                            },{
-                                label: 'Cantidad de consultas',
-                                data: ganancias,
-                                type: 'line',
-                                lineTension: 0,
-                                fill: false,
-                                borderColor: 'orange',
-                                backgroundColor: 'transparent',
-                                borderDash: [5, 5],
-                                pointBorderColor: 'orange',
-                                pointBackgroundColor: 'rgba(255,150,0,0.5)',
-                                pointRadius: 5,
-                                pointHoverRadius: 10,
-                                pointHitRadius: 30,
-                                pointBorderWidth: 2,
-                                pointStyle: 'rectRounded'
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
+                // if(clickBtnConsulta < 1){
+                    if (Object.keys(data).length > 0) {
+                        // alert(data);
+                        let fechas = new Array();
+                        let ganancias = new Array();
+                        let totalGanancia = 0;
+                        /*  Chart JS*/
+                        for (let index = 0; index < Object.keys(data).length; index++) {
+                            let arrayFecha = data[index].Fecha.split(" ");
+                            console.log("array fecha : " + arrayFecha);
+                            fechas.push(arrayFecha[0]);
+                            ganancias.push(data[index].Monto); 
+                            totalGanancia += parseFloat(data[index].Monto);
                         }
-                    });
-                    $('#totalGanancia').css('display','block');
-                    $('#lblGananciaTotal').css('display','block');
-                    $('#totalGanancia').val('S/'+totalGanancia);
-                    $('#totalGanancia').attr('disabled','true');
-                    console.log(' Ganancia total : '+ totalGanancia);
-                }else{
-                    alert(data);
-                }
+                        // console.log(fechas,ganancias);
+                        let ctx = document.getElementById('myChart');
+                        if(window.mixedChart){
+                            window.mixedChart.destroy();
+                        }
+                        window.mixedChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: fechas,
+                                datasets: [{
+                                    label: 'Ganancias de consultas',
+                                    data: ganancias ,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)'
+                                    ],
+                                    borderWidth: 1
+                                },{
+                                    label: 'Cantidad de consultas',
+                                    data: ganancias,
+                                    type: 'line',
+                                    lineTension: 0,
+                                    fill: false,
+                                    borderColor: 'orange',
+                                    backgroundColor: 'transparent',
+                                    borderDash: [5, 5],
+                                    pointBorderColor: 'orange',
+                                    pointBackgroundColor: 'rgba(255,150,0,0.5)',
+                                    pointRadius: 5,
+                                    pointHoverRadius: 10,
+                                    pointHitRadius: 30,
+                                    pointBorderWidth: 2,
+                                    pointStyle: 'rectRounded'
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                            
+                        });
+                        $('#totalGanancia').css('display','block');
+                        $('#lblGananciaTotal').css('display','block');
+                        $('#totalGanancia').val('S/'+totalGanancia);
+                        $('#totalGanancia').attr('disabled','true');
+                        console.log(' Ganancia total : '+ totalGanancia);
+                        // addChart(mixedChart,fechas,ganancias,clickBtnConsulta);
+                        console.log(mixedChart);
+                        
+                        clickBtnConsulta = 1;
+                    }else{
+                        alert(data);
+                    }
+                // }else{
+                //     console.log(ganancias);
+                // }
             })
             .fail(function(jqXHR,textStatus){
                 alert('status: ' + textStatus);
@@ -268,7 +281,12 @@
                     }
                     // console.log(fechas,ganancias);
                     var ctx = document.getElementById('cantidadChart');
-                    var mixedChart = new Chart(ctx, {
+                    
+                    if(window.mixedChart){
+                        window.mixedChart.destroy();
+                    }
+
+                    windowmixedChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: fechas,
@@ -325,10 +343,6 @@
             dateAfter = dateAfter + ' 23:59:59';
             var ctx = document.getElementById('myChart');
             var cantx = document.getElementById('cantidadChart');
-            // ctx2d = ctx.getContext('2d');
-            // ctx2d.clearRect(0, 0, ctx.width, ctx.height);
-            // cantx2d = cantx.getContext('2d');
-            // cantx2d.clearRect(0, 0, cantx.width, cantx.height);
 
             console.log(dateBefore,dateAfter);
             $.ajax({
@@ -355,7 +369,12 @@
                         ganancias.push(data[index].Monto); 
                         totalGanancia += parseFloat(data[index].Monto);
                     }
-                        var mixedChart = new Chart(ctx, {
+                    if(window.mixedChart && window.cantChart){
+                        window.mixedChart.destroy();
+                        window.cantChart.destroy();
+                    }
+
+                        window.mixedChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
                                 labels: fechas,
@@ -389,7 +408,7 @@
                                 }
                             }
                         });
-                        var cantChart = new Chart(cantx, {
+                        window.cantChart = new Chart(cantx, {
                             type: 'bar',
                             data: {
                                 labels: fechas,
@@ -437,82 +456,6 @@
                 alert('status: ' + textStatus);
             })
         })
-
-        function AddChart(ctx,cantx,fechas,ganancias,cantidad){
-            var mixedChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: fechas,
-                    datasets: [{
-                        label: 'Ganancias de consultas',
-                        data: ganancias ,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-            });
-            var cantChart = new Chart(cantx, {
-                type: 'bar',
-                data: {
-                    labels: fechas,
-                    datasets: [{
-                        label: 'Cantidad de consultas',
-                        data: cantidad ,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-            });
-
-            let charts = new Array();
-            charts.push(mixedChart,cantChart);
-            return charts;
-        }
-
 
         /** Para las notificaciones */
 

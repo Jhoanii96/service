@@ -41,6 +41,24 @@ class notifications extends Controller
     return $resultNotifications;
   }
 
+  public function transformDate($fechaBd){
+
+    $fechaActual = strtotime(date("Y-m-d H:i:s"));
+    $fechaBd = strtotime($fechaBd);
+    $diff = $fechaActual - $fechaBd;
+    $hours = $diff/(60*60);
+    if($hours < 1){
+      $minutes = round($hours*60);
+      return $minutes > 1 ? $minutes .' minutos': $minutes .' minuto';
+    }else if($hours < 24){
+      $hours = round($hours);
+      return $hours .' horas';
+    }else{
+      $hours = round($hours/24).' dias';
+      return $days = $hours;
+    }
+  }
+
   public function updateStateNotification(){
     $idMensaje = $_POST['id'];
     $checked = $_POST['state'];
