@@ -80,3 +80,33 @@ SELECT
         JOIN `usuario` `us` ON ((`us`.`Id_Usuario` = `ar`.`CreadoPor`)))
     WHERE
         (`ar`.`Borrado` = 0)
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE PROCEDURE `actualizar_password`(
+
+	IN user varchar(60),
+	IN newpass varchar(50) 
+
+)
+BEGIN
+
+	select @iduser := Id_Usuario from usuario where Nombre = user;
+
+	UPDATE `usuario`
+	SET
+	`Password` = newpass
+	WHERE `Id_Usuario` = @iduser;
+
+END$$
+DELIMITER ;

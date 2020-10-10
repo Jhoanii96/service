@@ -21,7 +21,15 @@ class expired extends Controller
 
 	public function index()
 	{
-        $datos = $this->model->data_user($this->session->get('admin'));
+		$datos = $this->model->data_user($this->session->get('admin'));
+		if (isset($_COOKIE['alert_active7'])) {
+			setcookie('alert_active7', null, -1, '/');
+		}
+		if (isset($_COOKIE['alert_active4'])) {
+			setcookie('alert_active4', null, -1, '/');
+		}
+		setcookie('alert_active7', null, -1, '/');
+		setcookie('alert_active4', null, -1, '/');
 		$this->view('expired/expired', ['datos_usuario' => $datos]);
 	}
 

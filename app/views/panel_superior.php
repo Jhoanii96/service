@@ -227,18 +227,18 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Cambiar contraseña</a>
+                                                    <a href="<?= FOLDER_PATH ?>/change_password" class="nav-link">Cambiar contraseña</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Bandeja de entrada
-                                                        <div class="ml-auto badge badge-warning">12</div>
+                                                    <a href="<?= FOLDER_PATH ?>/notifications" class="nav-link">Notificaciones
+                                                        <div class="ml-auto badge badge-warning"> </div>
                                                     </a>
                                                 </li>
                                                 <!-- <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">Administración
-                                                                <div class="ml-auto badge badge-warning">512</div>
-                                                            </a>
-                                                        </li> -->
+                                                    <a href="javascript:void(0);" class="nav-link">Administración
+                                                        <div class="ml-auto badge badge-warning">512</div>
+                                                    </a>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
