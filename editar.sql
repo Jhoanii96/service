@@ -110,3 +110,37 @@ BEGIN
 
 END$$
 DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER insert_espacio_usuario
+    AFTER INSERT
+    ON archivo FOR EACH ROW
+BEGIN
+    
+    select Id_Espacio_Usuario into @isespacio from espacio_usuario where Id_Usuario = new.CreadoPor; 
+    
+    select count(Id_Archivo) into @cantidad from archivo where CreadoPor = new.CreadoPor; 
+    select sum(Size) into @espacio_usado from archivo where CreadoPor = new.CreadoPor; 
+    
+    UPDATE `espacio_usuario`
+	SET
+    `Cantidad` = @cantidad, 
+	`Espacio_Usado` = @espacio_usado 
+	WHERE `Id_Espacio_Usuario` = @isespacio;
+    
+END$$    
+
+DELIMITER ;
+ 
+
