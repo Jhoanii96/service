@@ -128,7 +128,7 @@ CREATE TRIGGER insert_espacio_usuario
     ON archivo FOR EACH ROW
 BEGIN
     
-    select Id_Espacio_Usuario into @isespacio from espacio_usuario where Id_Usuario = new.CreadoPor; 
+    select Id_Espacio_Usuario into @idespacio from espacio_usuario where Id_Usuario = new.CreadoPor; 
     
     select count(Id_Archivo) into @cantidad from archivo where CreadoPor = new.CreadoPor; 
     select sum(Size) into @espacio_usado from archivo where CreadoPor = new.CreadoPor; 
@@ -137,10 +137,30 @@ BEGIN
 	SET
     `Cantidad` = @cantidad, 
 	`Espacio_Usado` = @espacio_usado 
-	WHERE `Id_Espacio_Usuario` = @isespacio;
+	WHERE `Id_Espacio_Usuario` = @idespacio;
     
 END$$    
 
 DELIMITER ;
  
 
+DELIMITER $$
+
+CREATE TRIGGER cantidad_historia_usuario
+    AFTER INSERT
+    ON historia_clinica FOR EACH ROW
+BEGIN
+    
+    select Id_Usuario into @idusuario from historia_clinica where Id_Usuario = new.Id_historia_clinica; 
+    
+    select count(Id_historia_clinica) into @cantidad_historia from historia_clinica where Id_Usuario = @idusuario; 
+    
+    UPDATE `bd_clinica3`.`usuario`
+	SET
+	`Cantidad_Historia_Clinica` = @cantidad_historia 
+	WHERE `Id_Usuario` = @idusuario; 
+
+    
+END$$    
+
+DELIMITER ;
