@@ -14,8 +14,8 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <link href="<?= FOLDER_PATH ?>/src/css/all_fonts.css" rel="stylesheet" media="screen">
+
     <link href="<?= FOLDER_PATH ?>/src/css/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/629b299bcd.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -40,9 +40,9 @@
                                 <i class="pe-7s-home icon-gradient bg-mean-fruit">
                                 </i>
                             </div>
-                            <div>Ayuda
+                            <div>Sugerencias
                                 <div class="page-title-subheading">
-                                    Envianos tus problemas.
+                                    Envianos tus sugerencias.
                                 </div>
                             </div>
                         </div>
@@ -51,40 +51,35 @@
               <!-- CONTENIDO AYUDA -->
               <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="card-shadow-info border mb-3 card card-body border-info">
                             <div class="card-body">
-                                <h6 class="card-title">MENSAJE</h6>
-                                En caso de algun problema o inconveniente no dude en comunicarse con nosotros.
-                                <br><br>
-                                <i class="fas fa-phone-alt"></i> 928575911 
-                                <i class="fas fa-envelope-square"></i> usuario@gmail.com
+                                <h6 class="card-title">Indicaciones</h6>
+                                En caso de alguna sugerencia envie un mensaje indicando el asunto y la sugerencia que tiene
                             </div>
                         </div>
-                        <!-- <div class="card-shadow-info border mb-3 card card-body border-info">
+                        <div class="card-shadow-info border mb-3 card card-body border-info">
                             <div class="card-body">
-                                <h6 class="card-title">CONTACTO </h6>
+                                <h6 class="card-title">MENSAJE 2 </h6>
                                 Puede contactarnos al numero 9598564871 o al correo edison@gmail.com
                             </div>
-                        </div> -->
+                        </div>
                     </div>
-                    <!-- <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">TENGO UNA CONSULTA</h5>
-                                <form id="frmHelp" enctype="multipart/form-data">
-                                    <div class="position-relative form-group"><label for="exampleEmail">Asunto</label><input name="asunto" id="asunto" placeholder="Ingrese el asunto del mensaje" type="text" class="form-control"></div>
-                                    <div class="position-relative form-group"><label for="exampleText">Mensaje</label><textarea name="message" id="exampleText" class="form-control"></textarea></div>
-                                    <div class="position-relative form-group">
-                                        <label for="exampleFile">File</label>
-                                        <input name="file" id="file" type="file" class="form-control-file">
-                                        <small class="form-text text-muted">En caso de tener alguna captura que sea en formato PNG,JPG o JPEG.</small>
-                                    </div>
-                                    <button class="mt-1 btn btn-primary">Enviar consulta</button>
+                                <h5 class="card-title">TENGO UNA SUGERENCIA</h5>
+                                <form id="frmSuggestion">
+                                    <div class="position-relative form-group"><label for="exampleEmail" class="">Asunto</label><input name="asunto" id="asunto" placeholder="Ingrese el asunto del mensaje" type="text" class="form-control"></div>
+                                    <div class="position-relative form-group"><label for="messageSuggestion" class="">Mensaje</label><textarea name="message" id="message" class="form-control"></textarea></div>
+                                    <!-- <div class="position-relative form-group"><label for="fileSuggestion" class="">File</label><input name="file" id="exampleFile" type="file" class="form-control-file">
+                                        <small class="form-text text-muted">En caso de tener alguna captura o archivo puede adjuntarlo al mensaje.</small>
+                                    </div> -->
+                                    <button class="mt-1 btn btn-primary">Enviar sugerencia</button>
                                 </form>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
               </div>
               <!-- END CONTENIDO AYUDA -->
@@ -93,8 +88,8 @@
       </div>
     </div>
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="<?= FOLDER_PATH ?>/src/js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script type="text/javascript" src="<?= FOLDER_PATH ?>/src/js/main.d810cf0ae7f39f28f336.js"></script>
     <script>
         let cons = document.getElementById("btn-adm_consulta");
@@ -218,34 +213,32 @@
             document.cookie = name + '=; Max-Age=-99999999;';
         }
 
-        // $('#frmHelp').submit(function(){
-         
+        $('#frmSuggestion').submit(function(){
+            let datos = $(this).serialize();
 
-        //     $.ajax({
-        //         type:'post',
-        //         url:'<?= FOLDER_PATH ?>/help/sendHelp',
-        //         processData: false,
-        //         contentType: false,
-        //         data: new FormData(this)
-        //     })
-        //     .done(function(response){
-        //         Swal.fire({
-        //             icon: 'success',
-        //             title: response,
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //         });
-        //     })
-        //     .fail(function(){
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: 'error',
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //         });
-        //     })
-        //     return false;
-        // })
+            $.ajax({
+                type:'post',
+                url: '<?php echo FOLDER_PATH ?>/suggestions/sendSuggestion',
+                data:datos,
+            })
+            .done(function(response){
+                Swal.fire({
+                    icon: 'success',
+                    title: response,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+            .fail(function(){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+            return false;
+        })
     </script>
 </body>
 </html>

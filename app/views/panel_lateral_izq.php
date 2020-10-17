@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="<?= FOLDER_PATH ?>/suggestions">
                         <i class="metismenu-icon pe-7s-comment"></i>
                         Sugerencias
                     </a>

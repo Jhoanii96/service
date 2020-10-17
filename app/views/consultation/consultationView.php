@@ -164,7 +164,11 @@
             <div class="loader">
                 <p>Generando la consulta</p>
             </div>
-
+            <?php 
+                $nombres  = $this->session->get('Nombres');
+                $apellido = $this->session->get('Apellidos'); 
+                $nombres  = $nombres.' '.$apellido;
+            ?>
             <div class="app-main__outer">
                 <div class="app-main__inner">
                     <div class="app-page-title">
@@ -1016,81 +1020,229 @@
                                 if (Object.keys(data).length > 1) {
                                     var doc = new jsPDF();
                                     let docDefinition = {
-                                        pageSize: 'A6',
+                                        pageSize: {
+                                                    width: 297.64,
+                                                    height: 'auto'
+                                                },
                                         content: [
+                                           
                                             // {
-                                            //     image: '<?= FOLDER_PATH ?>/src/assets/media/images/city3.jpg',
-                                            //     // image : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.frogx3.com%2F2013%2F10%2F03%2F21-disenos-de-logos-para-servicios-medicos-para-inspirarte%2F&psig=AOvVaw0plOKeUz3XxACGt6Vj99Ga&ust=1598670789413000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC47fj2vOsCFQAAAAAdAAAAABAI',
-                                            //     width: 80,
-                                            //     height: 80
-                                            // },
+                                            //     text: "EVALUACIÓN MEDICA\n\n\n\n",
+                                            //     color: '#4169E1',
+                                            //     style: 'header',
+                                            //     alignment: 'center',
+                                            //     fontSize: 5
+                                            // }, {
+                                            //     style: 'tableExample',
+                                            //     color: '#00CED1',
+                                            //     table: {
+                                            //         widths: [65, 65, 65],
+                                            //         headerRows: 1,
+
+                                            //         // keepWithHeaderRows: 1,
+                                            //         body: [
+                                            //             [{
+                                            //                 text: 'Datos del Paciente',
+                                            //                 style: 'tableHeader',
+                                            //                 colSpan: 3,
+                                            //                 alignment: 'left',
+                                            //                 color: '#708090',
+                                            //                 fontSize: 5
+                                            //             }, {}, {}],
+                                            //             [{
+                                            //                 text: 'Apellidos y Nombres : ' + data.Nombre,
+                                            //                 alignment: 'left',
+                                            //                 colSpan: 3,
+                                            //                 fontSize: 5
+                                            //             }, '', ''],
+                                            //             [{
+                                            //                 text: 'Documento de identidad :\n\n ' + data.Documento,
+                                            //                 alignment: 'left',
+                                            //                 fontSize: 5
+                                            //             }, {
+                                            //                 text: 'Fecha de Nacimiento :\n\n' + data.Fecha_Nacimiento,
+                                            //                 fontSize: 5
+                                            //             }, {
+                                            //                 text: 'Sexo : \n\n Masculino',
+                                            //                 fontSize: 5
+                                            //             }],
+                                            //             [{
+                                            //                 text: 'Datos del Doctor',
+                                            //                 style: 'tableHeader',
+                                            //                 colSpan: 3,
+                                            //                 alignment: 'left',
+                                            //                 color: '#708090',
+                                            //                 fontSize: 5
+                                            //             }, {}, {}],
+                                            //             [{
+                                            //                 text: 'Apellidos y Nombres : <?php echo $this->session->get('Nombres') . ' ' . $this->session->get('Apellidos'); ?>',
+                                            //                 colSpan: 3,
+                                            //                 alignment: 'left',
+                                            //                 fontSize: 5
+                                            //             }, {}, {}],
+                                            //             [{
+                                            //                 text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad') ?>',
+                                            //                 alignment: 'left',
+                                            //                 fontSize: 5
+                                            //             }, {}, {}]
+                                            //         ]
+                                            //     }
+                                            // }, {
+
+                                            //     text: '\n\nTratamiento :\n\n' + data.Tratamiento,
+                                            //     fontSize: 5
+                                            // }
                                             {
-                                                text: "EVALUACIÓN MEDICA\n\n\n\n",
-                                                color: '#4169E1',
-                                                style: 'header',
-                                                alignment: 'center',
-                                                fontSize: 5
-                                            }, {
-                                                style: 'tableExample',
-                                                color: '#00CED1',
-                                                table: {
-                                                    widths: [65, 65, 65],
-                                                    headerRows: 1,
+                                                text: "EVALUACIÓN MEDICA\n\n\n",
+                                                style: 'header'
+                                                
+                                            },
+                                            // {
+                                            //     style: 'tableExample',
+                                            //     color: '#00CED1',
+                                            //     table: {
+                                            //         widths: [70, 70, 70],
+                                            //         headerRows: 1,
 
-                                                    // keepWithHeaderRows: 1,
-                                                    body: [
-                                                        [{
-                                                            text: 'Datos del Paciente',
-                                                            style: 'tableHeader',
-                                                            colSpan: 3,
-                                                            alignment: 'left',
-                                                            color: '#708090',
-                                                            fontSize: 5
-                                                        }, {}, {}],
-                                                        [{
-                                                            text: 'Apellidos y Nombres : ' + data.Nombre,
-                                                            alignment: 'left',
-                                                            colSpan: 3,
-                                                            fontSize: 5
-                                                        }, '', ''],
-                                                        [{
-                                                            text: 'Documento de identidad :\n\n ' + data.Documento,
-                                                            alignment: 'left',
-                                                            fontSize: 5
-                                                        }, {
-                                                            text: 'Fecha de Nacimiento :\n\n' + data.Fecha_Nacimiento,
-                                                            fontSize: 5
-                                                        }, {
-                                                            text: 'Sexo : \n\n Masculino',
-                                                            fontSize: 5
-                                                        }],
-                                                        [{
-                                                            text: 'Datos del Doctor',
-                                                            style: 'tableHeader',
-                                                            colSpan: 3,
-                                                            alignment: 'left',
-                                                            color: '#708090',
-                                                            fontSize: 5
-                                                        }, {}, {}],
-                                                        [{
-                                                            text: 'Apellidos y Nombres : <?php echo $this->session->get('Nombres') . ' ' . $this->session->get('Apellidos'); ?>',
-                                                            colSpan: 3,
-                                                            alignment: 'left',
-                                                            fontSize: 5
-                                                        }, {}, {}],
-                                                        [{
-                                                            text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad') ?>',
-                                                            alignment: 'left',
-                                                            fontSize: 5
-                                                        }, {}, {}]
-                                                    ]
-                                                }
+                                            //         // keepWithHeaderRows: 1,
+                                            //         body: [
+                                            //             [{
+                                            //                 text: 'Datos del Paciente',
+                                            //                 style: 'tableHeader',
+                                            //                 colSpan: 3,
+                                            //                 alignment: 'left',
+                                            //                 color: '#708090',
+                                            //                 fontSize: 8
+                                            //             }, {}, {}],
+                                            //             [{
+                                            //                 text: 'Apellidos y Nombres : ' + data.Nombre,
+                                            //                 alignment: 'left',
+                                            //                 colSpan: 3,
+                                            //                 fontSize: 8
+                                            //             }, '', ''],
+                                            //             [{
+                                            //                 text: 'Documento de identidad :\n\n ' + data.Documento,
+                                            //                 alignment: 'left',
+                                            //                 fontSize: 8
+                                            //             }, {
+                                            //                 text: 'Fecha de Nacimiento :\n\n' + data.Fecha_Nacimiento,
+                                            //                 fontSize: 5
+                                            //             }, {
+                                            //                 text: 'Sexo : \n\n Masculino',
+                                            //                 fontSize: 8
+                                            //             }],
+                                            //             [{
+                                            //                 text: 'Datos del Doctor',
+                                            //                 style: 'tableHeader',
+                                            //                 colSpan: 3,
+                                            //                 alignment: 'left',
+                                            //                 color: '#708090',
+                                            //                 fontSize: 8
+                                            //             }, {}, {}],
+                                            //             [{
+                                            //                 text: 'Apellidos y Nombres : <?php echo $this->session->get('Nombres') . ' ' . $this->session->get('Apellidos'); ?>',
+                                            //                 colSpan: 3,
+                                            //                 alignment: 'left',
+                                            //                 fontSize: 8
+                                            //             }, {}, {}],
+                                            //             [{
+                                            //                 text: 'Especialidad :\n\n <?php echo $this->session->get('especialidad') ?>',
+                                            //                 alignment: 'left',
+                                            //                 fontSize: 8
+                                            //             }, {}, {}]
+                                            //         ]
+                                            //     }
+                                            // }, 
+                                            {
+                                                columns:[
+                                                    {
+                                                        text: 'Datos del Paciente',
+                                                        color: '#708090',
+                                                        style: 'title'
+                                                    },{
+                                                        text: 'Datos del Doctor\n\n',
+                                                        color: '#708090',
+                                                        style: 'title'
+                                                    }
+                                                ]
+                                            },{
+                                                columns:[
+                                                    {
+                                                        text: 'Apellidos y Nombres : \n\n' ,
+                                                        style: 'title'                                                        
+                                                    },{
+                                                        text: 'Apellidos y Nombres :\n',
+                                                        style: 'title'
+                                                    }
+                                                ]
+                                            },{
+                                                columns:[
+                                                    {
+                                                        text: '  '+data.Nombre ,
+                                                        style:'content'
+                                                    },{
+                                                        text: '  '+'<?php echo $this->session->get('Nombres') . ' ' . $this->session->get('Apellidos'); ?>',
+                                                        style:'content'
+                                                    }    
+                                                ]
+                                            },{
+                                                columns:[
+                                                    {
+                                                        text: 'Documento de identidad :\n ',
+                                                        style: 'title'
+                                                    },{
+                                                        text: 'Especialidad :\n\n',
+                                                        style: 'title'
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                columns:[
+                                                    {
+                                                        text: '  '+data.Documento,
+                                                        style:'content'
+                                                    },{
+                                                        text: '  '+'<?php echo $this->session->get('especialidad') ?>',
+                                                        style:'content'
+                                                    }
+                                                ]
+                                            },{
+                                                text: 'Fecha de Nacimiento :\n\n',
+                                                style: 'title'
+                                            },{
+                                                text: '  '+data.Fecha_Nacimiento,
+                                                style:'content'
                                             }, {
-
-                                                text: '\n\nTratamiento :\n\n' + data.Tratamiento,
-                                                fontSize: 5
+                                                text: '\nSexo : \n   Masculino',
+                                                style: 'content'
+                                            },
+                                            {
+                                                text: '\nTratamiento :\n\n',
+                                                style: 'title'
+                                            },{
+                                                text: data.Tratamiento,
+                                                style:'tratamiento'
                                             }
-                                        ]
+                                        ],
+                                        styles:{
+                                            header:{
+                                                color: '#4169E1',
+                                                alignment:'center'
+                                            },
+                                            title:{
+                                                fontSize:7,
+                                                bold:true,
+                                                alignment:'left'
+                                            },
+                                            content:{
+                                                fontSize:5,
+                                                alignment:'left'
+                                            },
+                                            tratamiento:{
+                                                fontSize:5,
+                                                alignment:'justify'
+                                            }
+                                        }
                                     }
                                     let win = window.open('', '_blank');
                                     // if(win){

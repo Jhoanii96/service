@@ -84,7 +84,6 @@
                                             // echo "<td> 1</td>";
                                         echo "<td class='text-center'>
                                                 <div role='group' class='btn-group-sm btn-group'>
-                                                    <button class='btn-shadow btn btn-warning text-white'><i class='fa fa-edit' ></i> Editar</button>
                                                     <button class='btn-shadow btn btn-danger btnDeleteQuestion' onclick='deleteQuestion(".$idQuestion[$i].",this)'><i class='fa fa-trash'></i></button>
                                                 </div>
                                              </td>";
@@ -125,7 +124,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnSaveAnswer" >Guardar pregunta</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveAnswer" data-dismiss="modal">Guardar pregunta</button>
                 </div>
             </div>
         </div>
@@ -211,7 +210,6 @@
                         content += '</td>';
                         content += '<td class="text-center">';
                         content +=      '<div role="group" class="btn-group-sm btn-group">';
-                        content +=          '<button class="btn-shadow btn btn-warning text-white"><i class="fa fa-edit"></i> Editar</button>';
                         content +=          '<button class="btn-shadow btn btn-danger btnDeleteQuestion"><i class="fa fa-trash"></i></button>';
                         content +=       '</div>';
                         content += '</td>';
