@@ -155,7 +155,7 @@ BEGIN
     
     select count(Id_historia_clinica) into @cantidad_historia from historia_clinica where Id_Usuario = @idusuario; 
     
-    UPDATE `bd_clinica3`.`usuario`
+    UPDATE `usuario`
 	SET
 	`Cantidad_Historia_Clinica` = @cantidad_historia 
 	WHERE `Id_Usuario` = @idusuario; 
